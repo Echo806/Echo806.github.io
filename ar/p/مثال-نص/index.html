@@ -482,13 +482,21 @@
     const home ="https://echo806.github.io/ar/";
     const ap = new APlayer({
         container: document.getElementById('aplayer'),
+        fixed:true,
         lrcType: 3,
+        listMaxHeight:'50px',
         audio: [{
             name: '水面の満月',
             artist: '神乃木製作所',
             url: 'music/song1/水面の満月 - 神乃木製作所.mp3',
             cover: 'music/song1/1.jpg',
             lrc: 'music/song1/水面の満月 - 神乃木製作所.lrc'
+        },{
+            name: '桜花繚乱',
+            artist: 'はちみつれもん',
+            url: 'music/song2/桜花繚乱 - はちみつれもん.mp3',
+            cover: 'music/song2/2.jpg',
+            lrc: 'music/song2/桜花繚乱 - はちみつれもん.lrc'
         }]
     });
 </script>
