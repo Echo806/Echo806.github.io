@@ -818,5 +818,23 @@
     }());
 </script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<div id="aplayer"></div>
+<script>
+    const home ="https://echo806.github.io/";
+    const ap = new APlayer({
+        container: document.getElementById('aplayer'),
+        lrcType: 3,
+        audio: [{
+            name: '水面の満月',
+            artist: '神乃木製作所',
+            url: 'music/song1/水面の満月 - 神乃木製作所.mp3',
+            cover: 'music/song1/1.jpg',
+            lrc: 'music/song1/水面の満月 - 神乃木製作所.lrc'
+        }]
+    });
+</script>
+
     </body>
 </html>
