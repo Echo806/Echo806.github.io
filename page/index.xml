@@ -16,6 +16,16 @@
         <description></description>
         </item>
         <item>
+        <title>About</title>
+        <link>https://echo806.github.io/about/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://echo806.github.io/about/</guid>
+        <description>&lt;p&gt;中山大学计算机科学与技术出身&lt;br&gt;
+喜欢折腾乱七八糟的东西&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Links</title>
         <link>https://echo806.github.io/links/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -59,23 +69,49 @@
         <description></description>
         </item>
         <item>
-        <title>关于</title>
-        <link>https://echo806.github.io/%E5%85%B3%E4%BA%8E/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        
-        <guid>https://echo806.github.io/%E5%85%B3%E4%BA%8E/</guid>
-        <description>&lt;p&gt;This is a test page for i18n support.
-你好&lt;/p&gt;
-</description>
-        </item>
-        <item>
         <title>日志</title>
         <link>https://echo806.github.io/%E6%97%A5%E5%BF%97/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
         <guid>https://echo806.github.io/%E6%97%A5%E5%BF%97/</guid>
-        <description>&lt;p&gt;日志测试
-hello world!&lt;/p&gt;
+        <description>&lt;h3 id=&#34;更新日志&#34;&gt;更新日志
+&lt;/h3&gt;&lt;hr&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;功能&lt;/th&gt;
+&lt;th&gt;完成时间&lt;/th&gt;
+&lt;th&gt;备注&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;引入pjax实现音乐不中断&lt;/td&gt;
+&lt;td&gt;2026.02.17&lt;/td&gt;
+&lt;td&gt;测试中&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;引入看板娘&lt;/td&gt;
+&lt;td&gt;2026.02.18&lt;/td&gt;
+&lt;td&gt;修复了换装问题，增加了拖拽功能&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;美化背景引入动态背景&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;网站鼠标图标自定义&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;来源B站up&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;待完成想法&#34;&gt;待完成/想法
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 动态背景&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 鼠标&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         </item>
         
