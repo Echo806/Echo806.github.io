@@ -337,14 +337,14 @@
 
 
 <script>
-    
+
     const live2d_path = "https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/";
     const cssPath = "https://echo806.github.io/waifu/waifu.css";
     const waifuTipsJsonPath = "https://echo806.github.io/waifu/waifu-tips.json";
     const live2dMinJsPath = "https://echo806.github.io/waifu/live2d.min.js";
     
 
-    
+
     function loadExternalResource(url, type) {
         return new Promise((resolve, reject) => {
             let tag;
@@ -366,14 +366,14 @@
         });
     }
 
-    
+
     if (screen.width >= 768) {
         Promise.all([
             loadExternalResource(cssPath, "css"),
             loadExternalResource(live2dMinJsPath, "js"),
             loadExternalResource(live2d_path + "waifu-tips.js", "js")
         ]).then(() => {
-            
+
             initWidget({
                 waifuPath: waifuTipsJsonPath,
                 
@@ -391,22 +391,22 @@
         let mouseLeft;
         let waifuTop;
         let mouseTop;
-        
+
         waifu.onmousedown = function (e) {
             isDown = true;
-            
+
             waifuLeft = waifu.offsetLeft;
             mouseLeft = e.clientX;
-            
+
             waifuTop = waifu.offsetTop;
             mouseTop = e.clientY;
         }
-        
+ 
         window.onmousemove = function (e) {
             if (!isDown) {
                 return;
             }
-            
+
             let currentLeft = waifuLeft + (e.clientX - mouseLeft);
             if (currentLeft < 0) {
                 currentLeft = 0;
@@ -414,7 +414,7 @@
                 currentLeft = window.innerWidth - 300;
             }
             waifu.style.left = currentLeft  + "px";
-            
+
             let currentTop = waifuTop + (e.clientY - mouseTop);
             if (currentTop < 30) {
                 currentTop = 30
@@ -423,7 +423,7 @@
             }
             waifu.style.top = currentTop + "px";
         }
-        
+
         window.onmouseup = function (e) {
             isDown = false;
         }
@@ -448,6 +448,19 @@
         z-index: -1;
     }
 </style>
+
+<style>
+    @font-face {
+        font-family: 'ChildFunSans';
+        src: url(https://echo806.github.io/font/ChildFunSans.ttf) format('truetype');
+    }
+
+    :root {
+        --base-font-family: 'ChildFunSans';
+        --code-font-family: 'ChildFunSans';
+    }
+</style>
+
 
     </body>
 </html>
