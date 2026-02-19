@@ -6,11 +6,11 @@
 
 <link rel='canonical' href='https://echo806.github.io/tags/emoji/'>
 
-<link rel="stylesheet" href="/scss/style.min.70cd4b60342446728bbc989616e2cfffbb73aad701a70115dd5051a4c69a60d0.css"><meta property='og:title' content="Tag: Emoji - 帕琪-Pache">
+<link rel="stylesheet" href="/scss/style.min.38044a521d393b2cb9893feb5e8a983e76fa3222da302c658a2e11eba7d07275.css"><meta property='og:title' content="Tag: Emoji - 帕琪-Pache">
 <meta property='og:description' content="演示说明">
 <meta property='og:url' content='https://echo806.github.io/tags/emoji/'>
 <meta property='og:site_name' content='帕琪-Pache'>
-<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-02-17T23:34:54&#43;08:00 '/>
+<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-02-19T22:30:28&#43;08:00 '/>
 <meta name="twitter:title" content="Tag: Emoji - 帕琪-Pache">
 <meta name="twitter:description" content="演示说明"><link rel="alternate" type="application/rss&#43;xml" href="https://echo806.github.io/tags/emoji/index.xml">
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -79,9 +79,9 @@
             
                 <li>
                     <a 
-                        href='https://space.bilibili.com/306100621'
+                        href='https://space.bilibili.com/3061100621'
                         target="_blank"
-                        title="bilibili"
+                        title="Bilibili"
                         rel="me"
                     >
                         
@@ -93,7 +93,7 @@
             
                 <li>
                     <a 
-                        href='https://github.com/Echo806'
+                        href='https://github.com/echo806'
                         target="_blank"
                         title="GitHub"
                         rel="me"
@@ -115,7 +115,7 @@
                     <a 
                         href='https://steamcommunity.com/profiles/76561199076111538/'
                         target="_blank"
-                        title="steam"
+                        title="Steam"
                         rel="me"
                     >
                         
@@ -239,31 +239,6 @@
         
         <li class="menu-bottom-section">
             <ol class="menu">
-                    
-                        <li id="i18n-switch">  
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 5h7" />
-  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
-  <path d="M12 20l4 -9l4 9" />
-  <path d="M19.1 18h-6.2" />
-</svg>
-
-
-
-                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
-                                
-                                    <option value="https://echo806.github.io/en/" >English</option>
-                                
-                                    <option value="https://echo806.github.io/" selected>简体中文</option>
-                                
-                                    <option value="https://echo806.github.io/ar/" >عربي</option>
-                                
-                            </select>
-                        </li>
-                    
-                
 
                 
                     <li id="dark-mode-toggle">
@@ -336,7 +311,7 @@
                     <a href="/archives/#2026">
                         
                             <span class="year">2026</span>
-                            <span class="count">3</span>
+                            <span class="count">2</span>
                         
                     </a> 
                 </div>
@@ -457,8 +432,9 @@
     <section class="powerby">
         
             Hello World! <br/>
-        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        
+
+        
     </section>
 </footer>
 
@@ -553,6 +529,66 @@
 </script>
 
 
+
+<div id="jsi-flying-fish-container"></div>
+
+
+<style>
+#jsi-flying-fish-container {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 120px;
+    z-index: -1;
+    opacity: 0;           
+    overflow: hidden;
+    pointer-events: none;
+    transition: opacity .3s;
+}
+ 
+.show-fish #jsi-flying-fish-container {
+    opacity: .5;
+}
+</style>
+
+
+<script>
+window.initFlyingFish = function () {
+    const container = document.getElementById('jsi-flying-fish-container');
+    if (!container) return;
+
+     
+    const oldCanvas = container.querySelector('canvas');
+    if (oldCanvas) oldCanvas.remove();
+
+     
+    const script = document.createElement('script');
+    script.src = 'https://cdn.meimolihan.eu.org/hugo/fish/fish.js';
+    script.onload = function () {
+        if (typeof RENDERER !== 'undefined') RENDERER.init();
+    };
+    document.head.appendChild(script);
+
+     
+    function checkBottom() {
+        const doc = document.documentElement;
+        const isBottom = (window.innerHeight + Math.ceil(window.pageYOffset))
+                         >= (doc.scrollHeight - 10);
+        document.body.classList.toggle('show-fish', isBottom);
+    }
+
+     
+    window.addEventListener('scroll', checkBottom);
+    checkBottom(); 
+};
+
+ 
+document.addEventListener('DOMContentLoaded', initFlyingFish);
+
+ 
+document.addEventListener('pjax:complete', initFlyingFish);
+</script>
 
 
 
@@ -680,6 +716,9 @@
         --code-font-family: 'ChildFunSans';
     }
 </style>
+
+
+
 
 
     </body>

@@ -7,29 +7,81 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>帕琪-Pache</copyright>
-        <lastBuildDate>Tue, 17 Feb 2026 23:34:54 +0800</lastBuildDate><atom:link href="https://echo806.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>TEST2</title>
-        <link>https://echo806.github.io/p/test2/</link>
-        <pubDate>Tue, 17 Feb 2026 23:34:54 +0800</pubDate>
-        
-        <guid>https://echo806.github.io/p/test2/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>TEST</title>
-        <link>https://echo806.github.io/p/test/</link>
-        <pubDate>Tue, 17 Feb 2026 23:30:41 +0800</pubDate>
-        
-        <guid>https://echo806.github.io/p/test/</guid>
-        <description></description>
-        </item>
-        <item>
+        <lastBuildDate>Thu, 19 Feb 2026 22:30:28 +0800</lastBuildDate><atom:link href="https://echo806.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Newnewnew</title>
         <link>https://echo806.github.io/p/newnewnew/</link>
-        <pubDate>Tue, 17 Feb 2026 23:19:58 +0800</pubDate>
+        <pubDate>Thu, 19 Feb 2026 22:30:28 +0800</pubDate>
         
         <guid>https://echo806.github.io/p/newnewnew/</guid>
         <description></description>
+        </item>
+        <item>
+        <title>markdown笔记</title>
+        <link>https://echo806.github.io/p/markdown%E7%AC%94%E8%AE%B0/</link>
+        <pubDate>Thu, 19 Feb 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://echo806.github.io/p/markdown%E7%AC%94%E8%AE%B0/</guid>
+        <description>&lt;p&gt;markdown语法&lt;/p&gt;
+&lt;p&gt;几个#加上空格就是标题&lt;br&gt;
+几个#就是几个标题&lt;br&gt;&lt;/p&gt;
+&lt;h1 id=&#34;一级标题&#34;&gt;一级标题
+&lt;/h1&gt;&lt;h2 id=&#34;二级标题&#34;&gt;二级标题
+&lt;/h2&gt;&lt;h3 id=&#34;三级标题&#34;&gt;三级标题
+&lt;/h3&gt;&lt;h4 id=&#34;四级标题&#34;&gt;四级标题
+&lt;/h4&gt;&lt;h5 id=&#34;五级标题&#34;&gt;五级标题
+&lt;/h5&gt;&lt;h6 id=&#34;六级标题&#34;&gt;六级标题
+&lt;/h6&gt;&lt;h2 id=&#34;就这样&#34;&gt;就这样
+&lt;/h2&gt;&lt;p&gt;关于引用，用 &amp;gt;加上空格&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这是一段引用
+&lt;a class=&#34;link&#34; href=&#34;https://www.baidu.com&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.baidu.com&lt;/a&gt;&lt;br&gt;
+就这样&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;p&gt;关于有序列表  用1.2.3.数字.后面要加空格&lt;br&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;打开冰箱&lt;/li&gt;
+&lt;li&gt;把大象放进冰箱&lt;/li&gt;
+&lt;li&gt;关上冰箱&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;用短横线-加上个空格&#34;&gt;关于无序列表
+用短横线-加上个空格
+&lt;/h2&gt;&lt;h2 id=&#34;把方括号中间的空格换成x可以勾选上&#34;&gt;任务列表&lt;br&gt;
+横杠，空格，左方括号，空格，右方括号，空格&lt;br&gt;
+把方括号中间的空格换成x，可以勾选上
+&lt;/h2&gt;&lt;p&gt;关于代码&lt;br&gt;
+三个反引号加上要写的代码语言&lt;br&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nf&#34;&gt;printf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;hello world&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;如上&#34;&gt;如上
+&lt;/h2&gt;&lt;h2 id=&#34;数学公式前面两个美元符号后面两个美元符号把公式括起来数学公式使用latex&#34;&gt;数学公式：前面两个美元符号，后面两个美元符号，把公式括起来，数学公式使用latex
+&lt;/h2&gt;&lt;p&gt;关于表格&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;姓名&lt;/th&gt;
+&lt;th&gt;年龄&lt;/th&gt;
+&lt;th&gt;成绩&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;/table&gt;
+</description>
         </item>
         <item>
         <title>Chinese Test</title>
@@ -542,26 +594,30 @@ $$&lt;/p&gt;</description>
 &lt;td&gt;修复了换装问题，增加了拖拽功能&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;美化背景引入动态背景&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;网站鼠标图标自定义&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;来源B站up&lt;/td&gt;
+&lt;td&gt;粒子背景&lt;/td&gt;
+&lt;td&gt;2026.02.18&lt;/td&gt;
+&lt;td&gt;花里胡哨&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;帕秋莉鼠标&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;2026.02.19&lt;/td&gt;
 &lt;td&gt;可爱捏&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;图标转转转&lt;/td&gt;
+&lt;td&gt;2026.02.20&lt;/td&gt;
+&lt;td&gt;转转转&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;底部池鱼&lt;/td&gt;
+&lt;td&gt;2026.02.20&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;h3 id=&#34;待完成想法&#34;&gt;待完成/想法
 &lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 动态背景&lt;/li&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 鼠标&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; l2d看板娘适配&lt;/li&gt;
 &lt;/ul&gt;
 </description>
         </item>
