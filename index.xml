@@ -559,19 +559,11 @@ $$&lt;/p&gt;</description>
 </description>
         </item>
         <item>
-        <title>Search</title>
-        <link>https://echo806.github.io/search/</link>
+        <title>logs</title>
+        <link>https://echo806.github.io/logs/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://echo806.github.io/search/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>日志</title>
-        <link>https://echo806.github.io/%E6%97%A5%E5%BF%97/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        
-        <guid>https://echo806.github.io/%E6%97%A5%E5%BF%97/</guid>
+        <guid>https://echo806.github.io/logs/</guid>
         <description>&lt;h3 id=&#34;更新日志&#34;&gt;更新日志
 &lt;/h3&gt;&lt;hr&gt;
 &lt;table&gt;
@@ -620,6 +612,14 @@ $$&lt;/p&gt;</description>
 &lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; l2d看板娘适配&lt;/li&gt;
 &lt;/ul&gt;
 </description>
+        </item>
+        <item>
+        <title>Search</title>
+        <link>https://echo806.github.io/search/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://echo806.github.io/search/</guid>
+        <description></description>
         </item>
         
     </channel>
