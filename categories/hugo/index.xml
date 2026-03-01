@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>hugo on 帕琪-Pache</title>
+        <link>https://echo806.github.io/categories/hugo/</link>
+        <description>Recent content in hugo on 帕琪-Pache</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>帕琪-Pache</copyright>
+        <lastBuildDate>Sat, 21 Feb 2026 17:36:39 +0800</lastBuildDate><atom:link href="https://echo806.github.io/categories/hugo/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Hugo空分类残存删除</title>
+        <link>https://echo806.github.io/p/hugo%E7%A9%BA%E5%88%86%E7%B1%BB%E6%AE%8B%E5%AD%98%E5%88%A0%E9%99%A4/</link>
+        <pubDate>Sat, 21 Feb 2026 17:36:39 +0800</pubDate>
+        
+        <guid>https://echo806.github.io/p/hugo%E7%A9%BA%E5%88%86%E7%B1%BB%E6%AE%8B%E5%AD%98%E5%88%A0%E9%99%A4/</guid>
+        <description>&lt;p&gt;这些分类来自 Hugo 的 taxonomy 缓存 或 残留分类目录文件&lt;br&gt;
+试运行&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hugo --gc --minify
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;删掉缓存后会重新分类&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
