@@ -338,7 +338,7 @@
         container: document.getElementById('aplayer'),
         fixed:true,
         lrcType: 3,
-        listMaxHeight:'50px',
+        listMaxHeight:'100px',
         audio: [{
             name: '水面の満月',
             artist: '神乃木製作所',
@@ -581,20 +581,27 @@ document.addEventListener('pjax:complete', initFlyingFish);
     }
 </style>
 
+
+
 <style>
-    @font-face {
-        font-family: 'ChildFunSans';
-        src: url(https://echo806.github.io/font/ChildFunSans.ttf) format('truetype');
-    }
+   
+  @font-face {
+    font-family: 'MyChineseFont';
+    src: url(https://echo806.github.io/font/ChildFunSans.ttf) format('truetype');
+  }
 
-    :root {
-        --base-font-family: 'ChildFunSans';
-        --code-font-family: 'ChildFunSans';
-    }
+   
+  @font-face {
+    font-family: 'Amarna-Semibold';
+    src: url(https://echo806.github.io/font/Amarna-Semibold.ttf) format('truetype');
+  }
+
+  :root {
+     
+    --base-font-family: 'Amarna-Semibold', 'ChildFunSans';
+    --code-font-family: 'Amarna-Semibold', 'ChildFunSans';
+  }
 </style>
-
-
-
 
 
     </body>

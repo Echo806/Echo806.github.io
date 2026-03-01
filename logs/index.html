@@ -293,7 +293,6 @@
     <li>
       <ol>
         <li><a href="#更新日志">更新日志</a></li>
-        <li><a href="#待完成想法">待完成/想法</a></li>
       </ol>
     </li>
   </ol>
@@ -375,12 +374,18 @@
 <td>2026.02.20</td>
 <td></td>
 </tr>
+<tr>
+<td>更新了英语字体，补充了links</td>
+<td>2025.3.1</td>
+<td></td>
+</tr>
+<tr>
+<td>完成基本看板娘适配</td>
+<td>2025.3.1</td>
+<td>基本还行</td>
+</tr>
 </tbody>
 </table></div>
-<h3 id="待完成想法">待完成/想法
-</h3><ul>
-<li><input disabled="" type="checkbox"> l2d看板娘适配</li>
-</ul>
 
 </section>
 
@@ -525,7 +530,7 @@
         container: document.getElementById('aplayer'),
         fixed:true,
         lrcType: 3,
-        listMaxHeight:'50px',
+        listMaxHeight:'100px',
         audio: [{
             name: '水面の満月',
             artist: '神乃木製作所',
@@ -768,20 +773,27 @@ document.addEventListener('pjax:complete', initFlyingFish);
     }
 </style>
 
+
+
 <style>
-    @font-face {
-        font-family: 'ChildFunSans';
-        src: url(https://echo806.github.io/font/ChildFunSans.ttf) format('truetype');
-    }
+   
+  @font-face {
+    font-family: 'MyChineseFont';
+    src: url(https://echo806.github.io/font/ChildFunSans.ttf) format('truetype');
+  }
 
-    :root {
-        --base-font-family: 'ChildFunSans';
-        --code-font-family: 'ChildFunSans';
-    }
+   
+  @font-face {
+    font-family: 'Amarna-Semibold';
+    src: url(https://echo806.github.io/font/Amarna-Semibold.ttf) format('truetype');
+  }
+
+  :root {
+     
+    --base-font-family: 'Amarna-Semibold', 'ChildFunSans';
+    --code-font-family: 'Amarna-Semibold', 'ChildFunSans';
+  }
 </style>
-
-
-
 
 
     </body>

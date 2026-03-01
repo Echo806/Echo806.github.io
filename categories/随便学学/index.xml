@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>随便学学 on 帕琪-Pache</title>
+        <link>https://echo806.github.io/categories/%E9%9A%8F%E4%BE%BF%E5%AD%A6%E5%AD%A6/</link>
+        <description>Recent content in 随便学学 on 帕琪-Pache</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>帕琪-Pache</copyright>
+        <lastBuildDate>Mon, 23 Feb 2026 17:23:45 +0800</lastBuildDate><atom:link href="https://echo806.github.io/categories/%E9%9A%8F%E4%BE%BF%E5%AD%A6%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>图种</title>
+        <link>https://echo806.github.io/p/%E5%9B%BE%E7%A7%8D/</link>
+        <pubDate>Mon, 23 Feb 2026 17:23:45 +0800</pubDate>
+        
+        <guid>https://echo806.github.io/p/%E5%9B%BE%E7%A7%8D/</guid>
+        <description>&lt;p&gt;怎么制作？&lt;br&gt;
+命令行指令：&lt;br&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;copy&lt;/span&gt; /b &lt;span class=&#34;s2&#34;&gt;&amp;#34;图片地址&amp;#34;&lt;/span&gt; + &lt;span class=&#34;s2&#34;&gt;&amp;#34;压缩包地址&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;导出路径与文件名&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;/b是以二进制编码进行&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>FFmpeg</title>
+        <link>https://echo806.github.io/p/ffmpeg/</link>
+        <pubDate>Mon, 23 Feb 2026 16:52:29 +0800</pubDate>
+        
+        <guid>https://echo806.github.io/p/ffmpeg/</guid>
+        <description>&lt;p&gt;FFmpeg 是一个非常强大的开源多媒体处理工具，可以通过命令行对视频、音频、图片进行处理&lt;br&gt;
+下面展示常见命令：&lt;br&gt;
+示例：把 test.mp4 转为 avi 并保存到 D:\videos&lt;br&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ffmpeg -i test.mp4 D:\videos\test.avi
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果路径有空格，可以加引号，防止出错&lt;br&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ffmpeg -i &lt;span class=&#34;s2&#34;&gt;&amp;#34;C:\Users\me\my video.mp4&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;D:\output folder\video.avi&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果你只是改容器格式（不重新编码）会更快：&lt;br&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ffmpeg -i input.mp4 -c copy output.mkv
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+        </item>
+        
+    </channel>
+</rss>
