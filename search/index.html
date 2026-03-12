@@ -330,37 +330,18 @@
     }());
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
-<div id="aplayer"></div>
-<script>
-    const home ="https://echo806.github.io/";
-    const ap = new APlayer({
-        container: document.getElementById('aplayer'),
-        fixed:true,
-        lrcType: 3,
-        listMaxHeight:'100px',
-        audio: [{
-            name: '水面の満月',
-            artist: '神乃木製作所',
-            url: home+'music/song1/水面の満月 - 神乃木製作所.mp3',
-            cover: home+'music/song1/1.jpg',
-            lrc: home+'music/song1/水面の満月 - 神乃木製作所.lrc'
-        },{
-            name: '桜花繚乱',
-            artist: 'はちみつれもん',
-            url: home+'music/song2/桜花繚乱 - はちみつれもん.mp3',
-            cover: home+'music/song2/2.jpg',
-            lrc: home+'music/song2/桜花繚乱 - はちみつれもん.lrc'
-        },{
-            name: 'Take me hand',
-            artist: 'DAISHI DANCE',
-            url: home+'music/song3/DAISHI DANCE  - Take Me Hand.mp3',
-            cover: home+'music/song3/picture.webp',
-            lrc: home+'music/song3/lyric.lrc'
-        }]
-    });
-</script>
 
+<link rel="stylesheet" href="https://unpkg.com/aplayer/dist/APlayer.min.css">
+<script src="https://unpkg.com/aplayer/dist/APlayer.min.js"></script>
+<script src="https://unpkg.com/meting@2/dist/Meting.min.js"></script>
+
+<meting-js
+  server="netease"
+  type="playlist"
+  id="626864109"
+  fixed="true"
+  autoplay="false">
+</meting-js>
 <script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script>
 
 
