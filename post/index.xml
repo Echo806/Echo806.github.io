@@ -7,7 +7,67 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>帕琪-Pache</copyright>
-        <lastBuildDate>Sun, 22 Mar 2026 08:43:58 +0800</lastBuildDate><atom:link href="https://echo806.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 29 Mar 2026 15:36:51 +0800</lastBuildDate><atom:link href="https://echo806.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Summary of Weeks</title>
+        <link>https://echo806.github.io/p/summary-of-weeks/</link>
+        <pubDate>Sun, 29 Mar 2026 15:36:51 +0800</pubDate>
+        
+        <guid>https://echo806.github.io/p/summary-of-weeks/</guid>
+        <description>&lt;p&gt;偏意识流叙事&lt;/p&gt;
+&lt;h1 id=&#34;大二下&#34;&gt;大二下
+&lt;/h1&gt;&lt;h2 id=&#34;weeks1-2&#34;&gt;weeks:1-2
+&lt;/h2&gt;&lt;p&gt;又是一年开学，家里太舒服了以至于后端的学习有点放掉了，只是草草地把ssm看了一半，其余时间都在陪伴家人。话说这样整合真麻烦吧，已经有springboot整合是不是可以草草看一下完事了。&lt;/p&gt;
+&lt;p&gt;寒假把博客给整好了，虽然只是搞了门面，但是我还是很满意的，在互联网复制粘贴组件拼起来确实是值得一品的环节。找个时间还是得把原代码看一遍，干全栈也好酷。&lt;/p&gt;
+&lt;p&gt;最近学习了如何sunshine，moonlight，parsec，tailscale搞串流，后悔说为啥开学的时候不直接搬台主机进宿舍，拯救者实在太重了以至于我实在受不了频繁地搬动，倒不如直接搬台主机稳定放宿舍，用平板稳定串流。&lt;br&gt;
+学了一些linux命令却一直没动手装过一台，恰好操作系统大作业需要在ubuntu环境下搞，要配个虚拟机还是wsl还是干脆直接把家里电脑装成linux系统呢。&lt;/p&gt;
+&lt;p&gt;有时候感觉思考地太多会不会导致做的少，但是貌似思考又是必要的&lt;/p&gt;
+&lt;p&gt;记得多喝水，对自己好点，多休息，充足睡眠。&lt;/p&gt;
+&lt;p&gt;杀戮尖塔2出了，好玩，多人已经打到进阶10了。&lt;br&gt;
+加紧学点新技术。&lt;/p&gt;
+&lt;h2 id=&#34;weeks3-4&#34;&gt;weeks:3-4
+&lt;/h2&gt;&lt;p&gt;终于把ssm看完了，但是还是有待复习。找个时间可以把动力节点的看了。&lt;/p&gt;
+&lt;p&gt;看完了springboot原理篇之前的东西，就是整合一堆组件，等敲项目有新的认知后再去复习和看原理篇吧。&lt;br&gt;
+开启了redis，感觉听起来有意思得多。&lt;/p&gt;
+&lt;p&gt;最终决定把之前提到的三个方法都试试当作玩。值得一提的是家里从工地搬来的废弃电脑也是使用上了，把工程文件拷贝出来后直接把win7装成ubuntu，结果搞完美化发现说系统没装在SSD上，跟着b站教程还是踩坑了，没教我咋分盘。无奈重装，顺便换成了更稳定的mint。&lt;/p&gt;
+&lt;p&gt;配置太旧了ubuntu和mint上apt或者flatpak安装的steam启动杀戮尖塔2都会闪退，但是snap安装的steam启动杀戮尖塔2倒是没问题。&lt;/p&gt;
+&lt;p&gt;报错如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ERROR: ld.so: object &lt;span class=&#34;s1&#34;&gt;&amp;#39;/home/runrun/.steam/debian-installation/ubuntu12_32/gameoverlayrenderer.so&amp;#39;&lt;/span&gt; from LD_PRELOAD cannot be preloaded &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;wrong ELF class: ELFCLASS32&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: ignored.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ERROR: ld.so: object &lt;span class=&#34;s1&#34;&gt;&amp;#39;/home/runrun/.steam/debian-installation/ubuntu12_64/gameoverlayrenderer.so&amp;#39;&lt;/span&gt; from LD_PRELOAD cannot be preloaded &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;wrong ELF class: ELFCLASS64&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: ignored.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这个意思是 Steam 的游戏叠加层（Overlay）动态库无法加载，原因是 ELF 类别不匹配（32 位 vs 64 位）。&lt;/p&gt;
+&lt;p&gt;这是 apt 版 Steam 常见问题，因为它默认依赖系统库，而 snap 版自带运行时&lt;/p&gt;
+&lt;p&gt;还有Vulkan / Intel GPU 警告：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;MESA-INTEL: warning: Haswell Vulkan support is incomplete
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我用的是 Intel HD Graphics Haswell，Mesa Vulkan 驱动支持不完整。&lt;/p&gt;
+&lt;p&gt;这通常会导致用 Proton 或 Vulkan API 的游戏闪退。&lt;/p&gt;
+&lt;p&gt;不折腾了，用下snap安装的steam糊弄把，等硬件价格降下来装台强强电脑玩。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://echo806.github.io/p/summary-of-weeks/mint.png&#34;
+	width=&#34;1024&#34;
+	height=&#34;768&#34;
+	srcset=&#34;https://echo806.github.io/p/summary-of-weeks/mint_hu7743751065823483326.png 480w, https://echo806.github.io/p/summary-of-weeks/mint_hu8809769360433091445.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;目前我的mint桌面&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;133&#34;
+		data-flex-basis=&#34;320px&#34;
+	
+&gt;
+输入法：&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/iDvel/rime-ice&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;rime-ice&lt;/a&gt;&lt;br&gt;
+音乐播放器：&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/imsyy/SPlayer&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Splayer&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;买了个小鸡g7p，也是玩上手柄了。以前是有精力有时间但是没钱，现在基本上什么都有。渐意识到这段时间是我人生中最宝贵最幸福的时候，我有一定经济基础，身体素质是人生中最佳时期，我有温暖的家庭港湾，与其他人的关系友善，来到一个在其他人眼中还算不错的大学，学着自己感兴趣的专业，有时间有精力去钻研新知识和技术，这段美好的时光我在人生以后的阶段应该会永久怀念。&lt;/p&gt;
+&lt;p&gt;在这一段时间里，我在github第一次提issue，第一次pr，第一次被merge，值得纪念。&lt;/p&gt;
+&lt;p&gt;开始学习ai agent之类的知识，从hello-agents开始做吧。&lt;/p&gt;
+&lt;p&gt;学的git流程也是终于派上用场了，也是为开源社区做了一些贡献。&lt;br&gt;
+什么时候我也能开源做个项目呢。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>mint-sougou</title>
         <link>https://echo806.github.io/p/mint-sougou/</link>
         <pubDate>Sun, 22 Mar 2026 08:43:58 +0800</pubDate>
