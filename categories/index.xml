@@ -7,7 +7,15 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>帕琪-Pache</copyright>
-        <lastBuildDate>Thu, 02 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://echo806.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 03 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://echo806.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Agent</title>
+        <link>https://echo806.github.io/categories/agent/</link>
+        <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://echo806.github.io/categories/agent/</guid>
+        <description>&lt;img src="https://echo806.github.io/categories/agent/pic.jpg" alt="Featured image of post Agent" /&gt;</description>
+        </item>
+        <item>
         <title>redis</title>
         <link>https://echo806.github.io/categories/redis/</link>
         <pubDate>Thu, 02 Apr 2026 00:00:00 +0000</pubDate>
