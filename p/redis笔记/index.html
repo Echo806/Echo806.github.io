@@ -467,14 +467,18 @@
 <p>B+ 树是 “磁盘场景的最优解”，而跳表是 “Redis 内存有序数据场景的最优解”，技术选择的核心是 “适配场景”。</p>
 <h2 id="压缩列表是怎么实现的">压缩列表是怎么实现的？
 </h2><p>压缩列表是 Redis 为了节约内存而开发的，它是<strong>由连续内存块组成的顺序型数据结构</strong>，有点类似于数组。</p>
-<p><img src="/ziplist.webp"
-	
-	
-	
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/ziplist.webp"
+	width="962"
+	height="62"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/ziplist_hu2931060931788247589.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/ziplist_hu15561054643059302867.webp 1024w"
 	loading="lazy"
 	
 		alt="ziplist"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="1551"
+		data-flex-basis="3723px"
 	
 ></p>
 <p>压缩列表在表头有三个字段：</p>
@@ -509,26 +513,34 @@
 <p>于是，Redis 在 5.0 新设计一个数据结构叫 listpack，目的是替代压缩列表，它最大特点是 listpack 中每个节点不再包含前一个节点的长度了，压缩列表每个节点正因为需要保存前一个节点的长度字段，就会有连锁更新的隐患。</p>
 <p>listpack 采用了压缩列表的很多优秀的设计，比如还是用一块连续的内存空间来紧凑地保存数据，并且为了节省内存的开销，listpack 节点会采用不同的编码方式保存不同大小的数据。</p>
 <p>listpack 结构：</p>
-<p><img src="/listpack.webp"
-	
-	
-	
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/listpack.webp"
+	width="1082"
+	height="77"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/listpack_hu16403471349483251276.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/listpack_hu17776694487876999412.webp 1024w"
 	loading="lazy"
 	
 		alt="listpack"
 	
 	
+		class="gallery-image" 
+		data-flex-grow="1405"
+		data-flex-basis="3372px"
+	
 ></p>
 <p>listpack 头包含两个属性，分别记录了 listpack 总字节数和元素数量，然后 listpack 末尾也有个结尾标识。图中的 listpack entry 就是listpack 的节点了。</p>
 <p>每个 listpack 节点结构如下：</p>
-<p><img src="/listpack2.webp"
-	
-	
-	
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/listpack2.webp"
+	width="1082"
+	height="317"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/listpack2_hu9398967501937385436.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/listpack2_hu7183857707202702001.webp 1024w"
 	loading="lazy"
 	
 		alt="listpack2"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="341"
+		data-flex-basis="819px"
 	
 ></p>
 <p>主要包含三个方面内容：</p>
@@ -586,14 +598,18 @@
 <h2 id="string-是使用什么存储的为什么不用-c-语言中的字符串"><strong>String 是使用什么存储的?为什么不用 c 语言中的字符串?</strong>
 </h2><p>Redis 的 String 字符串是用 SDS（simple dynamic string） 数据结构存储的。</p>
 <p>下图就是 Redis 5.0 的 SDS 的数据结构：</p>
-<p><img src="/SDS.webp"
-	
-	
-	
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/SDS.webp"
+	width="1470"
+	height="728"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/SDS_hu300195108244872528.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/SDS_hu15080495677286236822.webp 1024w"
 	loading="lazy"
 	
 		alt="SDS"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="201"
+		data-flex-basis="484px"
 	
 ></p>
 <p><strong>len，记录了字符串长度</strong>。这样获取字符串长度的时候，只需要返回这个成员变量值就行，时间复杂度只需要 O（1）。</p>
@@ -649,14 +665,18 @@
 </ul>
 <p>Redis 单线程指的是「接收客户端请求-&gt;解析请求 -&gt;进行数据读写等操作-&gt;发送数据给客户端」这个过程是由一个线程（主线程）来完成的这些任务都放在主线程来处理，那么 Redis 主线程就很容易发生阻塞，这样就无法处理后续的请求了。</p>
 <p>后台线程相当于一个消费者，生产者把耗时任务丢到任务队列中，消费者（BIO）不停轮询这个队列，拿出任务就去执行对应的方法即可。</p>
-<p><img src="/redis%e5%90%8e%e5%8f%b0%e7%ba%bf%e7%a8%8b.webp"
-	
-	
-	
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/redis%E5%90%8E%E5%8F%B0%E7%BA%BF%E7%A8%8B.webp"
+	width="1282"
+	height="834"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/redis%E5%90%8E%E5%8F%B0%E7%BA%BF%E7%A8%8B_hu3492850785570864283.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/redis%E5%90%8E%E5%8F%B0%E7%BA%BF%E7%A8%8B_hu8616633524361730926.webp 1024w"
 	loading="lazy"
 	
 		alt="redis后台线程"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="153"
+		data-flex-basis="368px"
 	
 ></p>
 <p>虽然 Redis 的主要工作（网络 I/O 和执行命令）一直是单线程模型，但是<strong>在 Redis 6.0 版本之后，也采用了多个 I/O 线程来处理网络请求</strong>，<strong>这是因为随着网络硬件的性能提升，Redis 的性能瓶颈有时会出现在网络 I/O 的处理上</strong>。</p>
