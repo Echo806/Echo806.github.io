@@ -56,6 +56,13 @@ chmod 700 test.txt （改文件权限） r(read) w(write) x(execute)&lt;br&gt;
 1: Execute permission&lt;br&gt;
 0: No permission&lt;/p&gt;
 &lt;p&gt;chomd -R （revursive）递归文件夹改变所有权限&lt;/p&gt;
+&lt;p&gt;grep (Global Regular Expression Print)&lt;br&gt;
+grep &amp;ldquo;ERROR&amp;rdquo; log.txt&lt;/p&gt;
+&lt;p&gt;dmesg(diagnostic message) 诊断信息（系统/内核输出的消息)&lt;br&gt;
+dmesg | grep usb&lt;br&gt;
+dmesg | grep error&lt;br&gt;
+sudo dmesg | grep -Ei &amp;lsquo;fail|error&amp;rsquo; &amp;gt;~/project/boot_issues.txt&lt;br&gt;
+(The grep command&amp;rsquo;s -i option makes the search case-insensitive.To search for multiple patterns at once (like fail OR error), you can use grep -E &amp;lsquo;pattern1|pattern2&amp;rsquo;.)&lt;/p&gt;
 </description>
         </item>
         

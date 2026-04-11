@@ -7,7 +7,121 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>帕琪-Pache</copyright>
-        <lastBuildDate>Sun, 05 Apr 2026 16:52:29 +0800</lastBuildDate><atom:link href="https://echo806.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 10 Apr 2026 08:43:58 +0800</lastBuildDate><atom:link href="https://echo806.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>redis笔记</title>
+        <link>https://echo806.github.io/p/redis%E7%AC%94%E8%AE%B0/</link>
+        <pubDate>Fri, 10 Apr 2026 08:43:58 +0800</pubDate>
+        
+        <guid>https://echo806.github.io/p/redis%E7%AC%94%E8%AE%B0/</guid>
+        <description>&lt;h2 id=&#34;讲一下redis底层的数据结构&#34;&gt;讲一下Redis底层的数据结构
+&lt;/h2&gt;&lt;p&gt;String:缓存对象，常规计数，分布式锁，共享session信息&lt;/p&gt;
+&lt;p&gt;List：消息队列（有问题：1.生产者需要自行实现全局id唯一；2.不能以消费者组形式消费）&lt;/p&gt;
+&lt;p&gt;Hash:缓存对象，购物车&lt;/p&gt;
+&lt;p&gt;Set:聚合计算（并集，交集，差集）场景，如点赞，共同关注，抽奖活动&lt;/p&gt;
+&lt;p&gt;Zset：排序场景，如排场榜&lt;/p&gt;
+&lt;p&gt;BitMap：二值状态统计的场景，如签到，判断用户登录状态，连续签到用户总数&lt;/p&gt;
+&lt;p&gt;HyperLogLog:海量数据统计场景，如百万级页面UV计数&lt;/p&gt;
+&lt;p&gt;GEO：存储地理信息的场景，如叫车&lt;/p&gt;
+&lt;p&gt;Stream:消息队列，相比于List类型实现的消息队列，它有两个特性：1.自动生成全局唯一消息id，2.支持消费者组形式消费数据&lt;/p&gt;
+&lt;h2 id=&#34;zset用过吗&#34;&gt;ZSet用过吗
+&lt;/h2&gt;&lt;p&gt;用过 zset 实现排行榜的功能。&lt;/p&gt;
+&lt;p&gt;新增一个赞，可以使用 ZINCRBY 命令&lt;/p&gt;
+&lt;p&gt;查看某篇文章的赞数，可以使用 ZSCORE 命令&lt;/p&gt;
+&lt;p&gt;获取文章赞数最多的 3 篇文章，可以使用 ZREVRANGE 命令&lt;/p&gt;
+&lt;p&gt;获取 100 赞到 200 赞的文章，可以使用 ZRANGEBYSCORE 命令（返回有序集合中指定分数区间内的成员，分数由低到高排序）&lt;/p&gt;
+&lt;h2 id=&#34;redis-中-set和zset区别是什么&#34;&gt;Redis 中 set和zset区别是什么？
+&lt;/h2&gt;&lt;p&gt;Set 和 ZSet（Sorted Set，有序集合）都是用于存储多个元素的集合类型&lt;/p&gt;
+&lt;p&gt;Set 是&lt;strong&gt;无序、唯一元素&lt;/strong&gt;的集合，适合存储不重复且无需排序的数据（如用户 ID 列表、标签集合）。&lt;/p&gt;
+&lt;p&gt;添加元素 SADD zset1  “a”  “b ”  ”c”&lt;/p&gt;
+&lt;p&gt;查看所有元素 SMEMBERS set1&lt;/p&gt;
+&lt;p&gt;判断元素是否存在 SISMEMBER set1 “a”&lt;/p&gt;
+&lt;p&gt;集合运算  求交集SINTER  set1 set2    求并集 SUNION set1 set2&lt;/p&gt;
+&lt;p&gt;ZSet是&lt;strong&gt;有序、唯一元素&lt;/strong&gt;的集合，每个元素关联一个“分数（score）”，并按分数从小到大排序（元素唯一，但分数是可以重复的）,适合排序或者排名的场景（带权重的任务、排行榜）。&lt;/p&gt;
+&lt;p&gt;添加元素（带分数） SADD zset1 10 “a” 20 “b” 30 “c”&lt;/p&gt;
+&lt;p&gt;按范围排名获取元素（从小到大） ZRANGE zset1 0 -1  WITHSCORES(返回所有元素及分数，结果按分数排序)&lt;/p&gt;
+&lt;p&gt;按分数范围获取元素 ZRANGEBYSCOREzset1 12 25(获取12-25分数之间的元素)&lt;/p&gt;
+&lt;p&gt;增减元素分数 ZINCRBY zset1 5 “a”（如果要减的话用负数）&lt;/p&gt;
+&lt;p&gt;获取元素排名 ZRANK zset1 “b”（返回b的排名，从0开始）&lt;/p&gt;
+&lt;p&gt;核心区别总结：1.有序性:Set 完全无序，ZSet 通过分数维持有序,2.操作特性:ZSet 多了基于分数的排序、范围查询、排名计算等命令，Set 只有集合本身的交并差等操作.3.适用场景：Set 用于去重且无需排序的场景，ZSet 用于需要排序、排名或权重相关的场景&lt;/p&gt;
+&lt;h2 id=&#34;zset-底层是怎么实现的&#34;&gt;Zset 底层是怎么实现的？
+&lt;/h2&gt;&lt;p&gt;Zset 类型的底层数据结构是由&lt;strong&gt;压缩列表或跳表&lt;/strong&gt;实现的：&lt;/p&gt;
+&lt;p&gt;如果有序集合的元素个数小于128个，并且每个元素的值小于64字节时，redis会使用&lt;strong&gt;压缩列表&lt;/strong&gt;作为Zset类型的底层数据结构。&lt;/p&gt;
+&lt;p&gt;如果有序集合的元素不满足上面的条件，redis会使用&lt;strong&gt;跳表&lt;/strong&gt;作为Zset类型的底层数据结构。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;在redis7.0中，压缩列表数据结构已经被废弃了，交由lickpack数据结构来实现了&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;跳表是怎么实现的&#34;&gt;跳表是怎么实现的？
+&lt;/h2&gt;</description>
+        </item>
+        <item>
+        <title>Summary of Weeks</title>
+        <link>https://echo806.github.io/p/summary-of-weeks/</link>
+        <pubDate>Fri, 10 Apr 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://echo806.github.io/p/summary-of-weeks/</guid>
+        <description>&lt;p&gt;偏意识流叙事&lt;/p&gt;
+&lt;h1 id=&#34;大二下&#34;&gt;大二下
+&lt;/h1&gt;&lt;h2 id=&#34;weeks1-2&#34;&gt;weeks:1-2
+&lt;/h2&gt;&lt;p&gt;又是一年开学，家里太舒服了以至于后端的学习有点放掉了，只是草草地把ssm看了一半，其余时间都在陪伴家人。话说这样整合真麻烦吧，已经有springboot整合是不是可以草草看一下完事了。&lt;/p&gt;
+&lt;p&gt;寒假把博客给整好了，虽然只是搞了门面，但是我还是很满意的，在互联网复制粘贴组件拼起来确实是值得一品的环节。找个时间还是得把原代码看一遍，干全栈也好酷。&lt;/p&gt;
+&lt;p&gt;最近学习了如何sunshine，moonlight，parsec，tailscale搞串流，后悔说为啥开学的时候不直接搬台主机进宿舍，拯救者实在太重了以至于我实在受不了频繁地搬动，倒不如直接搬台主机稳定放宿舍，用平板稳定串流。&lt;br&gt;
+学了一些linux命令却一直没动手装过一台，恰好操作系统大作业需要在ubuntu环境下搞，要配个虚拟机还是wsl还是干脆直接把家里电脑装成linux系统呢。&lt;/p&gt;
+&lt;p&gt;有时候感觉思考地太多会不会导致做的少，但是貌似思考又是必要的&lt;/p&gt;
+&lt;p&gt;记得多喝水，对自己好点，多休息，充足睡眠。&lt;/p&gt;
+&lt;p&gt;杀戮尖塔2出了，好玩，多人已经打到进阶10了。&lt;br&gt;
+加紧学点新技术。&lt;/p&gt;
+&lt;h2 id=&#34;weeks3-4&#34;&gt;weeks:3-4
+&lt;/h2&gt;&lt;p&gt;终于把ssm看完了，但是还是有待复习。找个时间可以把动力节点的看了。&lt;/p&gt;
+&lt;p&gt;看完了springboot原理篇之前的东西，就是整合一堆组件，等敲项目有新的认知后再去复习和看原理篇吧。&lt;br&gt;
+开启了redis学习进程，感觉听起来有意思得多。&lt;/p&gt;
+&lt;p&gt;最终决定把之前提到的三个方法都试试当作玩。值得一提的是家里从工地搬来的废弃电脑也是使用上了，把工程文件拷贝出来后直接把win7装成ubuntu，结果搞完美化发现说系统没装在SSD上，跟着b站教程还是踩坑了，没教我咋分盘。无奈重装，顺便换成了更稳定的mint。&lt;/p&gt;
+&lt;p&gt;配置太旧了ubuntu和mint上apt或者flatpak安装的steam启动杀戮尖塔2都会闪退，但是snap安装的steam启动杀戮尖塔2倒是没问题。&lt;/p&gt;
+&lt;p&gt;报错如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ERROR: ld.so: object &lt;span class=&#34;s1&#34;&gt;&amp;#39;/home/runrun/.steam/debian-installation/ubuntu12_32/gameoverlayrenderer.so&amp;#39;&lt;/span&gt; from LD_PRELOAD cannot be preloaded &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;wrong ELF class: ELFCLASS32&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: ignored.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ERROR: ld.so: object &lt;span class=&#34;s1&#34;&gt;&amp;#39;/home/runrun/.steam/debian-installation/ubuntu12_64/gameoverlayrenderer.so&amp;#39;&lt;/span&gt; from LD_PRELOAD cannot be preloaded &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;wrong ELF class: ELFCLASS64&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: ignored.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这个意思是 Steam 的游戏叠加层（Overlay）动态库无法加载，原因是 ELF 类别不匹配（32 位 vs 64 位）。&lt;/p&gt;
+&lt;p&gt;这是 apt 版 Steam 常见问题，因为它默认依赖系统库，而 snap 版自带运行时&lt;/p&gt;
+&lt;p&gt;还有Vulkan / Intel GPU 警告：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;MESA-INTEL: warning: Haswell Vulkan support is incomplete
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我用的是 Intel HD Graphics Haswell，Mesa Vulkan 驱动支持不完整。&lt;/p&gt;
+&lt;p&gt;这通常会导致用 Proton 或 Vulkan API 的游戏闪退。&lt;/p&gt;
+&lt;p&gt;不折腾了，用下snap安装的steam糊弄吧，等硬件价格降下来装台强强电脑玩。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://echo806.github.io/p/summary-of-weeks/mint.png&#34;
+	width=&#34;1024&#34;
+	height=&#34;768&#34;
+	srcset=&#34;https://echo806.github.io/p/summary-of-weeks/mint_hu7743751065823483326.png 480w, https://echo806.github.io/p/summary-of-weeks/mint_hu8809769360433091445.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;目前我的mint桌面&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;133&#34;
+		data-flex-basis=&#34;320px&#34;
+	
+&gt;
+输入法：&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/iDvel/rime-ice&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;rime-ice&lt;/a&gt;&lt;br&gt;
+音乐播放器：&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/imsyy/SPlayer&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Splayer&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;买了个小鸡g7p，也是玩上手柄了。以前是有精力有时间但是没钱，现在基本上什么都有。渐意识到这段时间是我人生中最宝贵最幸福的时候，我有一定经济基础，身体素质是人生中最佳时期，我有温暖的家庭港湾，与其他人的关系友善，来到一个在其他人眼中还算不错的大学，学着自己感兴趣的专业，有时间有精力去钻研新知识和技术，这段美好的时光我在人生以后的阶段应该会永久怀念。&lt;/p&gt;
+&lt;p&gt;在这一段时间里，我在github第一次提issue，第一次pr，第一次被merge，值得纪念。&lt;/p&gt;
+&lt;p&gt;开始学习ai agent之类的知识，从hello-agents开始做吧。&lt;/p&gt;
+&lt;p&gt;学的git流程也是终于派上用场了，也是为开源社区做了一些贡献。&lt;br&gt;
+什么时候我也能开源做个项目呢。&lt;/p&gt;
+&lt;h2 id=&#34;weeks5-6&#34;&gt;weeks:5-6
+&lt;/h2&gt;&lt;p&gt;基本敲完了黑马点评，作为一个入门的项目练手真不错，值得细细回味。&lt;/p&gt;
+&lt;p&gt;基本看完了redis，接着就是看八股对应问题深入。jvm和juc太干了有点看不下去，直接看八股深入带着问题学吧。微服务和消息队列看了一些，有点走马观花，感觉全部都可以开始对着八股从问题出发深入了。&lt;/p&gt;
+&lt;p&gt;接下来把几本好书快速看看。&lt;/p&gt;
+&lt;p&gt;可以说至此后端组件已经大概入门，剩下的就是深入。&lt;/p&gt;
+&lt;p&gt;agent项目还有待推进，得继续学。&lt;/p&gt;
+&lt;p&gt;感觉还是需要对八股内容有一定掌握的时候做项目才有新的和深的理解。后续也把八股一些东西心得笔记写写博客，方便复习。&lt;/p&gt;
+&lt;p&gt;力扣算法可以重新看看了，hot100得刷的滚瓜烂熟，不过之前已经看了灵神的基础算法导论，把做过的题再看看再想想就好了。sql题也得重新看看，一些基础crud要熟练。&lt;/p&gt;
+&lt;p&gt;欧卡2开了十几个小时，开车还是需要胆大心细。这一段时间开家里轿车也比较得心应手了，稳了好多。&lt;/p&gt;
+&lt;p&gt;最近也有点算是忙，但也没太给自己上强度，接受自己有某段时间摆烂也挺好的，无需自责，做事贵在持之以恒。想了一些东西，把一些感觉像是上班的游戏停了，玩游戏或者做事情还是要回到初心，而不是被游戏玩。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>比很多教学都有用的git使用段子</title>
         <link>https://echo806.github.io/p/%E6%AF%94%E5%BE%88%E5%A4%9A%E6%95%99%E5%AD%A6%E9%83%BD%E6%9C%89%E7%94%A8%E7%9A%84git%E4%BD%BF%E7%94%A8%E6%AE%B5%E5%AD%90/</link>
         <pubDate>Sun, 05 Apr 2026 16:52:29 +0800</pubDate>
@@ -839,66 +953,6 @@ return shopTypes;&lt;/p&gt;
 </description>
         </item>
         <item>
-        <title>Summary of Weeks</title>
-        <link>https://echo806.github.io/p/summary-of-weeks/</link>
-        <pubDate>Sun, 29 Mar 2026 15:36:51 +0800</pubDate>
-        
-        <guid>https://echo806.github.io/p/summary-of-weeks/</guid>
-        <description>&lt;p&gt;偏意识流叙事&lt;/p&gt;
-&lt;h1 id=&#34;大二下&#34;&gt;大二下
-&lt;/h1&gt;&lt;h2 id=&#34;weeks1-2&#34;&gt;weeks:1-2
-&lt;/h2&gt;&lt;p&gt;又是一年开学，家里太舒服了以至于后端的学习有点放掉了，只是草草地把ssm看了一半，其余时间都在陪伴家人。话说这样整合真麻烦吧，已经有springboot整合是不是可以草草看一下完事了。&lt;/p&gt;
-&lt;p&gt;寒假把博客给整好了，虽然只是搞了门面，但是我还是很满意的，在互联网复制粘贴组件拼起来确实是值得一品的环节。找个时间还是得把原代码看一遍，干全栈也好酷。&lt;/p&gt;
-&lt;p&gt;最近学习了如何sunshine，moonlight，parsec，tailscale搞串流，后悔说为啥开学的时候不直接搬台主机进宿舍，拯救者实在太重了以至于我实在受不了频繁地搬动，倒不如直接搬台主机稳定放宿舍，用平板稳定串流。&lt;br&gt;
-学了一些linux命令却一直没动手装过一台，恰好操作系统大作业需要在ubuntu环境下搞，要配个虚拟机还是wsl还是干脆直接把家里电脑装成linux系统呢。&lt;/p&gt;
-&lt;p&gt;有时候感觉思考地太多会不会导致做的少，但是貌似思考又是必要的&lt;/p&gt;
-&lt;p&gt;记得多喝水，对自己好点，多休息，充足睡眠。&lt;/p&gt;
-&lt;p&gt;杀戮尖塔2出了，好玩，多人已经打到进阶10了。&lt;br&gt;
-加紧学点新技术。&lt;/p&gt;
-&lt;h2 id=&#34;weeks3-4&#34;&gt;weeks:3-4
-&lt;/h2&gt;&lt;p&gt;终于把ssm看完了，但是还是有待复习。找个时间可以把动力节点的看了。&lt;/p&gt;
-&lt;p&gt;看完了springboot原理篇之前的东西，就是整合一堆组件，等敲项目有新的认知后再去复习和看原理篇吧。&lt;br&gt;
-开启了redis，感觉听起来有意思得多。&lt;/p&gt;
-&lt;p&gt;最终决定把之前提到的三个方法都试试当作玩。值得一提的是家里从工地搬来的废弃电脑也是使用上了，把工程文件拷贝出来后直接把win7装成ubuntu，结果搞完美化发现说系统没装在SSD上，跟着b站教程还是踩坑了，没教我咋分盘。无奈重装，顺便换成了更稳定的mint。&lt;/p&gt;
-&lt;p&gt;配置太旧了ubuntu和mint上apt或者flatpak安装的steam启动杀戮尖塔2都会闪退，但是snap安装的steam启动杀戮尖塔2倒是没问题。&lt;/p&gt;
-&lt;p&gt;报错如下：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ERROR: ld.so: object &lt;span class=&#34;s1&#34;&gt;&amp;#39;/home/runrun/.steam/debian-installation/ubuntu12_32/gameoverlayrenderer.so&amp;#39;&lt;/span&gt; from LD_PRELOAD cannot be preloaded &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;wrong ELF class: ELFCLASS32&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: ignored.
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ERROR: ld.so: object &lt;span class=&#34;s1&#34;&gt;&amp;#39;/home/runrun/.steam/debian-installation/ubuntu12_64/gameoverlayrenderer.so&amp;#39;&lt;/span&gt; from LD_PRELOAD cannot be preloaded &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;wrong ELF class: ELFCLASS64&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: ignored.
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这个意思是 Steam 的游戏叠加层（Overlay）动态库无法加载，原因是 ELF 类别不匹配（32 位 vs 64 位）。&lt;/p&gt;
-&lt;p&gt;这是 apt 版 Steam 常见问题，因为它默认依赖系统库，而 snap 版自带运行时&lt;/p&gt;
-&lt;p&gt;还有Vulkan / Intel GPU 警告：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;MESA-INTEL: warning: Haswell Vulkan support is incomplete
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我用的是 Intel HD Graphics Haswell，Mesa Vulkan 驱动支持不完整。&lt;/p&gt;
-&lt;p&gt;这通常会导致用 Proton 或 Vulkan API 的游戏闪退。&lt;/p&gt;
-&lt;p&gt;不折腾了，用下snap安装的steam糊弄把，等硬件价格降下来装台强强电脑玩。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://echo806.github.io/p/summary-of-weeks/mint.png&#34;
-	width=&#34;1024&#34;
-	height=&#34;768&#34;
-	srcset=&#34;https://echo806.github.io/p/summary-of-weeks/mint_hu7743751065823483326.png 480w, https://echo806.github.io/p/summary-of-weeks/mint_hu8809769360433091445.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;目前我的mint桌面&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;133&#34;
-		data-flex-basis=&#34;320px&#34;
-	
-&gt;
-输入法：&lt;br&gt;
-&lt;a class=&#34;link&#34; href=&#34;https://github.com/iDvel/rime-ice&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;rime-ice&lt;/a&gt;&lt;br&gt;
-音乐播放器：&lt;br&gt;
-&lt;a class=&#34;link&#34; href=&#34;https://github.com/imsyy/SPlayer&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Splayer&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;买了个小鸡g7p，也是玩上手柄了。以前是有精力有时间但是没钱，现在基本上什么都有。渐意识到这段时间是我人生中最宝贵最幸福的时候，我有一定经济基础，身体素质是人生中最佳时期，我有温暖的家庭港湾，与其他人的关系友善，来到一个在其他人眼中还算不错的大学，学着自己感兴趣的专业，有时间有精力去钻研新知识和技术，这段美好的时光我在人生以后的阶段应该会永久怀念。&lt;/p&gt;
-&lt;p&gt;在这一段时间里，我在github第一次提issue，第一次pr，第一次被merge，值得纪念。&lt;/p&gt;
-&lt;p&gt;开始学习ai agent之类的知识，从hello-agents开始做吧。&lt;/p&gt;
-&lt;p&gt;学的git流程也是终于派上用场了，也是为开源社区做了一些贡献。&lt;br&gt;
-什么时候我也能开源做个项目呢。&lt;/p&gt;
-</description>
-        </item>
-        <item>
         <title>mint-sougou</title>
         <link>https://echo806.github.io/p/mint-sougou/</link>
         <pubDate>Sun, 22 Mar 2026 08:43:58 +0800</pubDate>
@@ -947,6 +1001,13 @@ chmod 700 test.txt （改文件权限） r(read) w(write) x(execute)&lt;br&gt;
 1: Execute permission&lt;br&gt;
 0: No permission&lt;/p&gt;
 &lt;p&gt;chomd -R （revursive）递归文件夹改变所有权限&lt;/p&gt;
+&lt;p&gt;grep (Global Regular Expression Print)&lt;br&gt;
+grep &amp;ldquo;ERROR&amp;rdquo; log.txt&lt;/p&gt;
+&lt;p&gt;dmesg(diagnostic message) 诊断信息（系统/内核输出的消息)&lt;br&gt;
+dmesg | grep usb&lt;br&gt;
+dmesg | grep error&lt;br&gt;
+sudo dmesg | grep -Ei &amp;lsquo;fail|error&amp;rsquo; &amp;gt;~/project/boot_issues.txt&lt;br&gt;
+(The grep command&amp;rsquo;s -i option makes the search case-insensitive.To search for multiple patterns at once (like fail OR error), you can use grep -E &amp;lsquo;pattern1|pattern2&amp;rsquo;.)&lt;/p&gt;
 </description>
         </item>
         <item>

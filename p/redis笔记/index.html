@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="演示说明">
-<title>404 Page not found</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="讲一下Redis底层的数据结构 String:缓存对象，常规计数，分布式锁，共享session信息 List：消息队列（有问题：1.生产者需要自">
+<title>redis笔记</title>
 
-<link rel='canonical' href='https://echo806.github.io/404.html'>
+<link rel='canonical' href='https://echo806.github.io/p/redis%E7%AC%94%E8%AE%B0/'>
 
-<link rel="stylesheet" href="/scss/style.min.d44d1b138e555166d2fb22df4e9ea386c36ba19591a491a37edb07faede022e1.css"><meta property='og:title' content="404 Page not found">
-<meta property='og:description' content="演示说明">
-<meta property='og:url' content='https://echo806.github.io/404.html'>
+<link rel="stylesheet" href="/scss/style.min.d44d1b138e555166d2fb22df4e9ea386c36ba19591a491a37edb07faede022e1.css"><meta property='og:title' content="redis笔记">
+<meta property='og:description' content="讲一下Redis底层的数据结构 String:缓存对象，常规计数，分布式锁，共享session信息 List：消息队列（有问题：1.生产者需要自">
+<meta property='og:url' content='https://echo806.github.io/p/redis%E7%AC%94%E8%AE%B0/'>
 <meta property='og:site_name' content='帕琪-Pache'>
-<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-04-10T08:43:58&#43;08:00 '/>
-<meta name="twitter:title" content="404 Page not found">
-<meta name="twitter:description" content="演示说明">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-04-10T08:43:58&#43;08:00'/><meta property='article:modified_time' content='2026-04-10T08:43:58&#43;08:00'/>
+<meta name="twitter:title" content="redis笔记">
+<meta name="twitter:description" content="讲一下Redis底层的数据结构 String:缓存对象，常规计数，分布式锁，共享session信息 List：消息队列（有问题：1.生产者需要自">
     <link rel="shortcut icon" href="/favicon.ico" />
 
   
 
 
     </head>
-    <body class="">
+    <body class="
+    article-page
+    ">
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
@@ -266,11 +268,178 @@
     </ol>
 </aside>
 
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#讲一下redis底层的数据结构">讲一下Redis底层的数据结构</a></li>
+    <li><a href="#zset用过吗">ZSet用过吗</a></li>
+    <li><a href="#redis-中-set和zset区别是什么">Redis 中 set和zset区别是什么？</a></li>
+    <li><a href="#zset-底层是怎么实现的">Zset 底层是怎么实现的？</a></li>
+    <li><a href="#跳表是怎么实现的">跳表是怎么实现的？</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
             <main class="main full-width">
-    <div class="not-found-card">
-        <h1 class="article-title">404 错误</h1>
-        <h2 class="article-subtitle">页面不存在</h2>
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/redis/" style="background-color: #2a9d8f; color: #fff;">
+                redis
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/redis%E7%AC%94%E8%AE%B0/">redis笔记</a>
+        </h2>
+    
+        
     </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-04-10</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="讲一下redis底层的数据结构">讲一下Redis底层的数据结构
+</h2><p>String:缓存对象，常规计数，分布式锁，共享session信息</p>
+<p>List：消息队列（有问题：1.生产者需要自行实现全局id唯一；2.不能以消费者组形式消费）</p>
+<p>Hash:缓存对象，购物车</p>
+<p>Set:聚合计算（并集，交集，差集）场景，如点赞，共同关注，抽奖活动</p>
+<p>Zset：排序场景，如排场榜</p>
+<p>BitMap：二值状态统计的场景，如签到，判断用户登录状态，连续签到用户总数</p>
+<p>HyperLogLog:海量数据统计场景，如百万级页面UV计数</p>
+<p>GEO：存储地理信息的场景，如叫车</p>
+<p>Stream:消息队列，相比于List类型实现的消息队列，它有两个特性：1.自动生成全局唯一消息id，2.支持消费者组形式消费数据</p>
+<h2 id="zset用过吗">ZSet用过吗
+</h2><p>用过 zset 实现排行榜的功能。</p>
+<p>新增一个赞，可以使用 ZINCRBY 命令</p>
+<p>查看某篇文章的赞数，可以使用 ZSCORE 命令</p>
+<p>获取文章赞数最多的 3 篇文章，可以使用 ZREVRANGE 命令</p>
+<p>获取 100 赞到 200 赞的文章，可以使用 ZRANGEBYSCORE 命令（返回有序集合中指定分数区间内的成员，分数由低到高排序）</p>
+<h2 id="redis-中-set和zset区别是什么">Redis 中 set和zset区别是什么？
+</h2><p>Set 和 ZSet（Sorted Set，有序集合）都是用于存储多个元素的集合类型</p>
+<p>Set 是<strong>无序、唯一元素</strong>的集合，适合存储不重复且无需排序的数据（如用户 ID 列表、标签集合）。</p>
+<p>添加元素 SADD zset1  “a”  “b ”  ”c”</p>
+<p>查看所有元素 SMEMBERS set1</p>
+<p>判断元素是否存在 SISMEMBER set1 “a”</p>
+<p>集合运算  求交集SINTER  set1 set2    求并集 SUNION set1 set2</p>
+<p>ZSet是<strong>有序、唯一元素</strong>的集合，每个元素关联一个“分数（score）”，并按分数从小到大排序（元素唯一，但分数是可以重复的）,适合排序或者排名的场景（带权重的任务、排行榜）。</p>
+<p>添加元素（带分数） SADD zset1 10 “a” 20 “b” 30 “c”</p>
+<p>按范围排名获取元素（从小到大） ZRANGE zset1 0 -1  WITHSCORES(返回所有元素及分数，结果按分数排序)</p>
+<p>按分数范围获取元素 ZRANGEBYSCOREzset1 12 25(获取12-25分数之间的元素)</p>
+<p>增减元素分数 ZINCRBY zset1 5 “a”（如果要减的话用负数）</p>
+<p>获取元素排名 ZRANK zset1 “b”（返回b的排名，从0开始）</p>
+<p>核心区别总结：1.有序性:Set 完全无序，ZSet 通过分数维持有序,2.操作特性:ZSet 多了基于分数的排序、范围查询、排名计算等命令，Set 只有集合本身的交并差等操作.3.适用场景：Set 用于去重且无需排序的场景，ZSet 用于需要排序、排名或权重相关的场景</p>
+<h2 id="zset-底层是怎么实现的">Zset 底层是怎么实现的？
+</h2><p>Zset 类型的底层数据结构是由<strong>压缩列表或跳表</strong>实现的：</p>
+<p>如果有序集合的元素个数小于128个，并且每个元素的值小于64字节时，redis会使用<strong>压缩列表</strong>作为Zset类型的底层数据结构。</p>
+<p>如果有序集合的元素不满足上面的条件，redis会使用<strong>跳表</strong>作为Zset类型的底层数据结构。</p>
+<p><strong>在redis7.0中，压缩列表数据结构已经被废弃了，交由lickpack数据结构来实现了</strong></p>
+<h2 id="跳表是怎么实现的">跳表是怎么实现的？
+</h2>
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E6%9F%90%E5%A4%96%E5%8D%96%E4%BD%9C%E4%B8%9A%E4%B8%80%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">某外卖作业一的两种实现</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
     <footer class="site-footer">
     <section class="copyright">
         &copy; 
@@ -287,6 +456,84 @@
     </section>
 </footer>
 
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
 
             </main>
         </div>

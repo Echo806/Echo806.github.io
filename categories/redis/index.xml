@@ -7,7 +7,51 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>帕琪-Pache</copyright>
-        <lastBuildDate>Thu, 02 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://echo806.github.io/categories/redis/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 10 Apr 2026 08:43:58 +0800</lastBuildDate><atom:link href="https://echo806.github.io/categories/redis/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>redis笔记</title>
+        <link>https://echo806.github.io/p/redis%E7%AC%94%E8%AE%B0/</link>
+        <pubDate>Fri, 10 Apr 2026 08:43:58 +0800</pubDate>
+        
+        <guid>https://echo806.github.io/p/redis%E7%AC%94%E8%AE%B0/</guid>
+        <description>&lt;h2 id=&#34;讲一下redis底层的数据结构&#34;&gt;讲一下Redis底层的数据结构
+&lt;/h2&gt;&lt;p&gt;String:缓存对象，常规计数，分布式锁，共享session信息&lt;/p&gt;
+&lt;p&gt;List：消息队列（有问题：1.生产者需要自行实现全局id唯一；2.不能以消费者组形式消费）&lt;/p&gt;
+&lt;p&gt;Hash:缓存对象，购物车&lt;/p&gt;
+&lt;p&gt;Set:聚合计算（并集，交集，差集）场景，如点赞，共同关注，抽奖活动&lt;/p&gt;
+&lt;p&gt;Zset：排序场景，如排场榜&lt;/p&gt;
+&lt;p&gt;BitMap：二值状态统计的场景，如签到，判断用户登录状态，连续签到用户总数&lt;/p&gt;
+&lt;p&gt;HyperLogLog:海量数据统计场景，如百万级页面UV计数&lt;/p&gt;
+&lt;p&gt;GEO：存储地理信息的场景，如叫车&lt;/p&gt;
+&lt;p&gt;Stream:消息队列，相比于List类型实现的消息队列，它有两个特性：1.自动生成全局唯一消息id，2.支持消费者组形式消费数据&lt;/p&gt;
+&lt;h2 id=&#34;zset用过吗&#34;&gt;ZSet用过吗
+&lt;/h2&gt;&lt;p&gt;用过 zset 实现排行榜的功能。&lt;/p&gt;
+&lt;p&gt;新增一个赞，可以使用 ZINCRBY 命令&lt;/p&gt;
+&lt;p&gt;查看某篇文章的赞数，可以使用 ZSCORE 命令&lt;/p&gt;
+&lt;p&gt;获取文章赞数最多的 3 篇文章，可以使用 ZREVRANGE 命令&lt;/p&gt;
+&lt;p&gt;获取 100 赞到 200 赞的文章，可以使用 ZRANGEBYSCORE 命令（返回有序集合中指定分数区间内的成员，分数由低到高排序）&lt;/p&gt;
+&lt;h2 id=&#34;redis-中-set和zset区别是什么&#34;&gt;Redis 中 set和zset区别是什么？
+&lt;/h2&gt;&lt;p&gt;Set 和 ZSet（Sorted Set，有序集合）都是用于存储多个元素的集合类型&lt;/p&gt;
+&lt;p&gt;Set 是&lt;strong&gt;无序、唯一元素&lt;/strong&gt;的集合，适合存储不重复且无需排序的数据（如用户 ID 列表、标签集合）。&lt;/p&gt;
+&lt;p&gt;添加元素 SADD zset1  “a”  “b ”  ”c”&lt;/p&gt;
+&lt;p&gt;查看所有元素 SMEMBERS set1&lt;/p&gt;
+&lt;p&gt;判断元素是否存在 SISMEMBER set1 “a”&lt;/p&gt;
+&lt;p&gt;集合运算  求交集SINTER  set1 set2    求并集 SUNION set1 set2&lt;/p&gt;
+&lt;p&gt;ZSet是&lt;strong&gt;有序、唯一元素&lt;/strong&gt;的集合，每个元素关联一个“分数（score）”，并按分数从小到大排序（元素唯一，但分数是可以重复的）,适合排序或者排名的场景（带权重的任务、排行榜）。&lt;/p&gt;
+&lt;p&gt;添加元素（带分数） SADD zset1 10 “a” 20 “b” 30 “c”&lt;/p&gt;
+&lt;p&gt;按范围排名获取元素（从小到大） ZRANGE zset1 0 -1  WITHSCORES(返回所有元素及分数，结果按分数排序)&lt;/p&gt;
+&lt;p&gt;按分数范围获取元素 ZRANGEBYSCOREzset1 12 25(获取12-25分数之间的元素)&lt;/p&gt;
+&lt;p&gt;增减元素分数 ZINCRBY zset1 5 “a”（如果要减的话用负数）&lt;/p&gt;
+&lt;p&gt;获取元素排名 ZRANK zset1 “b”（返回b的排名，从0开始）&lt;/p&gt;
+&lt;p&gt;核心区别总结：1.有序性:Set 完全无序，ZSet 通过分数维持有序,2.操作特性:ZSet 多了基于分数的排序、范围查询、排名计算等命令，Set 只有集合本身的交并差等操作.3.适用场景：Set 用于去重且无需排序的场景，ZSet 用于需要排序、排名或权重相关的场景&lt;/p&gt;
+&lt;h2 id=&#34;zset-底层是怎么实现的&#34;&gt;Zset 底层是怎么实现的？
+&lt;/h2&gt;&lt;p&gt;Zset 类型的底层数据结构是由&lt;strong&gt;压缩列表或跳表&lt;/strong&gt;实现的：&lt;/p&gt;
+&lt;p&gt;如果有序集合的元素个数小于128个，并且每个元素的值小于64字节时，redis会使用&lt;strong&gt;压缩列表&lt;/strong&gt;作为Zset类型的底层数据结构。&lt;/p&gt;
+&lt;p&gt;如果有序集合的元素不满足上面的条件，redis会使用&lt;strong&gt;跳表&lt;/strong&gt;作为Zset类型的底层数据结构。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;在redis7.0中，压缩列表数据结构已经被废弃了，交由lickpack数据结构来实现了&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;跳表是怎么实现的&#34;&gt;跳表是怎么实现的？
+&lt;/h2&gt;</description>
+        </item>
+        <item>
         <title>某外卖作业一的两种实现</title>
         <link>https://echo806.github.io/p/%E6%9F%90%E5%A4%96%E5%8D%96%E4%BD%9C%E4%B8%9A%E4%B8%80%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0/</link>
         <pubDate>Thu, 02 Apr 2026 00:00:00 +0000</pubDate>

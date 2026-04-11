@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>帕琪-Pache</copyright>
-        <lastBuildDate>Sun, 29 Mar 2026 15:36:51 +0800</lastBuildDate><atom:link href="https://echo806.github.io/categories/%E7%94%9F%E6%B4%BB%E5%91%A8%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 10 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://echo806.github.io/categories/%E7%94%9F%E6%B4%BB%E5%91%A8%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Summary of Weeks</title>
         <link>https://echo806.github.io/p/summary-of-weeks/</link>
-        <pubDate>Sun, 29 Mar 2026 15:36:51 +0800</pubDate>
+        <pubDate>Fri, 10 Apr 2026 00:00:00 +0000</pubDate>
         
         <guid>https://echo806.github.io/p/summary-of-weeks/</guid>
         <description>&lt;p&gt;偏意识流叙事&lt;/p&gt;
@@ -27,7 +27,7 @@
 &lt;h2 id=&#34;weeks3-4&#34;&gt;weeks:3-4
 &lt;/h2&gt;&lt;p&gt;终于把ssm看完了，但是还是有待复习。找个时间可以把动力节点的看了。&lt;/p&gt;
 &lt;p&gt;看完了springboot原理篇之前的东西，就是整合一堆组件，等敲项目有新的认知后再去复习和看原理篇吧。&lt;br&gt;
-开启了redis，感觉听起来有意思得多。&lt;/p&gt;
+开启了redis学习进程，感觉听起来有意思得多。&lt;/p&gt;
 &lt;p&gt;最终决定把之前提到的三个方法都试试当作玩。值得一提的是家里从工地搬来的废弃电脑也是使用上了，把工程文件拷贝出来后直接把win7装成ubuntu，结果搞完美化发现说系统没装在SSD上，跟着b站教程还是踩坑了，没教我咋分盘。无奈重装，顺便换成了更稳定的mint。&lt;/p&gt;
 &lt;p&gt;配置太旧了ubuntu和mint上apt或者flatpak安装的steam启动杀戮尖塔2都会闪退，但是snap安装的steam启动杀戮尖塔2倒是没问题。&lt;/p&gt;
 &lt;p&gt;报错如下：&lt;/p&gt;
@@ -39,7 +39,7 @@
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;MESA-INTEL: warning: Haswell Vulkan support is incomplete
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我用的是 Intel HD Graphics Haswell，Mesa Vulkan 驱动支持不完整。&lt;/p&gt;
 &lt;p&gt;这通常会导致用 Proton 或 Vulkan API 的游戏闪退。&lt;/p&gt;
-&lt;p&gt;不折腾了，用下snap安装的steam糊弄把，等硬件价格降下来装台强强电脑玩。&lt;/p&gt;
+&lt;p&gt;不折腾了，用下snap安装的steam糊弄吧，等硬件价格降下来装台强强电脑玩。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://echo806.github.io/p/summary-of-weeks/mint.png&#34;
 	width=&#34;1024&#34;
 	height=&#34;768&#34;
@@ -65,6 +65,16 @@
 &lt;p&gt;开始学习ai agent之类的知识，从hello-agents开始做吧。&lt;/p&gt;
 &lt;p&gt;学的git流程也是终于派上用场了，也是为开源社区做了一些贡献。&lt;br&gt;
 什么时候我也能开源做个项目呢。&lt;/p&gt;
+&lt;h2 id=&#34;weeks5-6&#34;&gt;weeks:5-6
+&lt;/h2&gt;&lt;p&gt;基本敲完了黑马点评，作为一个入门的项目练手真不错，值得细细回味。&lt;/p&gt;
+&lt;p&gt;基本看完了redis，接着就是看八股对应问题深入。jvm和juc太干了有点看不下去，直接看八股深入带着问题学吧。微服务和消息队列看了一些，有点走马观花，感觉全部都可以开始对着八股从问题出发深入了。&lt;/p&gt;
+&lt;p&gt;接下来把几本好书快速看看。&lt;/p&gt;
+&lt;p&gt;可以说至此后端组件已经大概入门，剩下的就是深入。&lt;/p&gt;
+&lt;p&gt;agent项目还有待推进，得继续学。&lt;/p&gt;
+&lt;p&gt;感觉还是需要对八股内容有一定掌握的时候做项目才有新的和深的理解。后续也把八股一些东西心得笔记写写博客，方便复习。&lt;/p&gt;
+&lt;p&gt;力扣算法可以重新看看了，hot100得刷的滚瓜烂熟，不过之前已经看了灵神的基础算法导论，把做过的题再看看再想想就好了。sql题也得重新看看，一些基础crud要熟练。&lt;/p&gt;
+&lt;p&gt;欧卡2开了十几个小时，开车还是需要胆大心细。这一段时间开家里轿车也比较得心应手了，稳了好多。&lt;/p&gt;
+&lt;p&gt;最近也有点算是忙，但也没太给自己上强度，接受自己有某段时间摆烂也挺好的，无需自责，做事贵在持之以恒。想了一些东西，把一些感觉像是上班的游戏停了，玩游戏或者做事情还是要回到初心，而不是被游戏玩。&lt;/p&gt;
 </description>
         </item>
         
