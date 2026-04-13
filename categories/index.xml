@@ -7,15 +7,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>帕琪-Pache</copyright>
-        <lastBuildDate>Fri, 10 Apr 2026 08:43:58 +0800</lastBuildDate><atom:link href="https://echo806.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>redis</title>
-        <link>https://echo806.github.io/categories/redis/</link>
-        <pubDate>Fri, 10 Apr 2026 08:43:58 +0800</pubDate>
-        
-        <guid>https://echo806.github.io/categories/redis/</guid>
-        <description>&lt;img src="https://echo806.github.io/categories/redis/reimu.jpg" alt="Featured image of post redis" /&gt;</description>
-        </item>
-        <item>
+        <lastBuildDate>Fri, 10 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://echo806.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>生活周记</title>
         <link>https://echo806.github.io/categories/%E7%94%9F%E6%B4%BB%E5%91%A8%E8%AE%B0/</link>
         <pubDate>Fri, 10 Apr 2026 00:00:00 +0000</pubDate>
@@ -38,6 +30,14 @@
         
         <guid>https://echo806.github.io/categories/agent/</guid>
         <description>&lt;img src="https://echo806.github.io/categories/agent/pic.jpg" alt="Featured image of post Agent" /&gt;</description>
+        </item>
+        <item>
+        <title>redis</title>
+        <link>https://echo806.github.io/categories/redis/</link>
+        <pubDate>Thu, 02 Apr 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://echo806.github.io/categories/redis/</guid>
+        <description>&lt;img src="https://echo806.github.io/categories/redis/reimu.jpg" alt="Featured image of post redis" /&gt;</description>
         </item>
         <item>
         <title>Linux</title>

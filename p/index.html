@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="这个技术点是什么？为什么要有这项技术？（这个技术用来解决什么问题？）它是怎么解决的？（什么原理？）和其他技术点做类比？（扩展其他知识点） 讲一">
-<title>redis笔记</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="+++ title = &lsquo;redis笔记&rsquo; date = 2026-04-10T08:43:58+08:00 draft = true categories = &ldquo;redis&rdquo; +++ 这个技术点是什么？为什么要有这项技术？（这个技术用来解决什么问题？）它是">
+<title></title>
 
-<link rel='canonical' href='https://echo806.github.io/p/redis%E7%AC%94%E8%AE%B0/'>
+<link rel='canonical' href='https://echo806.github.io/p/'>
 
-<link rel="stylesheet" href="/scss/style.min.d44d1b138e555166d2fb22df4e9ea386c36ba19591a491a37edb07faede022e1.css"><meta property='og:title' content="redis笔记">
-<meta property='og:description' content="这个技术点是什么？为什么要有这项技术？（这个技术用来解决什么问题？）它是怎么解决的？（什么原理？）和其他技术点做类比？（扩展其他知识点） 讲一">
-<meta property='og:url' content='https://echo806.github.io/p/redis%E7%AC%94%E8%AE%B0/'>
+<link rel="stylesheet" href="/scss/style.min.d44d1b138e555166d2fb22df4e9ea386c36ba19591a491a37edb07faede022e1.css"><meta property='og:title' content="">
+<meta property='og:description' content="+++ title = &lsquo;redis笔记&rsquo; date = 2026-04-10T08:43:58+08:00 draft = true categories = &ldquo;redis&rdquo; +++ 这个技术点是什么？为什么要有这项技术？（这个技术用来解决什么问题？）它是">
+<meta property='og:url' content='https://echo806.github.io/p/'>
 <meta property='og:site_name' content='帕琪-Pache'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-04-10T08:43:58&#43;08:00'/><meta property='article:modified_time' content='2026-04-10T08:43:58&#43;08:00'/>
-<meta name="twitter:title" content="redis笔记">
-<meta name="twitter:description" content="这个技术点是什么？为什么要有这项技术？（这个技术用来解决什么问题？）它是怎么解决的？（什么原理？）和其他技术点做类比？（扩展其他知识点） 讲一">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' />
+<meta name="twitter:title" content="">
+<meta name="twitter:description" content="+++ title = &lsquo;redis笔记&rsquo; date = 2026-04-10T08:43:58+08:00 draft = true categories = &ldquo;redis&rdquo; +++ 这个技术点是什么？为什么要有这项技术？（这个技术用来解决什么问题？）它是">
     <link rel="shortcut icon" href="/favicon.ico" />
 
   
@@ -317,6 +317,27 @@
     <li><a href="#那为什么我不过期立即删除">那为什么我不过期立即删除？</a></li>
     <li><a href="#redis主从同步中的增量和完全同步怎么实现">Redis主从同步中的增量和完全同步怎么实现？</a></li>
     <li><a href="#redis主从和集群可以保证数据一致性吗-">redis主从和集群可以保证数据一致性吗 ？</a></li>
+    <li><a href="#哨兵机制原理是什么">哨兵机制原理是什么？</a></li>
+    <li><a href="#哨兵机制的选主节点的算法介绍一下">哨兵机制的选主节点的算法介绍一下</a></li>
+    <li><a href="#redis集群的模式了解吗-优缺点了解吗">Redis集群的模式了解吗 优缺点了解吗</a></li>
+    <li><a href="#cluster集群客户端是怎样知道该访问哪个分片的">cluster集群客户端是怎样知道该访问哪个分片的？</a></li>
+    <li><a href="#为什么使用redis">为什么使用redis？</a></li>
+    <li><a href="#为什么redis比mysql要快">为什么redis比mysql要快？</a></li>
+    <li><a href="#本地缓存和redis缓存的区别">本地缓存和Redis缓存的区别?</a></li>
+    <li><a href="#高并发场景redis单节点mysql单节点能有多大的并发量">高并发场景，Redis单节点+MySQL单节点能有多大的并发量？</a></li>
+    <li><a href="#redis应用场景是什么">redis应用场景是什么？</a></li>
+    <li><a href="#redis除了缓存还有哪些应用">Redis除了缓存，还有哪些应用?</a></li>
+    <li><a href="#redis支持并发操作吗">Redis支持并发操作吗？</a></li>
+    <li><a href="#redis分布式锁的实现原理什么场景下用到分布式锁">Redis分布式锁的实现原理？什么场景下用到分布式锁？</a></li>
+    <li><a href="#redis的大key问题是什么">Redis的大Key问题是什么？</a></li>
+    <li><a href="#大key问题的缺点">大Key问题的缺点？</a></li>
+    <li><a href="#redis大key如何解决">Redis大key如何解决？</a></li>
+    <li><a href="#什么是热key">什么是热key？</a></li>
+    <li><a href="#如何解决热key问题">如何解决热key问题？</a></li>
+    <li><a href="#如何保证-redis-和-mysql-数据缓存一致性问题">如何保证 redis 和 mysql 数据缓存一致性问题？</a></li>
+    <li><a href="#缓存雪崩击穿穿透是什么怎么解决">缓存雪崩、击穿、穿透是什么？怎么解决？</a></li>
+    <li><a href="#布隆过滤器原理介绍一下">布隆过滤器原理介绍一下</a></li>
+    <li><a href="#如何设计秒杀场景处理高并发以及超卖现象">如何设计秒杀场景处理高并发以及超卖现象？</a></li>
   </ol>
 </nav>
         </div>
@@ -333,18 +354,10 @@
 
     <div class="article-details">
     
-    <header class="article-category">
-        
-            <a href="/categories/redis/" style="background-color: #2a9d8f; color: #fff;">
-                redis
-            </a>
-        
-    </header>
-    
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/redis%E7%AC%94%E8%AE%B0/">redis笔记</a>
+            <a href="/p/"></a>
         </h2>
     
         
@@ -353,25 +366,6 @@
     
     
     
-    
-    <footer class="article-time">
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
-  <circle cx="18" cy="18" r="4" />
-  <path d="M15 3v4" />
-  <path d="M7 3v4" />
-  <path d="M3 11h16" />
-  <path d="M18 16.496v1.504l1 1" />
-</svg>
-                <time class="article-time--published">2026-04-10</time>
-            </div>
-        
-
-        
-    </footer>
     
 
     
@@ -382,7 +376,13 @@
     <section class="article-content">
     
     
-    <p>这个技术点是什么？为什么要有这项技术？（这个技术用来解决什么问题？）它是怎么解决的？（什么原理？）和其他技术点做类比？（扩展其他知识点）</p>
+    <p>+++
+title = &lsquo;redis笔记&rsquo;
+date = 2026-04-10T08:43:58+08:00
+draft = true
+categories = &ldquo;redis&rdquo;</p>
+<p>+++</p>
+<p>这个技术点是什么？为什么要有这项技术？（这个技术用来解决什么问题？）它是怎么解决的？（什么原理？）和其他技术点做类比？（扩展其他知识点）</p>
 <h2 id="讲一下redis底层的数据结构">讲一下Redis底层的数据结构
 </h2><p>String:缓存对象，常规计数，分布式锁，共享session信息</p>
 <p>List：消息队列（有问题：1.生产者需要自行实现全局id唯一；2.不能以消费者组形式消费）</p>
@@ -421,10 +421,10 @@
 <h2 id="跳表是怎么实现的">跳表是怎么实现的？
 </h2><p>链表在查找元素的时候，因为需要逐一查找，所有查询效率非常低，时间复杂度时o(n)，于是就出现了跳表。<strong>跳表就是在链表基础上改进过来的，实现了一种【多层】的有序链表</strong>，这样的好处时能快速定位数据。</p>
 <p>下图展示了一个层级为 3 的跳表。</p>
-<p><img src="/p/redis%E7%AC%94%E8%AE%B0/skiplist.webp"
+<p><img src="/p/skiplist.webp"
 	width="1164"
 	height="287"
-	srcset="/p/redis%E7%AC%94%E8%AE%B0/skiplist_hu17033814001553694684.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/skiplist_hu3048711844289651869.webp 1024w"
+	srcset="/p/skiplist_hu17033814001553694684.webp 480w, /p/skiplist_hu3048711844289651869.webp 1024w"
 	loading="lazy"
 	
 		alt="skiplist"
@@ -480,10 +480,10 @@
 <p>B+ 树是 “磁盘场景的最优解”，而跳表是 “Redis 内存有序数据场景的最优解”，技术选择的核心是 “适配场景”。</p>
 <h2 id="压缩列表是怎么实现的">压缩列表是怎么实现的？
 </h2><p>压缩列表是 Redis 为了节约内存而开发的，它是<strong>由连续内存块组成的顺序型数据结构</strong>，有点类似于数组。</p>
-<p><img src="/p/redis%E7%AC%94%E8%AE%B0/ziplist.webp"
+<p><img src="/p/ziplist.webp"
 	width="962"
 	height="62"
-	srcset="/p/redis%E7%AC%94%E8%AE%B0/ziplist_hu2931060931788247589.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/ziplist_hu15561054643059302867.webp 1024w"
+	srcset="/p/ziplist_hu2931060931788247589.webp 480w, /p/ziplist_hu15561054643059302867.webp 1024w"
 	loading="lazy"
 	
 		alt="ziplist"
@@ -526,10 +526,10 @@
 <p>于是，Redis 在 5.0 新设计一个数据结构叫 listpack，目的是替代压缩列表，它最大特点是 listpack 中每个节点不再包含前一个节点的长度了，压缩列表每个节点正因为需要保存前一个节点的长度字段，就会有连锁更新的隐患。</p>
 <p>listpack 采用了压缩列表的很多优秀的设计，比如还是用一块连续的内存空间来紧凑地保存数据，并且为了节省内存的开销，listpack 节点会采用不同的编码方式保存不同大小的数据。</p>
 <p>listpack 结构：</p>
-<p><img src="/p/redis%E7%AC%94%E8%AE%B0/listpack.webp"
+<p><img src="/p/listpack.webp"
 	width="1082"
 	height="77"
-	srcset="/p/redis%E7%AC%94%E8%AE%B0/listpack_hu16403471349483251276.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/listpack_hu17776694487876999412.webp 1024w"
+	srcset="/p/listpack_hu16403471349483251276.webp 480w, /p/listpack_hu17776694487876999412.webp 1024w"
 	loading="lazy"
 	
 		alt="listpack"
@@ -542,10 +542,10 @@
 ></p>
 <p>listpack 头包含两个属性，分别记录了 listpack 总字节数和元素数量，然后 listpack 末尾也有个结尾标识。图中的 listpack entry 就是listpack 的节点了。</p>
 <p>每个 listpack 节点结构如下：</p>
-<p><img src="/p/redis%E7%AC%94%E8%AE%B0/listpack2.webp"
+<p><img src="/p/listpack2.webp"
 	width="1082"
 	height="317"
-	srcset="/p/redis%E7%AC%94%E8%AE%B0/listpack2_hu9398967501937385436.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/listpack2_hu7183857707202702001.webp 1024w"
+	srcset="/p/listpack2_hu9398967501937385436.webp 480w, /p/listpack2_hu7183857707202702001.webp 1024w"
 	loading="lazy"
 	
 		alt="listpack2"
@@ -563,10 +563,10 @@
 <p>可以看到，<strong>listpack 没有压缩列表中记录前一个节点长度的字段了，listpack 只记录当前节点的长度，当我们向 listpack 加入一个新元素的时候，不会影响其他节点的长度字段的变化，从而避免了压缩列表的连锁更新问题</strong>.</p>
 <h2 id="哈希表是怎么扩容的">哈希表是怎么扩容的？
 </h2><p>进行 rehash 的时候，需要用上 2 个哈希表了。</p>
-<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E5%93%88%E5%B8%8C%E8%A1%A8%E6%89%A9%E5%AE%B9.webp"
+<p><img src="/p/%E5%93%88%E5%B8%8C%E8%A1%A8%E6%89%A9%E5%AE%B9.webp"
 	width="1702"
 	height="808"
-	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E5%93%88%E5%B8%8C%E8%A1%A8%E6%89%A9%E5%AE%B9_hu2908069639683919266.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E5%93%88%E5%B8%8C%E8%A1%A8%E6%89%A9%E5%AE%B9_hu14370799399187873604.webp 1024w"
+	srcset="/p/%E5%93%88%E5%B8%8C%E8%A1%A8%E6%89%A9%E5%AE%B9_hu2908069639683919266.webp 480w, /p/%E5%93%88%E5%B8%8C%E8%A1%A8%E6%89%A9%E5%AE%B9_hu14370799399187873604.webp 1024w"
 	loading="lazy"
 	
 		alt="哈希表扩容"
@@ -582,10 +582,10 @@
 <p>1.给【哈希表2】分配空间，一般会比【哈希表1】大2倍。</p>
 <p>2.讲【哈希表1】的数据迁移到【哈希表2】中。</p>
 <p>3.迁移完成后，【哈希表1】的空间会被释放，并把【哈希表2】设置为【哈希表1】，如何在【哈希表2】新创建一个空白的哈希表，为下次rehash做准备。</p>
-<p><img src="/p/redis%E7%AC%94%E8%AE%B0/rehash%E6%93%8D%E4%BD%9C%E4%B8%89%E4%B8%AA%E6%AD%A5%E9%AA%A4.webp"
+<p><img src="/p/rehash%E6%93%8D%E4%BD%9C%E4%B8%89%E4%B8%AA%E6%AD%A5%E9%AA%A4.webp"
 	width="1656"
 	height="876"
-	srcset="/p/redis%E7%AC%94%E8%AE%B0/rehash%E6%93%8D%E4%BD%9C%E4%B8%89%E4%B8%AA%E6%AD%A5%E9%AA%A4_hu10753616669749524996.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/rehash%E6%93%8D%E4%BD%9C%E4%B8%89%E4%B8%AA%E6%AD%A5%E9%AA%A4_hu7995954527267085767.webp 1024w"
+	srcset="/p/rehash%E6%93%8D%E4%BD%9C%E4%B8%89%E4%B8%AA%E6%AD%A5%E9%AA%A4_hu10753616669749524996.webp 480w, /p/rehash%E6%93%8D%E4%BD%9C%E4%B8%89%E4%B8%AA%E6%AD%A5%E9%AA%A4_hu7995954527267085767.webp 1024w"
 	loading="lazy"
 	
 		alt="rehash操作三个步骤"
@@ -611,10 +611,10 @@
 <h2 id="string-是使用什么存储的为什么不用-c-语言中的字符串">String 是使用什么存储的?为什么不用 c 语言中的字符串?
 </h2><p>Redis 的 String 字符串是用 SDS（simple dynamic string） 数据结构存储的。</p>
 <p>下图就是 Redis 5.0 的 SDS 的数据结构：</p>
-<p><img src="/p/redis%E7%AC%94%E8%AE%B0/SDS.webp"
+<p><img src="/p/SDS.webp"
 	width="1470"
 	height="728"
-	srcset="/p/redis%E7%AC%94%E8%AE%B0/SDS_hu300195108244872528.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/SDS_hu15080495677286236822.webp 1024w"
+	srcset="/p/SDS_hu300195108244872528.webp 480w, /p/SDS_hu15080495677286236822.webp 1024w"
 	loading="lazy"
 	
 		alt="SDS"
@@ -678,10 +678,10 @@
 </ul>
 <p>Redis 单线程指的是「接收客户端请求-&gt;解析请求 -&gt;进行数据读写等操作-&gt;发送数据给客户端」这个过程是由一个线程（主线程）来完成的这些任务都放在主线程来处理，那么 Redis 主线程就很容易发生阻塞，这样就无法处理后续的请求了。</p>
 <p>后台线程相当于一个消费者，生产者把耗时任务丢到任务队列中，消费者（BIO）不停轮询这个队列，拿出任务就去执行对应的方法即可。</p>
-<p><img src="/p/redis%E7%AC%94%E8%AE%B0/redis%E5%90%8E%E5%8F%B0%E7%BA%BF%E7%A8%8B.webp"
+<p><img src="/p/redis%E5%90%8E%E5%8F%B0%E7%BA%BF%E7%A8%8B.webp"
 	width="1282"
 	height="834"
-	srcset="/p/redis%E7%AC%94%E8%AE%B0/redis%E5%90%8E%E5%8F%B0%E7%BA%BF%E7%A8%8B_hu3492850785570864283.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/redis%E5%90%8E%E5%8F%B0%E7%BA%BF%E7%A8%8B_hu8616633524361730926.webp 1024w"
+	srcset="/p/redis%E5%90%8E%E5%8F%B0%E7%BA%BF%E7%A8%8B_hu3492850785570864283.webp 480w, /p/redis%E5%90%8E%E5%8F%B0%E7%BA%BF%E7%A8%8B_hu8616633524361730926.webp 1024w"
 	loading="lazy"
 	
 		alt="redis后台线程"
@@ -713,10 +713,10 @@
 </h2><p>为什么 Redis 中要使用 I/O 多路复用这种技术呢？</p>
 <p>因为 Redis 是跑在「单线程」中的，所有的操作都是按照顺序线性执行的，但是由于读写操作等待用户输入 或 输出都是阻塞的，所以I/O 操作在一般情况下往往不能直接返回，这会导致某一文件的 I/O阻塞导，致整个进程无法对其它客户提供服务。而 I/O 多路复用就是为了解决这个问题而出现的。<strong>为了让单线程(进程)的服务端应用同时处理多个客户端的事件，Redis 采用了 IO 多路复用机制。</strong></p>
 <p>这里“多路”指的是多个网络连接客户端，“复用”指的是复用同一个线程(单进程)。I/O 多路复用其实是使用一个线程来检查多个 Socket的就绪状态，在单个线程中通过记录跟踪每一个 socket（I/O流）的状态来管理处理多个 I/O 流。如下图是 Redis 的 I/O 多路复用模型：</p>
-<p><img src="/p/redis%E7%AC%94%E8%AE%B0/redis%E7%9A%84%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%A8%A1%E5%9E%8B.webp"
+<p><img src="/p/redis%E7%9A%84%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%A8%A1%E5%9E%8B.webp"
 	width="1137"
 	height="500"
-	srcset="/p/redis%E7%AC%94%E8%AE%B0/redis%E7%9A%84%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%A8%A1%E5%9E%8B_hu8931057319902657832.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/redis%E7%9A%84%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%A8%A1%E5%9E%8B_hu3158281603827300439.webp 1024w"
+	srcset="/p/redis%E7%9A%84%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%A8%A1%E5%9E%8B_hu8931057319902657832.webp 480w, /p/redis%E7%9A%84%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%A8%A1%E5%9E%8B_hu3158281603827300439.webp 1024w"
 	loading="lazy"
 	
 		alt="redis的多路复用模型"
@@ -820,10 +820,10 @@
 </ul>
 <p>AOF 日志是如何实现的？</p>
 <p>Redis 在执行完一条写操作命令后，就会把该命令以追加的方式写入到一个文件里，然后 Redis 重启时，会读取该文件记录的命令，然后逐一执行命令的方式来进行数据恢复。</p>
-<p><img src="/p/redis%E7%AC%94%E8%AE%B0/AOF%E6%97%A5%E5%BF%97%E5%AE%9E%E7%8E%B0.webp"
+<p><img src="/p/AOF%E6%97%A5%E5%BF%97%E5%AE%9E%E7%8E%B0.webp"
 	width="902"
 	height="332"
-	srcset="/p/redis%E7%AC%94%E8%AE%B0/AOF%E6%97%A5%E5%BF%97%E5%AE%9E%E7%8E%B0_hu13588019466707974425.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/AOF%E6%97%A5%E5%BF%97%E5%AE%9E%E7%8E%B0_hu3813203286938121222.webp 1024w"
+	srcset="/p/AOF%E6%97%A5%E5%BF%97%E5%AE%9E%E7%8E%B0_hu13588019466707974425.webp 480w, /p/AOF%E6%97%A5%E5%BF%97%E5%AE%9E%E7%8E%B0_hu3813203286938121222.webp 1024w"
 	loading="lazy"
 	
 		alt="AOF日志实现"
@@ -846,10 +846,10 @@
 <p><strong>No</strong>,不由 Redis 控制写回硬盘的时机，转交给操作系统控制写回的时机，也就是每次写操作命令执行完后，先将命令写入到 AOF 文件的内核缓冲区,再由操作系统决定何时将缓冲区内容写回硬盘。</p>
 </li>
 </ul>
-<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E4%B8%89%E4%B8%AA%E5%86%99%E5%9B%9E%E7%AD%96%E7%95%A5%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9.webp"
+<p><img src="/p/%E4%B8%89%E4%B8%AA%E5%86%99%E5%9B%9E%E7%AD%96%E7%95%A5%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9.webp"
 	width="857"
 	height="362"
-	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E4%B8%89%E4%B8%AA%E5%86%99%E5%9B%9E%E7%AD%96%E7%95%A5%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9_hu171113374831540429.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E4%B8%89%E4%B8%AA%E5%86%99%E5%9B%9E%E7%AD%96%E7%95%A5%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9_hu5338154002407265151.webp 1024w"
+	srcset="/p/%E4%B8%89%E4%B8%AA%E5%86%99%E5%9B%9E%E7%AD%96%E7%95%A5%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9_hu171113374831540429.webp 480w, /p/%E4%B8%89%E4%B8%AA%E5%86%99%E5%9B%9E%E7%AD%96%E7%95%A5%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9_hu5338154002407265151.webp 1024w"
 	loading="lazy"
 	
 		alt="三个写回策略的优缺点"
@@ -893,10 +893,10 @@
 <h2 id="介绍一下redis-内存淘汰策略">介绍一下Redis 内存淘汰策略
 </h2><p>在 32 位操作系统中，maxmemory 的默认值是 3G，因为 32 位的机器最大只支持 4GB 的内存，而系统本身就需要一定的内存资源来支持运行，所以 32 位操作系统限制最大 3 GB 的可用内存是非常合理的，这样可以避免因为内存不足而导致 Redis 实例崩溃。</p>
 <p>Redis 内存淘汰策略共有八种，这八种策略大体分为「不进行数据淘汰」和「进行数据淘汰」两类策略</p>
-<p><img src="/p/redis%E7%AC%94%E8%AE%B0/redis%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5.webp"
+<p><img src="/p/redis%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5.webp"
 	width="1080"
 	height="342"
-	srcset="/p/redis%E7%AC%94%E8%AE%B0/redis%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5_hu9596370481752374491.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/redis%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5_hu8051355216374122432.webp 1024w"
+	srcset="/p/redis%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5_hu9596370481752374491.webp 480w, /p/redis%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5_hu8051355216374122432.webp 1024w"
 	loading="lazy"
 	
 		alt="redis内存淘汰策略"
@@ -963,10 +963,10 @@
 </li>
 </ul>
 <p>惰性删除的流程图如下：</p>
-<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E6%83%B0%E6%80%A7%E5%88%A0%E9%99%A4.webp"
+<p><img src="/p/%E6%83%B0%E6%80%A7%E5%88%A0%E9%99%A4.webp"
 	width="910"
 	height="1549"
-	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E6%83%B0%E6%80%A7%E5%88%A0%E9%99%A4_hu18201964476488260873.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E6%83%B0%E6%80%A7%E5%88%A0%E9%99%A4_hu2408904886378992619.webp 1024w"
+	srcset="/p/%E6%83%B0%E6%80%A7%E5%88%A0%E9%99%A4_hu18201964476488260873.webp 480w, /p/%E6%83%B0%E6%80%A7%E5%88%A0%E9%99%A4_hu2408904886378992619.webp 1024w"
 	loading="lazy"
 	
 		alt="惰性删除"
@@ -989,10 +989,10 @@
 </ol>
 <p>可以看到，定期删除是一个循环的流程。那 Redis 为了保证定期删除不会出现循环过度，导致线程卡死现象，为此增加了定期删除循环流程的时间上限，默认不会超过 25ms。</p>
 <p>定期删除的流程如下：</p>
-<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E5%AE%9A%E6%9C%9F%E5%88%A0%E9%99%A4%E6%B5%81%E7%A8%8B.webp"
+<p><img src="/p/%E5%AE%9A%E6%9C%9F%E5%88%A0%E9%99%A4%E6%B5%81%E7%A8%8B.webp"
 	width="1041"
 	height="2399"
-	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E5%AE%9A%E6%9C%9F%E5%88%A0%E9%99%A4%E6%B5%81%E7%A8%8B_hu10347522263526623774.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E5%AE%9A%E6%9C%9F%E5%88%A0%E9%99%A4%E6%B5%81%E7%A8%8B_hu14497304561093490647.webp 1024w"
+	srcset="/p/%E5%AE%9A%E6%9C%9F%E5%88%A0%E9%99%A4%E6%B5%81%E7%A8%8B_hu10347522263526623774.webp 480w, /p/%E5%AE%9A%E6%9C%9F%E5%88%A0%E9%99%A4%E6%B5%81%E7%A8%8B_hu14497304561093490647.webp 1024w"
 	loading="lazy"
 	
 		alt="定期删除流程"
@@ -1028,10 +1028,10 @@
 <p>第三阶段是主服务器发送新写操作命令给从服务器。</p>
 </li>
 </ul>
-<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E5%AE%8C%E5%85%A8%E5%90%8C%E6%AD%A5.webp"
+<p><img src="/p/%E5%AE%8C%E5%85%A8%E5%90%8C%E6%AD%A5.webp"
 	width="1080"
 	height="555"
-	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E5%AE%8C%E5%85%A8%E5%90%8C%E6%AD%A5_hu4084415341931896493.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E5%AE%8C%E5%85%A8%E5%90%8C%E6%AD%A5_hu8307736537629108164.webp 1024w"
+	srcset="/p/%E5%AE%8C%E5%85%A8%E5%90%8C%E6%AD%A5_hu4084415341931896493.webp 480w, /p/%E5%AE%8C%E5%85%A8%E5%90%8C%E6%AD%A5_hu8307736537629108164.webp 1024w"
 	loading="lazy"
 	
 		alt="完全同步"
@@ -1065,10 +1065,10 @@
 </ol>
 <p>增量同步</p>
 <p>增量同步允许从服务器从断点处继续同步，而不是每次都进行完全同步。它基于<code>PSYNC</code>命令，使用了运行ID（run ID）和复制偏移量（offset）的概念。</p>
-<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5.webp"
+<p><img src="/p/%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5.webp"
 	width="707"
 	height="617"
-	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5_hu6978005064518914187.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5_hu3011724012945420535.webp 1024w"
+	srcset="/p/%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5_hu6978005064518914187.webp 480w, /p/%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5_hu3011724012945420535.webp 1024w"
 	loading="lazy"
 	
 		alt="增量同步"
@@ -1113,10 +1113,10 @@
 </li>
 </ul>
 <p>当主服务器在 repl_backlog_buffer 中找到主从服务器差异（增量）的数据后，就会将增量的数据写入到 replication buffer 缓冲区，这个缓冲区我们前面也提到过，它是缓存将要传播给从服务器的命令。</p>
-<p><img src="/p/redis%E7%AC%94%E8%AE%B0/replicationbuffer%E7%BC%93%E5%86%B2%E5%8C%BA.webp"
+<p><img src="/p/replicationbuffer%E7%BC%93%E5%86%B2%E5%8C%BA.webp"
 	width="1080"
 	height="380"
-	srcset="/p/redis%E7%AC%94%E8%AE%B0/replicationbuffer%E7%BC%93%E5%86%B2%E5%8C%BA_hu12285216858972009406.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/replicationbuffer%E7%BC%93%E5%86%B2%E5%8C%BA_hu1946700028092958950.webp 1024w"
+	srcset="/p/replicationbuffer%E7%BC%93%E5%86%B2%E5%8C%BA_hu12285216858972009406.webp 480w, /p/replicationbuffer%E7%BC%93%E5%86%B2%E5%8C%BA_hu1946700028092958950.webp 1024w"
 	loading="lazy"
 	
 		alt="replicationbuffer缓冲区"
@@ -1144,6 +1144,669 @@
 <p>partition tolerance 分区容忍度  当网络发生分区（断开）时，系统仍然能继续运行</p>
 </li>
 </ul>
+<h2 id="哨兵机制原理是什么">哨兵机制原理是什么？
+</h2><p>在 Redis 的主从架构中，由于主从模式是读写分离的，如果主节点（master）挂了，那么将没有主节点来服务客户端的写操作请求，也没有主节点给从节点（slave）进行数据同步了。</p>
+<p>这时如果要恢复服务的话，需要人工介入，选择一个「从节点」切换为「主节点」，然后让其他从节点指向新的主节点，同时还需要通知上游那些连接 Redis 主节点的客户端，将其配置中的主节点 IP 地址更新为「新主节点」的 IP 地址。</p>
+<p>这样也不太“智能”了，要是有一个节点能监控「主节点」的状态，当发现主节点挂了，它自动将一个「从节点」切换为「主节点」的话，那么可以节省我们很多事情啊！</p>
+<p>Redis 在 2.8 版本以后提供的<strong>哨兵（sentinel）机制</strong>，它的作用是实现<strong>主从节点故障转移</strong>。它会监测主节点是否存活，如果发现主节点挂了，它就会选举一个从节点切换为主节点，并且把新主节点的相关信息通知给从节点和客户端。</p>
+<p>哨兵其实是一个运行在特殊模式下的 Redis 进程，所以它也是一个节点。从“哨兵”这个名字也可以看得出来，它相当于是“观察者节点”，观察的对象是主从节点。</p>
+<p>当然，它不仅仅是观察那么简单，在它观察到有异常的状况下，会做出一些“动作”，来修复异常状态。</p>
+<p>哨兵节点主要负责三件事情：<strong>监控、选主、通知</strong>。</p>
+<h2 id="哨兵机制的选主节点的算法介绍一下">哨兵机制的选主节点的算法介绍一下
+</h2><p>当redis集群的主节点故障时，Sentinel集群将从剩余的从节点中选举一个新的主节点，有以下步骤：</p>
+<ol>
+<li>
+<p>故障节点主观下线</p>
+</li>
+<li>
+<p>故障节点客观下线</p>
+</li>
+<li>
+<p>Sentinel集群选举Leader</p>
+</li>
+<li>
+<p>Sentinel Leader决定新主节点</p>
+</li>
+<li>
+<p>故障节点主观下线</p>
+</li>
+</ol>
+<p>Sentinel集群的每一个Sentinel节点会定时对redis集群的所有节点发心跳包检测节点是否正常。如果一个节点在down-after-milliseconds时间内没有回复Sentinel节点的心跳包，则该redis节点被该Sentinel节点主观下线。</p>
+<p><img src="/p/%E6%95%85%E9%9A%9C%E8%8A%82%E7%82%B9%E4%B8%BB%E8%A7%82%E4%B8%8B%E7%BA%BF.webp"
+	width="982"
+	height="560"
+	srcset="/p/%E6%95%85%E9%9A%9C%E8%8A%82%E7%82%B9%E4%B8%BB%E8%A7%82%E4%B8%8B%E7%BA%BF_hu10390192256574734172.webp 480w, /p/%E6%95%85%E9%9A%9C%E8%8A%82%E7%82%B9%E4%B8%BB%E8%A7%82%E4%B8%8B%E7%BA%BF_hu4109195826203049086.webp 1024w"
+	loading="lazy"
+	
+		alt="故障节点主观下线"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="175"
+		data-flex-basis="420px"
+	
+></p>
+<ol start="2">
+<li>故障节点客观下线</li>
+</ol>
+<p>当节点被一个Sentinel节点记为主观下线时，并不意味着该节点肯定故障了，还需要Sentinel集群的其他Sentinel节点共同判断为主观下线才行。</p>
+<p>该Sentinel节点会询问其他Sentinel节点，如果Sentinel集群中超过quorum数量的Sentinel节点认为该redis节点主观下线，则该redis客观下线。</p>
+<p><img src="/p/%E6%95%85%E9%9A%9C%E8%8A%82%E7%82%B9%E5%AE%A2%E8%A7%82%E4%B8%8B%E7%BA%BF.webp"
+	width="1066"
+	height="686"
+	srcset="/p/%E6%95%85%E9%9A%9C%E8%8A%82%E7%82%B9%E5%AE%A2%E8%A7%82%E4%B8%8B%E7%BA%BF_hu9826284190465803832.webp 480w, /p/%E6%95%85%E9%9A%9C%E8%8A%82%E7%82%B9%E5%AE%A2%E8%A7%82%E4%B8%8B%E7%BA%BF_hu9028811904964392393.webp 1024w"
+	loading="lazy"
+	
+		alt="故障节点客观下线"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="155"
+		data-flex-basis="372px"
+	
+></p>
+<p>如果客观下线的redis节点是从节点或者是Sentinel节点，则操作到此为止，没有后续的操作了；如果客观下线的redis节点为主节点，则开始故障转移，从从节点中选举一个节点升级为主节点。</p>
+<ol start="3">
+<li>Sentinel集群选举Leader</li>
+</ol>
+<p>如果需要从redis集群选举一个节点为主节点，首先需要从Sentinel集群中选举一个Sentinel节点作为Leader。</p>
+<p><img src="/p/sentinel%E9%9B%86%E7%BE%A4%E9%80%89%E4%B8%BEleader.webp"
+	width="1124"
+	height="988"
+	srcset="/p/sentinel%E9%9B%86%E7%BE%A4%E9%80%89%E4%B8%BEleader_hu7750233420890987172.webp 480w, /p/sentinel%E9%9B%86%E7%BE%A4%E9%80%89%E4%B8%BEleader_hu8986881911004760850.webp 1024w"
+	loading="lazy"
+	
+		alt="sentinel集群选举leader"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="113"
+		data-flex-basis="273px"
+	
+></p>
+<p>每一个Sentinel节点都可以成为Leader，当一个Sentinel节点确认redis集群的主节点主观下线后，会请求其他Sentinel节点要求将自己选举为Leader。被请求的Sentinel节点如果没有同意过其他Sentinel节点的选举请求，则同意该请求(选举票数+1)，否则不同意。</p>
+<p>如果一个Sentinel节点获得的选举票数达到Leader最低票数(quorum和Sentinel节点数/2+1的最大值)，则该Sentinel节点选举为Leader；否则重新进行选举。</p>
+<p><img src="/p/%E9%80%89%E4%B8%BE.webp"
+	width="1220"
+	height="388"
+	srcset="/p/%E9%80%89%E4%B8%BE_hu7341123530846655310.webp 480w, /p/%E9%80%89%E4%B8%BE_hu8612720881922595174.webp 1024w"
+	loading="lazy"
+	
+		alt="选举"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="314"
+		data-flex-basis="754px"
+	
+></p>
+<p>举个例子，假设哨兵节点有 3 个，quorum 设置为 2，那么任何一个想成为 Leader 的哨兵只要拿到 2 张赞成票，就可以选举成功了。如果没有满足条件，就需要重新进行选举。</p>
+<ol start="4">
+<li>Sentinel Leader决定新主节点</li>
+</ol>
+<p>当Sentinel集群选举出Sentinel Leader后，由Sentinel Leader从redis从节点中选择一个redis节点作为主节点：</p>
+<ol>
+<li>
+<p>过滤故障的节点</p>
+</li>
+<li>
+<p>选择优先级slave-priority最大的从节点作为主节点，如不存在则继续</p>
+</li>
+<li>
+<p>选择复制偏移量（数据写入量的字节，记录写了多少数据。主服务器会把偏移量同步给从服务器，当主从的偏移量一致，则数据是完全同步）最大的从节点作为主节点，如不存在则继续</p>
+</li>
+<li>
+<p>选择runid（redis每次启动的时候生成随机的runid作为redis的标识）最小的从节点作为主节点</p>
+</li>
+</ol>
+<p><img src="/p/%E9%80%89%E4%B8%BB.webp"
+	width="879"
+	height="1027"
+	srcset="/p/%E9%80%89%E4%B8%BB_hu13037808206303987479.webp 480w, /p/%E9%80%89%E4%B8%BB_hu14050166994910651673.webp 1024w"
+	loading="lazy"
+	
+		alt="选主"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="85"
+		data-flex-basis="205px"
+	
+></p>
+<h2 id="redis集群的模式了解吗-优缺点了解吗">Redis集群的模式了解吗 优缺点了解吗
+</h2><p>当 Redis 缓存数据量大到一台服务器无法缓存时，就需要使用 <strong>Redis 切片集群</strong>（Redis Cluster ）方案，它将数据分布在不同的服务器上，以此来降低系统对单主节点的依赖，从而提高 Redis 服务的读写性能。</p>
+<p>Redis Cluster 方案采用哈希槽（Hash Slot），来处理数据和节点之间的映射关系。在 Redis Cluster 方案中，<strong>一个切片集群共有 16384 个哈希槽</strong>，这些哈希槽类似于数据分区，每个键值对都会根据它的key，被映射到一个哈希槽中，具体执行过程分为两大步：</p>
+<ul>
+<li>
+<p>根据键值对的 key，按照 CRC16 算法计算一个 16 bit 的值。</p>
+</li>
+<li>
+<p>再用 16bit 值对 16384 取模，得到 0~16383 范围内的模数，每个模数代表一个相应编号的哈希槽。</p>
+</li>
+</ul>
+<p>接下来的问题就是，这些哈希槽怎么被映射到具体的 Redis 节点上的呢？有两种方案：</p>
+<p><strong>平均分配：</strong> 在使用 cluster create 命令创建 Redis 集群时，Redis会自动把所有哈希槽平均分布到集群节点上。比如集群中有 9 个节点，则每个节点上槽的个数为 16384/9 个。</p>
+<p><strong>手动分配：</strong> 可以使用 cluster meet 命令手动建立节点间的连接组成集群，再使用 cluster addslots 命令，指定每个节点上的哈希槽个数。</p>
+<p>为了方便你的理解，我通过一张图来解释数据、哈希槽，以及节点三者的映射分布关系。</p>
+<p><img src="/p/%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%93%88%E5%B8%8C%E6%A7%BD%EF%BC%8C%E8%8A%82%E7%82%B9%E4%B8%89%E8%80%85%E7%9A%84%E6%98%A0%E5%B0%84%E5%88%86%E5%B8%83%E5%85%B3%E7%B3%BB.webp"
+	width="1025"
+	height="533"
+	srcset="/p/%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%93%88%E5%B8%8C%E6%A7%BD%EF%BC%8C%E8%8A%82%E7%82%B9%E4%B8%89%E8%80%85%E7%9A%84%E6%98%A0%E5%B0%84%E5%88%86%E5%B8%83%E5%85%B3%E7%B3%BB_hu1348593974354968825.webp 480w, /p/%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%93%88%E5%B8%8C%E6%A7%BD%EF%BC%8C%E8%8A%82%E7%82%B9%E4%B8%89%E8%80%85%E7%9A%84%E6%98%A0%E5%B0%84%E5%88%86%E5%B8%83%E5%85%B3%E7%B3%BB_hu14972200637888694745.webp 1024w"
+	loading="lazy"
+	
+		alt="数据，哈希槽，节点三者的映射分布关系"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="192"
+		data-flex-basis="461px"
+	
+></p>
+<p>上图中的切片集群一共有 2 个节点，假设有 4 个哈希槽（Slot 0～Slot 3）时，我们就可以通过命令手动分配哈希槽，比如节点 1 保存哈希槽 0 和 1，节点 2 保存哈希槽 2 和 3。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">redis-cli -h 192.168.1.10 –p 6379 cluster addslots 0,1
+</span></span><span class="line"><span class="cl">redis-cli -h 192.168.1.11 –p 6379 cluster addslots 2,3
+</span></span></code></pre></div><p>然后在集群运行的过程中，key1 和 key2 计算完 CRC16 值后，对哈希槽总个数 4 进行取模，再根据各自的模数结果，就可以被映射到哈希槽 1（对应节点1） 和 哈希槽 2（对应节点2）。</p>
+<p>需要注意的是，在手动分配哈希槽时，需要把 16384 个槽都分配完，否则 Redis 集群无法正常工作。</p>
+<p>Redis集群模式优点/缺点</p>
+<p>优点：</p>
+<ul>
+<li>
+<p><strong>高可用性</strong>：Redis集群最主要的优点是提供了高可用性，节点之间采用主从复制机制，可以保证数据的持久性和容错能力，哪怕其中一个节点挂掉，整个集群还可以继续工作。</p>
+</li>
+<li>
+<p>**高性能：**Redis集群采用分片技术，将数据分散到多个节点，从而提高读写性能。当业务访问量大到单机Redis无法满足时，可以通过添加节点来增加集群的吞吐量。</p>
+</li>
+<li>
+<p>**扩展性好：**Redis集群的扩展性非常好，可以根据实际需求动态增加或减少节点，从而实现可扩展性。集群模式中的某些节点还可以作为代理节点，自动转发请求，增加数据模式的灵活度和可定制性。</p>
+</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>
+<p>**部署和维护较复杂：**Redis集群的部署和维护需要考虑到分片规则、节点的布置、主从配置以及故障处理等多个方面，需要较强的技术支持，增加了节点异常处理的复杂性和成本。</p>
+</li>
+<li>
+<p>**集群同步问题：**当某些节点失败或者网络出故障，集群中数据同步的问题也会出现。数据同步的复杂度和工作量随着节点的增加而增加，同步时间也较长，导致一定的读写延迟。</p>
+</li>
+<li>
+<p>**数据分片限制：**Redis集群的数据分片也限制了一些功能的实现，如在一个key上修改多次，可能会因为该key所在的节点位置变化而失败。此外，由于将数据分散存储到各个节点，某些操作不能跨节点实现，不同节点之间的一些操作需要额外注意。</p>
+</li>
+</ul>
+<h2 id="cluster集群客户端是怎样知道该访问哪个分片的">cluster集群客户端是怎样知道该访问哪个分片的？
+</h2><p>首先 Redis Cluster 把所有数据映射到 16384 个哈希槽里，每个集群节点会负责一部分槽位，客户端启动后会先和集群中任意一个节点建立连接，发送<code>CLUSTER SLOTS</code>命令获取全量的 “槽位 - 节点” 映射关系（比如哪些槽位归哪个 IP + 端口的节点管），然后把这份映射关系缓存到本地。</p>
+<p>当客户端要访问某个 key 时，会先对 key 做 CRC16 哈希计算，再对16384 取模，算出这个 key 对应的哈希槽位，接着查本地缓存的映射表，找到该槽位对应的节点地址，直接访问这个节点即可。</p>
+<p>如果期间集群节点有变动（比如槽位迁移、节点下线），客户端访问时会收到节点返回的<code>MOVED</code>或<code>ASK</code>重定向指令，客户端会根据指令更新本地的槽位映射缓存，下次再访问这个 key 就会直接找新的节点，不用再重定向。</p>
+<p>简单说，客户端先拿全量槽位映射表缓存起来，访问 key 时算槽位、查缓存找节点，遇到变动就更新缓存，全程自动完成，不用开发者手动指定分片，这也是 Redis Cluster 能做到透明分片访问的核心。</p>
+<h2 id="为什么使用redis">为什么使用redis？
+</h2><p>主要是因为 <strong>Redis 具备「高性能」和「高并发」两种特性</strong>。</p>
+<p>1、Redis 具备高性能</p>
+<p>假如用户第一次访问 MySQL 中的某些数据。这个过程会比较慢，因为是从硬盘上读取的。将该用户访问的数据缓存在 Redis 中，这样下一次再访问这些数据的时候就可以直接从缓存中获取了，操作Redis 缓存就是直接操作内存，所以速度相当快。</p>
+<p>如果 MySQL 中的对应数据改变的之后，同步改变 Redis 缓存中相应的数据即可，不过这里会有 Redis 和 MySQL 双写一致性的问题。</p>
+<p>2、 Redis 具备高并发</p>
+<p>单台设备的 Redis 的 QPS（Query Per Second，每秒钟处理完请求的次数） 是 MySQL 的 10 倍，Redis 单机的 QPS 能轻松破 10w，而MySQL 单机的 QPS 很难破 1w。</p>
+<p>所以，直接访问 Redis 能够承受的请求是远远大于直接访问 MySQL的，所以我们可以考虑把数据库中的部分数据转移到缓存中去，这样用户的一部分请求会直接到缓存这里而不用经过数据库。</p>
+<h2 id="为什么redis比mysql要快">为什么redis比mysql要快？
+</h2><p><strong>内存存储</strong>：Redis 是基于内存存储的 NoSQL 数据库，而 MySQL是基于磁盘存储的关系型数据库。由于内存存储速度快，Redis能够更快地读取和写入数据，而无需像 MySQL 那样频繁进行磁盘 I/O 操作。</p>
+<p><strong>简单数据结构</strong>：Redis 是基于键值对存储数据的，支持简单的数据结构（字符串、哈希、列表、集合、有序集合）。相比之下，MySQL 需要定义表结构、索引等复杂的关系型数据结构，因此在某些场景下 Redis 的数据操作更为简单高效，比如 Redis 用哈希表查询， 只需要O1 时间复杂度，而MySQL引擎的底层实现是B+Tree，时间复杂度是O(logn)。</p>
+<p><strong>线程模型</strong>：Redis 采用单线程模型可以避免了多线程之间的竞争，省去了多线程切换带来的时间和性能上的开销，而且也不会导致死锁问题。</p>
+<h2 id="本地缓存和redis缓存的区别">本地缓存和Redis缓存的区别?
+</h2><p><strong>本地缓存</strong>是指将数据存储在本地应用程序或服务器上，通常用于加速数据访问和提高响应速度。本地缓存通常使用内存作为存储介质，利用内存的高速读写特性来提高数据访问速度。</p>
+<p>本地缓存的优势：</p>
+<ul>
+<li>
+<p>访问速度快：由于本地缓存存储在本地内存中，因此访问速度非常快，能够满足频繁访问和即时响应的需求。</p>
+</li>
+<li>
+<p>减轻网络压力：本地缓存能够降低对远程服务器的访问次数，从而减轻网络压力，提高系统的可用性和稳定性。</p>
+</li>
+<li>
+<p>低延迟：由于本地缓存位于本地设备上，因此能够提供低延迟的访问速度，适用于对实时性要求较高的应用场景。</p>
+</li>
+</ul>
+<p>本地缓存的不足：</p>
+<ul>
+<li>可扩展性有限：本地缓存的可扩展性受到硬件资源的限制，无法支持大规模的数据存储和访问。</li>
+</ul>
+<p>**分布式缓存（<strong>Redis</strong>）**是指将数据存储在多个分布式节点上，通过协同工作来提供高性能的数据访问服务。分布式缓存通常使用集群方式进行部署，利用多台服务器来分担数据存储和访问的压力。</p>
+<p>分布式缓存的优势：</p>
+<ul>
+<li>
+<p>可扩展性强：分布式缓存的节点可以动态扩展，能够支持大规模的数据存储和访问需求。</p>
+</li>
+<li>
+<p>数据一致性高：通过分布式一致性协议，分布式缓存能够保证数据在多个节点之间的一致性，减少数据不一致的问题。</p>
+</li>
+<li>
+<p>易于维护：分布式缓存通常采用自动化管理方式，能够降低维护成本和管理的复杂性。</p>
+</li>
+</ul>
+<p>分布式缓存的不足：</p>
+<ul>
+<li>
+<p>访问速度相对较慢：相对于本地缓存，分布式缓存的访问速度相对较慢，因为数据需要从多个节点进行访问和协同。</p>
+</li>
+<li>
+<p>网络开销大：由于分布式缓存需要通过网络进行数据传输和协同操作，因此相对于本地缓存来说，网络开销较大。</p>
+</li>
+</ul>
+<p>在选择使用本地缓存还是分布式缓存时，我们需要根据具体的应用场景和需求进行权衡。以下是一些考虑因素：</p>
+<ul>
+<li>
+<p>数据大小：如果数据量较小，且对实时性要求较高，本地缓存更适合；如果数据量较大，且需要支持大规模的并发访问，分布式缓存更具优势。</p>
+</li>
+<li>
+<p>网络状况：如果网络状况良好且稳定，分布式缓存能够更好地发挥其优势；如果网络状况较差或不稳定，本地缓存的访问速度和稳定性可能更有优势。</p>
+</li>
+</ul>
+<h2 id="高并发场景redis单节点mysql单节点能有多大的并发量">高并发场景，Redis单节点+MySQL单节点能有多大的并发量？
+</h2><ul>
+<li>
+<p>如果缓存命中的话，4 核心 8g 内存的配置，redis 可以支撑 10w 的 qps</p>
+</li>
+<li>
+<p>如果缓存没有命中的话，4 核心 8g 内存的配置，mysql 只能支持 5000 左右的 qps</p>
+</li>
+</ul>
+<h2 id="redis应用场景是什么">redis应用场景是什么？
+</h2><p>Redis 是一种基于内存的数据库，对数据的读写操作都是在内存中完成，因此<strong>读写速度非常快</strong>，常用于<strong>缓存，消息队列、分布式锁等场景</strong>。</p>
+<ul>
+<li>
+<p><strong>缓存</strong>: Redis最常见的用途就是作为缓存系统。通过将热门数据存储在内存中，可以极大地提高访问速度，减轻数据库负载，这对于需要快速响应时间的应用程序非常重要。</p>
+</li>
+<li>
+<p><strong>排行榜</strong>: Redis的有序集合结构非常适合用于实现排行榜和排名系统，可以方便地进行数据排序和排名。</p>
+</li>
+<li>
+<p><strong>分布式锁</strong>: Redis的特性可以用来实现分布式锁，确保多个进程或服务之间的数据操作的原子性和一致性</p>
+</li>
+<li>
+<p><strong>计数器</strong> 由于Redis的原子操作和高性能，它非常适合用于实现计数器和统计数据的存储，如网站访问量统计、点赞数统计等。</p>
+</li>
+<li>
+<p><strong>消息队列</strong>: Redis的发布订阅功能使其成为一个轻量级的消息队列，它可以用来实现发布和订阅模式，以便实时处理消息。</p>
+</li>
+</ul>
+<h2 id="redis除了缓存还有哪些应用">Redis除了缓存，还有哪些应用?
+</h2><p><strong>Redis实现消息队列</strong></p>
+<p>Redis 可以用来实现消息队列，尤其是基于 Stream，可以支持消费组和 ACK，适合轻量级异步场景。</p>
+<p>但 Redis 本质是内存数据库，在消息堆积能力、可靠性和功能完整性上不如专业 MQ。</p>
+<p><strong>Redis实现分布式锁</strong></p>
+<p>Redis 可以实现分布式锁，通常通过 SET NX PX + Lua 脚本保证原子性。</p>
+<p>它的优点是性能高、实现简单，在很多互联网项目中广泛使用。</p>
+<p>但 Redis 锁存在一些问题，比如锁过期导致并发执行、主从切换导致锁丢失等，因此不保证强一致性。</p>
+<p>在实际项目中，Redis 锁适用于对一致性要求不那么严格的场景，而对于金融等强一致场景，一般会使用 ZooKeeper 或数据库锁。</p>
+<p>Redis 分布式锁本质是“高性能但弱一致”的方案，通常需要配合业务幂等性来保证最终正确性。</p>
+<h2 id="redis支持并发操作吗">Redis支持并发操作吗？
+</h2><p>并发操作是指多个任务在同一时间段内同时进行，可能会导致数据不一致问题。</p>
+<p>Redis 支持并发访问，但它内部采用单线程模型，所有命令是串行执行的，因此单个命令具有原子性。</p>
+<p>但如果是多个命令组合操作，仍然可能存在并发问题，需要通过 Lua 脚本或分布式锁来保证原子性。</p>
+<p>（Redis 的并发能力体现在“高并发处理能力”，而不是“并行执行命令”。）</p>
+<h2 id="redis分布式锁的实现原理什么场景下用到分布式锁">Redis分布式锁的实现原理？什么场景下用到分布式锁？
+</h2><p><strong>分布式锁是用于分布式环境下并发控制的一种机制，用于控制某个资源在同一时刻只能被一个应用所使用</strong>。</p>
+<p>如下图所示：</p>
+<p><img src="/p/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81.webp"
+	width="1080"
+	height="501"
+	srcset="/p/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81_hu290411053471215606.webp 480w, /p/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81_hu17398441749719793370.webp 1024w"
+	loading="lazy"
+	
+		alt="分布式锁"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="215"
+		data-flex-basis="517px"
+	
+></p>
+<p>Redis 本身可以被多个客户端共享访问，正好就是一个共享存储系统，可以用来保存分布式锁，而且 Redis 的读写性能高，可以应对高并发的锁操作场景。Redis 的 SET 命令有个 NX 参数可以实现「key不存在才插入」，所以可以用它来实现分布式锁：</p>
+<ul>
+<li>
+<p>如果 key 不存在，则显示插入成功，可以用来表示加锁成功；</p>
+</li>
+<li>
+<p>如果 key 存在，则会显示插入失败，可以用来表示加锁失败。</p>
+</li>
+</ul>
+<p>基于 Redis 节点实现分布式锁时，对于加锁操作，我们需要满足三个条件。</p>
+<ul>
+<li>
+<p>加锁包括了读取锁变量、检查锁变量值和设置锁变量值三个操作，但需要以原子操作的方式完成，所以，我们使用 SET 命令带上 NX 选项来实现加锁；</p>
+</li>
+<li>
+<p>锁变量需要设置过期时间，以免客户端拿到锁后发生异常，导致锁一直无法释放所以，我们在 SET 命令执行时加上 EX/PX 选项，设置其过期时间；</p>
+</li>
+<li>
+<p>锁变量的值需要能区分来自不同客户端的加锁操作，以免在释放锁时，出现误释放操作，所以，我们使用 SET 命令设置锁变量值时，每个客户端设置的值是一个唯一值，用于标识客户端；</p>
+</li>
+</ul>
+<p>满足这三个条件的分布式命令如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">SET lock_key unique_value NX PX <span class="m">10000</span>
+</span></span></code></pre></div><ul>
+<li>
+<p>lock_key 就是 key 键；</p>
+</li>
+<li>
+<p>unique_value 是客户端生成的唯一的标识，区分来自不同客户端的锁操作；</p>
+</li>
+<li>
+<p>NX 代表只在 lock_key 不存在时，才对 lock_key 进行设置操作；</p>
+</li>
+<li>
+<p>PX 10000 表示设置 lock_key 的过期时间为 10s，这是为了避免客户端发生异常而无法释放锁。</p>
+</li>
+</ul>
+<p>而解锁的过程就是将 lock_key 键删除（del lock_key），但不能乱删，要保证执行操作的客户端就是加锁的客户端。所以，解锁的时候，我要保证执行操作的客户端就是加锁的客户端。所以，解锁的时候，我</p>
+<p>可以看到，解锁是有两个操作，这时就需要 Lua 脚本来保证解锁的原子性，因为 Redis 在执行 Lua 脚本时，可以以原子性的方式执行，保证了锁释放操作的原子性。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="o">//</span> <span class="err">释放锁时，先比较</span> <span class="n">unique_value</span> <span class="err">是否相等，避免锁的误释放</span>
+</span></span><span class="line"><span class="cl"><span class="kr">if</span> <span class="n">redis.call</span><span class="p">(</span><span class="s2">&#34;get&#34;</span><span class="p">,</span><span class="n">KEYS</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="n">ARGV</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="kr">then</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">return</span> <span class="n">redis.call</span><span class="p">(</span><span class="s2">&#34;del&#34;</span><span class="p">,</span><span class="n">KEYS</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="kr">else</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">return</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="kr">end</span>
+</span></span></code></pre></div><p>这样一来，就通过使用 SET 命令和 Lua 脚本在 Redis 单节点上完成了分布式锁的加锁和解锁。</p>
+<h2 id="redis的大key问题是什么">Redis的大Key问题是什么？
+</h2><p>Redis大key问题指的是某个key对应的value值所占的内存空间比较大，导致Redis的性能下降、内存不足、数据不均衡以及主从同步延迟等问题。</p>
+<p>到底多大的数据量才算是大key？</p>
+<p>没有固定的判别标准，通常认为字符串类型的key对应的value值占用空间大于1M，或者集合类型的k元素数量超过1万个，就算是大key。</p>
+<p>Redis大key问题的定义及评判准则并非一成不变，而应根据Redis的实际运用以及业务需求来综合评估。</p>
+<p>例如，在高并发且低延迟的场景中，仅10kb可能就已构成大key；然而在低并发、高容量的环境下，大key的界限可能在100kb。因此，在设计与运用Redis时，要依据业务需求与性能指标来确立合理的大key阈值。</p>
+<h2 id="大key问题的缺点">大Key问题的缺点？
+</h2><ul>
+<li>
+<p>内存占用过高。大Key占用过多的内存空间，可能导致可用内存不足，从而触发内存淘汰策略。在极端情况下，可能导致内存耗尽，Redis实例崩溃，影响系统的稳定性。</p>
+</li>
+<li>
+<p>性能下降。大Key会占用大量内存空间，导致内存碎片增加，进而影响Redis的性能。对于大Key的操作，如读取、写入、删除等，都会消耗更多的CPU时间和内存资源，进一步降低系统性能.</p>
+</li>
+<li>
+<p>阻塞其他操作。某些对大Key的操作可能会导致Redis实例阻塞。例如，使用DEL命令删除一个大Key时，可能会导致Redis实例在一段时间内无法响应其他客户端请求，从而影响系统的响应时间和吞吐量。</p>
+</li>
+<li>
+<p>网络拥塞。每次获取大key产生的网络流量较大，可能造成机器或局域网的带宽被打满，同时波及其他服务。例如：一个大key占用空间是1MB，每秒访问1000次，就有1000MB的流量。</p>
+</li>
+<li>
+<p>主从同步延迟。当Redis实例配置了主从同步时，大Key可能导致主从同步延迟。由于大Key占用较多内存，同步过程中需要传输大量数据，这会导致主从之间的网络传输延迟增加，进而影响数据一致性。</p>
+</li>
+<li>
+<p>数据倾斜。在Redis集群模式中，某个数据分片的内存使用率远超其他数据分片，无法使数据分片的内存资源达到均衡。另外也可能造成Redis内存达到maxmemory参数定义的上限导致重要的key被逐出，甚至引发内存溢出。</p>
+</li>
+</ul>
+<h2 id="redis大key如何解决">Redis大key如何解决？
+</h2><ul>
+<li>
+<p>对大Key进行拆分。例如将含有数万成员的一个HASH Key拆分为多个HASH Key，并确保每个Key的成员数量在合理范围。在Redis集群架构中，拆分大Key能对数据分片间的内存平衡起到显著作用。</p>
+</li>
+<li>
+<p>对大Key进行清理。将不适用Redis能力的数据存至其它存储，并在Redis中删除此类数据。注意，要使用异步删除。</p>
+</li>
+<li>
+<p>监控Redis的内存水位。可以通过监控系统设置合理的Redis内存报警阈值进行提醒，例如Redis内存使用率超过70%、Redis的内存在1小时内增长率超过20%等。</p>
+</li>
+<li>
+<p>对过期数据进行定期清。堆积大量过期数据会造成大Key的产生，例如在HASH数据类型中以增量的形式不断写入大量数据而忽略了数据的时效性。可以通过定时任务的方式对失效数据进行清理。</p>
+</li>
+</ul>
+<h2 id="什么是热key">什么是热key？
+</h2><p>通常以其接收到的Key被请求频率来判定，例如：</p>
+<ul>
+<li>
+<p>QPS集中在特定的Key：Redis实例的总QPS（每秒查询率）为10,000，而其中一个Key的每秒访问量达到了7,000。</p>
+</li>
+<li>
+<p>带宽使用率集中在特定的Key：对一个拥有上千个成员且总大小为1 MB的HASH Key每秒发送大量的<strong>HGETALL</strong>操作请求。</p>
+</li>
+<li>
+<p>CPU使用时间占比集中在特定的Key：对一个拥有数万个成员的Key（ZSET类型）每秒发送大量的<strong>ZRANGE</strong>操作请求。</p>
+</li>
+</ul>
+<h2 id="如何解决热key问题">如何解决热key问题？
+</h2><ul>
+<li>
+<p>**在Redis集群架构中对热Key进行复制。**在Redis集群架构中，由于热Key的迁移粒度问题，无法将请求分散至其他数据分片，导致单个数据分片的压力无法下降。此时，可以将对应热Key进行复制并迁移至其他数据分片，例如将热Key foo复制出3个内容完全一样的Key并名为foo2、foo3、foo4，将这三个Key迁移到其他数据分片来解决单个数据分片的热Key压力。</p>
+</li>
+<li>
+<p><strong>使用读写分离架构</strong>。如果热Key的产生来自于读请求，您可以将实例改造成读写分离架构来降低每个数据分片的读请求压力，甚至可以不断地增加从节点。但是读写分离架构在增加业务代码复杂度的同时，也会增加Redis集群架构复杂度。不仅要为多个从节点提供转发层（如Proxy，LVS等）来实现负载均衡，还要考虑从节点数量显著增加后带来故障率增加的问题。Redis集群架构变更会为监控、运维、故障处理带来了更大的挑战。</p>
+</li>
+</ul>
+<h2 id="如何保证-redis-和-mysql-数据缓存一致性问题">如何保证 redis 和 mysql 数据缓存一致性问题？
+</h2><p>对于读数据，我会选择旁路缓存策略，如果 cache 不命中，会从 db 加载数据到 cache。对于写数据，我会选择更新 db 后，再删除缓存。</p>
+<p><img src="/p/%E8%AF%BB%E5%86%99%E6%95%B0%E6%8D%AE.webp"
+	width="731"
+	height="618"
+	srcset="/p/%E8%AF%BB%E5%86%99%E6%95%B0%E6%8D%AE_hu1518045324597423775.webp 480w, /p/%E8%AF%BB%E5%86%99%E6%95%B0%E6%8D%AE_hu742209740784385829.webp 1024w"
+	loading="lazy"
+	
+		alt="读写数据"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="118"
+		data-flex-basis="283px"
+	
+></p>
+<p>缓存是通过牺牲强一致性来提高性能的。这是由<strong>CAP理论</strong>决定的。缓存系统适用的场景就是非强一致性的场景，它属于CAP中的AP。所以，如果需要数据库和缓存数据保持强一致，就不适合使用缓存。</p>
+<p>所以使用缓存提升性能，就是会有数据更新的延迟。这需要我们在设计时结合业务仔细思考是否适合用缓存。然后缓存一定要设置过期时间，这个时间太短、或者太长都不好：</p>
+<ul>
+<li>
+<p>太短的话请求可能会比较多的落到数据库上，这也意味着失去了缓存的优势。</p>
+</li>
+<li>
+<p>太长的话缓存中的脏数据会使系统长时间处于一个延迟的状态，而且系统中长时间没有人访问的数据一直存在内存中不过期，浪费内存。</p>
+</li>
+</ul>
+<p>但是，通过一些方案优化处理，是可以<strong>最终一致性</strong>的。</p>
+<p>针对删除缓存异常的情况，可以使用 2 个方案避免：</p>
+<ul>
+<li>
+<p>删除缓存重试策略（消息队列）</p>
+</li>
+<li>
+<p>订阅 binlog，再删除缓存（Canal+消息队列）</p>
+</li>
+</ul>
+<p>消息队列方案</p>
+<p>我们可以引入<strong>消息队列</strong>，将第二个操作（删除缓存）要操作的数据加入到消息队列，由消费者来操作数据。</p>
+<ul>
+<li>
+<p>如果应用<strong>删除缓存失败</strong>，可以从消息队列中重新读取数据，然后再次删除缓存，这个就是<strong>重试机制</strong>。当然，如果重试超过的一定次数，还是没有成功，我们就需要向业务层发送报错信息了。</p>
+</li>
+<li>
+<p>如果<strong>删除缓存成功</strong>，就要把数据从消息队列中移除，避免重复操作，否则就继续重试。</p>
+</li>
+</ul>
+<p>举个例子，来说明重试机制的过程。</p>
+<p><img src="/p/%E9%87%8D%E8%AF%95%E6%9C%BA%E5%88%B6%E7%9A%84%E8%BF%87%E7%A8%8B.webp"
+	width="1080"
+	height="462"
+	srcset="/p/%E9%87%8D%E8%AF%95%E6%9C%BA%E5%88%B6%E7%9A%84%E8%BF%87%E7%A8%8B_hu12533221171999449494.webp 480w, /p/%E9%87%8D%E8%AF%95%E6%9C%BA%E5%88%B6%E7%9A%84%E8%BF%87%E7%A8%8B_hu6393034069004583664.webp 1024w"
+	loading="lazy"
+	
+		alt="重试机制的过程"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="233"
+		data-flex-basis="561px"
+	
+></p>
+<p>重试删除缓存机制还可以，就是会<strong>造成好多业务代码入侵</strong>。</p>
+<p>订阅 MySQL binlog，再操作缓存</p>
+<p>「<strong>先更新数据库，再删缓存</strong>」的策略的第一步是更新数据库，那么更新数据库成功，就会产生一条变更日志，记录在 binlog 里。</p>
+<p>于是我们就可以通过订阅 binlog 日志，拿到具体要操作的数据，然后再执行缓存删除，阿里巴巴开源的 Canal 中间件就是基于这个实现的。</p>
+<p>Canal 模拟 MySQL 主从复制的交互协议，把自己伪装成一个MySQL 的从节点，向 MySQL 主节点发送 dump 请求，MySQL 收到请求后，就会开始推送 Binlog 给 Canal，Canal 解析 Binlog 字节流之后，转换为便于读取的结构化数据，供下游程序订阅使用。</p>
+<p>下图是 Canal 的工作原理：</p>
+<p><img src="/p/canal%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.webp"
+	width="782"
+	height="332"
+	srcset="/p/canal%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86_hu1589071608575919574.webp 480w, /p/canal%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86_hu15507115731762018731.webp 1024w"
+	loading="lazy"
+	
+		alt="canal的工作原理"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="235"
+		data-flex-basis="565px"
+	
+></p>
+<p>将binlog日志采集发送到MQ队列里面，然后编写一个简单的缓存删除消息者订阅binlog日志，根据更新log删除缓存，并且通过ACK机制确认处理这条更新log，保证数据缓存一致性</p>
+<p>(ACK机制(acknowledge)是消息队列中用于确认消息是否被成功处理的机制，消费者在处理完成后发送ACK，MQ才会删除消息；若未收到ACK，MQ会进行重试，从而保证消息不丢失，但可能带来重复消费问题，需要通过幂等性解决。)</p>
+<h2 id="缓存雪崩击穿穿透是什么怎么解决">缓存雪崩、击穿、穿透是什么？怎么解决？
+</h2><p>缓存雪崩：当<strong>大量缓存数据在同一时间过期（失效）或者 Redis 故障宕机</strong>时，如果此时有大量的用户请求，都无法在 Redis 中处理，于是全部请求都直接访问数据库，从而导致数据库的压力骤增，严重的会造成数据库宕机，从而形成一系列连锁反应，造成整个系统崩溃，这就是<strong>缓存雪崩</strong>的问题。</p>
+<p><img src="/p/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9.webp"
+	width="1080"
+	height="660"
+	srcset="/p/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9_hu9806063308850247683.webp 480w, /p/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9_hu4245716794724472978.webp 1024w"
+	loading="lazy"
+	
+		alt="缓存雪崩"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="163"
+		data-flex-basis="392px"
+	
+></p>
+<p>缓存击穿：如果缓存中的<strong>某个热点数据过期</strong>了，此时大量的请求访问了该热点数据，就无法从缓存中读取，直接访问数据库，数据库很容易就被高并发的请求冲垮，这就是<strong>缓存击穿</strong>的问题。</p>
+<p><img src="/p/%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF.webp"
+	width="707"
+	height="836"
+	srcset="/p/%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF_hu186669228728107221.webp 480w, /p/%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF_hu740528712594036410.webp 1024w"
+	loading="lazy"
+	
+		alt="缓存击穿"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="84"
+		data-flex-basis="202px"
+	
+></p>
+<p>缓存穿透：当用户访问的数据，<strong>既不在缓存中，也不在数据库中</strong>，导致请求在访问缓存时，发现缓存缺失，再去访问数据库时，发现数据库中也没有要访问的数据，没办法构建缓存数据，来服务后续的请求。那么当有大量这样的请求到来时，数据库的压力骤增，这就是<strong>缓存穿透</strong>的问题。</p>
+<p><img src="/p/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F.webp"
+	width="576"
+	height="836"
+	srcset="/p/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F_hu16335420871936909926.webp 480w, /p/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F_hu13816760250787793010.webp 1024w"
+	loading="lazy"
+	
+		alt="缓存穿透"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="68"
+		data-flex-basis="165px"
+	
+></p>
+<p>缓存雪崩解决方案：</p>
+<ul>
+<li>
+<p>均匀设置过期时间：如果要给缓存数据设置过期时间，应该避免将大量的数据设置成同一个过期时间。我们可以在对缓存数据设置过期时间时，<strong>给这些数据的过期时间加上一个随机数</strong>，这样就保证数据不会在同一时间过期。</p>
+</li>
+<li>
+<p>互斥锁：当业务线程在处理用户请求时，<strong>如果发现访问的数据不在 Redis 里，就加个互斥锁，保证同一时间内只有一个请求来构建缓存</strong>（从数据库读取数据，再将数据更新到 Redis 里），当缓存构建完成后，再释放锁。未能获取互斥锁的请求，要么等待锁释放后重新读取缓存，要么就返回空值或者默认值。实现互斥锁的时候，最好设置<strong>超时时间</strong>，不然第一个请求拿到了锁，然后这个请求发生了某种意外而一直阻塞，一直不释放锁，这时其他请求也一直拿不到锁，整个系统就会出现无响应的现象。</p>
+</li>
+<li>
+<p>后台更新缓存：业务线程不再负责更新缓存，缓存也不设置有效期，而是<strong>让缓存“永久有效”，并将更新缓存的工作交由后台线程定时更新</strong>。</p>
+</li>
+</ul>
+<p>缓存击穿解决方案：</p>
+<ul>
+<li>
+<p>互斥锁方案，保证同一时间只有一个业务线程更新缓存，未能获取互斥锁的请求，要么等待锁释放后重新读取缓存，要么就返回空值或者默认值。</p>
+</li>
+<li>
+<p>不给热点数据设置过期时间，由后台异步更新缓存，或者在热点数据准备要过期前，提前通知后台线程更新缓存以及重新设置过期时间；</p>
+</li>
+</ul>
+<p>缓存穿透解决方案：</p>
+<ul>
+<li>
+<p>非法请求的限制：当有大量恶意请求访问不存在的数据的时候，也会发生缓存穿透，因此在 API 入口处我们要判断求请求参数是否合理，请求参数是否含有非法值、请求字段是否存在，如果判断出是恶意请求就直接返回错误，避免进一步访问缓存和数据库。</p>
+</li>
+<li>
+<p>缓存空值或者默认值：当我们线上业务发现缓存穿透的现象时，可以针对查询的数据，在缓存中设置一个空值或者默认值，这样后续请求就可以从缓存中读取到空值或者默认值，返回给应用，而不会继续查询数据库。</p>
+</li>
+<li>
+<p>布隆过滤器：我们可以在写入数据库数据时，使用布隆过滤器做个标记，然后在用户请求到来时，业务线程确认缓存失效后，可以通过查询布隆过滤器快速判断数据是否存在，如果不存在，就不用通过查询数据库来判断数据是否存在。即使发生了缓存穿透，大量请求只会查询 Redis 和布隆过滤器，而不会查询数据库，保证了数据库能正常运行，Redis 自身也是支持布隆过滤器的。</p>
+</li>
+</ul>
+<h2 id="布隆过滤器原理介绍一下">布隆过滤器原理介绍一下
+</h2><p>布隆过滤器由「初始值都为 0 的位图数组」和「 N 个哈希函数」两部分组成。当我们在写入数据库数据时，在布隆过滤器里做个标记，这样下次查询数据是否在数据库时，只需要查询布隆过滤器，如果查询到数据没有被标记，说明不在数据库中。</p>
+<p>布隆过滤器会通过 3 个操作完成标记：</p>
+<ul>
+<li>
+<p>第一步，使用 N 个哈希函数分别对数据做哈希计算，得到 N 个哈希值；</p>
+</li>
+<li>
+<p>第二步，将第一步得到的 N 个哈希值对位图数组的长度取模，得到每个哈希值在位图数组的对应位置。</p>
+</li>
+<li>
+<p>第三步，将每个哈希值在位图数组的对应位置的值设置为 1；</p>
+</li>
+</ul>
+<p>举个例子，假设有一个位图数组长度为 8，哈希函数 3 个的布隆过滤器。</p>
+<p><img src="/p/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8.webp"
+	width="977"
+	height="287"
+	srcset="/p/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8_hu14530556347948249133.webp 480w, /p/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8_hu12755817724400302944.webp 1024w"
+	loading="lazy"
+	
+		alt="布隆过滤器"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="340"
+		data-flex-basis="817px"
+	
+></p>
+<p>在数据库写入数据 x 后，把数据 x 标记在布隆过滤器时，数据 x 会被 3 个哈希函数分别计算出 3 个哈希值，然后在对这 3 个哈希值对 8 取模，假设取模的结果为 1、4、6，然后把位图数组的第 1、4、6 位置的值设置为 1。<strong>当应用要查询数据 x 是否数据库时，通过布隆过滤器只要查到位图数组的第 1、4、6 位置的值是否全为 1，只要有一个为 0，就认为数据 x 不在数据库中</strong>。</p>
+<p>布隆过滤器由于是基于哈希函数实现查找的，高效查找的同时<strong>存在哈希冲突的可能性</strong>，比如数据 x 和数据 y 可能都落在第 1、4、6 位置，而事实上，可能数据库中并不存在数据 y，存在误判的情况。</p>
+<p>所以，<strong>查询布隆过滤器说数据存在，并不一定证明数据库中存在这个数据，但是查询到数据不存在，数据库中一定就不存在这个数据</strong>。</p>
+<h2 id="如何设计秒杀场景处理高并发以及超卖现象">如何设计秒杀场景处理高并发以及超卖现象？
+</h2><p>在数据库层面解决</p>
+<ol>
+<li>在查询商品库存时加排他锁，执行如下语句：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">select * from goods for where goods_id=?  for update
+</span></span></code></pre></div><p>在事务中线程A通过select * from goods  for where goods_id=#{id} for update语句给goods_id为#{id}的数据行上了锁。那么其他线程此时可以使用select语句读取数据，但是如果也使用select for update语句加锁，或者使用update，delete都会阻塞，直到线程A将事务提交（或者回滚），其他线程中的某个线程排在线程A后的线程才能获取到锁。</p>
+<ol start="2">
+<li>更新数据库减库存的时候，进行库存限制条件</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">update goods set stock = stock - 1 where goods_id = ？ and stock &gt;0
+</span></span></code></pre></div><p>这种通过数据库加锁来解决的方案，性能不是很好，在高并发的情况下，还可能存在因为获取不到数据库连接或者因为超时等待而报错。</p>
+<p>利用分布式锁</p>
+<p>同一个锁key，同一时间只能有一个客户端拿到锁，其他客户端会陷入无限的等待来尝试获取那个锁，只有获取到锁的客户端才能执行下面的业务逻辑。</p>
+<p>这种方案的缺点是同一个商品在多用户同时下单的情况下，会基于分布式锁串行化处理导致没法同时处理同一个商品的大量下单的请求。</p>
+<p>利用分布式锁+分段缓存</p>
+<p>把数据分成很多个段，每个段是一个单独的锁，所以多个线程过来并发修改数据的时候，可以并发的修改不同段的数据</p>
+<p>假设场景：假如你现在商品有100个库存，在redis存放5个库存key，形如:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">key1=goods-01,value=20;
+</span></span><span class="line"><span class="cl">key2=goods-02,value=20;
+</span></span><span class="line"><span class="cl">key3=goods-03,value=20;
+</span></span></code></pre></div><p>用户下单时对用户id进行%5计算，看落在哪个redis的key上，就去取哪个，这样每次就能够处理5个进程请求</p>
+<p>这种方案可以解决同一个商品在多用户同时下单的情况，但有个坑需要解决：当某段锁的库存不足，一定要实现自动释放锁然后换下一个分段库存再次尝试加锁处理，此种方案复杂比较高。</p>
+<p>利用redis的incr、decr的原子性 + 异步队列</p>
+<p>实现思路</p>
+<ol>
+<li>
+<p>在系统初始化时，将商品的库存数量加载到redis缓存中</p>
+</li>
+<li>
+<p>接收到秒杀请求时，在redis中进行预减库存（利用redis decr的原子性），当redis中的库存不足时，直接返回秒杀失败，否则继续进行第3步；</p>
+</li>
+<li>
+<p>将请求放入异步队列中，返回正在排队中；</p>
+</li>
+<li>
+<p>服务端异步队列将请求出队（哪些请求可以出队，可以根据业务来判定，比如：判断对应用户是否已经秒杀过对应商品，防止重复秒杀），出队成功的请求可以生成秒杀订单，减少数据库库存（在扣减库存的sql如下，返回秒杀订单详情）</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">update goods set stock = stock - 1 where goods_id = ? and stock &gt;0
+</span></span></code></pre></div><ol start="5">
+<li>用户在客户端申请秒杀请求后，进行轮询，查看是否秒杀成功，秒杀成功则进入秒杀订单详情，否则秒杀失败</li>
+</ol>
+<p>这种方案的缺点：由于是通过异步队列写入数据库中，可能存在数据不一致，其次引用多个组件复杂度比较高</p>
+<p>(可能会卖少，但是一定不会超卖)</p>
 
 </section>
 
@@ -1160,28 +1823,6 @@
     
 
     
-
-<aside class="related-content--wrapper">
-    <h2 class="section-title">相关文章</h2>
-    <div class="related-content">
-        <div class="flex article-list--tile">
-            
-                
-<article class="">
-    <a href="/p/%E6%9F%90%E5%A4%96%E5%8D%96%E4%BD%9C%E4%B8%9A%E4%B8%80%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">某外卖作业一的两种实现</h2>
-        </div>
-    </a>
-</article>
-
-            
-        </div>
-    </div>
-</aside>
 
      
     
