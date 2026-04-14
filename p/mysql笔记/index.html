@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="NOSQL 和 SQL 的区别？ SQL 数据库，指关系型数据库 - 主要代表：SQL Server，Oracle，MySQL(开源)，PostgreSQL(开源)。 关系型">
+<title>mysql笔记</title>
+
+<link rel='canonical' href='https://echo806.github.io/p/mysql%E7%AC%94%E8%AE%B0/'>
+
+<link rel="stylesheet" href="/scss/style.min.d44d1b138e555166d2fb22df4e9ea386c36ba19591a491a37edb07faede022e1.css"><meta property='og:title' content="mysql笔记">
+<meta property='og:description' content="NOSQL 和 SQL 的区别？ SQL 数据库，指关系型数据库 - 主要代表：SQL Server，Oracle，MySQL(开源)，PostgreSQL(开源)。 关系型">
+<meta property='og:url' content='https://echo806.github.io/p/mysql%E7%AC%94%E8%AE%B0/'>
+<meta property='og:site_name' content='帕琪-Pache'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-04-14T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-04-14T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="mysql笔记">
+<meta name="twitter:description" content="NOSQL 和 SQL 的区别？ SQL 数据库，指关系型数据库 - 主要代表：SQL Server，Oracle，MySQL(开源)，PostgreSQL(开源)。 关系型">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/Patchouli.gif" width="500"
+                            height="500" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🤔</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">帕琪-Pache</a></h1>
+            <h2 class="site-description">欢迎来到我的网站，此博客由【Hugo &#43; Stack】来进行搭建，主要分享个人生活和学习笔记</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/306100621'
+                        target="_blank"
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-bilibili"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6" /><path d="M8 3l2 3" /><path d="M16 3l-2 3" /><path d="M9 13v-2" /><path d="M15 11v2" /></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/echo806'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://steamcommunity.com/profiles/76561199076111538/'
+                        target="_blank"
+                        title="Steam"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-steam"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16.5 5a4.5 4.5 0 1 1 -.653 8.953l-4.347 3.009l0 .038a3 3 0 0 1 -2.824 3l-.176 0a3 3 0 0 1 -2.94 -2.402l-2.56 -1.098v-3.5l3.51 1.755a2.989 2.989 0 0 1 2.834 -.635l2.727 -3.818a4.5 4.5 0 0 1 4.429 -5.302" /><path d="M15.5 9.5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" fill="currentColor" /></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E6%97%A5%E5%BF%97/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-logs"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 12h.01" /><path d="M4 6h.01" /><path d="M4 18h.01" /><path d="M8 18h2" /><path d="M8 12h2" /><path d="M8 6h2" /><path d="M14 6h6" /><path d="M14 12h6" /><path d="M14 18h6" /></svg>
+                
+                <span>日志</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#nosql-和-sql-的区别">NOSQL 和 SQL 的区别？</a></li>
+    <li><a href="#数据库三大范式是什么">数据库三大范式是什么？</a></li>
+    <li><a href="#mysql-怎么连表查询">MySQL 怎么连表查询？</a></li>
+    <li><a href="#mysql如何避免重复插入数据">MySQL如何避免重复插入数据？</a></li>
+    <li><a href="#char-和-varchar有什么区别">CHAR 和 VARCHAR有什么区别？</a></li>
+    <li><a href="#varchar后面代表字节还是会字符">varchar后面代表字节还是会字符？</a></li>
+    <li><a href="#int1-int10-在mysql有什么不同">int(1) int(10) 在mysql有什么不同？</a></li>
+    <li><a href="#text数据类型可以无限大吗">Text数据类型可以无限大吗？</a></li>
+    <li><a href="#ip地址如何在数据库里存储">IP地址如何在数据库里存储？</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/mysql/" style="background-color: #2a9d8f; color: #fff;">
+                mysql
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/mysql%E7%AC%94%E8%AE%B0/">mysql笔记</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-04-14</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="nosql-和-sql-的区别">NOSQL 和 SQL 的区别？
+</h2><p>SQL 数据库，指关系型数据库 - 主要代表：SQL Server，Oracle，MySQL(开源)，PostgreSQL(开源)。</p>
+<p>关系型数据库存储结构化数据。这些数据逻辑上以行列二维表的形式存在，每一列代表数据的一种属性，每一行代表一个数据实体。</p>
+<p><img src="/p/mysql%E7%AC%94%E8%AE%B0/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84.webp"
+	width="1602"
+	height="1092"
+	srcset="/p/mysql%E7%AC%94%E8%AE%B0/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84_hu1152375908428505594.webp 480w, /p/mysql%E7%AC%94%E8%AE%B0/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84_hu6234971025108664303.webp 1024w"
+	loading="lazy"
+	
+		alt="关系型数据库存储结构"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="146"
+		data-flex-basis="352px"
+	
+></p>
+<p>NoSQL 指非关系型数据库 ，主要代表：MongoDB，Redis。NoSQL 数据库逻辑上提供了不同于二维表的存储方式，存储方式可以是 JSON 文档、哈希表或者其他方式。</p>
+<p><img src="/p/mysql%E7%AC%94%E8%AE%B0/nosql.webp"
+	width="1364"
+	height="1188"
+	srcset="/p/mysql%E7%AC%94%E8%AE%B0/nosql_hu14279120707238590502.webp 480w, /p/mysql%E7%AC%94%E8%AE%B0/nosql_hu2311708079970701416.webp 1024w"
+	loading="lazy"
+	
+		alt="nosql"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="114"
+		data-flex-basis="275px"
+	
+></p>
+<p>选择 SQL vs NoSQL，考虑以下因素。</p>
+<p>ACID vs BASE</p>
+<p>关系型数据库支持 ACID 即原子性(Atomicity)，一致性(Consistency)，隔离性(Isolation)和持续性(Durability)。</p>
+<p>相对而言，NoSQL 采用更宽松的模型 BASE ， 即基本可用(Basicallly Available)，软状态(Soft state)和最终一致性(Eventually consistent)。</p>
+<p>从实用的角度出发，我们需要考虑对于面对的应用场景，ACID 是否是必须的。比如银行应用就必须保证 ACID，否则一笔钱可能被使用两次；又比如社交软件不必保证 ACID，因为一条状态的更新对于所有用户读取先后时间有数秒不同并不影响使用。</p>
+<p>对于需要保证 ACID 的应用，我们可以优先考虑 SQL。反之则可以优先考虑 NoSQL。</p>
+<p>扩展性对比</p>
+<p>NoSQL 数据之间无关系，这样就非常容易扩展，也无形之间，在架构的层面上带来了可扩展的能力。比如 redis 自带主从复制模式、哨兵模式、切片集群模式。</p>
+<p>相反关系型数据库的数据之间存在关联性，水平扩展较难 ，需要解决跨服务器 JOIN，分布式事务等问题。</p>
+<h2 id="数据库三大范式是什么">数据库三大范式是什么？
+</h2><p><strong>第一范式（1NF）：要求数据库表的每一列都是不可分割的原子数据项。</strong></p>
+<p>举例说明：</p>
+<p><img src="/p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%B8%80%E8%8C%83%E5%BC%8F%E4%B8%BE%E4%BE%8B1.webp"
+	width="632"
+	height="191"
+	srcset="/p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%B8%80%E8%8C%83%E5%BC%8F%E4%B8%BE%E4%BE%8B1_hu8948276490892168123.webp 480w, /p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%B8%80%E8%8C%83%E5%BC%8F%E4%B8%BE%E4%BE%8B1_hu9392743405325611532.webp 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="330"
+		data-flex-basis="794px"
+	
+></p>
+<p>在上面的表中，“家庭信息”和“学校信息”列均不满足原子性的要求，故不满足第一范式，调整如下：</p>
+<p><img src="/p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%B8%80%E8%8C%83%E5%BC%8F%E4%B8%BE%E4%BE%8B2.webp"
+	width="673"
+	height="191"
+	srcset="/p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%B8%80%E8%8C%83%E5%BC%8F%E4%B8%BE%E4%BE%8B2_hu9794958734027968115.webp 480w, /p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%B8%80%E8%8C%83%E5%BC%8F%E4%B8%BE%E4%BE%8B2_hu6908125285303257948.webp 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="352"
+		data-flex-basis="845px"
+	
+></p>
+<p>可见，调整后的每一列都是不可再分的，因此满足第一范式（1NF）；</p>
+<p><strong>第二范式（2NF）：在 1NF 的基础上，非码属性必须完全依赖于候选码（在 1NF 基础上消除非主属性对主码的部分函数依赖）</strong></p>
+<p><strong>第二范式需要确保数据库表中的每一列都和主键相关，而不能只与主键的某一部分相关（主要针对联合主键而言）。</strong></p>
+<p><img src="/p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%BA%8C%E8%8C%83%E5%BC%8F%E4%B8%BE%E4%BE%8B1.webp"
+	width="673"
+	height="172"
+	srcset="/p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%BA%8C%E8%8C%83%E5%BC%8F%E4%B8%BE%E4%BE%8B1_hu7282237809978068460.webp 480w, /p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%BA%8C%E8%8C%83%E5%BC%8F%E4%B8%BE%E4%BE%8B1_hu1835974462191394845.webp 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="391"
+		data-flex-basis="939px"
+	
+></p>
+<p>在上图所示的情况中，同一个订单中可能包含不同的产品，因此主键必须是“订单号”和“产品号”联合组成，</p>
+<p>但可以发现，产品数量、产品折扣、产品价格与“订单号”和“产品号”都相关，但是订单金额和订单时间仅与“订单号”相关，与“产品号”无关，</p>
+<p>这样就不满足第二范式的要求，调整如下，需分成两个表：</p>
+<p><img src="/p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%BA%8C%E8%8C%83%E5%BC%8F.webp"
+	width="477"
+	height="172"
+	srcset="/p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%BA%8C%E8%8C%83%E5%BC%8F_hu8885762300910599182.webp 480w, /p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%BA%8C%E8%8C%83%E5%BC%8F_hu13061976295000754993.webp 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="277"
+		data-flex-basis="665px"
+	
+></p>
+<p><img src="/p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%BA%8C%E8%8C%83%E5%BC%8F2.webp"
+	width="269"
+	height="172"
+	srcset="/p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%BA%8C%E8%8C%83%E5%BC%8F2_hu9630063737489972002.webp 480w, /p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%BA%8C%E8%8C%83%E5%BC%8F2_hu12618792827421144004.webp 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="156"
+		data-flex-basis="375px"
+	
+></p>
+<p><strong>第三范式（3NF）：在2NF基础上，任何非主属性不依赖于其它非主属性（在2NF基础上消除传递依赖）</strong></p>
+<p><strong>第三范式需要确保数据表中的每一列数据都和主键直接相关，而不能间接相关。</strong></p>
+<p>举例说明：</p>
+<p><img src="/p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%B8%89%E8%8C%83%E5%BC%8F.webp"
+	width="673"
+	height="191"
+	srcset="/p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%B8%89%E8%8C%83%E5%BC%8F_hu6750174994389169502.webp 480w, /p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%B8%89%E8%8C%83%E5%BC%8F_hu1725824872330804393.webp 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="352"
+		data-flex-basis="845px"
+	
+></p>
+<p>上表中，所有属性都完全依赖于学号，所以满足第二范式，但是“班主任性别”和“班主任年龄”直接依赖的是“班主任姓名”，而不是主键“学号”，所以需做如下调整：</p>
+<p><img src="/p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%B8%89%E8%8C%83%E5%BC%8F2.webp"
+	width="477"
+	height="191"
+	srcset="/p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%B8%89%E8%8C%83%E5%BC%8F2_hu15811791378361403369.webp 480w, /p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%B8%89%E8%8C%83%E5%BC%8F2_hu3522490530642503160.webp 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="249"
+		data-flex-basis="599px"
+	
+></p>
+<p><img src="/p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%B8%89%E8%8C%83%E5%BC%8F3.webp"
+	width="295"
+	height="191"
+	srcset="/p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%B8%89%E8%8C%83%E5%BC%8F3_hu7467364712640652850.webp 480w, /p/mysql%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%B8%89%E8%8C%83%E5%BC%8F3_hu7109700697085087067.webp 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="154"
+		data-flex-basis="370px"
+	
+></p>
+<p>这样以来，就满足了第三范式的要求。</p>
+<h2 id="mysql-怎么连表查询">MySQL 怎么连表查询？
+</h2><p>数据库有以下几种联表查询类型：</p>
+<ol>
+<li>
+<p><strong>内连接 (INNER JOIN)</strong></p>
+</li>
+<li>
+<p><strong>左外连接 (LEFT JOIN)</strong></p>
+</li>
+<li>
+<p><strong>右外连接 (RIGHT JOIN)</strong></p>
+</li>
+<li>
+<p><strong>全外连接 (FULL JOIN)</strong></p>
+</li>
+</ol>
+<p><img src="/p/mysql%E7%AC%94%E8%AE%B0/MySQL%E8%BF%9E%E8%A1%A8%E6%9F%A5%E8%AF%A2.webp"
+	width="1080"
+	height="785"
+	srcset="/p/mysql%E7%AC%94%E8%AE%B0/MySQL%E8%BF%9E%E8%A1%A8%E6%9F%A5%E8%AF%A2_hu8558674926253822222.webp 480w, /p/mysql%E7%AC%94%E8%AE%B0/MySQL%E8%BF%9E%E8%A1%A8%E6%9F%A5%E8%AF%A2_hu10022470404190847503.webp 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="137"
+		data-flex-basis="330px"
+	
+></p>
+<p><strong>1. 内连接 (INNER JOIN)</strong></p>
+<p>内连接返回两个表中有匹配关系的行。<strong>示例</strong>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">departments</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ON</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>这个查询返回每个员工及其所在的部门名称。</p>
+<p><strong>2. 左外连接 (LEFT JOIN)</strong></p>
+<p>左外连接返回左表中的所有行，即使在右表中没有匹配的行。未匹配的右表列会包含NULL。<strong>示例</strong>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">departments</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ON</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>这个查询返回所有员工及其部门名称，包括那些没有分配部门的员工。</p>
+<p><strong>3. 右外连接 (RIGHT JOIN)</strong></p>
+<p>右外连接返回右表中的所有行，即使左表中没有匹配的行。未匹配的左表列会包含NULL。<strong>示例</strong>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">RIGHT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">departments</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ON</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>这个查询返回所有部门及其员工，包括那些没有分配员工的部门。</p>
+<p><strong>4. 全外连接 (FULL JOIN)</strong></p>
+<p>全外连接返回两个表中所有行，包括非匹配行，在MySQL中，FULLJOIN 需要使用 UNION 来实现，因为 MySQL 不直接支持 FULLJOIN。<strong>示例</strong>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">departments</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ON</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">UNION</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">RIGHT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">departments</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ON</span><span class="w"> </span><span class="n">employees</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">departments</span><span class="p">.</span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>这个查询返回所有员工和所有部门，包括没有匹配行的记录。</p>
+<h2 id="mysql如何避免重复插入数据">MySQL如何避免重复插入数据？
+</h2><p><strong>方式一：使用UNIQUE约束</strong></p>
+<p>在表的相关列上添加UNIQUE约束，确保每个值在该列中唯一。例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="nf">users</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="kt">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="kp">AUTO_INCREMENT</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">email</span><span class="w"> </span><span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span><span class="w"> </span><span class="k">UNIQUE</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>如果尝试插入重复的email，MySQL会返回错误。</p>
+<p><strong>方式二：使用INSERT &hellip; ON DUPLICATE KEY UPDATE</strong></p>
+<p>这种语句允许在插入记录时处理重复键的情况。如果插入的记录与现有记录冲突，可以选择更新现有记录：</p>
+<p>(有就更新，没有就插入)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="nf">users</span><span class="w"> </span><span class="p">(</span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;example@example.com&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ON</span><span class="w"> </span><span class="n">DUPLICATE</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="n">name</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>核心逻辑ON DUPLICATE KEY UPDATE name = VALUES(name);意思是：如果插入时发生 <strong>唯一键冲突</strong>，就执行 UPDATE</p>
+<p>VALUES(name)指的是：<strong>你原本想插入的值</strong>也就是&rsquo;John Doe'</p>
+<p><strong>方式三：使用INSERT IGNORE</strong>： 该语句会在插入记录时忽略那些因重复键而导致的插入错误。例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">IGNORE</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="nf">users</span><span class="w"> </span><span class="p">(</span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;example@example.com&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;John Doe&#39;</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>如果email已经存在，这条插入语句将被忽略而不会返回错误。</p>
+<p>选择哪种方法取决于具体的需求：</p>
+<ul>
+<li>
+<p>如果需要保证全局唯一性，使用UNIQUE约束是最佳做法。</p>
+</li>
+<li>
+<p>如果需要插入和更新结合可以使用<code>ON DUPLICATE KEY UPDATE</code>。</p>
+</li>
+<li>
+<p>对于快速忽略重复插入，<code>INSERT IGNORE</code>是合适的选择。</p>
+</li>
+</ul>
+<h2 id="char-和-varchar有什么区别">CHAR 和 VARCHAR有什么区别？
+</h2><ul>
+<li>
+<p>CHAR是固定长度的字符串类型，定义时需要指定固定长度，存储时会在末尾补足空格。CHAR适合存储长度固定的数据，如固定长度的代码、状态等，存储空间固定，对于短字符串效率较高。</p>
+</li>
+<li>
+<p>VARCHAR是可变长度的字符串类型，定义时需要指定最大长度，实际存储时根据实际长度占用存储空间。VARCHAR适合存储长度可变的数据，如用户输入的文本、备注等，节约存储空间。</p>
+</li>
+</ul>
+<h2 id="varchar后面代表字节还是会字符">varchar后面代表字节还是会字符？
+</h2><p><code>VARCHAR</code> 后面括号里的数字代表的是字符数，而不是字节数。</p>
+<p>比如 <code>VARCHAR(10)</code>，这里的 10 表示该字段最多可以存储 10 个字符。字符的字节长度取决于所使用的字符集。</p>
+<ul>
+<li>
+<p>如果字符集是 ASCII 字符集：ASCII 字符集每个字符占用 1 个字节，那么 VARCHAR(10) 最多可以存储 10 个 ASCII 字符，同时占用的存储空间最多为 10 个字节（不考虑额外的长度记录开销）。</p>
+</li>
+<li>
+<p>如果字符集是 UTF - 8 字符集，它的每个字符可能占用 1 到 4 个字节对于 <code>VARCHAR(10)</code> 的字段，它最多可以存储 10 个字符，但占用的字节数会根据字符的不同而变化。</p>
+</li>
+</ul>
+<h2 id="int1-int10-在mysql有什么不同">int(1) int(10) 在mysql有什么不同？
+</h2><p><code>INT(1)</code> 和 <code>INT(10)</code> 的区别主要在于 <strong>显示宽度</strong>，而不是存储范围或数据类型本身的大小。以下是核心区别的总结：</p>
+<ul>
+<li>
+<p>本质是显示宽度，不改变存储方式：<code>INT</code> 的存储固定为 4 字节，所有 <code>INT</code>（无论写成 <code>INT(1)</code> 还是 <code>INT(10)</code>）占用的存储空间 均为 4 字节。括号内的数值（如 <code>1</code> 或 <code>10</code>）是显示宽度，用于在 特定场景下 控制数值的展示格式。</p>
+</li>
+<li>
+<p>唯一作用场景：<code>ZEROFILL</code> 补零显示，当字段设置 <code>ZEROFILL</code>时：数字显示时会用前导零填充至指定宽度。比如，字段类型为<code>INT(4) ZEROFILL</code>，实际存入 <code>5</code> → 显示为 <code>0005</code>，实际存入<code>12345</code> → 显示仍为 <code>12345</code>（宽度超限时不截断）。</p>
+</li>
+</ul>
+<p>举一个例子</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="c1">-- 创建一个包含 INT(1) 和 INT(10) 字段的表，并设置 ZEROFILL 属性
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="nf">test_int</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">num1</span><span class="w"> </span><span class="kt">INT</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">ZEROFILL</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">num2</span><span class="w"> </span><span class="kt">INT</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="k">ZEROFILL</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 插入数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="nf">test_int</span><span class="w"> </span><span class="p">(</span><span class="n">num1</span><span class="p">,</span><span class="w"> </span><span class="n">num2</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 查询数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">test_int</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>结果分析：</p>
+<ul>
+<li>
+<p><code>num1</code> 字段由于设置为 <code>INT(1) ZEROFILL</code>，其显示宽度为 1，插入数据 <code>1</code> 时会显示为 <code>1</code>。</p>
+</li>
+<li>
+<p><code>num2</code> 字段设置为 <code>INT(10) ZEROFILL</code>，显示宽度为 10，插入数据<code>1</code> 时会在前面填充零，显示为 <code>0000000001</code>。</p>
+</li>
+</ul>
+<h2 id="text数据类型可以无限大吗">Text数据类型可以无限大吗？
+</h2><p>MySQL 3 种text类型的最大长度如下：</p>
+<ul>
+<li>
+<p>TEXT：65,535 bytes ~64kb</p>
+</li>
+<li>
+<p>MEDIUMTEXT：16,777,215 bytes ~16Mb</p>
+</li>
+<li>
+<p>LONGTEXT：4,294,967,295 bytes ~4Gb</p>
+</li>
+</ul>
+<h2 id="ip地址如何在数据库里存储">IP地址如何在数据库里存储？
+</h2><p>IPv4 地址是一个 32 位的二进制数，通常以点分十进制表示法呈现，例如 <code>192.168.1.1</code>。</p>
+<p><strong>字符串类型的存储方式</strong>：直接将 IP 地址作为字符串存储在数据库中，比如可以用 <code>VARCHAR(15)</code>来存储。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="c1">-- 创建一个表，使用VARCHAR类型存储IPv4地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="nf">ip_records</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="kt">INT</span><span class="w"> </span><span class="kp">AUTO_INCREMENT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">ip_address</span><span class="w"> </span><span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 插入数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="nf">ip_records</span><span class="w"> </span><span class="p">(</span><span class="n">ip_address</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;192.168.1.1&#39;</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div>
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 帕琪-Pache
+    </section>
+    
+    <section class="powerby">
+        
+            Hello World! <br/>
+        
+
+        
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aplayer/dist/APlayer.min.css">
+<script src="https://unpkg.com/aplayer/dist/APlayer.min.js"></script>
+<script src="https://unpkg.com/meting@2/dist/Meting.min.js"></script>
+
+<meting-js
+  server="netease"
+  type="playlist"
+  id="626864109"
+  fixed="true"
+  autoplay="false">
+</meting-js>
+<script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script>
+
+
+    
+    <script src=https://echo806.github.io/js/topbar.min.js></script>
+
+
+
+<script>
+    var pjax = new Pjax({
+    selectors: [".main-container"]
+    })
+
+    pjax._handleResponse = pjax.handleResponse;
+    pjax.handleResponse = function(responseText, request, href, options) {
+        if (request.responseText.match("<html")) {
+            if (responseText) {
+                
+                let newDom = new DOMParser().parseFromString(responseText, 'text/html');
+                
+                let bodyClass = newDom.body.className;
+                document.body.setAttribute("class", bodyClass)
+            }
+            
+            pjax._handleResponse(responseText, request, href, options);
+        } else {
+            
+        }
+    }
+
+    document.addEventListener('pjax:send',() =>{
+        topbar.show();
+    })
+
+    document.addEventListener('pjax:complete',() =>{
+        
+        window.Stack.init();
+        
+        topbar.hide();
+
+    })
+
+
+</script>
+
+
+
+<div id="jsi-flying-fish-container"></div>
+
+
+<style>
+#jsi-flying-fish-container {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 120px;
+    z-index: -1;
+    opacity: 0;           
+    overflow: hidden;
+    pointer-events: none;
+    transition: opacity .3s;
+}
+ 
+.show-fish #jsi-flying-fish-container {
+    opacity: .5;
+}
+</style>
+
+
+<script>
+window.initFlyingFish = function () {
+    const container = document.getElementById('jsi-flying-fish-container');
+    if (!container) return;
+
+     
+    const oldCanvas = container.querySelector('canvas');
+    if (oldCanvas) oldCanvas.remove();
+
+     
+    const script = document.createElement('script');
+    script.src = 'https://cdn.meimolihan.eu.org/hugo/fish/fish.js';
+    script.onload = function () {
+        if (typeof RENDERER !== 'undefined') RENDERER.init();
+    };
+    document.head.appendChild(script);
+
+     
+    function checkBottom() {
+        const doc = document.documentElement;
+        const isBottom = (window.innerHeight + Math.ceil(window.pageYOffset))
+                         >= (doc.scrollHeight - 10);
+        document.body.classList.toggle('show-fish', isBottom);
+    }
+
+     
+    window.addEventListener('scroll', checkBottom);
+    checkBottom(); 
+};
+
+ 
+document.addEventListener('DOMContentLoaded', initFlyingFish);
+
+ 
+document.addEventListener('pjax:complete', initFlyingFish);
+</script>
+
+
+
+<script>
+
+    const live2d_path = "https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/";
+    const cssPath = "https://echo806.github.io/waifu/waifu.css";
+    const waifuTipsJsonPath = "https://echo806.github.io/waifu/waifu-tips.json";
+    const live2dMinJsPath = "https://echo806.github.io/waifu/live2d.min.js";
+    
+
+
+    function loadExternalResource(url, type) {
+        return new Promise((resolve, reject) => {
+            let tag;
+
+            if (type === "css") {
+                tag = document.createElement("link");
+                tag.rel = "stylesheet";
+                tag.href = url;
+            }
+            else if (type === "js") {
+                tag = document.createElement("script");
+                tag.src = url;
+            }
+            if (tag) {
+                tag.onload = () => resolve(url);
+                tag.onerror = () => reject(url);
+                document.head.appendChild(tag);
+            }
+        });
+    }
+
+
+    if (screen.width >= 768) {
+        Promise.all([
+            loadExternalResource(cssPath, "css"),
+            loadExternalResource(live2dMinJsPath, "js"),
+            loadExternalResource(live2d_path + "waifu-tips.js", "js")
+        ]).then(() => {
+
+            initWidget({
+                waifuPath: waifuTipsJsonPath,
+                
+                cdnPath: "https://fastly.jsdelivr.net/gh/fghrsh/live2d_api/",
+                tools: ["hitokoto", "asteroids", "switch-model", "switch-texture", "photo", "info", "quit"]
+            });
+            initWaifuMouseEvent();
+        });
+    }
+
+    function initWaifuMouseEvent() {
+        const waifu = document.getElementById("waifu");
+        let isDown = false;
+        let waifuLeft;
+        let mouseLeft;
+        let waifuTop;
+        let mouseTop;
+
+        waifu.onmousedown = function (e) {
+            isDown = true;
+
+            waifuLeft = waifu.offsetLeft;
+            mouseLeft = e.clientX;
+
+            waifuTop = waifu.offsetTop;
+            mouseTop = e.clientY;
+        }
+ 
+        window.onmousemove = function (e) {
+            if (!isDown) {
+                return;
+            }
+
+            let currentLeft = waifuLeft + (e.clientX - mouseLeft);
+            if (currentLeft < 0) {
+                currentLeft = 0;
+            } else if (currentLeft > window.innerWidth - 300) {
+                currentLeft = window.innerWidth - 300;
+            }
+            waifu.style.left = currentLeft  + "px";
+
+            let currentTop = waifuTop + (e.clientY - mouseTop);
+            if (currentTop < 30) {
+                currentTop = 30
+            } else if (currentTop > window.innerHeight - 290) {
+                currentTop = window.innerHeight - 290
+            }
+            waifu.style.top = currentTop + "px";
+        }
+
+        window.onmouseup = function (e) {
+            isDown = false;
+        }
+    }
+</script>
+
+
+
+
+
+<div id="particles-js"></div>
+
+<script src=https://echo806.github.io/background/particles.min.js></script>
+<script>
+    particlesJS.load('particles-js', "https://echo806.github.io/background/particlesjs-config.json", function() {
+        console.log('particles.js loaded - callback');
+    });
+</script>
+
+<style>
+    #particles-js {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: -1;
+    }
+</style>
+
+
+
+<style>
+   
+  @font-face {
+    font-family: 'MyChineseFont';
+    src: url(https://echo806.github.io/font/ChildFunSans.ttf) format('truetype');
+  }
+
+   
+  @font-face {
+    font-family: 'Amarna-Semibold';
+    src: url(https://echo806.github.io/font/Amarna-Semibold.ttf) format('truetype');
+  }
+
+  :root {
+     
+    --base-font-family: 'Amarna-Semibold', 'ChildFunSans';
+    --code-font-family: 'Amarna-Semibold', 'ChildFunSans';
+  }
+</style>
+
+
+    </body>
+</html>

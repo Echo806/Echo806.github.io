@@ -3,13 +3,19 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://echo806.github.io/</loc>
-    <lastmod>2026-04-13T00:00:00+00:00</lastmod>
+    <lastmod>2026-04-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://echo806.github.io/categories/</loc>
-    <lastmod>2026-04-13T00:00:00+00:00</lastmod>
+    <lastmod>2026-04-14T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://echo806.github.io/categories/mysql/</loc>
+    <lastmod>2026-04-14T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://echo806.github.io/p/mysql%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2026-04-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://echo806.github.io/post/</loc>
-    <lastmod>2026-04-13T00:00:00+00:00</lastmod>
+    <lastmod>2026-04-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://echo806.github.io/categories/redis/</loc>
     <lastmod>2026-04-13T00:00:00+00:00</lastmod>
