@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="+++ title = &lsquo;redis笔记&rsquo; date = 2026-04-10T08:43:58+08:00 draft = true categories = &ldquo;redis&rdquo; +++ 这个技术点是什么？为什么要有这项技术？（这个技术用来解决什么问题？）它是">
-<title></title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="这个技术点是什么？为什么要有这项技术？（这个技术用来解决什么问题？）它是怎么解决的？（什么原理？）和其他技术点做类比？（扩展其他知识点） 讲一">
+<title>redis笔记</title>
 
-<link rel='canonical' href='https://echo806.github.io/p/'>
+<link rel='canonical' href='https://echo806.github.io/p/redis%E7%AC%94%E8%AE%B0/'>
 
-<link rel="stylesheet" href="/scss/style.min.d44d1b138e555166d2fb22df4e9ea386c36ba19591a491a37edb07faede022e1.css"><meta property='og:title' content="">
-<meta property='og:description' content="+++ title = &lsquo;redis笔记&rsquo; date = 2026-04-10T08:43:58+08:00 draft = true categories = &ldquo;redis&rdquo; +++ 这个技术点是什么？为什么要有这项技术？（这个技术用来解决什么问题？）它是">
-<meta property='og:url' content='https://echo806.github.io/p/'>
+<link rel="stylesheet" href="/scss/style.min.d44d1b138e555166d2fb22df4e9ea386c36ba19591a491a37edb07faede022e1.css"><meta property='og:title' content="redis笔记">
+<meta property='og:description' content="这个技术点是什么？为什么要有这项技术？（这个技术用来解决什么问题？）它是怎么解决的？（什么原理？）和其他技术点做类比？（扩展其他知识点） 讲一">
+<meta property='og:url' content='https://echo806.github.io/p/redis%E7%AC%94%E8%AE%B0/'>
 <meta property='og:site_name' content='帕琪-Pache'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' />
-<meta name="twitter:title" content="">
-<meta name="twitter:description" content="+++ title = &lsquo;redis笔记&rsquo; date = 2026-04-10T08:43:58+08:00 draft = true categories = &ldquo;redis&rdquo; +++ 这个技术点是什么？为什么要有这项技术？（这个技术用来解决什么问题？）它是">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-04-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-04-13T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="redis笔记">
+<meta name="twitter:description" content="这个技术点是什么？为什么要有这项技术？（这个技术用来解决什么问题？）它是怎么解决的？（什么原理？）和其他技术点做类比？（扩展其他知识点） 讲一">
     <link rel="shortcut icon" href="/favicon.ico" />
 
   
@@ -354,10 +354,18 @@
 
     <div class="article-details">
     
+    <header class="article-category">
+        
+            <a href="/categories/redis/" style="background-color: #2a9d8f; color: #fff;">
+                redis
+            </a>
+        
+    </header>
+    
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/"></a>
+            <a href="/p/redis%E7%AC%94%E8%AE%B0/">redis笔记</a>
         </h2>
     
         
@@ -366,6 +374,25 @@
     
     
     
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-04-13</time>
+            </div>
+        
+
+        
+    </footer>
     
 
     
@@ -376,13 +403,7 @@
     <section class="article-content">
     
     
-    <p>+++
-title = &lsquo;redis笔记&rsquo;
-date = 2026-04-10T08:43:58+08:00
-draft = true
-categories = &ldquo;redis&rdquo;</p>
-<p>+++</p>
-<p>这个技术点是什么？为什么要有这项技术？（这个技术用来解决什么问题？）它是怎么解决的？（什么原理？）和其他技术点做类比？（扩展其他知识点）</p>
+    <p>这个技术点是什么？为什么要有这项技术？（这个技术用来解决什么问题？）它是怎么解决的？（什么原理？）和其他技术点做类比？（扩展其他知识点）</p>
 <h2 id="讲一下redis底层的数据结构">讲一下Redis底层的数据结构
 </h2><p>String:缓存对象，常规计数，分布式锁，共享session信息</p>
 <p>List：消息队列（有问题：1.生产者需要自行实现全局id唯一；2.不能以消费者组形式消费）</p>
@@ -421,10 +442,10 @@ categories = &ldquo;redis&rdquo;</p>
 <h2 id="跳表是怎么实现的">跳表是怎么实现的？
 </h2><p>链表在查找元素的时候，因为需要逐一查找，所有查询效率非常低，时间复杂度时o(n)，于是就出现了跳表。<strong>跳表就是在链表基础上改进过来的，实现了一种【多层】的有序链表</strong>，这样的好处时能快速定位数据。</p>
 <p>下图展示了一个层级为 3 的跳表。</p>
-<p><img src="/p/skiplist.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/skiplist.webp"
 	width="1164"
 	height="287"
-	srcset="/p/skiplist_hu17033814001553694684.webp 480w, /p/skiplist_hu3048711844289651869.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/skiplist_hu17033814001553694684.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/skiplist_hu3048711844289651869.webp 1024w"
 	loading="lazy"
 	
 		alt="skiplist"
@@ -480,10 +501,10 @@ categories = &ldquo;redis&rdquo;</p>
 <p>B+ 树是 “磁盘场景的最优解”，而跳表是 “Redis 内存有序数据场景的最优解”，技术选择的核心是 “适配场景”。</p>
 <h2 id="压缩列表是怎么实现的">压缩列表是怎么实现的？
 </h2><p>压缩列表是 Redis 为了节约内存而开发的，它是<strong>由连续内存块组成的顺序型数据结构</strong>，有点类似于数组。</p>
-<p><img src="/p/ziplist.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/ziplist.webp"
 	width="962"
 	height="62"
-	srcset="/p/ziplist_hu2931060931788247589.webp 480w, /p/ziplist_hu15561054643059302867.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/ziplist_hu2931060931788247589.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/ziplist_hu15561054643059302867.webp 1024w"
 	loading="lazy"
 	
 		alt="ziplist"
@@ -526,10 +547,10 @@ categories = &ldquo;redis&rdquo;</p>
 <p>于是，Redis 在 5.0 新设计一个数据结构叫 listpack，目的是替代压缩列表，它最大特点是 listpack 中每个节点不再包含前一个节点的长度了，压缩列表每个节点正因为需要保存前一个节点的长度字段，就会有连锁更新的隐患。</p>
 <p>listpack 采用了压缩列表的很多优秀的设计，比如还是用一块连续的内存空间来紧凑地保存数据，并且为了节省内存的开销，listpack 节点会采用不同的编码方式保存不同大小的数据。</p>
 <p>listpack 结构：</p>
-<p><img src="/p/listpack.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/listpack.webp"
 	width="1082"
 	height="77"
-	srcset="/p/listpack_hu16403471349483251276.webp 480w, /p/listpack_hu17776694487876999412.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/listpack_hu16403471349483251276.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/listpack_hu17776694487876999412.webp 1024w"
 	loading="lazy"
 	
 		alt="listpack"
@@ -542,10 +563,10 @@ categories = &ldquo;redis&rdquo;</p>
 ></p>
 <p>listpack 头包含两个属性，分别记录了 listpack 总字节数和元素数量，然后 listpack 末尾也有个结尾标识。图中的 listpack entry 就是listpack 的节点了。</p>
 <p>每个 listpack 节点结构如下：</p>
-<p><img src="/p/listpack2.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/listpack2.webp"
 	width="1082"
 	height="317"
-	srcset="/p/listpack2_hu9398967501937385436.webp 480w, /p/listpack2_hu7183857707202702001.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/listpack2_hu9398967501937385436.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/listpack2_hu7183857707202702001.webp 1024w"
 	loading="lazy"
 	
 		alt="listpack2"
@@ -563,10 +584,10 @@ categories = &ldquo;redis&rdquo;</p>
 <p>可以看到，<strong>listpack 没有压缩列表中记录前一个节点长度的字段了，listpack 只记录当前节点的长度，当我们向 listpack 加入一个新元素的时候，不会影响其他节点的长度字段的变化，从而避免了压缩列表的连锁更新问题</strong>.</p>
 <h2 id="哈希表是怎么扩容的">哈希表是怎么扩容的？
 </h2><p>进行 rehash 的时候，需要用上 2 个哈希表了。</p>
-<p><img src="/p/%E5%93%88%E5%B8%8C%E8%A1%A8%E6%89%A9%E5%AE%B9.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E5%93%88%E5%B8%8C%E8%A1%A8%E6%89%A9%E5%AE%B9.webp"
 	width="1702"
 	height="808"
-	srcset="/p/%E5%93%88%E5%B8%8C%E8%A1%A8%E6%89%A9%E5%AE%B9_hu2908069639683919266.webp 480w, /p/%E5%93%88%E5%B8%8C%E8%A1%A8%E6%89%A9%E5%AE%B9_hu14370799399187873604.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E5%93%88%E5%B8%8C%E8%A1%A8%E6%89%A9%E5%AE%B9_hu2908069639683919266.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E5%93%88%E5%B8%8C%E8%A1%A8%E6%89%A9%E5%AE%B9_hu14370799399187873604.webp 1024w"
 	loading="lazy"
 	
 		alt="哈希表扩容"
@@ -582,10 +603,10 @@ categories = &ldquo;redis&rdquo;</p>
 <p>1.给【哈希表2】分配空间，一般会比【哈希表1】大2倍。</p>
 <p>2.讲【哈希表1】的数据迁移到【哈希表2】中。</p>
 <p>3.迁移完成后，【哈希表1】的空间会被释放，并把【哈希表2】设置为【哈希表1】，如何在【哈希表2】新创建一个空白的哈希表，为下次rehash做准备。</p>
-<p><img src="/p/rehash%E6%93%8D%E4%BD%9C%E4%B8%89%E4%B8%AA%E6%AD%A5%E9%AA%A4.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/rehash%E6%93%8D%E4%BD%9C%E4%B8%89%E4%B8%AA%E6%AD%A5%E9%AA%A4.webp"
 	width="1656"
 	height="876"
-	srcset="/p/rehash%E6%93%8D%E4%BD%9C%E4%B8%89%E4%B8%AA%E6%AD%A5%E9%AA%A4_hu10753616669749524996.webp 480w, /p/rehash%E6%93%8D%E4%BD%9C%E4%B8%89%E4%B8%AA%E6%AD%A5%E9%AA%A4_hu7995954527267085767.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/rehash%E6%93%8D%E4%BD%9C%E4%B8%89%E4%B8%AA%E6%AD%A5%E9%AA%A4_hu10753616669749524996.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/rehash%E6%93%8D%E4%BD%9C%E4%B8%89%E4%B8%AA%E6%AD%A5%E9%AA%A4_hu7995954527267085767.webp 1024w"
 	loading="lazy"
 	
 		alt="rehash操作三个步骤"
@@ -611,10 +632,10 @@ categories = &ldquo;redis&rdquo;</p>
 <h2 id="string-是使用什么存储的为什么不用-c-语言中的字符串">String 是使用什么存储的?为什么不用 c 语言中的字符串?
 </h2><p>Redis 的 String 字符串是用 SDS（simple dynamic string） 数据结构存储的。</p>
 <p>下图就是 Redis 5.0 的 SDS 的数据结构：</p>
-<p><img src="/p/SDS.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/SDS.webp"
 	width="1470"
 	height="728"
-	srcset="/p/SDS_hu300195108244872528.webp 480w, /p/SDS_hu15080495677286236822.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/SDS_hu300195108244872528.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/SDS_hu15080495677286236822.webp 1024w"
 	loading="lazy"
 	
 		alt="SDS"
@@ -678,10 +699,10 @@ categories = &ldquo;redis&rdquo;</p>
 </ul>
 <p>Redis 单线程指的是「接收客户端请求-&gt;解析请求 -&gt;进行数据读写等操作-&gt;发送数据给客户端」这个过程是由一个线程（主线程）来完成的这些任务都放在主线程来处理，那么 Redis 主线程就很容易发生阻塞，这样就无法处理后续的请求了。</p>
 <p>后台线程相当于一个消费者，生产者把耗时任务丢到任务队列中，消费者（BIO）不停轮询这个队列，拿出任务就去执行对应的方法即可。</p>
-<p><img src="/p/redis%E5%90%8E%E5%8F%B0%E7%BA%BF%E7%A8%8B.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/redis%E5%90%8E%E5%8F%B0%E7%BA%BF%E7%A8%8B.webp"
 	width="1282"
 	height="834"
-	srcset="/p/redis%E5%90%8E%E5%8F%B0%E7%BA%BF%E7%A8%8B_hu3492850785570864283.webp 480w, /p/redis%E5%90%8E%E5%8F%B0%E7%BA%BF%E7%A8%8B_hu8616633524361730926.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/redis%E5%90%8E%E5%8F%B0%E7%BA%BF%E7%A8%8B_hu3492850785570864283.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/redis%E5%90%8E%E5%8F%B0%E7%BA%BF%E7%A8%8B_hu8616633524361730926.webp 1024w"
 	loading="lazy"
 	
 		alt="redis后台线程"
@@ -713,10 +734,10 @@ categories = &ldquo;redis&rdquo;</p>
 </h2><p>为什么 Redis 中要使用 I/O 多路复用这种技术呢？</p>
 <p>因为 Redis 是跑在「单线程」中的，所有的操作都是按照顺序线性执行的，但是由于读写操作等待用户输入 或 输出都是阻塞的，所以I/O 操作在一般情况下往往不能直接返回，这会导致某一文件的 I/O阻塞导，致整个进程无法对其它客户提供服务。而 I/O 多路复用就是为了解决这个问题而出现的。<strong>为了让单线程(进程)的服务端应用同时处理多个客户端的事件，Redis 采用了 IO 多路复用机制。</strong></p>
 <p>这里“多路”指的是多个网络连接客户端，“复用”指的是复用同一个线程(单进程)。I/O 多路复用其实是使用一个线程来检查多个 Socket的就绪状态，在单个线程中通过记录跟踪每一个 socket（I/O流）的状态来管理处理多个 I/O 流。如下图是 Redis 的 I/O 多路复用模型：</p>
-<p><img src="/p/redis%E7%9A%84%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%A8%A1%E5%9E%8B.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/redis%E7%9A%84%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%A8%A1%E5%9E%8B.webp"
 	width="1137"
 	height="500"
-	srcset="/p/redis%E7%9A%84%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%A8%A1%E5%9E%8B_hu8931057319902657832.webp 480w, /p/redis%E7%9A%84%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%A8%A1%E5%9E%8B_hu3158281603827300439.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/redis%E7%9A%84%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%A8%A1%E5%9E%8B_hu8931057319902657832.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/redis%E7%9A%84%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%A8%A1%E5%9E%8B_hu3158281603827300439.webp 1024w"
 	loading="lazy"
 	
 		alt="redis的多路复用模型"
@@ -820,10 +841,10 @@ categories = &ldquo;redis&rdquo;</p>
 </ul>
 <p>AOF 日志是如何实现的？</p>
 <p>Redis 在执行完一条写操作命令后，就会把该命令以追加的方式写入到一个文件里，然后 Redis 重启时，会读取该文件记录的命令，然后逐一执行命令的方式来进行数据恢复。</p>
-<p><img src="/p/AOF%E6%97%A5%E5%BF%97%E5%AE%9E%E7%8E%B0.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/AOF%E6%97%A5%E5%BF%97%E5%AE%9E%E7%8E%B0.webp"
 	width="902"
 	height="332"
-	srcset="/p/AOF%E6%97%A5%E5%BF%97%E5%AE%9E%E7%8E%B0_hu13588019466707974425.webp 480w, /p/AOF%E6%97%A5%E5%BF%97%E5%AE%9E%E7%8E%B0_hu3813203286938121222.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/AOF%E6%97%A5%E5%BF%97%E5%AE%9E%E7%8E%B0_hu13588019466707974425.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/AOF%E6%97%A5%E5%BF%97%E5%AE%9E%E7%8E%B0_hu3813203286938121222.webp 1024w"
 	loading="lazy"
 	
 		alt="AOF日志实现"
@@ -846,10 +867,10 @@ categories = &ldquo;redis&rdquo;</p>
 <p><strong>No</strong>,不由 Redis 控制写回硬盘的时机，转交给操作系统控制写回的时机，也就是每次写操作命令执行完后，先将命令写入到 AOF 文件的内核缓冲区,再由操作系统决定何时将缓冲区内容写回硬盘。</p>
 </li>
 </ul>
-<p><img src="/p/%E4%B8%89%E4%B8%AA%E5%86%99%E5%9B%9E%E7%AD%96%E7%95%A5%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E4%B8%89%E4%B8%AA%E5%86%99%E5%9B%9E%E7%AD%96%E7%95%A5%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9.webp"
 	width="857"
 	height="362"
-	srcset="/p/%E4%B8%89%E4%B8%AA%E5%86%99%E5%9B%9E%E7%AD%96%E7%95%A5%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9_hu171113374831540429.webp 480w, /p/%E4%B8%89%E4%B8%AA%E5%86%99%E5%9B%9E%E7%AD%96%E7%95%A5%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9_hu5338154002407265151.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E4%B8%89%E4%B8%AA%E5%86%99%E5%9B%9E%E7%AD%96%E7%95%A5%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9_hu171113374831540429.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E4%B8%89%E4%B8%AA%E5%86%99%E5%9B%9E%E7%AD%96%E7%95%A5%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9_hu5338154002407265151.webp 1024w"
 	loading="lazy"
 	
 		alt="三个写回策略的优缺点"
@@ -893,10 +914,10 @@ categories = &ldquo;redis&rdquo;</p>
 <h2 id="介绍一下redis-内存淘汰策略">介绍一下Redis 内存淘汰策略
 </h2><p>在 32 位操作系统中，maxmemory 的默认值是 3G，因为 32 位的机器最大只支持 4GB 的内存，而系统本身就需要一定的内存资源来支持运行，所以 32 位操作系统限制最大 3 GB 的可用内存是非常合理的，这样可以避免因为内存不足而导致 Redis 实例崩溃。</p>
 <p>Redis 内存淘汰策略共有八种，这八种策略大体分为「不进行数据淘汰」和「进行数据淘汰」两类策略</p>
-<p><img src="/p/redis%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/redis%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5.webp"
 	width="1080"
 	height="342"
-	srcset="/p/redis%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5_hu9596370481752374491.webp 480w, /p/redis%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5_hu8051355216374122432.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/redis%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5_hu9596370481752374491.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/redis%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5_hu8051355216374122432.webp 1024w"
 	loading="lazy"
 	
 		alt="redis内存淘汰策略"
@@ -963,10 +984,10 @@ categories = &ldquo;redis&rdquo;</p>
 </li>
 </ul>
 <p>惰性删除的流程图如下：</p>
-<p><img src="/p/%E6%83%B0%E6%80%A7%E5%88%A0%E9%99%A4.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E6%83%B0%E6%80%A7%E5%88%A0%E9%99%A4.webp"
 	width="910"
 	height="1549"
-	srcset="/p/%E6%83%B0%E6%80%A7%E5%88%A0%E9%99%A4_hu18201964476488260873.webp 480w, /p/%E6%83%B0%E6%80%A7%E5%88%A0%E9%99%A4_hu2408904886378992619.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E6%83%B0%E6%80%A7%E5%88%A0%E9%99%A4_hu18201964476488260873.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E6%83%B0%E6%80%A7%E5%88%A0%E9%99%A4_hu2408904886378992619.webp 1024w"
 	loading="lazy"
 	
 		alt="惰性删除"
@@ -989,10 +1010,10 @@ categories = &ldquo;redis&rdquo;</p>
 </ol>
 <p>可以看到，定期删除是一个循环的流程。那 Redis 为了保证定期删除不会出现循环过度，导致线程卡死现象，为此增加了定期删除循环流程的时间上限，默认不会超过 25ms。</p>
 <p>定期删除的流程如下：</p>
-<p><img src="/p/%E5%AE%9A%E6%9C%9F%E5%88%A0%E9%99%A4%E6%B5%81%E7%A8%8B.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E5%AE%9A%E6%9C%9F%E5%88%A0%E9%99%A4%E6%B5%81%E7%A8%8B.webp"
 	width="1041"
 	height="2399"
-	srcset="/p/%E5%AE%9A%E6%9C%9F%E5%88%A0%E9%99%A4%E6%B5%81%E7%A8%8B_hu10347522263526623774.webp 480w, /p/%E5%AE%9A%E6%9C%9F%E5%88%A0%E9%99%A4%E6%B5%81%E7%A8%8B_hu14497304561093490647.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E5%AE%9A%E6%9C%9F%E5%88%A0%E9%99%A4%E6%B5%81%E7%A8%8B_hu10347522263526623774.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E5%AE%9A%E6%9C%9F%E5%88%A0%E9%99%A4%E6%B5%81%E7%A8%8B_hu14497304561093490647.webp 1024w"
 	loading="lazy"
 	
 		alt="定期删除流程"
@@ -1028,10 +1049,10 @@ categories = &ldquo;redis&rdquo;</p>
 <p>第三阶段是主服务器发送新写操作命令给从服务器。</p>
 </li>
 </ul>
-<p><img src="/p/%E5%AE%8C%E5%85%A8%E5%90%8C%E6%AD%A5.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E5%AE%8C%E5%85%A8%E5%90%8C%E6%AD%A5.webp"
 	width="1080"
 	height="555"
-	srcset="/p/%E5%AE%8C%E5%85%A8%E5%90%8C%E6%AD%A5_hu4084415341931896493.webp 480w, /p/%E5%AE%8C%E5%85%A8%E5%90%8C%E6%AD%A5_hu8307736537629108164.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E5%AE%8C%E5%85%A8%E5%90%8C%E6%AD%A5_hu4084415341931896493.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E5%AE%8C%E5%85%A8%E5%90%8C%E6%AD%A5_hu8307736537629108164.webp 1024w"
 	loading="lazy"
 	
 		alt="完全同步"
@@ -1065,10 +1086,10 @@ categories = &ldquo;redis&rdquo;</p>
 </ol>
 <p>增量同步</p>
 <p>增量同步允许从服务器从断点处继续同步，而不是每次都进行完全同步。它基于<code>PSYNC</code>命令，使用了运行ID（run ID）和复制偏移量（offset）的概念。</p>
-<p><img src="/p/%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5.webp"
 	width="707"
 	height="617"
-	srcset="/p/%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5_hu6978005064518914187.webp 480w, /p/%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5_hu3011724012945420535.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5_hu6978005064518914187.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5_hu3011724012945420535.webp 1024w"
 	loading="lazy"
 	
 		alt="增量同步"
@@ -1113,10 +1134,10 @@ categories = &ldquo;redis&rdquo;</p>
 </li>
 </ul>
 <p>当主服务器在 repl_backlog_buffer 中找到主从服务器差异（增量）的数据后，就会将增量的数据写入到 replication buffer 缓冲区，这个缓冲区我们前面也提到过，它是缓存将要传播给从服务器的命令。</p>
-<p><img src="/p/replicationbuffer%E7%BC%93%E5%86%B2%E5%8C%BA.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/replicationbuffer%E7%BC%93%E5%86%B2%E5%8C%BA.webp"
 	width="1080"
 	height="380"
-	srcset="/p/replicationbuffer%E7%BC%93%E5%86%B2%E5%8C%BA_hu12285216858972009406.webp 480w, /p/replicationbuffer%E7%BC%93%E5%86%B2%E5%8C%BA_hu1946700028092958950.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/replicationbuffer%E7%BC%93%E5%86%B2%E5%8C%BA_hu12285216858972009406.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/replicationbuffer%E7%BC%93%E5%86%B2%E5%8C%BA_hu1946700028092958950.webp 1024w"
 	loading="lazy"
 	
 		alt="replicationbuffer缓冲区"
@@ -1172,10 +1193,10 @@ categories = &ldquo;redis&rdquo;</p>
 </li>
 </ol>
 <p>Sentinel集群的每一个Sentinel节点会定时对redis集群的所有节点发心跳包检测节点是否正常。如果一个节点在down-after-milliseconds时间内没有回复Sentinel节点的心跳包，则该redis节点被该Sentinel节点主观下线。</p>
-<p><img src="/p/%E6%95%85%E9%9A%9C%E8%8A%82%E7%82%B9%E4%B8%BB%E8%A7%82%E4%B8%8B%E7%BA%BF.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E6%95%85%E9%9A%9C%E8%8A%82%E7%82%B9%E4%B8%BB%E8%A7%82%E4%B8%8B%E7%BA%BF.webp"
 	width="982"
 	height="560"
-	srcset="/p/%E6%95%85%E9%9A%9C%E8%8A%82%E7%82%B9%E4%B8%BB%E8%A7%82%E4%B8%8B%E7%BA%BF_hu10390192256574734172.webp 480w, /p/%E6%95%85%E9%9A%9C%E8%8A%82%E7%82%B9%E4%B8%BB%E8%A7%82%E4%B8%8B%E7%BA%BF_hu4109195826203049086.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E6%95%85%E9%9A%9C%E8%8A%82%E7%82%B9%E4%B8%BB%E8%A7%82%E4%B8%8B%E7%BA%BF_hu10390192256574734172.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E6%95%85%E9%9A%9C%E8%8A%82%E7%82%B9%E4%B8%BB%E8%A7%82%E4%B8%8B%E7%BA%BF_hu4109195826203049086.webp 1024w"
 	loading="lazy"
 	
 		alt="故障节点主观下线"
@@ -1191,10 +1212,10 @@ categories = &ldquo;redis&rdquo;</p>
 </ol>
 <p>当节点被一个Sentinel节点记为主观下线时，并不意味着该节点肯定故障了，还需要Sentinel集群的其他Sentinel节点共同判断为主观下线才行。</p>
 <p>该Sentinel节点会询问其他Sentinel节点，如果Sentinel集群中超过quorum数量的Sentinel节点认为该redis节点主观下线，则该redis客观下线。</p>
-<p><img src="/p/%E6%95%85%E9%9A%9C%E8%8A%82%E7%82%B9%E5%AE%A2%E8%A7%82%E4%B8%8B%E7%BA%BF.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E6%95%85%E9%9A%9C%E8%8A%82%E7%82%B9%E5%AE%A2%E8%A7%82%E4%B8%8B%E7%BA%BF.webp"
 	width="1066"
 	height="686"
-	srcset="/p/%E6%95%85%E9%9A%9C%E8%8A%82%E7%82%B9%E5%AE%A2%E8%A7%82%E4%B8%8B%E7%BA%BF_hu9826284190465803832.webp 480w, /p/%E6%95%85%E9%9A%9C%E8%8A%82%E7%82%B9%E5%AE%A2%E8%A7%82%E4%B8%8B%E7%BA%BF_hu9028811904964392393.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E6%95%85%E9%9A%9C%E8%8A%82%E7%82%B9%E5%AE%A2%E8%A7%82%E4%B8%8B%E7%BA%BF_hu9826284190465803832.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E6%95%85%E9%9A%9C%E8%8A%82%E7%82%B9%E5%AE%A2%E8%A7%82%E4%B8%8B%E7%BA%BF_hu9028811904964392393.webp 1024w"
 	loading="lazy"
 	
 		alt="故障节点客观下线"
@@ -1210,10 +1231,10 @@ categories = &ldquo;redis&rdquo;</p>
 <li>Sentinel集群选举Leader</li>
 </ol>
 <p>如果需要从redis集群选举一个节点为主节点，首先需要从Sentinel集群中选举一个Sentinel节点作为Leader。</p>
-<p><img src="/p/sentinel%E9%9B%86%E7%BE%A4%E9%80%89%E4%B8%BEleader.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/sentinel%E9%9B%86%E7%BE%A4%E9%80%89%E4%B8%BEleader.webp"
 	width="1124"
 	height="988"
-	srcset="/p/sentinel%E9%9B%86%E7%BE%A4%E9%80%89%E4%B8%BEleader_hu7750233420890987172.webp 480w, /p/sentinel%E9%9B%86%E7%BE%A4%E9%80%89%E4%B8%BEleader_hu8986881911004760850.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/sentinel%E9%9B%86%E7%BE%A4%E9%80%89%E4%B8%BEleader_hu7750233420890987172.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/sentinel%E9%9B%86%E7%BE%A4%E9%80%89%E4%B8%BEleader_hu8986881911004760850.webp 1024w"
 	loading="lazy"
 	
 		alt="sentinel集群选举leader"
@@ -1226,10 +1247,10 @@ categories = &ldquo;redis&rdquo;</p>
 ></p>
 <p>每一个Sentinel节点都可以成为Leader，当一个Sentinel节点确认redis集群的主节点主观下线后，会请求其他Sentinel节点要求将自己选举为Leader。被请求的Sentinel节点如果没有同意过其他Sentinel节点的选举请求，则同意该请求(选举票数+1)，否则不同意。</p>
 <p>如果一个Sentinel节点获得的选举票数达到Leader最低票数(quorum和Sentinel节点数/2+1的最大值)，则该Sentinel节点选举为Leader；否则重新进行选举。</p>
-<p><img src="/p/%E9%80%89%E4%B8%BE.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E9%80%89%E4%B8%BE.webp"
 	width="1220"
 	height="388"
-	srcset="/p/%E9%80%89%E4%B8%BE_hu7341123530846655310.webp 480w, /p/%E9%80%89%E4%B8%BE_hu8612720881922595174.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E9%80%89%E4%B8%BE_hu7341123530846655310.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E9%80%89%E4%B8%BE_hu8612720881922595174.webp 1024w"
 	loading="lazy"
 	
 		alt="选举"
@@ -1259,10 +1280,10 @@ categories = &ldquo;redis&rdquo;</p>
 <p>选择runid（redis每次启动的时候生成随机的runid作为redis的标识）最小的从节点作为主节点</p>
 </li>
 </ol>
-<p><img src="/p/%E9%80%89%E4%B8%BB.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E9%80%89%E4%B8%BB.webp"
 	width="879"
 	height="1027"
-	srcset="/p/%E9%80%89%E4%B8%BB_hu13037808206303987479.webp 480w, /p/%E9%80%89%E4%B8%BB_hu14050166994910651673.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E9%80%89%E4%B8%BB_hu13037808206303987479.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E9%80%89%E4%B8%BB_hu14050166994910651673.webp 1024w"
 	loading="lazy"
 	
 		alt="选主"
@@ -1288,10 +1309,10 @@ categories = &ldquo;redis&rdquo;</p>
 <p><strong>平均分配：</strong> 在使用 cluster create 命令创建 Redis 集群时，Redis会自动把所有哈希槽平均分布到集群节点上。比如集群中有 9 个节点，则每个节点上槽的个数为 16384/9 个。</p>
 <p><strong>手动分配：</strong> 可以使用 cluster meet 命令手动建立节点间的连接组成集群，再使用 cluster addslots 命令，指定每个节点上的哈希槽个数。</p>
 <p>为了方便你的理解，我通过一张图来解释数据、哈希槽，以及节点三者的映射分布关系。</p>
-<p><img src="/p/%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%93%88%E5%B8%8C%E6%A7%BD%EF%BC%8C%E8%8A%82%E7%82%B9%E4%B8%89%E8%80%85%E7%9A%84%E6%98%A0%E5%B0%84%E5%88%86%E5%B8%83%E5%85%B3%E7%B3%BB.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%93%88%E5%B8%8C%E6%A7%BD%EF%BC%8C%E8%8A%82%E7%82%B9%E4%B8%89%E8%80%85%E7%9A%84%E6%98%A0%E5%B0%84%E5%88%86%E5%B8%83%E5%85%B3%E7%B3%BB.webp"
 	width="1025"
 	height="533"
-	srcset="/p/%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%93%88%E5%B8%8C%E6%A7%BD%EF%BC%8C%E8%8A%82%E7%82%B9%E4%B8%89%E8%80%85%E7%9A%84%E6%98%A0%E5%B0%84%E5%88%86%E5%B8%83%E5%85%B3%E7%B3%BB_hu1348593974354968825.webp 480w, /p/%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%93%88%E5%B8%8C%E6%A7%BD%EF%BC%8C%E8%8A%82%E7%82%B9%E4%B8%89%E8%80%85%E7%9A%84%E6%98%A0%E5%B0%84%E5%88%86%E5%B8%83%E5%85%B3%E7%B3%BB_hu14972200637888694745.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%93%88%E5%B8%8C%E6%A7%BD%EF%BC%8C%E8%8A%82%E7%82%B9%E4%B8%89%E8%80%85%E7%9A%84%E6%98%A0%E5%B0%84%E5%88%86%E5%B8%83%E5%85%B3%E7%B3%BB_hu1348593974354968825.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%93%88%E5%B8%8C%E6%A7%BD%EF%BC%8C%E8%8A%82%E7%82%B9%E4%B8%89%E8%80%85%E7%9A%84%E6%98%A0%E5%B0%84%E5%88%86%E5%B8%83%E5%85%B3%E7%B3%BB_hu14972200637888694745.webp 1024w"
 	loading="lazy"
 	
 		alt="数据，哈希槽，节点三者的映射分布关系"
@@ -1444,10 +1465,10 @@ categories = &ldquo;redis&rdquo;</p>
 <h2 id="redis分布式锁的实现原理什么场景下用到分布式锁">Redis分布式锁的实现原理？什么场景下用到分布式锁？
 </h2><p><strong>分布式锁是用于分布式环境下并发控制的一种机制，用于控制某个资源在同一时刻只能被一个应用所使用</strong>。</p>
 <p>如下图所示：</p>
-<p><img src="/p/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81.webp"
 	width="1080"
 	height="501"
-	srcset="/p/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81_hu290411053471215606.webp 480w, /p/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81_hu17398441749719793370.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81_hu290411053471215606.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81_hu17398441749719793370.webp 1024w"
 	loading="lazy"
 	
 		alt="分布式锁"
@@ -1570,10 +1591,10 @@ categories = &ldquo;redis&rdquo;</p>
 </ul>
 <h2 id="如何保证-redis-和-mysql-数据缓存一致性问题">如何保证 redis 和 mysql 数据缓存一致性问题？
 </h2><p>对于读数据，我会选择旁路缓存策略，如果 cache 不命中，会从 db 加载数据到 cache。对于写数据，我会选择更新 db 后，再删除缓存。</p>
-<p><img src="/p/%E8%AF%BB%E5%86%99%E6%95%B0%E6%8D%AE.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E8%AF%BB%E5%86%99%E6%95%B0%E6%8D%AE.webp"
 	width="731"
 	height="618"
-	srcset="/p/%E8%AF%BB%E5%86%99%E6%95%B0%E6%8D%AE_hu1518045324597423775.webp 480w, /p/%E8%AF%BB%E5%86%99%E6%95%B0%E6%8D%AE_hu742209740784385829.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E8%AF%BB%E5%86%99%E6%95%B0%E6%8D%AE_hu1518045324597423775.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E8%AF%BB%E5%86%99%E6%95%B0%E6%8D%AE_hu742209740784385829.webp 1024w"
 	loading="lazy"
 	
 		alt="读写数据"
@@ -1615,10 +1636,10 @@ categories = &ldquo;redis&rdquo;</p>
 </li>
 </ul>
 <p>举个例子，来说明重试机制的过程。</p>
-<p><img src="/p/%E9%87%8D%E8%AF%95%E6%9C%BA%E5%88%B6%E7%9A%84%E8%BF%87%E7%A8%8B.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E9%87%8D%E8%AF%95%E6%9C%BA%E5%88%B6%E7%9A%84%E8%BF%87%E7%A8%8B.webp"
 	width="1080"
 	height="462"
-	srcset="/p/%E9%87%8D%E8%AF%95%E6%9C%BA%E5%88%B6%E7%9A%84%E8%BF%87%E7%A8%8B_hu12533221171999449494.webp 480w, /p/%E9%87%8D%E8%AF%95%E6%9C%BA%E5%88%B6%E7%9A%84%E8%BF%87%E7%A8%8B_hu6393034069004583664.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E9%87%8D%E8%AF%95%E6%9C%BA%E5%88%B6%E7%9A%84%E8%BF%87%E7%A8%8B_hu12533221171999449494.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E9%87%8D%E8%AF%95%E6%9C%BA%E5%88%B6%E7%9A%84%E8%BF%87%E7%A8%8B_hu6393034069004583664.webp 1024w"
 	loading="lazy"
 	
 		alt="重试机制的过程"
@@ -1635,10 +1656,10 @@ categories = &ldquo;redis&rdquo;</p>
 <p>于是我们就可以通过订阅 binlog 日志，拿到具体要操作的数据，然后再执行缓存删除，阿里巴巴开源的 Canal 中间件就是基于这个实现的。</p>
 <p>Canal 模拟 MySQL 主从复制的交互协议，把自己伪装成一个MySQL 的从节点，向 MySQL 主节点发送 dump 请求，MySQL 收到请求后，就会开始推送 Binlog 给 Canal，Canal 解析 Binlog 字节流之后，转换为便于读取的结构化数据，供下游程序订阅使用。</p>
 <p>下图是 Canal 的工作原理：</p>
-<p><img src="/p/canal%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/canal%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.webp"
 	width="782"
 	height="332"
-	srcset="/p/canal%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86_hu1589071608575919574.webp 480w, /p/canal%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86_hu15507115731762018731.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/canal%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86_hu1589071608575919574.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/canal%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86_hu15507115731762018731.webp 1024w"
 	loading="lazy"
 	
 		alt="canal的工作原理"
@@ -1653,10 +1674,10 @@ categories = &ldquo;redis&rdquo;</p>
 <p>(ACK机制(acknowledge)是消息队列中用于确认消息是否被成功处理的机制，消费者在处理完成后发送ACK，MQ才会删除消息；若未收到ACK，MQ会进行重试，从而保证消息不丢失，但可能带来重复消费问题，需要通过幂等性解决。)</p>
 <h2 id="缓存雪崩击穿穿透是什么怎么解决">缓存雪崩、击穿、穿透是什么？怎么解决？
 </h2><p>缓存雪崩：当<strong>大量缓存数据在同一时间过期（失效）或者 Redis 故障宕机</strong>时，如果此时有大量的用户请求，都无法在 Redis 中处理，于是全部请求都直接访问数据库，从而导致数据库的压力骤增，严重的会造成数据库宕机，从而形成一系列连锁反应，造成整个系统崩溃，这就是<strong>缓存雪崩</strong>的问题。</p>
-<p><img src="/p/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9.webp"
 	width="1080"
 	height="660"
-	srcset="/p/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9_hu9806063308850247683.webp 480w, /p/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9_hu4245716794724472978.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9_hu9806063308850247683.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9_hu4245716794724472978.webp 1024w"
 	loading="lazy"
 	
 		alt="缓存雪崩"
@@ -1668,10 +1689,10 @@ categories = &ldquo;redis&rdquo;</p>
 	
 ></p>
 <p>缓存击穿：如果缓存中的<strong>某个热点数据过期</strong>了，此时大量的请求访问了该热点数据，就无法从缓存中读取，直接访问数据库，数据库很容易就被高并发的请求冲垮，这就是<strong>缓存击穿</strong>的问题。</p>
-<p><img src="/p/%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF.webp"
 	width="707"
 	height="836"
-	srcset="/p/%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF_hu186669228728107221.webp 480w, /p/%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF_hu740528712594036410.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF_hu186669228728107221.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF_hu740528712594036410.webp 1024w"
 	loading="lazy"
 	
 		alt="缓存击穿"
@@ -1683,10 +1704,10 @@ categories = &ldquo;redis&rdquo;</p>
 	
 ></p>
 <p>缓存穿透：当用户访问的数据，<strong>既不在缓存中，也不在数据库中</strong>，导致请求在访问缓存时，发现缓存缺失，再去访问数据库时，发现数据库中也没有要访问的数据，没办法构建缓存数据，来服务后续的请求。那么当有大量这样的请求到来时，数据库的压力骤增，这就是<strong>缓存穿透</strong>的问题。</p>
-<p><img src="/p/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F.webp"
 	width="576"
 	height="836"
-	srcset="/p/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F_hu16335420871936909926.webp 480w, /p/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F_hu13816760250787793010.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F_hu16335420871936909926.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F_hu13816760250787793010.webp 1024w"
 	loading="lazy"
 	
 		alt="缓存穿透"
@@ -1745,10 +1766,10 @@ categories = &ldquo;redis&rdquo;</p>
 </li>
 </ul>
 <p>举个例子，假设有一个位图数组长度为 8，哈希函数 3 个的布隆过滤器。</p>
-<p><img src="/p/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8.webp"
+<p><img src="/p/redis%E7%AC%94%E8%AE%B0/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8.webp"
 	width="977"
 	height="287"
-	srcset="/p/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8_hu14530556347948249133.webp 480w, /p/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8_hu12755817724400302944.webp 1024w"
+	srcset="/p/redis%E7%AC%94%E8%AE%B0/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8_hu14530556347948249133.webp 480w, /p/redis%E7%AC%94%E8%AE%B0/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8_hu12755817724400302944.webp 1024w"
 	loading="lazy"
 	
 		alt="布隆过滤器"
@@ -1823,6 +1844,28 @@ categories = &ldquo;redis&rdquo;</p>
     
 
     
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E6%9F%90%E5%A4%96%E5%8D%96%E4%BD%9C%E4%B8%9A%E4%B8%80%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">某外卖作业一的两种实现</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
 
      
     
