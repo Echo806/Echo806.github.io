@@ -299,6 +299,31 @@
     <li><a href="#int1-int10-在mysql有什么不同">int(1) int(10) 在mysql有什么不同？</a></li>
     <li><a href="#text数据类型可以无限大吗">Text数据类型可以无限大吗？</a></li>
     <li><a href="#ip地址如何在数据库里存储">IP地址如何在数据库里存储？</a></li>
+    <li><a href="#说一下外键约束">说一下外键约束</a></li>
+    <li><a href="#mysql的关键字in和exist">MySQL的关键字in和exist</a></li>
+    <li><a href="#mysql中的一些基本函数你知道哪些">mysql中的一些基本函数，你知道哪些？</a></li>
+    <li><a href="#sql查询语句的执行顺序是怎么样的">SQL查询语句的执行顺序是怎么样的？</a></li>
+    <li><a href="#sql题给学生表课程成绩表求不存在01课程但存在02课程的学生的成绩">Sql题：给学生表、课程成绩表，求不存在01课程但存在02课程的学生的成绩</a></li>
+    <li><a href="#给定一个学生表-student_scorestu_idsubject_idscore查询总分排名在5-10名的学生id及对应的总分">给定一个学生表 student_score（stu_id，subject_id，score），查询总分排名在5-10名的学生id及对应的总分</a></li>
+    <li><a href="#sql题查某个班级下所有学生的选课情况">SQL题：查某个班级下所有学生的选课情况</a></li>
+    <li><a href="#如何用-mysql-实现一个可重入的锁">如何用 MySQL 实现一个可重入的锁？</a></li>
+    <li><a href="#存储引擎">存储引擎</a></li>
+    <li><a href="#执行一条sql请求的过程是什么">执行一条SQL请求的过程是什么？</a></li>
+    <li><a href="#讲一讲mysql的引擎吧你有什么了解">讲一讲mysql的引擎吧，你有什么了解？</a></li>
+    <li><a href="#mysql为什么innodb是默认引擎">MySQL为什么InnoDB是默认引擎？</a></li>
+    <li><a href="#说一下mysql的innodb与myisam的区别">说一下mysql的innodb与MyISAM的区别？</a></li>
+    <li><a href="#数据管理里数据文件大体分成哪几种数据文件">数据管理里，数据文件大体分成哪几种数据文件？</a></li>
+    <li><a href="#索引是什么有什么好处">索引是什么？有什么好处？</a></li>
+    <li><a href="#讲讲索引的分类是什么">讲讲索引的分类是什么？</a></li>
+    <li><a href="#哈希索引使用场景是什么"><strong>哈希索引使用场景是什么？</strong></a></li>
+    <li><a href="#mysql聚簇索引和非聚簇索引的区别是什么">MySQL聚簇索引和非聚簇索引的区别是什么？</a></li>
+    <li><a href="#如果聚簇索引的数据更新它的存储要不要变化">如果聚簇索引的数据更新，它的存储要不要变化？</a></li>
+    <li><a href="#mysql主键是聚簇索引吗">MySQL主键是聚簇索引吗？</a></li>
+    <li><a href="#什么字段适合当做主键">什么字段适合当做主键？</a></li>
+    <li><a href="#性别字段能加索引么为啥">性别字段能加索引么？为啥？</a></li>
+    <li><a href="#表中十个字段你主键用自增id还是uuid为什么">表中十个字段，你主键用自增ID还是UUID，为什么？</a></li>
+    <li><a href="#什么自增id更快一些uuid不快吗它在b树里面存储是有序的吗">什么自增ID更快一些，UUID不快吗，它在B+树里面存储是有序的吗?</a></li>
+    <li><a href="#mysql中的索引是怎么实现的-">Mysql中的索引是怎么实现的 ？</a></li>
   </ol>
 </nav>
         </div>
@@ -684,7 +709,588 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 插入数据
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="nf">ip_records</span><span class="w"> </span><span class="p">(</span><span class="n">ip_address</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;192.168.1.1&#39;</span><span class="p">);</span><span class="w">
-</span></span></span></code></pre></div>
+</span></span></span></code></pre></div><ul>
+<li>
+<p><strong>优点</strong>：直观易懂，方便直接进行数据的插入、查询和显示，不需要进行额外的转换操作。</p>
+</li>
+<li>
+<p><strong>缺点</strong>：占用存储空间较大，字符串比较操作的性能相对较低，不利于进行范围查询。</p>
+</li>
+</ul>
+<p>整数类型的存储方式：将 IPv4 地址转换为 32 位无符号整数进行存储，常用的数据类型有 <code>INT UNSIGNED</code>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="c1">-- 创建一个表，使用INT UNSIGNED类型存储IPv4地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="nf">ip_records</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="kt">INT</span><span class="w"> </span><span class="kp">AUTO_INCREMENT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">ip_address</span><span class="w"> </span><span class="kt">INT</span><span class="w"> </span><span class="k">UNSIGNED</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 插入数据，需要先将IP地址转换为整数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="nf">ip_records</span><span class="w"> </span><span class="p">(</span><span class="n">ip_address</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="nf">INET_ATON</span><span class="p">(</span><span class="s1">&#39;192.168.1.1&#39;</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 查询时将整数转换回IP地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="nf">INET_NTOA</span><span class="p">(</span><span class="n">ip_address</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">ip_records</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li><strong>优点</strong>：占用存储空间小，整数比较操作的性能较高，便于进行范围查询。</li>
+<li><strong>缺点</strong>：需要进行额外的转换操作，不够直观，增加了开发的复杂度。</li>
+</ul>
+<h2 id="说一下外键约束">说一下外键约束
+</h2><p>外键约束的作用是维护表与表之间的关系，确保数据的完整性和一致性。让我们举一个简单的例子：</p>
+<p>假设你有两个表，一个是学生表，另一个是课程表，这两个表之间有一个关系，即一个学生可以选修多门课程，而一门课程也可以被多个学生选修。在这种情况下，我们可以在学生表中定义一个指向课程表的外键，如下所示：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="nf">students</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="kt">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">name</span><span class="w"> </span><span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">course_id</span><span class="w"> </span><span class="kt">INT</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">course_id</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="nf">courses</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>这里，<code>students</code>表中的<code>course_id</code>字段是一个外键，它指向<code>courses</code>表中的<code>id</code>字段。这个外键约束确保了每个学生所选的课程在<code>courses</code>表中都存在，从而维护了数据的完整性和一致性。</p>
+<p>如果没有定义外键约束，那么就有可能出现学生选了不存在的课程或者删除了一个课程而忘记从学生表中删除选修该课程的学生的情况，这会破坏数据的完整性和一致性。因此，使用外键约束可以帮助我们避免这些问题。</p>
+<h2 id="mysql的关键字in和exist">MySQL的关键字in和exist
+</h2><p>在MySQL中，<code>IN</code> 和 <code>EXISTS</code> 都是用来处理子查询的关键词，但它们在功能、性能和使用场景上有各自的特点和区别。</p>
+<p>IN关键字</p>
+<p><code>IN</code> 用于检查左边的表达式是否存在于右边的列表或子查询的结果集中。如果存在，则<code>IN</code> 返回<code>TRUE</code>，否则返回<code>FALSE</code>。</p>
+<p>语法结构：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="k">column_name</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="k">table_name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="k">column_name</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="n">value1</span><span class="p">,</span><span class="w"> </span><span class="n">value2</span><span class="p">,</span><span class="w"> </span><span class="p">...);</span><span class="w">
+</span></span></span></code></pre></div><p>或</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="k">column_name</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="k">table_name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="k">column_name</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">column_name</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">another_table</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">condition</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Customers</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">Country</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;Germany&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;France&#39;</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>EXISTS关键字</p>
+<p><code>EXISTS</code> 用于判断子查询是否至少能返回一行数据。它不关心子查询返回什么数据，只关心是否有结果。如果子查询有结果，则<code>EXISTS</code> 返回<code>TRUE</code>，否则返回<code>FALSE</code>。</p>
+<p>语法结构：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="k">column_name</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="k">table_name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">column_name</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">another_table</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">condition</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Customers</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Orders</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Orders</span><span class="p">.</span><span class="n">CustomerID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Customers</span><span class="p">.</span><span class="n">CustomerID</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>区别与选择：</p>
+<ul>
+<li><strong>性能差异</strong>：在很多情况下，<code>EXISTS</code> 的性能优于 <code>IN</code>，特别是当子查询的表很大时。这是因为<code>EXISTS</code> 一旦找到匹配项就会立即停止查询，而<code>IN</code>可能会扫描整个子查询结果集。</li>
+<li><strong>使用场景</strong>：如果子查询结果集较小且不频繁变动，<code>IN</code> 可能更直观易懂。而当子查询涉及外部查询的每一行判断，并且子查询的效率较高时，<code>EXISTS</code> 更为合适。</li>
+<li><strong>NULL值处理</strong>：<code>IN</code> 能够正确处理子查询中包含NULL值的情况，而<code>EXISTS</code> 不受子查询结果中NULL值的影响，因为它关注的是行的存在性，而不是具体值。</li>
+</ul>
+<h2 id="mysql中的一些基本函数你知道哪些">mysql中的一些基本函数，你知道哪些？
+</h2><p>一、字符串函数</p>
+<p><strong>CONCAT(str1, str2, &hellip;)</strong>：连接多个字符串，返回一个合并后的字符串。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">CONCAT</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;World&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Greeting</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p><strong>LENGTH(str)</strong>：返回字符串的长度（字符数）。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="k">LENGTH</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">StringLength</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p><strong>SUBSTRING(str, pos, len)</strong>：从指定位置开始，截取指定长度的子字符串。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="k">SUBSTRING</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">SubStr</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p><strong>REPLACE(str, from_str, to_str)</strong>：将字符串中的某部分替换为另一个字符串。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="k">REPLACE</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;World&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;MySQL&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ReplacedStr</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>二、数值函数</p>
+<p><strong>ABS(num)</strong>：返回数字的绝对值。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="k">ABS</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">AbsoluteValue</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p><strong>POWER(num, exponent)</strong>：返回指定数字的指定幂次方。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">POWER</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">PowerValue</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>三、日期和时间函数</p>
+<p><strong>NOW()</strong>：返回当前日期和时间。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">NOW</span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">CurrentDateTime</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p><strong>CURDATE()</strong>：返回当前日期。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">CURDATE</span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">CurrentDate</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>四、聚合函数</p>
+<p><strong>COUNT(column)</strong>：计算指定列中的非NULL值的个数。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">RowCount</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">my_table</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p><strong>SUM(column)</strong>：计算指定列的总和。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">price</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">TotalPrice</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p><strong>AVG(column)</strong>：计算指定列的平均值。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">price</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">AveragePrice</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p><strong>MAX(column)</strong>：返回指定列的最大值。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">price</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">MaxPrice</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p><strong>MIN(column)</strong>：返回指定列的最小值。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">price</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">MinPrice</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h2 id="sql查询语句的执行顺序是怎么样的">SQL查询语句的执行顺序是怎么样的？
+</h2><p><img src="https://cdn.xiaolincoding.com//picgo/image-20240820114027032.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20240820114027032"
+	
+	
+></p>
+<p>所有的查询语句都是从FROM开始执行，在执行过程中，每个步骤都会生成一个虚拟表，这个虚拟表将作为下一个执行步骤的输入，最后一个步骤产生的虚拟表即为输出结果。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">(9) SELECT 
+</span></span><span class="line"><span class="cl">(10) DISTINCT &lt;column&gt;,
+</span></span><span class="line"><span class="cl">(6) AGG_FUNC &lt;column&gt; or &lt;expression&gt;, ...
+</span></span><span class="line"><span class="cl">(1) FROM &lt;left_table&gt; 
+</span></span><span class="line"><span class="cl">    (3) &lt;join_type&gt;JOIN&lt;right_table&gt;
+</span></span><span class="line"><span class="cl">    (2) ON&lt;join_condition&gt;
+</span></span><span class="line"><span class="cl">(4) WHERE &lt;where_condition&gt;
+</span></span><span class="line"><span class="cl">(5) GROUP BY &lt;group_by_list&gt;
+</span></span><span class="line"><span class="cl">(7) WITH {CUBE|ROLLUP}
+</span></span><span class="line"><span class="cl">(8) HAVING &lt;having_condtion&gt;
+</span></span><span class="line"><span class="cl">(11) ORDER BY &lt;order_by_list&gt;
+</span></span><span class="line"><span class="cl">(12) LIMIT &lt;limit_number&gt;;
+</span></span></code></pre></div><h2 id="sql题给学生表课程成绩表求不存在01课程但存在02课程的学生的成绩">Sql题：给学生表、课程成绩表，求不存在01课程但存在02课程的学生的成绩
+</h2><p>可以使用SQL的子查询和<code>LEFT JOIN</code>或者<code>EXISTS</code>关键字来实现，这里我将展示两种不同的方法来完成这个查询。</p>
+<p>假设我们有以下两张表：</p>
+<ol>
+<li><code>Student</code> 表，其中包含学生的<code>sid</code>（学生编号）和其他相关信息。</li>
+<li><code>Score</code> 表，其中包含<code>sid</code>（学生编号），<code>cid</code>（课程编号）和<code>score</code>（分数）。</li>
+</ol>
+<p>方法1：使用LEFT JOIN 和 IS NULL</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">sid</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">sname</span><span class="p">,</span><span class="w"> </span><span class="n">sc2</span><span class="p">.</span><span class="n">cid</span><span class="p">,</span><span class="w"> </span><span class="n">sc2</span><span class="p">.</span><span class="n">score</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">Student</span><span class="w"> </span><span class="n">s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">Score</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">sc1</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sc1</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">sc1</span><span class="p">.</span><span class="n">cid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;01&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">Score</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">sc2</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sc2</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">sc2</span><span class="p">.</span><span class="n">cid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;02&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">sc1</span><span class="p">.</span><span class="n">cid</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">sc2</span><span class="p">.</span><span class="n">cid</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>方法2：使用NOT EXISTS</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">sid</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">sname</span><span class="p">,</span><span class="w"> </span><span class="n">sc</span><span class="p">.</span><span class="n">cid</span><span class="p">,</span><span class="w"> </span><span class="n">sc</span><span class="p">.</span><span class="n">score</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">Student</span><span class="w"> </span><span class="n">s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">JOIN</span><span class="w"> </span><span class="n">Score</span><span class="w"> </span><span class="n">sc</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sc</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">sc</span><span class="p">.</span><span class="n">cid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;02&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Score</span><span class="w"> </span><span class="n">sc1</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">sc1</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">sc1</span><span class="p">.</span><span class="n">cid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;01&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><h2 id="给定一个学生表-student_scorestu_idsubject_idscore查询总分排名在5-10名的学生id及对应的总分">给定一个学生表 student_score（stu_id，subject_id，score），查询总分排名在5-10名的学生id及对应的总分
+</h2><p>可以使用以下 SQL 查询来检索总分排名在 5 到 10 名的学生 ID 及对应的总分。其中我们先计算每个学生的总分，然后为其分配一个排名，最后检索排名在 5 到 10 之间的记录。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">WITH</span><span class="w"> </span><span class="n">StudentTotalScores</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">SELECT</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">stu_id</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">SUM</span><span class="p">(</span><span class="n">score</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total_score</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">FROM</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">student_score</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">stu_id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">RankedStudents</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">SELECT</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">stu_id</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">total_score</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">RANK</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">total_score</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ranking</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">FROM</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">StudentTotalScores</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">stu_id</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">total_score</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">RankedStudents</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">ranking</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>解释：</p>
+<ol>
+<li>子查询 StudentTotalScores 中，我们通过对 student_score 表中的 stu_id 分组来计算每个学生的总分。</li>
+<li>子查询 RankedStudents 中，我们使用 RANK() 函数为每个学生分配一个排名，按总分从高到低排序。</li>
+<li>最后，我们在主查询中选择排名在 5 到 10 之间的学生。</li>
+</ol>
+<h2 id="sql题查某个班级下所有学生的选课情况">SQL题：查某个班级下所有学生的选课情况
+</h2><p>有三张表：学生信息表、学生选课表、学生班级表</p>
+<p>学生信息表（students）结构如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">student_id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w">     </span><span class="c1">-- 学生的唯一标识，主键
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">  </span><span class="n">student_name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span><span class="w">       </span><span class="c1">-- 学生姓名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">  </span><span class="n">class_id</span><span class="w"> </span><span class="nb">INT</span><span class="w">                    </span><span class="c1">-- 学生所属班级的标识，用于关联班级表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>学生选课表（<code>course_selections</code>）结构如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">course_selections</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">selection_id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w"> </span><span class="c1">-- 选课记录的唯一标识，主键
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="n">student_id</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w">               </span><span class="c1">-- 选课学生的标识，用于关联学生信息表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="n">course_name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w">       </span><span class="c1">-- 所选课程的名称
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>学生班级表（<code>classes</code>）结构如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">classes</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">class_id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w">   </span><span class="c1">-- 班级的唯一标识，主键
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="n">class_name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w">      </span><span class="c1">-- 班级名称
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>要查询某个班级（例如班级名称为 &lsquo;Class A&rsquo;）下所有学生的选课情况，可以使用以下 SQL 查询语句：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">s</span><span class="p">.</span><span class="n">student_id</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">s</span><span class="p">.</span><span class="n">student_name</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">cs</span><span class="p">.</span><span class="n">course_name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">students</span><span class="w"> </span><span class="n">s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">JOIN</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">course_selections</span><span class="w"> </span><span class="n">cs</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">student_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cs</span><span class="p">.</span><span class="n">student_id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">JOIN</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">classes</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">class_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">class_id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">c</span><span class="p">.</span><span class="n">class_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Class A&#39;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h2 id="如何用-mysql-实现一个可重入的锁">如何用 MySQL 实现一个可重入的锁？
+</h2><p>创建一个保存锁记录的表：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">lock_table</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">//</span><span class="err">该字段用于存储锁的名称，作为锁的唯一标识符。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="n">lock_name</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">holder_thread该字段存储当前持有锁的线程的名称</span><span class="err">，用于标识哪个线程持有该锁。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="n">holder_thread</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span><span class="w">   
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">reentry_count</span><span class="w"> </span><span class="err">该字段存储锁的重入次数，用于实现锁的可重入性</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="n">reentry_count</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>加锁的实现逻辑</p>
+<ol>
+<li>开启事务</li>
+<li>执行 SQL SELECT holder_thread, reentry_count FROM lock_table WHERE lock_name =? FOR UPDATE，查询是否存在该记录：
+<ul>
+<li>如果记录不存在，则直接加锁，执行 INSERT INTO lock_table (lock_name, holder_thread, reentry_count) VALUES (?,?, 1)</li>
+<li>如果记录存在，且持有者是同一个线程，则可冲入，增加重入次数，执行 UPDATE lock_table SET reentry_count = reentry_count + 1 WHERE lock_name =?</li>
+</ul>
+</li>
+<li>提交事务</li>
+</ol>
+<p>解锁的逻辑：</p>
+<ol>
+<li>开启事务</li>
+<li>执行 SQL SELECT holder_thread, reentry_count FROM lock_table WHERE lock_name =? FOR UPDATE，查询是否存在该记录：
+<ul>
+<li>如果记录存在，且持有者是同一个线程，且可重入数大于 1 ，则减少重入次数 UPDATE lock_table SET reentry_count = reentry_count - 1 WHERE lock_name =?</li>
+<li>如果记录存在，且持有者是同一个线程，且可重入数小于等于 0 ，则完全释放锁，DELETE FROM lock_table WHERE lock_name =?</li>
+</ul>
+</li>
+<li>提交事务</li>
+</ol>
+<h2 id="存储引擎">存储引擎
+</h2><h2 id="执行一条sql请求的过程是什么">执行一条SQL请求的过程是什么？
+</h2><p>先来一个上帝视角图，下面就是 MySQL 执行一条 SQL 查询语句的流程，也从图中可以看到 MySQL 内部架构里的各个功能模块。</p>
+<p><img src="https://cdn.xiaolincoding.com//picgo/1720155840218-b95c4217-6502-42b8-bcc5-384b297de75d.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<ul>
+<li>
+<p>连接器：建立连接，管理连接、校验用户身份；</p>
+</li>
+<li>
+<p>查询缓存：查询语句如果命中查询缓存则直接返回，否则继续往下执行。MySQL 8.0 已删除该模块；</p>
+</li>
+<li>
+<p>解析 SQL，通过解析器对 SQL 查询语句进行词法分析、语法分析，然后构建语法树，方便后续模块读取表名、字段、语句类型；</p>
+</li>
+<li>
+<p>执行 SQL：执行 SQL 共有三个阶段：</p>
+<ul>
+<li>
+<p>预处理阶段：检查表或字段是否存在；将 <code>select *</code> 中的 <code>*</code> 符号扩展为表上的所有列。</p>
+</li>
+<li>
+<p>优化阶段：基于查询成本的考虑， 选择查询成本最小的执行计划；</p>
+</li>
+<li>
+<p>执行阶段：根据执行计划执行 SQL 查询语句，从存储引擎读取记录，返回给客户端；</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="讲一讲mysql的引擎吧你有什么了解">讲一讲mysql的引擎吧，你有什么了解？
+</h2><ul>
+<li>InnoDB：InnoDB是MySQL的默认存储引擎，<strong>具有ACID事务支持、行级锁、外键约束等特性</strong>。它适用于高并发的读写操作，支持较好的数据完整性和并发控制。</li>
+<li>MyISAM：MyISAM是MySQL的另一种常见的存储引擎，具有较低的存储空间和内存消耗，适用于大量读操作的场景。然而，MyISAM不支持事务、行级锁和外键约束，因此在并发写入和数据完整性方面有一定的限制。</li>
+<li>Memory：Memory引擎将数据存储在内存中，适用于对性能要求较高的读操作，但是在服务器重启或崩溃时数据会丢失。它不支持事务、行级锁和外键约束。</li>
+</ul>
+<h2 id="mysql为什么innodb是默认引擎">MySQL为什么InnoDB是默认引擎？
+</h2><p>InnoDB引擎在事务支持、并发性能、崩溃恢复等方面具有优势，因此被MySQL选择为默认的存储引擎。</p>
+<ul>
+<li>事务支持：InnoDB引擎提供了对事务的支持，可以进行ACID（原子性、一致性、隔离性、持久性）属性的操作。Myisam存储引擎是不支持事务的。</li>
+<li>并发性能：InnoDB引擎采用了行级锁定的机制，可以提供更好的并发性能，Myisam存储引擎只支持表锁，锁的粒度比较大。</li>
+<li>崩溃恢复：InnoDB 引擎通过 redo log 日志实现了崩溃恢复，可以在数据库发生异常情况（如断电）时，通过日志文件进行恢复，保证数据的持久性和一致性。MyISAM 是不支持崩溃恢复的。</li>
+</ul>
+<h2 id="说一下mysql的innodb与myisam的区别">说一下mysql的innodb与MyISAM的区别？
+</h2><ul>
+<li>
+<p><strong>事务</strong>：InnoDB 支持事务，MyISAM 不支持事务，这是 MySQL 将默认存储引擎从 MyISAM 变成 InnoDB 的重要原因之一。</p>
+</li>
+<li>
+<p><strong>索引结构</strong>：InnoDB 是聚簇索引，MyISAM 是非聚簇索引。聚簇索引的文件存放在主键索引的叶子节点上，因此 InnoDB 必须要有主键，通过主键索引效率很高。但是辅助索引需要两次查询，先查询到主键，然后再通过主键查询到数据。因此，主键不应该过大，因为主键太大，其他索引也都会很大。而 MyISAM 是非聚簇索引，数据文件是分离的，索引保存的是数据文件的指针。主键索引和辅助索引是独立的。</p>
+</li>
+<li>
+<p><strong>锁粒度</strong>：InnoDB 最小的锁粒度是行锁，MyISAM 最小的锁粒度是表锁。一个更新语句会锁住整张表，导致其他查询和更新都会被阻塞，因此并发访问受限。</p>
+</li>
+<li>
+<p><strong>count 的效率</strong>：InnoDB 不保存表的具体行数，执行 select count(*) from table 时需要全表扫描。而MyISAM 用一个变量保存了整个表的行数，执行上述语句时只需要读出该变量即可，速度很快。</p>
+</li>
+</ul>
+<h2 id="数据管理里数据文件大体分成哪几种数据文件">数据管理里，数据文件大体分成哪几种数据文件？
+</h2><p>我们每创建一个 database（数据库） 都会在 /var/lib/mysql/ 目录里面创建一个以 database 为名的目录，然后保存表结构和表数据的文件都会存放在这个目录里。</p>
+<p>比如，我这里有一个名为 my_test 的 database，该 database 里有一张名为 t_order 数据库表。</p>
+<p><img src="https://cdn.xiaolincoding.com//picgo/1716792105334-854b63c4-0b44-43c9-b808-c5efe4f602fd.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>然后，我们进入 /var/lib/mysql/my_test 目录，看看里面有什么文件？</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="o">[</span>root@xiaolin ~<span class="o">]</span><span class="c1">#ls /var/lib/mysql/my_test</span>
+</span></span><span class="line"><span class="cl">db.opt  
+</span></span><span class="line"><span class="cl">t_order.frm  
+</span></span><span class="line"><span class="cl">t_order.ibd
+</span></span></code></pre></div><p>可以看到，共有三个文件，这三个文件分别代表着：</p>
+<ul>
+<li>
+<p>db.opt，用来存储当前数据库的默认字符集和字符校验规则。</p>
+</li>
+<li>
+<p>t_order.frm ，t_order 的表结构会保存在这个文件。在 MySQL 中建立一张表都会生成一个.frm 文件，该文件是用来保存每个表的元数据信息的，主要包含表结构定义。</p>
+</li>
+<li>
+<p>t_order.ibd，t_order 的表数据会保存在这个文件。表数据既可以存在共享表空间文件（文件名：ibdata1）里，也可以存放在独占表空间文件（文件名：表名字.ibd）。这个行为是由参数 innodb_file_per_table 控制的，若设置了参数 innodb_file_per_table 为 1，则会将存储的数据、索引等信息单独存储在一个独占表空间，从 MySQL 5.6.6 版本开始，它的默认值就是 1 了，因此从这个版本之后， MySQL 中每一张表的数据都存放在一个独立的 .ibd 文件。</p>
+</li>
+</ul>
+<h2 id="索引是什么有什么好处">索引是什么？有什么好处？
+</h2><p>索引类似于书籍的目录，可以减少扫描的数据量，提高查询效率。</p>
+<ul>
+<li>
+<p>如果查询的时候，没有用到索引就会全表扫描，这时候查询的时间复杂度是 O(N)</p>
+</li>
+<li>
+<p>如果用到了索引，那么查询的时候，可以基于二分查找算法，通过索引快速定位到目标数据，MySQL 索引的数据结构一般是 B+ 树，其搜索复杂度为 O(logdN)，其中 d 表示节点允许的最大子节点个数。</p>
+</li>
+</ul>
+<h2 id="讲讲索引的分类是什么">讲讲索引的分类是什么？
+</h2><p>MySQL可以按照四个角度来分类索引。</p>
+<ul>
+<li>
+<p>按「数据结构」分类：<strong>B+tree索引、Hash索引、Full-text索引</strong></p>
+</li>
+<li>
+<p>按「物理存储」分类：<strong>聚簇索引（主键索引）、二级索引（辅助索引）</strong>。</p>
+</li>
+<li>
+<p>按「字段特性」分类：<strong>主键索引、唯一索引、普通索引、前缀索引</strong>。</p>
+</li>
+<li>
+<p>按「字段个数」分类：<strong>单列索引、联合索引</strong>。</p>
+</li>
+</ul>
+<p>接下来，按照这些角度来说说各类索引的特点。</p>
+<p>按数据结构分类</p>
+<p>从数据结构的角度来看，MySQL 常见索引有 B+Tree 索引、HASH 索引、Full-Text 索引。</p>
+<p>每一种存储引擎支持的索引类型不一定相同，我在表中总结了 MySQL 常见的存储引擎 InnoDB、MyISAM 和 Memory 分别支持的索引类型。</p>
+<p><img src="https://cdn.xiaolincoding.com//picgo/1719803663459-11b9a82a-6bf2-46cd-b882-e0b85e5a4256.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>InnoDB 是在 MySQL 5.5 之后成为默认的 MySQL 存储引擎，B+Tree 索引类型也是 MySQL 存储引擎采用最多的索引类型。</p>
+<p>在创建表时，InnoDB 存储引擎会根据不同的场景选择不同的列作为索引：</p>
+<ul>
+<li>
+<p>如果有主键，默认会使用主键作为聚簇索引的索引键（key）；</p>
+</li>
+<li>
+<p>如果没有主键，就选择第一个不包含 NULL 值的唯一列作为聚簇索引的索引键（key）；</p>
+</li>
+<li>
+<p>在上面两个都没有的情况下，InnoDB 将自动生成一个隐式自增 id 列作为聚簇索引的索引键（key）；</p>
+</li>
+</ul>
+<p>其它索引都属于辅助索引（Secondary Index），也被称为二级索引或非聚簇索引。<strong>创建的主键索引和二级索引默认使用的是 B+Tree 索引</strong>。</p>
+<p>按物理存储分类</p>
+<p>从物理存储的角度来看，索引分为聚簇索引（主键索引）、二级索引（辅助索引）。</p>
+<p>这两个区别在前面也提到了：</p>
+<ul>
+<li>主键索引的 B+Tree 的叶子节点存放的是实际数据，所有完整的用户记录都存放在主键索引的 B+Tree 的叶子节点里；</li>
+<li>二级索引的 B+Tree 的叶子节点存放的是主键值，而不是实际数据。</li>
+</ul>
+<p>所以，在查询时使用了二级索引，如果查询的数据能在二级索引里查询的到，那么就不需要回表，这个过程就是覆盖索引。如果查询的数据不在二级索引里，就会先检索二级索引，找到对应的叶子节点，获取到主键值后，然后再检索主键索引，就能查询到数据了，这个过程就是回表。</p>
+<p>按字段特性分类</p>
+<p>从字段特性的角度来看，索引分为主键索引、唯一索引、普通索引、前缀索引。</p>
+<ul>
+<li>主键索引</li>
+</ul>
+<p>主键索引就是建立在主键字段上的索引，通常在创建表的时候一起创建，一张表最多只有一个主键索引，索引列的值不允许有空值</p>
+<p>在创建表时，创建主键索引的方式如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table_name</span><span class="w">  </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">....</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">index_column_1</span><span class="p">)</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">BTREE</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>唯一索引</li>
+</ul>
+<p>唯一索引建立在 UNIQUE 字段上的索引，一张表可以有多个唯一索引，索引列的值必须唯一，但是允许有空值。</p>
+<p>在创建表时，创建唯一索引的方式如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table_name</span><span class="w">  </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">....</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">UNIQUE</span><span class="w"> </span><span class="k">KEY</span><span class="p">(</span><span class="n">index_column_1</span><span class="p">,</span><span class="n">index_column_2</span><span class="p">,...)</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>建表后，如果要创建唯一索引，可以使用这面这条命令：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">UNIQUE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">index_name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ON</span><span class="w"> </span><span class="k">table_name</span><span class="p">(</span><span class="n">index_column_1</span><span class="p">,</span><span class="n">index_column_2</span><span class="p">,...);</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>普通索引</li>
+</ul>
+<p>普通索引就是建立在普通字段上的索引，既不要求字段为主键，也不要求字段为 UNIQUE。</p>
+<p>在创建表时，创建普通索引的方式如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table_name</span><span class="w">  </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">....</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">INDEX</span><span class="p">(</span><span class="n">index_column_1</span><span class="p">,</span><span class="n">index_column_2</span><span class="p">,...)</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>建表后，如果要创建普通索引，可以使用这面这条命令：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">index_name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ON</span><span class="w"> </span><span class="k">table_name</span><span class="p">(</span><span class="n">index_column_1</span><span class="p">,</span><span class="n">index_column_2</span><span class="p">,...);</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>前缀索引</li>
+</ul>
+<p>前缀索引是指对字符类型字段的前几个字符建立的索引，而不是在整个字段上建立的索引，前缀索引可以建立在字段类型为 char、 varchar、binary、varbinary 的列上。</p>
+<p>使用前缀索引的目的是为了减少索引占用的存储空间，提升查询效率。</p>
+<p>在创建表时，创建前缀索引的方式如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table_name</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">column_list</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">INDEX</span><span class="p">(</span><span class="k">column_name</span><span class="p">(</span><span class="k">length</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>建表后，如果要创建前缀索引，可以使用这面这条命令：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">index_name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ON</span><span class="w"> </span><span class="k">table_name</span><span class="p">(</span><span class="k">column_name</span><span class="p">(</span><span class="k">length</span><span class="p">));</span><span class="w">
+</span></span></span></code></pre></div><p>按字段个数分类</p>
+<p>从字段个数的角度来看，索引分为单列索引、联合索引（复合索引）。</p>
+<ul>
+<li>建立在单列上的索引称为单列索引，比如主键索引；</li>
+<li>建立在多列上的索引称为联合索引；</li>
+</ul>
+<p>通过将多个字段组合成一个索引，该索引就被称为联合索引。</p>
+<p>比如，将商品表中的 product_no 和 name 字段组合成联合索引(product_no, name)，创建联合索引的方式如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">index_product_no_name</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">product</span><span class="p">(</span><span class="n">product_no</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>使用联合索引时，存在<strong>最左匹配原则</strong>，也就是按照最左优先的方式进行索引的匹配。在使用联合索引进行查询的时候，如果不遵循「最左匹配原则」，联合索引会失效，这样就无法利用到索引快速查询的特性了。</p>
+<p>比如，如果创建了一个 (a, b, c) 联合索引，如果查询条件是以下这几种，就可以匹配上联合索引：</p>
+<ul>
+<li>where a=1；</li>
+<li>where a=1 and b=2 and c=3；</li>
+<li>where a=1 and b=2；</li>
+</ul>
+<p>需要注意的是，因为有查询优化器，所以 a 字段在 where 子句的顺序并不重要。</p>
+<p>但是，如果查询条件是以下这几种，因为不符合最左匹配原则，所以就无法匹配上联合索引，联合索引就会失效:</p>
+<ul>
+<li>where b=2；</li>
+<li>where c=3；</li>
+<li>where b=2 and c=3；</li>
+</ul>
+<p>上面这些查询条件之所以会失效，是因为(a, b, c) 联合索引，是先按 a 排序，在 a 相同的情况再按 b 排序，在 b 相同的情况再按 c 排序。所以，<strong>b 和 c 是全局无序，局部相对有序的</strong>，这样在没有遵循最左匹配原则的情况下，是无法利用到索引的。</p>
+<p>联合索引有一些特殊情况，<strong>并不是查询过程使用了联合索引查询，就代表联合索引中的所有字段都用到了联合索引进行索引查询</strong>，也就是可能存在部分字段用到联合索引的 B+Tree，部分字段没有用到联合索引的 B+Tree 的情况。</p>
+<p>这种特殊情况就发生在范围查询。联合索引的最左匹配原则会一直向右匹配直到遇到「范围查询」就会停止匹配。<strong>也就是范围查询的字段可以用到联合索引，但是在范围查询字段的后面的字段无法用到联合索引</strong>。</p>
+<h2 id="哈希索引使用场景是什么"><strong>哈希索引使用场景是什么？</strong>
+</h2><p>哈希索引<strong>优势是等值查询极快、能直接通过哈希函数定位数据位置</strong>，而<strong>短板是不支持范围查询、排序和前缀匹配</strong>，所以使用场景必然是那些以等值查询为核心，且不需要复杂查询操作的场景。</p>
+<p>比如 MySQL 的 Memory 存储引擎，默认就用哈希索引。因为内存表本身是基于内存存储的，追求极致的查询速度，而这类场景通常都是简单的等值查询，比如缓存用户登录信息，通过用户 ID 快速查找对应的登录状态、权限信息，这时候哈希索引能直接通过用户 ID 计算哈希值，定位到数据所在的桶，查询效率接近 O(1)，比 B+ 树索引的等值查询更快。</p>
+<h2 id="mysql聚簇索引和非聚簇索引的区别是什么">MySQL聚簇索引和非聚簇索引的区别是什么？
+</h2><p><img src="https://cdn.xiaolincoding.com//picgo/1721709935338-fe01a58d-da89-47b5-9288-0f0e966937ca.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<ul>
+<li>
+<p><strong>数据存储</strong>：在<strong>聚簇索引中</strong>，数据行按照索引键值的顺序存储，也就是说，<strong>索引的叶子节点包含了实际的数据行</strong>。这意味着索引结构本身就是数据的物理存储结构。<strong>非聚簇索引的叶子节点不包含完整的数据行，而是包含指向数据行的指针或主键值</strong>。数据行本身存储在聚簇索引中。</p>
+</li>
+<li>
+<p><strong>索引与数据关系</strong>：由于数据与索引紧密相连，当通过<code>聚簇索引查找数据时，可以直接从索引中获得数据行，而不需要额外的步骤去查找数据所在的位置</code>。当通过非聚簇索引查找数据时，首先<code>在非聚簇索引中找到对应的主键值，然后通过这个主键值回溯到聚簇索引中查找实际的数据行，这个过程称为“回表”。</code></p>
+</li>
+<li>
+<p><strong>唯一性</strong>：聚簇索引通常是基于主键构建的，因此每个表只能有一个聚簇索引，因为数据只能有一种物理排序方式。一个表可以有多个非聚簇索引，因为它们不直接影响数据的物理存储位置。</p>
+</li>
+<li>
+<p><strong>效率</strong>：对于范围查询和排序查询，聚簇索引通常更有效率，因为它避免了额外的寻址开销。非聚簇索引在使用覆盖索引进行查询时效率更高，因为它不需要读取完整的数据行。但是需要进行回表的操作，使用非聚簇索引效率比较低，因为需要进行额外的回表操作。</p>
+</li>
+</ul>
+<h2 id="如果聚簇索引的数据更新它的存储要不要变化">如果聚簇索引的数据更新，它的存储要不要变化？
+</h2><ul>
+<li>如果更新的数据是非索引数据，也就是普通的用户记录，那么存储结构是不会发生变化</li>
+<li>如果更新的数据是索引数据，那么存储结构是有变化的，因为要维护 b+树的有序性</li>
+</ul>
+<h2 id="mysql主键是聚簇索引吗">MySQL主键是聚簇索引吗？
+</h2><p>在MySQL的InnoDB存储引擎中，主键确实是以聚簇索引的形式存储的。</p>
+<p>InnoDB将数据存储在B+树的结构中，其中主键索引的B+树就是所谓的聚簇索引。这意味着表中的数据行在物理上是按照主键的顺序排列的，聚簇索引的叶节点包含了实际的数据行。</p>
+<p><img src="https://cdn.xiaolincoding.com//picgo/1721710061075-2cc270e3-0324-4856-8d67-bd633a620e06.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>InnoDB 在创建聚簇索引时，会根据不同的场景选择不同的列作为索引：</p>
+<ul>
+<li>
+<p>如果有主键，默认会使用主键作为聚簇索引的索引键；</p>
+</li>
+<li>
+<p>如果没有主键，就选择第一个不包含 NULL 值的唯一列作为聚簇索引的索引键；</p>
+</li>
+<li>
+<p>在上面两个都没有的情况下，InnoDB 将自动生成一个隐式自增 id 列作为聚簇索引的索引键；</p>
+</li>
+</ul>
+<p>一张表只能有一个聚簇索引，那<strong>为了实现非主键字段的快速搜索，就引出了二级索引</strong>（非聚簇索引/辅助索引），它也是利用了 B+ 树的数据结构，但是<strong>二级索引的叶子节点存放的是主键值，不是实际数据。</strong></p>
+<h2 id="什么字段适合当做主键">什么字段适合当做主键？
+</h2><ul>
+<li>
+<p>字段具有<strong>唯一性</strong>，且<strong>不能为空</strong>的特性</p>
+</li>
+<li>
+<p>字段<strong>最好是有递增的</strong>趋势的，如果字段的值是随机无序的，可能会引发页分裂的问题，造型性能影响。</p>
+</li>
+<li>
+<p>不建议用业务数据作为主键，比如会员卡号、订单号、学生号之类的，因为我们无法预测未来会不会因为业务需要，而出现业务字段重复或者重用的情况。</p>
+</li>
+<li>
+<p>通常情况下会用自增字段来做主键，对于单机系统来说是没问题的。但是，如果有多台服务器，各自都可以录入数据，那就不一定适用了。因为如果每台机器各自产生的数据需要合并，就可能会出现主键重复的问题，这时候就需要考虑分布式 id 的方案了。</p>
+</li>
+</ul>
+<h2 id="性别字段能加索引么为啥">性别字段能加索引么？为啥？
+</h2><p>不建议针对性别字段加索引。</p>
+<p>实际上与索引创建规则之一区分度有关，性别字段假设有100w数据，50w男、50w女，区别度几乎等于 0 。</p>
+<p>区分度的计算方式 ：select count(DISTINCT sex)/count(*) from sys_user</p>
+<p>实际上对于性别字段不适合创建索引，是因为select * 操作，还得进行50w次回表操作，根据主键从聚簇索引中找到其他字段 ，这一部分开销从上面的测试来说还是比较大的，所以从性能角度来看不建议性别字段加索引，加上索引并不是索引失效，而是回表操作使得变慢的。</p>
+<p><strong>既然走索引的查询的成本比全表扫描高，优化器就会选择全表扫描的方向进行查询，这时候建立的性别字段索引就没有启到加快查询的作用，反而还因为创建了索引占用了空间。</strong></p>
+<h2 id="表中十个字段你主键用自增id还是uuid为什么">表中十个字段，你主键用自增ID还是UUID，为什么？
+</h2><p>用的是自增 id。</p>
+<p>因为 uuid 相对顺序的自增 id 来说是毫无规律可言的，新行的值不一定要比之前的主键的值要大，所以 innodb 无法做到总是把新行插入到索引的最后，而是需要为新行寻找新的合适的位置从而来分配新的空间。</p>
+<p>这个过程需要做很多额外的操作，数据的毫无顺序会导致数据分布散乱，将会导致以下的问题：</p>
+<ul>
+<li>写入的目标页很可能已经刷新到磁盘上并且从缓存上移除，或者还没有被加载到缓存中，innodb 在插入之前不得不先找到并从磁盘读取目标页到内存中，这将导致大量的随机 IO。</li>
+<li>因为写入是乱序的，innodb 不得不频繁的做页分裂操作，以便为新的行分配空间，页分裂导致移动大量的数据，影响性能。</li>
+<li>由于频繁的页分裂，页会变得稀疏并被不规则的填充，最终会导致数据会有碎片。</li>
+</ul>
+<p>结论：使用 InnoDB 应该尽可能的按主键的自增顺序插入，并且尽可能使用单调的增加的聚簇键的值来插入新行。</p>
+<h2 id="什么自增id更快一些uuid不快吗它在b树里面存储是有序的吗">什么自增ID更快一些，UUID不快吗，它在B+树里面存储是有序的吗?
+</h2><p>自增的主键的值是顺序的，所以 Innodb 把每一条记录都存储在一条记录的后面，所以自增 id 更快的原因：</p>
+<ul>
+<li>下一条记录就会写入新的页中，一旦数据按照这种顺序的方式加载，主键页就会近乎于顺序的记录填满，提升了页面的最大填充率，不会有页的浪费</li>
+<li>新插入的行一定会在原有的最大数据行下一行，mysql定位和寻址很快，不会为计算新行的位置而做出额外的消耗</li>
+<li>减少了页分裂和碎片的产生</li>
+</ul>
+<p>但是 UUID 不是递增的，MySQL 中索引的数据结构是 B+Tree，这种数据结构的特点是索引树上的节点的数据是有序的，而如果使用 UUID 作为主键，那么每次插入数据时，因为无法保证每次产生的 UUID 有序，所以就会出现新的 UUID 需要插入到索引树的中间去，这样可能会频繁地导致页分裂，使性能下降。</p>
+<p>而且，UUID 太占用内存。每个 UUID 由 36 个字符组成，在字符串进行比较时，需要从前往后比较，字符串越长，性能越差。另外字符串越长，占用的内存越大，由于页的大小是固定的，这样一个页上能存放的关键字数量就会越少，这样最终就会导致索引树的高度越大，在索引搜索的时候，发生的磁盘 IO 次数越多，性能越差。</p>
+<h2 id="mysql中的索引是怎么实现的-">Mysql中的索引是怎么实现的 ？
+</h2><p>MySQL InnoDB 引擎是用了B+树作为了索引的数据结构。</p>
+<p>B+Tree 是一种多叉树，叶子节点才存放数据，非叶子节点只存放索引，而且每个节点里的数据是<strong>按主键顺序存放</strong>的。每一层父节点的索引值都会出现在下层子节点的索引值中，因此在叶子节点中，包括了所有的索引值信息，并且每一个叶子节点都有两个指针，分别指向下一个叶子节点和上一个叶子节点，形成一个双向链表。</p>
+<p>主键索引的 B+Tree 如图所示：<img src="https://cdn.xiaolincoding.com//picgo/1717479903616-831081f3-45bc-4436-a066-2702266abfce.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+
 </section>
 
 

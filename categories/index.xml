@@ -7,7 +7,15 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>帕琪-Pache</copyright>
-        <lastBuildDate>Tue, 14 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://echo806.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 15 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://echo806.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>随便学学</title>
+        <link>https://echo806.github.io/categories/%E9%9A%8F%E4%BE%BF%E5%AD%A6%E5%AD%A6/</link>
+        <pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://echo806.github.io/categories/%E9%9A%8F%E4%BE%BF%E5%AD%A6%E5%AD%A6/</guid>
+        <description>&lt;img src="https://echo806.github.io/categories/%E9%9A%8F%E4%BE%BF%E5%AD%A6%E5%AD%A6/ce22c31f498f1a02bbcc720b817c51de0e49d811.png@1256w_1740h_%21web-article-pic.webp" alt="Featured image of post 随便学学" /&gt;</description>
+        </item>
+        <item>
         <title>mysql</title>
         <link>https://echo806.github.io/categories/mysql/</link>
         <pubDate>Tue, 14 Apr 2026 00:00:00 +0000</pubDate>
@@ -30,14 +38,6 @@
         
         <guid>https://echo806.github.io/categories/%E7%94%9F%E6%B4%BB%E5%91%A8%E8%AE%B0/</guid>
         <description>&lt;img src="https://echo806.github.io/categories/%E7%94%9F%E6%B4%BB%E5%91%A8%E8%AE%B0/p0.jpg" alt="Featured image of post 生活周记" /&gt;</description>
-        </item>
-        <item>
-        <title>随便学学</title>
-        <link>https://echo806.github.io/categories/%E9%9A%8F%E4%BE%BF%E5%AD%A6%E5%AD%A6/</link>
-        <pubDate>Sun, 05 Apr 2026 16:52:29 +0800</pubDate>
-        
-        <guid>https://echo806.github.io/categories/%E9%9A%8F%E4%BE%BF%E5%AD%A6%E5%AD%A6/</guid>
-        <description>&lt;img src="https://echo806.github.io/categories/%E9%9A%8F%E4%BE%BF%E5%AD%A6%E5%AD%A6/ce22c31f498f1a02bbcc720b817c51de0e49d811.png@1256w_1740h_%21web-article-pic.webp" alt="Featured image of post 随便学学" /&gt;</description>
         </item>
         <item>
         <title>Agent</title>

@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="我们大脑中的记忆，就好比 CPU Cache，中文称为 CPU 高速缓存，处理速度相比寄存器慢了一点，但是能存储的数据也稍微多了一些。 CPU Cache 通常会分为 L1、L">
+<title>操作系统</title>
+
+<link rel='canonical' href='https://echo806.github.io/p/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/'>
+
+<link rel="stylesheet" href="/scss/style.min.d44d1b138e555166d2fb22df4e9ea386c36ba19591a491a37edb07faede022e1.css"><meta property='og:title' content="操作系统">
+<meta property='og:description' content="我们大脑中的记忆，就好比 CPU Cache，中文称为 CPU 高速缓存，处理速度相比寄存器慢了一点，但是能存储的数据也稍微多了一些。 CPU Cache 通常会分为 L1、L">
+<meta property='og:url' content='https://echo806.github.io/p/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/'>
+<meta property='og:site_name' content='帕琪-Pache'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-04-15T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-04-15T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="操作系统">
+<meta name="twitter:description" content="我们大脑中的记忆，就好比 CPU Cache，中文称为 CPU 高速缓存，处理速度相比寄存器慢了一点，但是能存储的数据也稍微多了一些。 CPU Cache 通常会分为 L1、L">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/Patchouli.gif" width="500"
+                            height="500" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🤔</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">帕琪-Pache</a></h1>
+            <h2 class="site-description">欢迎来到我的网站，此博客由【Hugo &#43; Stack】来进行搭建，主要分享个人生活和学习笔记</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/306100621'
+                        target="_blank"
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-bilibili"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6" /><path d="M8 3l2 3" /><path d="M16 3l-2 3" /><path d="M9 13v-2" /><path d="M15 11v2" /></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/echo806'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://steamcommunity.com/profiles/76561199076111538/'
+                        target="_blank"
+                        title="Steam"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-steam"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16.5 5a4.5 4.5 0 1 1 -.653 8.953l-4.347 3.009l0 .038a3 3 0 0 1 -2.824 3l-.176 0a3 3 0 0 1 -2.94 -2.402l-2.56 -1.098v-3.5l3.51 1.755a2.989 2.989 0 0 1 2.834 -.635l2.727 -3.818a4.5 4.5 0 0 1 4.429 -5.302" /><path d="M15.5 9.5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" fill="currentColor" /></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E6%97%A5%E5%BF%97/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-logs"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 12h.01" /><path d="M4 6h.01" /><path d="M4 18h.01" /><path d="M8 18h2" /><path d="M8 12h2" /><path d="M8 6h2" /><path d="M14 6h6" /><path d="M14 12h6" /><path d="M14 18h6" /></svg>
+                
+                <span>日志</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#heading"></a>
+          <ol>
+            <li><a href="#l1-高速缓存">L1 高速缓存</a></li>
+            <li><a href="#l2-高速缓存">L2 高速缓存</a></li>
+            <li><a href="#l3-高速缓存">L3 高速缓存</a></li>
+          </ol>
+        </li>
+        <li><a href="#内存">内存</a></li>
+        <li><a href="#ssdhdd-硬盘">SSD/HDD 硬盘</a></li>
+      </ol>
+    </li>
+    <li><a href="#存储器的层次关系">存储器的层次关系</a></li>
+    <li><a href="#cpu-cache-的数据结构和读取过程是什么样的">CPU Cache 的数据结构和读取过程是什么样的？</a></li>
+    <li><a href="#heading-1"></a></li>
+    <li><a href="#如何写出让-cpu-跑得更快的代码">如何写出让 CPU 跑得更快的代码？</a>
+      <ol>
+        <li><a href="#如何提升指令缓存的命中率">如何提升指令缓存的命中率？</a></li>
+        <li><a href="#如何提升多核-cpu-的缓存命中率">如何提升多核 CPU 的缓存命中率？</a></li>
+      </ol>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ol>
+
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#写直达">写直达</a></li>
+        <li><a href="#写回">写回</a></li>
+      </ol>
+    </li>
+    <li><a href="#缓存一致性问题">缓存一致性问题</a></li>
+    <li><a href="#总线嗅探">总线嗅探</a></li>
+    <li><a href="#mesi-协议">MESI 协议</a>
+      <ol>
+        <li><a href="#heading-2"></a></li>
+        <li><a href="#分析伪共享的问题">分析伪共享的问题</a></li>
+        <li><a href="#避免伪共享的方法">避免伪共享的方法</a></li>
+      </ol>
+    </li>
+    <li><a href="#cpu-如何选择线程的">CPU 如何选择线程的？</a>
+      <ol>
+        <li><a href="#调度类">调度类</a></li>
+        <li><a href="#完全公平调度">完全公平调度</a></li>
+        <li><a href="#cpu-运行队列">CPU 运行队列</a></li>
+        <li><a href="#调整优先级">调整优先级</a></li>
+      </ol>
+    </li>
+    <li><a href="#总结-1">总结</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#什么是软中断">什么是软中断？</a>
+      <ol>
+        <li><a href="#系统里有哪些软中断">系统里有哪些软中断？</a></li>
+      </ol>
+    </li>
+    <li><a href="#如何定位软中断-cpu-使用率过高的问题">如何定位软中断 CPU 使用率过高的问题？</a></li>
+    <li><a href="#总结-2">总结</a></li>
+    <li><a href="#heading-3"></a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E9%9A%8F%E4%BE%BF%E5%AD%A6%E5%AD%A6/" style="background-color: #2a9d8f; color: #fff;">
+                随便学学
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-04-15</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p><img src="https://cdn.xiaolincoding.com//mysql/other/%E5%AD%98%E5%82%A8%E5%99%A8%E6%8F%90%E7%BA%B2.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost2/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/%E5%AD%A6%E4%B9%A0%E4%B8%8E%E5%AD%98%E5%82%A8%E5%B1%82%E6%AC%A1%E5%85%B3%E7%B3%BB.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>我们大脑中的记忆，就好比 <strong>CPU Cache</strong>，中文称为 CPU 高速缓存，处理速度相比寄存器慢了一点，但是能存储的数据也稍微多了一些。</p>
+<p>CPU Cache 通常会分为 <strong>L1、L2、L3 三层</strong>，其中 L1 Cache 通常分成「数据缓存」和「指令缓存」，L1 是距离 CPU 最近的，因此它比 L2、L3 的读写速度都快、存储空间都小。我们大脑中短期记忆，就好比 L1 Cache，而长期记忆就好比 L2/L3 Cache。</p>
+<p>当我们大脑记忆中没有资料的时候，可以从书桌或书架上拿书来阅读，那我们桌子上的书，就好比<strong>内存</strong>，我们虽然可以一伸手就可以拿到，但读速度肯定远慢于寄存器，那图书馆书架上的书，就好比<strong>硬盘</strong>，能存储的数据非常大，但是读写速度相比内存差好几个数量级，更别说跟寄存器的差距了。</p>
+<p>我们从图书馆书架取书，把书放到桌子上，再阅读书，我们大脑就会记忆知识点，然后再经过大脑思考，这一系列过程相当于，数据从硬盘加载到内存，再从内存加载到 CPU 的寄存器和 Cache 中，然后再通过 CPU 进行处理和计算。</p>
+<p><strong>对于存储器，它的速度越快、能耗会越高、而且材料的成本也是越贵的，以至于速度快的存储器的容量都比较小。</strong></p>
+<p>CPU 里的寄存器和 Cache，是整个计算机存储器中价格最贵的，虽然存储空间很小，但是读写速度是极快的，而相对比较便宜的内存和硬盘，速度肯定比不上 CPU 内部的存储器，但是能弥补存储空间的不足。</p>
+<p>存储器通常可以分为这么几个级别：<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost2/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/%E5%AD%98%E5%82%A8%E5%8C%BA%E5%88%86%E7%BA%A7.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<ul>
+<li>
+<p>32 位 CPU 中大多数寄存器可以存储 <code>4</code> 个字节；</p>
+</li>
+<li>
+<p>64 位 CPU 中大多数寄存器可以存储 <code>8</code> 个字节。</p>
+</li>
+</ul>
+<p>寄存器的访问速度非常快，一般要求在半个 CPU 时钟周期内完成读写，CPU 时钟周期跟 CPU 主频息息相关，比如 2 GHz 主频的CPU，那么它的时钟周期就是 1/2G，也就是 0.5ns（纳秒）。</p>
+<p>CPU 处理一条指令的时候，除了读写寄存器，还需要解码指令、控制指令执行和计算。如果寄存器的速度太慢，则会拉长指令的处理周期，从而给用户的感觉，就是电脑「很慢」。</p>
+<h3 id="heading">
+</h3><p>CPU Cache 用的是一种叫  **SRAM（*Static Random-Access* Memory，静态随机存储器）**的芯片。</p>
+<p>SRAM 之所以叫「静态」存储器，是因为只要有电，数据就可以保持存在，而一旦断电，数据就会丢失了。</p>
+<p>在 SRAM 里面，一个 bit 的数据，通常需要 6 个晶体管，所以 SRAM 的存储密度不高，同样的物理空间下，能存储的数据是有限的，不过也因为 SRAM 的电路简单，所以访问速度非常快。</p>
+<p>CPU 的高速缓存，通常可以分为 L1、L2、L3 这样的三层高速缓存，也称为一级缓存、二级缓存、三级缓存。</p>
+<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost2/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/CPU-Cache.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<h4 id="l1-高速缓存">L1 高速缓存
+</h4><p>L1 高速缓存的访问速度几乎和寄存器一样快，通常只需要 <code>2~4</code> 个时钟周期，而大小在几十 KB 到几百 KB 不等。</p>
+<p>每个 CPU 核心都有一块属于自己的 L1 高速缓存，指令和数据在 L1 是分开存放的，所以 L1 高速缓存通常分成<strong>指令缓存</strong>和<strong>数据缓存</strong>。</p>
+<p>在 Linux 系统，我们可以通过这条命令，查看 CPU 里的 L3 Cache 的容量大小：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">$ cat /sys/devices/system/cpu/cpu0/cache/index0/size
+</span></span><span class="line"><span class="cl">32K
+</span></span></code></pre></div><p>而查看 L1 Cache 「指令」缓存的容量大小，则是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">$ cat /sys/devices/system/cpu/cpu0/cache/index1/size
+</span></span><span class="line"><span class="cl">32K
+</span></span></code></pre></div><p>上图中的 <code>index0</code> 也就是数据缓存，而 <code>index1</code> 则是指令缓存，它两的大小通常是一样的。</p>
+<h4 id="l2-高速缓存">L2 高速缓存
+</h4><p>L2 高速缓存同样每个 CPU 核心都有，但是 L2 高速缓存位置比 L1 高速缓存距离 CPU 核心 更远，它大小比 L1 高速缓存更大，CPU 型号不同大小也就不同，通常大小在几百 KB 到几 MB 不等，访问速度则更慢，速度在 <code>10~20</code> 个时钟周期。</p>
+<p>在 Linux 系统，我们可以通过这条命令，查看 CPU 里的 L2 Cache 的容量大小：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">$ cat /sys/devices/system/cpu/cpu0cache/index2/size
+</span></span><span class="line"><span class="cl">256K
+</span></span></code></pre></div><h4 id="l3-高速缓存">L3 高速缓存
+</h4><p>L3 高速缓存通常是多个 CPU 核心共用的，位置比 L2 高速缓存距离 CPU 核心 更远，大小也会更大些，通常大小在几 MB 到几十 MB 不等，具体值根据 CPU 型号而定。</p>
+<p>访问速度相对也比较慢一些，访问速度在 <code>20~60</code>个时钟周期。</p>
+<p>在 Linux 系统，我们可以通过这条命令，查看 CPU 里的 L3 Cache 的容量大小：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">$ cat /sys/devices/system/cpu/cpu0/cache/index3/size 
+</span></span><span class="line"><span class="cl">3072K
+</span></span></code></pre></div><p>L3 Cache 比 L1 Cache 和 L2 Cache 大很多，这是因为 <strong>L1 Cache 和 L2 Cache 都是每个 CPU 核心独有的，而 L3 Cache 是多个 CPU 核心共享的。</strong></p>
+<h3 id="内存">内存
+</h3><p>内存用的芯片和 CPU Cache 有所不同，它使用的是一种叫作</p>
+<p><strong>DRAM （Dynamic Random Access Memory，动态随机存取存储器）</strong> 的芯片。</p>
+<p>相比 SRAM，DRAM 的密度更高，功耗更低，有更大的容量，而且造价比 SRAM 芯片便宜很多。</p>
+<p>DRAM 存储一个 bit 数据，只需要一个晶体管和一个电容就能存储，但是因为数据会被存储在电容里，电容会不断漏电，所以需要「定时刷新」电容，才能保证数据不会被丢失，这就是 DRAM 之所以被称为「动态」存储器的原因，只有不断刷新，数据才能被存储起来。</p>
+<p>DRAM 的数据访问电路和刷新电路都比 SRAM 更复杂，所以访问的速度会更慢，内存速度大概在 <code>200~300</code> 个 时钟周期之间。</p>
+<h3 id="ssdhdd-硬盘">SSD/HDD 硬盘
+</h3><p>SSD（<em>Solid-state disk</em>） 就是我们常说的固态硬盘，结构和内存类似，但是它相比内存的优点是断电后数据还是存在的，而内存、寄存器、高速缓存断电后数据都会丢失。内存的读写速度比 SSD 大概快 <code>10~1000</code> 倍。</p>
+<p>当然，还有一款传统的硬盘，也就是机械硬盘（<em>Hard Disk Drive, HDD</em>）它是通过物理读写的方式来访问数据的，因此它访问速度是非常慢的，它的速度比内存慢 <code>10W</code> 倍左右。</p>
+<p>由于 SSD 的价格快接近机械硬盘了，因此机械硬盘已经逐渐被 SSD 替代了。</p>
+<h2 id="存储器的层次关系">存储器的层次关系
+</h2><p>每一种存储器设备只和它相邻的存储器设备打交道。<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost2/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/%E5%AD%98%E5%82%A8%E5%99%A8%E7%9A%84%E5%B1%82%E6%AC%A1%E5%85%B3%E7%B3%BB%E5%9B%BE.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p><strong>每个存储器只和相邻的一层存储器设备打交道，并且存储设备为了追求更快的速度，所需的材料成本必然也是更高，也正因为成本太高，所以 CPU 内部的寄存器、L1\L2\L3 Cache 只好用较小的容量，相反内存、硬盘则可用更大的容量，这就我们今天所说的存储器层次结构</strong>。</p>
+<p>另外，当 CPU 需要访问内存中某个数据的时候，如果寄存器有这个数据CPU 就直接从寄存器取数据即可，如果寄存器没有这个数据，CPU 就会查询 L1 高速缓存，如果 L1 没有，则查询 L2 高速缓存，L2 还是没有的话就查询 L3 高速缓存，L3 依然没有的话，才去内存中取数据。<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost2/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/%E7%BC%93%E5%AD%98%E4%BD%93%E7%B3%BB1.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>所以，存储层次结构也形成了<strong>缓存</strong>的体系。</p>
+<h2 id="cpu-cache-的数据结构和读取过程是什么样的">CPU Cache 的数据结构和读取过程是什么样的？
+</h2><p>我们先简单了解下 CPU Cache 的结构，CPU Cache 是由很多个Cache Line 组成的，Cache Line 是 CPU 从内存读取数据的基本单位，而 Cache Line 是由各种标志（Tag）+ 数据块（Data Block）组成，你可以在下图清晰的看到：<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/Cache%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>CPU Cache 的数据是从内存中读取过来的，它是以一小块一小块读取数据的，而不是按照单个数组元素来读取数据的，在 CPUCache 中的，这样一小块一小块的数据，称为 <strong>Cache Line（缓存块）</strong>。</p>
+<p>你可以在你的 Linux 系统，用下面这种方式来查看 CPU 的 Cache Line，你可以看我服务器的 L1 Cache Line 大小是 64 字节，也就意味着 <strong>L1 Cache 一次载入数据的大小是 64 字节</strong>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">$ cat /sys/devices/system/cpu/cpu0/cache/index0/coherency_line_size
+</span></span><span class="line"><span class="cl"><span class="m">64</span>
+</span></span></code></pre></div><p>比如，有一个 <code>int array[100]</code> 的数组，当载入 array[0]时，由于这个数组元素的大小在内存只占 4 字节，不足 64 字节，CPU 就会<strong>顺序加载</strong>数组元素到 array[15]，意味着<code>array[0]~array[15]</code> 数组元素都会被缓存在 CPU Cache 中了，因此当下次访问这些数组元素时，会直接从 CPU Cache 读取，而不用再从内存中读取，大大提高了 CPU 读取数据的性能。</p>
+<p>事实上，CPU 读取数据的时候，无论数据是否存放到 Cache 中，CPU 都是先访问 Cache，只有当 Cache 中找不到数据时，才会去访问内存，并把内存中的数据读入到 Cache 中，CPU 再从 CPU Cache 读取数据。<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E7%BC%93%E5%AD%98/%E7%BC%93%E5%AD%98%E9%80%BB%E8%BE%91.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>那 CPU 怎么知道要访问的内存数据，是否在 Cache 里？如果在的话，如何找到 Cache 对应的数据呢？我们从最简单、基础的<strong>直接映射 Cache（*Direct Mapped Cache*）</strong> 说起，来看看整个 CPU Cache 的数据结构和访问逻辑。</p>
+<p>前面，我们提到 CPU 访问内存数据时，是一小块一小块数据读取的，具体这一小块数据的大小，取决于 <code>coherency_line_size</code>的值，一般 64 字节。在内存中，这一块的数据我们称为<strong>内存块（Block）</strong>，读取的时候我们要拿到数据所在内存块的地址。</p>
+<p><strong>（*Block*）</strong>，读取的时候我们要拿到数据所在内存块的地址。<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E7%BC%93%E5%AD%98/%E6%B1%82%E6%A8%A1%E6%98%A0%E5%B0%84%E7%AD%96%E7%95%A5.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>因此，为了区别不同的内存块，在对应的 CPU Cache Line 中我们还会存储一个<strong>组标记（Tag）</strong>。这个组标记会记录当前 CPU CacheLine 中存储的数据对应的内存块，我们可以用这个组标记来区分不同的内存块。</p>
+<p>除了组标记信息外，CPU Cache Line 还有两个信息：</p>
+<ul>
+<li>
+<p>一个是，从内存加载过来的实际存放<strong>数据（Data）</strong>。</p>
+</li>
+<li>
+<p>另一个是，<strong>有效位（Valid bit）</strong>，它是用来标记对应的 CPUCache Line 中的数据是否是有效的，如果有效位是 0，无论CPU Cache Line 中是否有数据，CPU 都会直接访问内存，重新加载数据。</p>
+</li>
+</ul>
+<p>CPU 在从 CPU Cache 读取数据的时候，并不是读取 CPU CacheLine 中的整个数据块，而是读取 CPU 所需要的一个数据片段，这样的数据统称为一个<strong>字（*Word*）</strong>。那怎么在对应的 CPU CacheLine 中数据块中找到所需的字呢？答案是，需要一个<strong>偏移量（Offset）</strong>。</p>
+<p>因此，一个内存的访问地址，包括<strong>组标记、CPU Cache Line 索引、偏移量</strong>这三种信息，于是 CPU 就能通过这些信息，在 CPU Cache 中找到缓存的数据。而对于 CPU Cache 里的数据结构，则是由<strong>索引 + 有效位 + 组标记 + 数据块</strong>组成。<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E7%BC%93%E5%AD%98/%E7%9B%B4%E6%8E%A5Cache%E6%98%A0%E5%B0%84.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>如果内存中的数据已经在 CPU Cache 中了，那 CPU 访问一个内存地址的时候，会经历这 4 个步骤：</p>
+<ol>
+<li>
+<p>根据内存地址中索引信息，计算在 CPU Cache 中的索引，也就是找出对应的CPU Cache Line 的地址；</p>
+</li>
+<li>
+<p>找到对应 CPU Cache Line 后，判断 CPU Cache Line 中的有效位，确认 CPU Cache Line 中数据是否是有效的，如果是无效的，CPU 就会直接访问内存，并重新加载数据，如果数据有效，则往下执行；</p>
+</li>
+<li>
+<p>对比内存地址中组标记和 CPU Cache Line 中的组标记，确认CPU Cache Line 中的数据是我们要访问的内存数据，如果不是的话，CPU 就会直接访问内存，并重新加载数据，如果是的话，则往下执行；</p>
+</li>
+<li>
+<p>根据内存地址中偏移量信息，从 CPU Cache Line 的数据块中，读取对应的字。</p>
+</li>
+</ol>
+<p>到这里，相信你对直接映射 Cache 有了一定认识，但其实除了<strong>直接映射 Cache</strong> 之外，还有其他通过内存地址找到 CPU Cache 中的数据的策略，比如<strong>全相连 Cache</strong> （<em>Fully Associative Cache</em>）、<strong>组相连 Cache</strong> （<em>Set Associative Cache</em>）等，这几种策策略的数据结构都比较相似，我们理解了直接映射 Cache 的工作方式，其他的策略如果你有兴趣去看，相信很快就能理解的了。</p>
+<h2 id="heading-1">
+</h2><h2 id="如何写出让-cpu-跑得更快的代码">如何写出让 CPU 跑得更快的代码？
+</h2><p>访问的数据在 CPU Cache 中的话，意味着<strong>缓存命中</strong>，缓存命中率越高的话，代码的性能就会越好，CPU 也就跑的越快。</p>
+<p>于是，「如何写出让 CPU 跑得更快的代码？」这个问题，可以改成「如何写出 CPU 缓存命中率高的代码？」。</p>
+<p><strong>我们要分开来看「数据缓存」和「指令缓存」的缓存命中率</strong>。</p>
+<p>假设要遍历二维数组，有以下两种形式，虽然代码执行结果是一样，但你觉得哪种形式效率最高呢？为什么高呢？</p>
+<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E7%BC%93%E5%AD%98/%E9%81%8D%E5%8E%86%E6%95%B0%E7%BB%84.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>经过测试，形式一 <code>array[i][j]</code> 执行时间比形式二 <code>array[j][i]</code> 快好几倍。之所以有这么大的差距，是因为二维数组 <code>array</code> 所占用的内存是连续的比如长度 <code>N</code> 的值是 <code>2</code> 的话，那么内存中的数组元素的布局顺序是这样的：<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E7%BC%93%E5%AD%98/%E6%95%B0%E7%BB%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%E9%A1%BA%E5%BA%8F.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>形式一用 <code>array[i][j]</code> 访问数组元素的顺序，正是和内存中数组元素存放的顺序一致。当 CPU 访问 <code>array[0][0]</code> 时，由于该数据不在 Cache 中，于是会「顺序」把跟随其后的 3 个元素从内存中加载到 CPU Cache，这样当 CPU 访问后面的 3 个数组元素时，就能在 CPU Cache 中成功地找到数据，这意味着缓存命中率很高，缓存命中的数据不需要访问内存，这便大大提高了代码的性能。</p>
+<p>而如果用形式二的 <code>array[j][i]</code> 来访问，则访问的顺序就是：<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E7%BC%93%E5%AD%98/%E5%BD%A2%E5%BC%8F%E4%BA%8C%E8%AE%BF%E9%97%AE%E9%A1%BA%E5%BA%8F.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>你可以看到，访问的方式跳跃式的，而不是顺序的，那么如果 N的数值很大，那么操作 <code>array[j][i]</code> 时，是没办法把array[j+1] [i]<code>也读入到 CPU Cache 中的，既然</code>array[j+1]<code>[i]</code> 没有读取到 CPU Cache，那么就需要从内存读取该数据元素了。很明显，这种不连续性、跳跃式访问数据元素的方式，可能不能充分利用到了 CPU Cache 的特性，从而代码的性能不高。</p>
+<p>那访问 <code>array[0][0]</code> 元素时，CPU 具体会一次从内存中加载多</p>
+<p>少元素到 CPU Cache 呢？这个问题，在前面我们也提到过，这跟CPU Cache Line 有关，它表示 <strong>CPU Cache 一次性能加载数据的大小</strong>，可以在 Linux 里通过 <code>coherency_line_size</code> 配置查看 它的大小，通常是 64 个字节。</p>
+<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E7%BC%93%E5%AD%98/%E6%9F%A5%E7%9C%8BCPULine%E5%A4%A7%E5%B0%8F.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>也就是说，当 CPU 访问内存数据时，如果数据不在 CPU Cache中，则会一次性会连续加载 64 字节大小的数据到 CPU Cache，那么当访问 <code>array[0][0]</code> 时，由于该元素不足 64 字节，于是就会往后<strong>顺序</strong>读取 <code>array[0][0]~array[0][15]</code> 到 CPU Cache 中。顺序访问的 <code>array[i][j]</code> 因为利用了这一特点，所以就会比跳跃式访问的 <code>array[j][i]</code> 要快。</p>
+<p><strong>因此，遇到这种遍历数组的情况时，按照内存布局顺序访问，将可以有效的利用 CPU Cache 带来的好处，这样我们代码的性能就会得到很大的提升</strong></p>
+<h3 id="如何提升指令缓存的命中率">如何提升指令缓存的命中率？
+</h3><p>提升数据的缓存命中率的方式，是按照内存布局顺序访问，那针对指令的缓存该如何提升呢？</p>
+<p>我们以一个例子来看看，有一个元素为 0 到 100 之间随机数字组成的一维数组：<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E7%BC%93%E5%AD%98/%E9%9A%8F%E6%9C%BA%E6%95%B0%E6%95%B0%E7%BB%84.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>接下来，对这个数组做两个操作：<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E7%BC%93%E5%AD%98/%E6%8E%92%E5%BA%8Fand%E6%95%B0%E7%BB%84%E9%81%8D%E5%8E%86.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<ul>
+<li>第一个操作，循环遍历数组，把小于 50 的数组元素置为 0；</li>
+<li>第二个操作，将数组排序；</li>
+</ul>
+<p>那么问题来了，你觉得先遍历再排序速度快，还是先排序再遍历速度快呢？</p>
+<p>在回答这个问题之前，我们先了解 CPU 的<strong>分支预测器</strong>。对于 if 条件语句，意味着此时至少可以选择跳转到两段不同的指令执行，也就是 if 还是 else 中的指令。</p>
+<p>那么，<strong>如果分支预测可以预测到接下来要执行 if 里的指令，还是 else 指令的话，就可以「提前」把这些指令放在指令缓存中，这样 CPU 可以直接从 Cache 读取到指令，于是执行速度就会很快</strong>。</p>
+<p>当数组中的元素是随机的，分支预测就无法有效工作，而当数组元素都是是顺序的，分支预测器会动态地根据历史命中数据对未来进行预测，这样命中率就会很高。</p>
+<p>因此，先排序再遍历速度会更快，这是因为排序之后，数字是从小到大的，那么前几次循环命中 <code>if &lt; 50</code> 的次数会比较多，于是分支预测就会缓存 <code>if</code> 里的 <code>array[i] = 0</code> 指令到 Cache 中，后续 CPU 执行该指令就只需要从 Cache 读取就好了。</p>
+<p>如果你肯定代码中的 <code>if</code> 中的表达式判断为 <code>true</code> 的概率比较高，我们可以使用显示分支预测工具，比如在 C/C++ 语言中编译器提供了 <code>likely</code> 和 <code>unlikely</code> 这两种宏，如果 <code>if</code> 条件为<code>ture</code> 的概率大，则可以用 <code>likely</code> 宏把 <code>if</code> 里的表达式包裹起来，反之用 <code>unlikely</code> 宏。<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E7%BC%93%E5%AD%98/likely.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>实际上，CPU 自身的动态分支预测已经是比较准的了，所以只有当非常确信 CPU 预测的不准，且能够知道实际的概率情况时，才建议使用这两种宏。</p>
+<h3 id="如何提升多核-cpu-的缓存命中率">如何提升多核 CPU 的缓存命中率？
+</h3><p>在单核 CPU，虽然只能执行一个线程，但是操作系统给每个线程分配了一个时间片，时间片用完了，就调度下一个线程，于是各线程就按时间片交替地占用 CPU，从宏观上看起来各个线程同时在执行。</p>
+<p>而现代 CPU 都是多核心的，线程可能在不同 CPU 核心来回切换执行，这对 CPU Cache 不是有利的，虽然 L3 Cache 是多核心之间共享的，但是 L1 和 L2 Cache 都是每个核心独有的，<strong>如果一个线程在不同核心来回切换，各个核心的缓存命中率就会受到影响</strong>，相反如果线程都在同一个核心上执行，那么其数据的 L1 和 L2 Cache 的缓存命中率可以得到有效提高，缓存命中率高就意味着 CPU 可以减少访问 内存的频率。</p>
+<p>当有多个同时执行「计算密集型」的线程，为了防止因为切换到不同的核心，而导致缓存命中率下降的问题，我们可以把<strong>线程绑定在某一个 CPU 核心上</strong>，这样性能可以得到非常可观的提升。</p>
+<p>在 Linux 上提供了 <code>sched_setaffinity</code> 方法，来实现将线程绑定到某个 CPU 核心这一功能。<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E7%BC%93%E5%AD%98/sched_setaffinity.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<h2 id="总结">总结
+</h2><p>由于随着计算机技术的发展，CPU 与 内存的访问速度相差越来越多，如今差距已经高达好几百倍了，所以 CPU 内部嵌入了 CPU Cache 组件，作为内存与 CPU 之间的缓存层，CPU Cache 由于离 CPU 核心很近，所以访问速度也是非常快的，但由于所需材料成本比较高，它不像内存动辄几个 GB 大小，而是仅有几十 KB 到 MB 大小。</p>
+<p>当 CPU 访问数据的时候，先是访问 CPU Cache，如果缓存命中的话，则直接返回数据，就不用每次都从内存读取数据了。因此，缓存命中率越高，代码的性能越好。</p>
+<p>内存地址映射到 CPU Cache 地址里的策略有很多种，其中比较简单是直接映射 Cache，内存地址映射到 CPU Cache 地址里的策略有很多种，其中比较简单是直接映射 Cache，的 CPU Cache 地址里。</p>
+<p>要想写出让 CPU 跑得更快的代码，就需要写出缓存命中率高的代码，CPU L1 Cache 分为数据缓存和指令缓存，因而需要分别提高它们的缓存命中率：</p>
+<ul>
+<li>
+<p>对于数据缓存，我们在遍历数据的时候，应该按照内存布局的顺序操作，这是因为 CPU Cache 是根据 CPU Cache Line 批量操作数据的，所以顺序地操作连续内存数据时，性能能得到有效的提升；</p>
+</li>
+<li>
+<p>对于指令缓存，有规律的条件分支语句能够让 CPU 的分支预测器发挥作用，进一步提高执行的效率；</p>
+</li>
+</ul>
+<p>另外，对于多核 CPU 系统，线程可能在不同 CPU 核心来回切换这样各个核心的缓存命中率就会受到影响，于是要想提高线程的缓存命中率，可以考虑把线程绑定 CPU 到某一个 CPU 核心。</p>
+<h1 id="cpu-缓存一致性imghttpscdnxiaolincodingcomghxiaolincoderimagehost3maine6938de4bd9ce7b3bbe7bb9fcpue7bc93e5ad98e4b880e887b4e680a7e7bc93e5ad98e4b880e887b4e680a7e68f90e7bab2png">CPU 缓存一致性<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E6%8F%90%E7%BA%B2.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+>
+</h1><p>我们先简单了解下 CPU Cache 的结构，CPU Cache 是由很多个Cache Line 组成的，CPU Line 是 CPU 从内存读取数据的基本单位，而 CPU Line 是由各种标志（Tag）+ 数据块（Data Block）组位，而 CPU Line 是由各种标志（Tag）+ 数据块（Data Block）组成，你可以在下图清晰的看到：</p>
+<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/Cache%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>事实上，数据不光是只有读操作，还有写操作，那么如果数据写入Cache 之后，内存与 Cache 相对应的数据将会不同，这种情况下Cache 和内存数据都不一致了，于是我们肯定是要把 Cache 中的数据同步到内存里的。</p>
+<p>问题来了，那在什么时机才把 Cache 中的数据写回到内存呢？为了应对这个问题，下面介绍两种针对写入数据的方法：</p>
+<ul>
+<li>写直达（<em>Write Through</em>）</li>
+<li>写回（<em>Write Back</em>）</li>
+</ul>
+<h3 id="写直达">写直达
+</h3><p>保持内存与 Cache 一致性最简单的方式是，<strong>把数据同时写入内存和 Cache 中</strong>，这种方法称为<strong>写直达（Write Through）</strong>。</p>
+<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/%E5%86%99%E7%9B%B4%E8%BE%BE.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>在这个方法里，写入前会先判断数据是否已经在 CPU Cache 里面了：</p>
+<ul>
+<li>
+<p>如果数据已经在 Cache 里面，先将数据更新到 Cache 里面，再写入到内存里面；</p>
+</li>
+<li>
+<p>如果数据没有在 Cache 里面，就直接把数据更新到内存里面。</p>
+</li>
+</ul>
+<p>写直达法很直观，也很简单，但是问题明显，无论数据在不在 Cache 里面，每次写操作都会写回到内存，这样写操作将会花费大量的时间，无疑性能会受到很大的影响。</p>
+<h3 id="写回">写回
+</h3><p>既然写直达由于每次写操作都会把数据写回到内存，而导致影响性能，于是为了要减少数据写回内存的频率，就出现了<strong>写回（Write Back）的方法</strong>。</p>
+<p>在写回机制中，<strong>当发生写操作时，新的数据仅仅被写入 CacheBlock 里，只有当修改过的 Cache Block「被替换」时才需要写到内存中</strong>，减少了数据写回内存的频率，这样便可以提高系统的性能。<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/%E5%86%99%E5%9B%9E1.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>那具体如何做到的呢？下面来详细说一下：</p>
+<ul>
+<li>
+<p>如果当发生写操作时，数据已经在 CPU Cache 里的话，则把数据更新到 CPU Cache 里，同时标记 CPU Cache 里的这个 CacheBlock 为脏（Dirty）的，这个脏的标记代表这个时候，我们CPU Cache 里面的这个 Cache Block 的数据和内存是不一致的，这种情况是不用把数据写到内存里的；</p>
+</li>
+<li>
+<p>如果当发生写操作时，数据所对应的 Cache Block 里存放的是「别的内存地址的数据」的话，就要检查这个 Cache Block 里的数据有没有被标记为脏的：</p>
+<ul>
+<li>如果是脏的话，我们就要把这个 Cache Block 里的数据写回到内存，然后再把当前要写入的数据，先从内存读入到 Cache Block 里前要写入的数据，先从内存读入到 Cache Block 里（注意，这一步不是没用的，具体为什么要这个「<a class="link" href="https://stackoverflow.com/questions/26672661/for-write-back-cache-policy-why-data-should-first-be-read-from-memory-before-w"  target="_blank" rel="noopener"
+    >回答 (opens new window)</a>」），然后再把当前要写入的数据写入到 Cache Block，最后也把它标记为脏的；</li>
+<li>如果不是脏的话，把当前要写入的数据先从内存读入到Cache Block 里，接着将数据写入到这个 Cache Block 里，然后再把这个 Cache Block 标记为脏的就好了。</li>
+</ul>
+</li>
+</ul>
+<p>可以发现写回这个方法，在把数据写入到 Cache 的时候，只有在缓存不命中，同时数据对应的 Cache 中的 Cache Block 为脏标记的情况下，才会将数据写到内存中，而在缓存命中的情况下，则在写入后 Cache 后，只需把该数据对应的 Cache Block 标记为脏即可，而不用写到内存里。</p>
+<p>这样的好处是，如果我们大量的操作都能够命中缓存，那么大部分时间里 CPU 都不需要读写内存，自然性能相比写直达会高很多。</p>
+<p>为什么缓存没命中时，还要定位 Cache Block？这是因为此时是要判断数据即将写入到 cache block 里的位置，是否被「其他数据」占用了此位置，如果这个「其他数据」是脏数据，那么就要帮忙把它写回到内存。</p>
+<p>CPU 缓存与内存使用「写回」机制的流程图如下，左半部分就是读操作的流程，右半部分就是写操作的流程，也就是我们上面讲的内容。<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/redis/%E5%85%AB%E8%82%A1%E6%96%87/writeback.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<h2 id="缓存一致性问题">缓存一致性问题
+</h2><p>现在 CPU 都是多核的，由于 L1/L2 Cache 是多个核心各自独有的，那么会带来多核心的<strong>缓存一致性（Cache Coherence）</strong> 的问题，如果不能保证缓存一致性的问题，就可能造成结果错误。</p>
+<p>那缓存一致性的问题具体是怎么发生的呢？我们以一个含有两个核心的 CPU 作为例子看一看。</p>
+<p>假设 A 号核心和 B 号核心同时运行两个线程，都操作共同的变量 i（初始值为 0 ）。<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%E4%BE%8B%E5%AD%90.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>这时如果 A 号核心执行了 <code>i++</code> 语句的时候，为了考虑性能，使用了我们前面所说的写回策略，先把值为 <code>1</code> 的执行结果写入到 L1/L2 Cache 中，然后把 L1/L2 Cache 中对应的 Block 标记为脏的，这个时候数据其实没有被同步到内存中的，因为写回策略，只有在 A 号核心中的这个 Cache Block 要被替换的时候，数据才会写入到内存里。如果这时旁边的 B 号核心尝试从内存读取 i 变量的值，则读到的将会是错误的值，因为刚才 A 号核心更新 i 值还没写入到内存中，内存中的值还依然是 0。<strong>这个就是所谓的缓存一致性问题，A 号核心和 B 号核心的缓存，在这个时候是不一致，从而会导致执行结果的错误。</strong></p>
+<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%E4%BE%8B%E5%AD%902.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>那么，要解决这一问题，就需要一种机制，来同步两个不同核心里面的缓存数据。要实现的这个机制的话，要保证做到下面这 2 点：</p>
+<ul>
+<li>
+<p>第一点，某个 CPU 核心里的 Cache 数据更新时，必须要传播到其他核心的 Cache，这个称为<strong>写传播（Write Propagation）</strong>；</p>
+</li>
+<li>
+<p>第二点，某个 CPU 核心里对数据的操作顺序，必须在其他核心看起来顺序是一样的，这个称为<strong>事务的串行化（Transaction Serialization）</strong>。</p>
+</li>
+</ul>
+<p>第一点写传播很容易就理解，当某个核心在 Cache 更新了数据，就需要同步到其他核心的 Cache 里。而对于第二点事务的串行化，我们举个例子来理解它。</p>
+<p>假设我们有一个含有 4 个核心的 CPU，这 4 个核心都操作共同的变量 i（初始值为 0 ）。A 号核心先把 i 值变为 100，而此时同一时间，B 号核心先把 i 值变为 200，这里两个修改，都会「传播」到 C 和 D 号核心。<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/%E4%BA%8B%E4%BB%B6%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>那么问题就来了，C 号核心先收到了 A 号核心更新数据的事件，再收到 B 号核心更新数据的事件，因此 C 号核心看到的变量 i 是先变成 100，后变成 200。</p>
+<p>收到 B 号核心更新数据的事件，因此 C 号核心看到的变量 i 是先变成 100，后变成 200。虽然是做到了写传播，但是各个 Cache 里面的数据还是不一致的。</p>
+<p>所以，我们要保证 C 号核心和 D 号核心都能看到<strong>相同顺序的数据变化</strong>，比如变量 i 都是先变成 100，再变成 200，这样的过程就是事务的串行化。</p>
+<p>要实现事务串行化，要做到 2 点：</p>
+<ul>
+<li>
+<p>CPU 核心对于 Cache 中数据的操作，需要同步给其他 CPU 核心；</p>
+</li>
+<li>
+<p>要引入「锁」的概念，如果两个 CPU 核心里有相同数据的 Cache，那么对于这个 Cache 数据的更新，只有拿到了「锁」，才能进行对应的数据更新。</p>
+<p>那接下来我们看看，写传播和事务串行化具体是用什么技术实现的。</p>
+</li>
+</ul>
+<h2 id="总线嗅探">总线嗅探
+</h2><p>写传播的原则就是当某个 CPU 核心更新了 Cache 中的数据，要把该事件广播通知到其他核心。最常见实现的方式是<strong>总线嗅探（Bus Snooping）</strong>。</p>
+<p>我还是以前面的 i 变量例子来说明总线嗅探的工作机制，当 A 号CPU 核心修改了 L1 Cache 中 i 变量的值，通过总线把这个事件广播通知给其他所有的核心，然后每个 CPU 核心都会监听总线上的广播事件，并检查是否有相同的数据在自己的 L1 Cache 里面，如果 B 号 CPU 核心的 L1 Cache 中有该数据，那么也需要把该数据更新到自己的 L1 Cache。</p>
+<p>可以发现，总线嗅探方法很简单， CPU 需要每时每刻监听总线上的一切活动，但是不管别的核心的 Cache 是否缓存相同的数据，都需要发出一个广播事件，这无疑会加重总线的负载</p>
+<p>于是，有一个协议基于总线嗅探机制实现了事务串行化，也用状态机机制降低了总线带宽压力，这个协议就是 MESI 协议，这个协议就做到了 CPU 缓存一致性。</p>
+<hr>
+<h2 id="mesi-协议">MESI 协议
+</h2><p>MESI 协议其实是 4 个状态单词的开头字母缩写，分别是：</p>
+<ul>
+<li>
+<p><em>Modified</em>，已修改</p>
+</li>
+<li>
+<p><em>Exclusive</em>，独占</p>
+</li>
+<li>
+<p><em>Shared</em>，共享</p>
+</li>
+<li>
+<p><em>Invalidated</em>，已失效</p>
+</li>
+</ul>
+<p>这四个状态来标记 Cache Line 四个不同的状态。</p>
+<p>「已修改」状态就是我们前面提到的脏标记，代表该 Cache Block上的数据已经被更新过，但是还没有写到内存里。而「已失效」状态，表示的是这个Cache Block 里的数据已经失效了，不可以读取该状态的数据。</p>
+<p>「独占」和「共享」状态都代表 Cache Block 里的数据是干净的，也就是说，这个时候 Cache Block 里的数据和内存里面的数据是一致性的。</p>
+<p>「独占」和「共享」的差别在于，独占状态的时候，数据只存储在一个 CPU 核心的 Cache 里，而其他 CPU 核心的 Cache 没有该数据。这个时候，如果要向独占的 Cache 写数据，就可以直接自由地写入，而不需要通知其他 CPU 核心，因为只有你这有这个数据，就不存在缓存一致性的问题了，于是就可以随便操作该数据。</p>
+<p>另外，在「独占」状态下的数据，如果有其他核心从内存读取了相同的数据到各自的Cache ，那么这个时候，独占状态下的数据就会变成共享状态。</p>
+<p>那么，「共享」状态代表着相同的数据在多个 CPU 核心的 Cache 里都有，所以当我们要更新 Cache 里面的数据的时候，不能直接修改，而是要先向所有的其他 Cache 里面的数据的时候，不能直接修改，而是要先向所有的其他核心的 Cache 中对应的 Cache Line 标记为「无效」状态，然后再更新当前 Cache 里面的数据。</p>
+<p>我们举个具体的例子来看看这四个状态的转换：</p>
+<ol>
+<li>
+<p>当 A 号 CPU 核心从内存读取变量 i 的值，数据被缓存在 A 号CPU 核心自己的 Cache 里面，此时其他 CPU 核心的 Cache 没有缓存该数据，于是标记 Cache Line 状态为「独占」，此时其Cache 中的数据与内存是一致的；</p>
+</li>
+<li>
+<p>然后 B 号 CPU 核心也从内存读取了变量 i 的值，此时会发送消息给其他 CPU 核心，由于 A 号 CPU 核心已经缓存了该数据，所以会把数据返回给 B 号 CPU 核心。在这个时候， A 和 B 核心缓存了相同的数据，Cache Line 的状态就会变成「共享」，并且其Cache 中的数据与内存也是一致的；</p>
+</li>
+<li>
+<p>当 A 号 CPU 核心要修改 Cache 中 i 变量的值，发现数据对应的Cache Line 的状态是共享状态，则要向所有的其他 CPU 核心广播一个请求，要求先把其他核心的 Cache 中对应的 Cache Line标记为「无效」状态，然后 A 号 CPU 核心才更新 Cache 里面的数据，同时标记 Cache Line 为「已修改」状态，此时 Cache 中的数据就与内存不一致了。</p>
+</li>
+<li>
+<p>如果 A 号 CPU 核心「继续」修改 Cache 中 i 变量的值，由于此时的 Cache Line 是「已修改」状态，因此不需要给其他 CPU 核心发送消息，直接更新数据即可。</p>
+</li>
+<li>
+<p>如果 A 号 CPU 核心的 Cache 里的 i 变量对应的 Cache Line 要被「替换」，发现 Cache Line 状态是「已修改」状态，就会在替换前先把数据同步到内存。</p>
+</li>
+</ol>
+<p>所以，可以发现当 Cache Line 状态是「已修改」或者「独占」状态时，修改更新其数据不需要发送广播给其他 CPU 核心，这在一定程度上减少了总线带宽压力。</p>
+<p>事实上，整个 MESI 的状态可以用一个有限状态机来表示它的状态流转。还有一点，对于不同状态触发的事件操作，可能是来自本地 CPU 核心发出的广播事件，也可以是来自其他 CPU 核心通过总线发出的广播事件。下图即是 MESI 协议的状态图：<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/MESI%E5%8D%8F%E8%AE%AE.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>MESI 协议的四种状态之间的流转过程，我汇总成了下面的表格，你可以更详细的看到每个状态转换的原因：<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/%20MESI%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E8%A1%A8%E6%A0%BC.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>Cache 伪共享是什么？又如何避免这个问题？</p>
+<p>现在假设有一个双核心的 CPU，这两个 CPU 核心并行运行着两个不同的线程，它们同时从内存中读取两个不同的数据，分别是类型为 <code>long</code> 的变量 A 和 B，这两个数据的地址在物理内存上是<strong>连续</strong>的，如果 Cache Line 的大小是 64 字节，并且变量 A 在 Cache Line的开头位置，那么这两个数据是位于<strong>同一个 Cache Line 中</strong>，又因为 CPU Cache Line 是 CPU 从内存读取数据到 Cache 的单位，所以这两个数据会被同时读入到了两个 CPU 核心中各自 Cache 中。</p>
+<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E4%BC%AA%E5%85%B1%E4%BA%AB/%E5%90%8C%E4%B8%80%E4%B8%AA%E7%BC%93%E5%AD%98%E8%A1%8C.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>我们来思考一个问题，如果这两个不同核心的线程分别修改不同的数据，比如 1 号 CPU 核心的线程只修改了 变量 A，或 2 号 CPU 核心的线程的线程只修改了变量 B，会发生什么呢？</p>
+<h3 id="heading-2">
+</h3><h3 id="分析伪共享的问题">分析伪共享的问题
+</h3><p>现在我们结合保证多核缓存一致的 MESI 协议，来说明这一整个的过程</p>
+<p>①. 最开始变量 A 和 B 都还不在 Cache 里面，假设 1 号核心绑定了线程 A，2 号核心绑定了线程 B，线程 A 只会读写变量 A，线程 B只会读写变量 B。<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E4%BC%AA%E5%85%B1%E4%BA%AB/%E5%88%86%E6%9E%90%E4%BC%AA%E5%85%B1%E4%BA%AB1.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>②. 1 号核心读取变量 A，由于 CPU 从内存读取数据到 Cache 的单位是 Cache Line，也正好变量 A 和 变量 B 的数据归属于同一个Cache Line，所以 A 和 B 的数据都会被加载到 Cache，并将此Cache Line 标记为「独占」状态。</p>
+<p>③. 接着，2 号核心开始从内存里读取变量 B，同样的也是读取Cache Line 大小的数据到 Cache 中，此 Cache Line 中的数据也包含了变量 A 和 变量 B，此时 1 号和 2 号核心的 Cache Line 状态变为「共享」状态。<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E4%BC%AA%E5%85%B1%E4%BA%AB/%E5%88%86%E6%9E%90%E4%BC%AA%E5%85%B1%E4%BA%AB3.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>④. 1 号核心需要修改变量 A，发现此 Cache Line 的状态是「共享」状态，所以先需要通过总线发送消息给 2 号核心，通知 2 号核心把Cache 中对应的 Cache Line 标记为「已失效」状态，然后 1 号核心对应的 Cache Line 状态变成「已修改」状态，并且修改变量 A。</p>
+<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E4%BC%AA%E5%85%B1%E4%BA%AB/%E5%88%86%E6%9E%90%E4%BC%AA%E5%85%B1%E4%BA%AB4.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>⑤. 之后，2 号核心需要修改变量 B，此时 2 号核心的 Cache 中对应的 Cache Line 是已失效状态，另外由于 1 号核心的 Cache 也有此相同的数据，且状态为「已修改」状态，所以要先把 1 号核心的Cache 对应的 Cache Line 写回到内存，然后 2 号核心再从内存读取 Cache Line 大小的数据到 Cache 中，最后把变量 B 修改到 2 号核心的 Cache 中，并将状态标记为「已修改」状态。<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E4%BC%AA%E5%85%B1%E4%BA%AB/%E5%88%86%E6%9E%90%E4%BC%AA%E5%85%B1%E4%BA%AB5.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>所以，可以发现如果 1 号和 2 号 CPU 核心这样持续交替的分别修改变量 A 和 B，就会重复 ④ 和 ⑤ 这两个步骤，Cache 并没有起到缓存的效果，虽然变量 A 和 B 之间其实并没有任何的关系，但是因为同时归属于一个 Cache Line ，这个 Cache Line 中的任意数据被修改后，都会相互影响，从而出现 ④ 和 ⑤ 这两个步骤。</p>
+<p>因此，这种因为多个线程同时读写同一个 Cache Line 的不同变量时，而导致CPU Cache 失效的现象称为<strong>伪共享（False Sharing）</strong>。</p>
+<h3 id="避免伪共享的方法">避免伪共享的方法
+</h3><p>因此，对于多个线程共享的热点数据，即经常会修改的数据，应该避免这些数据刚好在同一个 Cache Line 中，否则就会出现为伪共享的问题。</p>
+<p>接下来，看看在实际项目中是用什么方式来避免伪共享的问题的。</p>
+<p>在 Linux 内核中存在 <code>__cacheline_aligned_in_smp</code> 宏定义，是用于解决伪共享的问题。</p>
+<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E4%BC%AA%E5%85%B1%E4%BA%AB/__cacheline_aligned.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>从上面的宏定义，我们可以看到：</p>
+<ul>
+<li>
+<p>如果在多核（MP）系统里，该宏定义是<code>__cacheline_aligned</code>，也就是 Cache Line 的大小；</p>
+</li>
+<li>
+<p>而如果在单核系统里，该宏定义是空的；</p>
+</li>
+</ul>
+<p>因此，针对在同一个 Cache Line 中的共享的数据，如果在多核之间竞争比较严重，为了防止伪共享现象的发生，可以采用上面的宏定义使得变量在 Cache Line 里是对齐的。</p>
+<p>举个例子，有下面这个结构体：<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E4%BC%AA%E5%85%B1%E4%BA%AB/struct_test.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>结构体里的两个成员变量 a 和 b 在物理内存地址上是连续的，于是它们可能会位于同一个 Cache Line 中，如下图：</p>
+<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E4%BC%AA%E5%85%B1%E4%BA%AB/struct_ab.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>所以，为了防止前面提到的 Cache 伪共享问题，我们可以使用上面介绍的宏定义，将 b 的地址设置为 Cache Line 对齐地址，如下：<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E4%BC%AA%E5%85%B1%E4%BA%AB/struct_test1.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>这样 a 和 b 变量就不会在同一个 Cache Line 中了，如下图：<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E4%BC%AA%E5%85%B1%E4%BA%AB/struct_ab1.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>所以，避免 Cache 伪共享实际上是用空间换时间的思想，浪费一部分 Cache 空间，从而换来性能的提升。</p>
+<p>我们再来看一个应用层面的规避方案，有一个 Java 并发框架Disruptor 使用「字节填充 + 继承」的方式，来避免伪共享的问题。</p>
+<p>Disruptor 中有一个 RingBuffer 类会经常被多个线程使用，代码如下：<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E4%BC%AA%E5%85%B1%E4%BA%AB/Disruptor.png" alt="img" style="zoom: 25%;" /></p>
+<p>你可能会觉得 RingBufferPad 类里 7 个 long 类型的名字很奇怪，但事实上，它们虽然看起来毫无作用，但却对性能的提升起到了至关重要的作用</p>
+<p>我们都知道，CPU Cache 从内存读取数据的单位是 CPU Cache Line，一般 64 位 CPU 的 CPU Cache Line 的大小是 64 个字节，一个 long 类型的数据是 8 个字节，所以 CPU 一下会加载 8 个 long 类型的数据。</p>
+<p>根据 JVM 对象继承关系中父类成员和子类成员，内存地址是连续排列布局的，因此 RingBufferPad 中的 7 个 long 类型数据作为Cache Line <strong>前置填充</strong>，而 RingBuffer 中的 7 个 long 类型数据则作为 Cache Line <strong>后置填充</strong>，这 14 个 long 变量没有任何实际用途，更不会对它们进行读写操作。<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E4%BC%AA%E5%85%B1%E4%BA%AB/%E5%A1%AB%E5%85%85%E5%AD%97%E8%8A%82.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>另外，RingBufferFelds 里面定义的这些变量都是 <code>final</code> 修饰的，意味着第一次加载之后不会再修改， 又<strong>由于「前后」各填充了 7 个不会被读写的 long 类型变量，所以无论怎么加载 CacheLine，这整个 Cache Line 里都没有会发生更新操作的数据，于是只要数据被频繁地读取访问，就自然没有数据被换出 Cache 的可能，也因此不会产生伪共享的问题</strong>。</p>
+<hr>
+<h2 id="cpu-如何选择线程的">CPU 如何选择线程的？
+</h2><p>了解完 CPU 读取数据的过程后，我们再来看看 CPU 是根据什么来选择当前要执行的线程。</p>
+<p>在 Linux 内核中，进程和线程都是用 <code>task_struct</code> 结构体表示的，区别在于线程的 task_struct 结构体里部分资源是共享了进程已创建的资源，比如内存地址空间、代码段、文件描述符等，所以 Linux 中的线程也被称为轻量级进程，比如内存地址空间、代码段、文件描述符等，所以 Linux 中的线程也被称为轻量级进程，因为线程的 task_struct 相比进程的 task_struct 承载的 资源比较少，因此以「轻」得名。</p>
+<p>一般来说，没有创建线程的进程，是只有单个执行流，它被称为是主线程。如果想让进程处理更多的事情，可以创建多个线程分别去处理，但不管怎么样，它们对应到内核里都是 <code>task_struct</code>。<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E4%BC%AA%E5%85%B1%E4%BA%AB/%E4%BB%BB%E5%8A%A1.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>所以，Linux 内核里的调度器，调度的对象就是 <code>task_struct</code>，接下来我们就把这个数据结构统称为<strong>任务</strong>。</p>
+<p>在 Linux 系统中，根据任务的优先级以及响应要求，主要分为两种，其中优先级的数值越小，优先级越高：</p>
+<ul>
+<li>
+<p>实时任务，对系统的响应时间要求很高，也就是要尽可能快的执行实时任务，优先级在 <code>0~99</code> 范围内的就算实时任务；</p>
+</li>
+<li>
+<p>普通任务，响应时间没有很高的要求，优先级在 <code>100~139</code> 范围内都是普通任务级别；</p>
+</li>
+</ul>
+<h3 id="调度类">调度类
+</h3><p>由于任务有优先级之分，Linux 系统为了保障高优先级的任务能够尽可能早的被执行，于是分为了这几种调度类，如下图：<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E4%BC%AA%E5%85%B1%E4%BA%AB/%E8%B0%83%E5%BA%A6%E7%B1%BB.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>Deadline 和 Realtime 这两个调度类，都是应用于实时任务的，这两个调度类的调度策略合起来共有这三种，它们的作用如下：</p>
+<ul>
+<li>
+<p><em>SCHED_DEADLINE</em>：是按照 deadline 进行调度的，距离当前时间点最近的 deadline 的任务会被优先调度；</p>
+</li>
+<li>
+<p><em>SCHED_FIFO</em>：对于相同优先级的任务，按先来先服务的原则，但是优先级更高的任务，可以抢占低优先级的任务，也就是优先级高的可以「插队」；</p>
+</li>
+<li>
+<p><em>SCHED_RR</em>：对于相同优先级的任务，轮流着运行，每个任务都有一定的时间片，当用完时间片的任务会被放到队列尾部，以保证相同优先级任务的公平性，但是高优先级的任务依然可以抢占低优先级的任务；</p>
+</li>
+</ul>
+<p>而 Fair 调度类是应用于普通任务，都是由 CFS 调度器管理的，分为两种调度策略：</p>
+<ul>
+<li>
+<p><em>SCHED_NORMAL</em>：普通任务使用的调度策略；</p>
+</li>
+<li>
+<p><em>SCHED_BATCH</em>：后台任务的调度策略，不和终端进行交互，</p>
+</li>
+<li>
+<p>因此在不影响其他需要交互的任务，可以适当降低它的优先级。</p>
+</li>
+</ul>
+<h3 id="完全公平调度">完全公平调度
+</h3><p>我们平日里遇到的基本都是普通任务，对于普通任务来说，公平性最重要，在 Linux 里面，实现了一个基于 CFS 的调度算法，也就是<strong>完全公平调度（*Completely Fair Scheduling*）</strong>。</p>
+<p>这个算法的理念是想让分配给每个任务的 CPU 时间是一样，于是它为每个任务安排一个虚拟运行时间 vruntime，如果一个任务在运行，其运行的越久，该任务的 vruntime 自然就会越大，而没有被运行的任务，vruntime 是不会变化的。</p>
+<p>那么，<strong>在 CFS 算法调度的时候，会优先选择 vruntime 少的任务</strong>，以保证每个任务的公平性。</p>
+<p>这就好比，让你把一桶的奶茶平均分到 10 杯奶茶杯里，你看着哪杯奶茶少，就多倒一些；哪个多了，就先不倒，这样经过多轮操作，虽然不能保证每杯奶茶完全一样多，但至少是公平的。</p>
+<p>当然，上面提到的例子没有考虑到优先级的问题，虽然是普通任务，但是普通任务之间还是有优先级区分的，所以在计算虚拟运行时间 vruntime 还要考虑普通任务的<strong>权重值</strong>，注意权重值并不是优先级的值，内核中会有一个 nice 级别与权重值的转换表，nice 级别越低的权重值就越大，至于 nice 值是什么，我们后面会提到。 于是就有了以下这个公式：<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E4%BC%AA%E5%85%B1%E4%BA%AB/vruntime.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>你可以不用管 NICE_0_LOAD 是什么，你就认为它是一个常量，那么在「同样的实际运行时间」里，高权重任务的 vruntime 比低权重任务的 vruntime <strong>少</strong>，你可能会奇怪为什么是少的？你还记得 CFS 调度吗，它是会优先选择 vruntime 少的任务进行调度，所以高权重的任务就会被优先调度了，于是高权重的获得的实际运行时间自然就多了。</p>
+<h3 id="cpu-运行队列">CPU 运行队列
+</h3><p>一个系统通常都会运行着很多任务，多任务的数量基本都是远超 CPU 核心数量，因此这时候就需要<strong>排队</strong>。</p>
+<p>事实上，每个 CPU 都有自己的<strong>运行队列（*Run Queue, rq*）</strong>，用于描述在此 CPU 上所运行的所有进程，其队列包含三个运行队列，Deadline 运行队列 dl_rq、实时任务运行队列 rt_rq 和 CFS 运行队列 cfs_rq，其中 cfs_rq 是用红黑树来描述的，按 vruntime 大小来排序的，最左侧的叶子节点，就是下次会被调度的任务。</p>
+<p>这几种调度类是有优先级的，优先级如下：Deadline &gt; Realtime &gt; Fair，这意味着 Linux 选择下一个任务执行的时候，会按照此优先级顺序进行选择，也就是说先从 <code>dl_rq</code> 里选择任务，然后从 <code>rt_rq</code> 里选择任务，最后从 <code>cfs_rq</code> 里选择任务。因此，<strong>实时任务总是会比普通任务优先被执行</strong>。</p>
+<h3 id="调整优先级">调整优先级
+</h3><p>如果我们启动任务的时候，没有特意去指定优先级的话，默认情况下都是普通任务，普通任务的调度类是 Fair，由 CFS 调度器来进行管理。CFS 调度器的目的是实现任务运行的公平性，也就是保障每个任务的运行的时间是差不多的。</p>
+<p>如果你想让某个普通任务有更多的执行时间，可以调整任务的 <code>nice</code> 值，从而让优先级高一些的任务执行更多时间。nice 的值能设置的范围是 <code>-20～19</code>， 值越低，表明优先级越高，因此 -20 是最高优先级，19 则是最低优先级，默认优先级是 0。</p>
+<p>是不是觉得 nice 值的范围很诡异？事实上，nice 值并不是表示优先级，而是表示优先级的修正数值，它与优先级（priority）的关系是这样的：priority(new) = priority(old) + nice。内核中，priority 的范围是 0<del>139，值越低，优先级越高，其中前面的 0</del>99 范围是提供给实时任务使用的，而 nice 值是映射到 100~139，这个范围是提供给普通任务用的，因此 nice 值调整的是普通任务的优先级<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E4%BC%AA%E5%85%B1%E4%BA%AB/%E4%BC%98%E5%85%88%E7%BA%A7.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>在前面我们提到了，权重值与 nice 值的关系的，nice 值越低，权重值就越大，计算出来的 vruntime 就会越少，由于 CFS 算法调度的时候，就会优先选择 vruntime 少的任务进行执行，所以 nice 值越低，任务的优先级就越高。</p>
+<p>我们可以在启动任务的时候，可以指定 nice 的值，比如将 mysqld 以 -3 优先级：<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E4%BC%AA%E5%85%B1%E4%BA%AB/nice.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+>如果想修改已经运行中的任务的优先级，则可以使用 <code>renice</code> 来调整 nice 值：<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E4%BC%AA%E5%85%B1%E4%BA%AB/renice.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>nice 调整的是普通任务的优先级，所以不管怎么缩小 nice 值，任务永远都是普通任务，如果某些任务要求实时性比较高，那么你可以考虑改变任务的优先级以及调度策略，使得它变成实时任务，比如：<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/CPU%E4%BC%AA%E5%85%B1%E4%BA%AB/chrt.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<h2 id="总结-1">总结
+</h2><p>理解 CPU 是如何读写数据的前提，是要理解 CPU 的架构，CPU 内部的多个 Cache + 外部的内存和磁盘都就构成了金字塔的存储器结构，在这个金字塔中，越往下，存储器的容量就越大，但访问速度就会小。</p>
+<p>CPU 读写数据的时候，并不是按一个一个字节为单位来进行读写，而是以 CPU Cache Line 大小为单位，CPU Cache Line 大小一般是 64 个字节，也就意味着 CPU 读写数据的时候，每一次都是以 64 字节大小为一块进行操作。</p>
+<p>因此，如果我们操作的数据是数组，那么访问数组元素的时候，按内存分布的地址顺序进行访问，这样能充分利用到 Cache，程序的性能得到提升。但如果操作的数据不是数组，而是普通的变量，并在多核 CPU 的情况下，我们还需要避免 Cache Line 伪共享的问题。</p>
+<p>所谓的 Cache Line 伪共享问题就是，多个线程同时读写同一个 Cache Line 的不同变量时，而导致 CPU Cache 失效的现象。那么对于多个线程共享的热点数据，即经常会修改的数据，应该避免这些数据刚好在同一个 Cache Line 中，避免的方式一般有 Cache Line 大小字节对齐，以及字节填充等方法。</p>
+<p>系统中需要运行的多线程数一般都会大于 CPU 核心，这样就会导致线程排队等待 CPU，这可能会产生一定的延时，如果我们的任务对延时容忍度很低，则可以通过一些人为手段干预 Linux 的默认调度策略和优先级。</p>
+<h1 id="中断是什么">中断是什么？
+</h1><p>在计算机中，中断是系统用来响应硬件设备请求的一种机制，操作系统收到硬件的中断请求，会打断正在执行的进程，然后调用内核中的中断处理程序来响应请求。</p>
+<p>这样的解释可能过于学术了，容易云里雾里，我就举个生活中取外卖的例子。</p>
+<p>中午搬完砖，肚子饿了，点了份白切鸡外卖，这次我带闪了，没有被某团大数据杀熟。虽然平台上会显示配送进度，但是我也不能一直傻傻地盯着呀，时间很宝贵，当然得去干别的事情，等外卖到了配送员会通过「电话」通知我，电话响了，我就会停下手中地事情，去拿外卖。</p>
+<p>这里的打电话，其实就是对应计算机里的中断，没接到电话的时候，我可以做其他的事情，只有接到了电话，也就是发生中断，我才会停下当前的事情，去进行另一个事情，也就是拿外卖。</p>
+<p>从这个例子，我们可以知道，中断是一种异步的事件处理机制，可以提高系统的并发处理能力。</p>
+<p>操作系统收到了中断请求，会打断其他进程的运行，所以<strong>中断请求的响应程序，也就是中断处理程序，要尽可能快的执行完，这样可以减少对正常进程运行调度的影响。</strong></p>
+<p>而且，中断处理程序在响应中断时，可能还会「临时关闭中断」，这意味着，如果当前中断处理程序没有执行完之前，系统中其他的中断请求都无法被响应，也就说中断有可能会丢失，所以中断处理程序要短且快。</p>
+<p>还是回到外卖的例子，小林到了晚上又点起了外卖，这次为了犒劳自己，共点了两份外卖，一份小龙虾和一份奶茶，并且是由不同地配送员来配送，那么问题来了，当第一份外卖送到时，配送员给我打了长长的电话，说了一些杂七杂八的事情，比如给个好评等等，但如果这时另一位配送员也想给我打电话。</p>
+<p>很明显，这时第二位配送员因为我在通话中（相当于关闭了中断响应），自然就无法打通我的电话，他可能尝试了几次后就走掉了（相当于丢失了一次中断）。</p>
+<hr>
+<h2 id="什么是软中断">什么是软中断？
+</h2><p>前面我们也提到了，中断请求的处理程序应该要短且快，这样才能减少对正常进程运行调度的影响，而且中断处理程序可能会暂时关闭中断，这时如果中断处理程序执行时间过长，可能在还未执行完中断处理程序前，会丢失当前其他设备的中断请求。</p>
+<p>那 Linux 系统<strong>为了解决中断处理程序执行过长和中断丢失的问题，将中断过程分成了两个阶段，分别是「上半部和下半部分」</strong>。</p>
+<ul>
+<li><strong>上半部用来快速处理中断</strong>，一般会暂时关闭中断请求，主要负责处理跟硬件紧密相关或者时间敏感的事情。</li>
+<li><strong>下半部用来延迟处理上半部未完成的工作</strong>，一般以「内核线程」的方式运行。</li>
+</ul>
+<p>前面的外卖例子，由于第一个配送员长时间跟我通话，则导致第二位配送员无法拨通我的电话，其实当我接到第一位配送员的电话，可以告诉配送员说我现在下楼，剩下的事情，等我们见面再说（上半部），然后就可以挂断电话，到楼下后，在拿外卖，以及跟配送员说其他的事情（下半部）。</p>
+<p>这样，第一位配送员就不会占用我手机太多时间，当第二位配送员正好过来时，会有很大几率拨通我的电话。</p>
+<p>再举一个计算机中的例子，常见的网卡接收网络包的例子。</p>
+<p>网卡收到网络包后，通过 DMA 方式将接收到的数据写入内存，接着会通过<strong>硬件中断</strong>通知内核有新的数据到了，于是内核就会调用对应的中断处理程序来处理该事件，这个事件的处理也是会分成上半部和下半部。</p>
+<p>上部分要做的事情很少，会先禁止网卡中断，避免频繁硬中断，而降低内核的工作效率。接着，内核会触发一个<strong>软中断</strong>，把一些处理比较耗时且复杂的事情，交给「软中断处理程序」去做，也就是中断的下半部，其主要是需要从内存中找到网络数据，再按照网络协议栈，对网络数据进行逐层解析和处理，最后把数据送给应用程序。</p>
+<p>所以，中断处理程序的上部分和下半部可以理解为：</p>
+<ul>
+<li><strong>上半部直接处理硬件请求，也就是硬中断</strong>，主要是负责耗时短的工作，特点是快速执行；</li>
+<li><strong>下半部是由内核触发，也就说软中断</strong>，主要是负责上半部未完成的工作，通常都是耗时比较长的事情，特点是延迟执行；</li>
+</ul>
+<p>还有一个区别，硬中断（上半部）是会打断 CPU 正在执行的任务，然后立即执行中断处理程序，而软中断（下半部）是以内核线程的方式执行，并且每一个 CPU 都对应一个软中断内核线程，名字通常为「ksoftirqd/CPU 编号」，比如 0 号 CPU 对应的软中断内核线程的名字是 <code>ksoftirqd/0</code></p>
+<p>不过，软中断不只是包括硬件设备中断处理程序的下半部，一些内核自定义事件也属于软中断，比如内核调度等、RCU 锁（内核里常用的一种锁）等。</p>
+<hr>
+<h3 id="系统里有哪些软中断">系统里有哪些软中断？
+</h3><p>在 Linux 系统里，我们可以通过查看 <code>/proc/softirqs</code> 的 内容来知晓「软中断」的运行情况，以及 <code>/proc/interrupts</code> 的 内容来知晓「硬中断」的运行情况。</p>
+<p>接下来，就来简单的解析下 <code>/proc/softirqs</code> 文件的内容，在我服务器上查看到的文件内容如下：</p>
+<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BD%AF%E4%B8%AD%E6%96%AD/softirqs.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>第一点，要注意第一列的内容，它是代表着软中断的类型，在我的系统里，软中断包括了 10 个类型，分别对应不同的工作类型，比如 <code>NET_RX</code> 表示网络接收中断，<code>NET_TX</code> 表示网络发送中断、<code>TIMER</code> 表示定时中断、<code>RCU</code> 表示 RCU 锁中断、<code>SCHED</code> 表示内核调度中断。</p>
+<p>第二点，要注意同一种类型的软中断在不同 CPU 的分布情况，正常情况下，同一种中断在不同 CPU 上的累计次数相差不多，比如我的系统里，<code>NET_RX</code> 在 CPU0 、CPU1、CPU2、CPU3 上的中断次数基本是同一个数量级，相差不多。</p>
+<p>第三点，这些数值是系统运行以来的累计中断次数，数值的大小没什么参考意义，但是系统的<strong>中断次数的变化速率</strong>才是我们要关注的，我们可以使用 <code>watch -d cat /proc/softirqs</code> 命令查看中断次数的变化速率。</p>
+<p>前面提到过，软中断是以内核线程的方式执行的，我们可以用 <code>ps</code> 命令可以查看到，下面这个就是在我的服务器上查到软中断内核线程的结果：</p>
+<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BD%AF%E4%B8%AD%E6%96%AD/ksoftirqd.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>可以发现，内核线程的名字外面都有有中括号，这说明 ps 无法获取它们的命令行参数，所以一般来说，名字在中括号里的都可以认为是内核线程。</p>
+<p>而且，你可以看到有 4 个 <code>ksoftirqd</code> 内核线程，这是因为我这台服务器的 CPU 是 4 核心的，每个 CPU 核心都对应着一个内核线程。</p>
+<hr>
+<h2 id="如何定位软中断-cpu-使用率过高的问题">如何定位软中断 CPU 使用率过高的问题？
+</h2><p>要想知道当前的系统的软中断情况，我们可以使用 <code>top</code> 命令查看，下面是一台服务器上的 top 的数据</p>
+<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BD%AF%E4%B8%AD%E6%96%AD/top_si.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>上图中的黄色部分 <code>si</code>，就是 CPU 在软中断上的使用率，而且可以发现，每个 CPU 使用率都不高，两个 CPU 的使用率虽然只有 3% 和 4% 左右，但是都是用在软中断上了。</p>
+<p>另外，也可以看到 CPU 使用率最高的进程也是软中断 <code>ksoftirqd</code>，因此可以认为此时系统的开销主要来源于软中断。</p>
+<p>如果要知道是哪种软中断类型导致的，我们可以使用 <code>watch -d cat /proc/softirqs</code> 命令查看每个软中断类型的中断次数的变化速率。<img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BD%AF%E4%B8%AD%E6%96%AD/watch.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>一般对于网络 I/O 比较高的 Web 服务器，<code>NET_RX</code> 网络接收中断的变化速率相比其他中断类型快很多。</p>
+<p>如果发现 <code>NET_RX</code> 网络接收中断次数的变化速率过快，接下来就可以使用 <code>sar -n DEV</code> 查看网卡的网络包接收速率情况，然后分析是哪个网卡有大量的网络包进来。</p>
+<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BD%AF%E4%B8%AD%E6%96%AD/sar_dev.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+>接着，在通过 <code>tcpdump</code> 抓包，分析这些包的来源，如果是非法的地址，可以考虑加防火墙，如果是正常流量，则要考虑硬件升级等。</p>
+<hr>
+<h2 id="总结-2">总结
+</h2><p>为了避免由于中断处理程序执行时间过长，而影响正常进程的调度，Linux 将中断处理程序分为上半部和下半部：</p>
+<ul>
+<li>上半部，对应硬中断，由硬件触发中断，用来快速处理中断；</li>
+<li>下半部，对应软中断，由内核触发中断，用来异步处理上半部未完成的工作；</li>
+</ul>
+<p>Linux 中的软中断包括网络收发、定时、调度、RCU 锁等各种类型，可以通过查看 /proc/softirqs 来观察软中断的累计中断次数情况，如果要实时查看中断次数的变化率，可以使用 watch -d cat /proc/softirqs 命令。</p>
+<p>每一个 CPU 都有各自的软中断内核线程，我们还可以用 ps 命令来查看内核线程，一般名字在中括号里面的，都认为是内核线程。</p>
+<p>如果在 top 命令发现，CPU 在软中断上的使用率比较高，而且 CPU 使用率最高的进程也是软中断 ksoftirqd 的时候，这种一般可以认为系统的开销被软中断占据了。</p>
+<p>这时我们就可以分析是哪种软中断类型导致的，一般来说都是因为网络接收软中断导致的，如果是的话，可以用 sar 命令查看是哪个网卡的有大量的网络包接收，再用 tcpdump 抓网络包，做进一步分析该网络包的源头是不是非法地址，如果是就需要考虑防火墙增加规则，如果不是，则考虑硬件升级等。</p>
+<hr>
+<h2 id="heading-3">
+</h2>
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E6%AF%94%E5%BE%88%E5%A4%9A%E6%95%99%E5%AD%A6%E9%83%BD%E6%9C%89%E7%94%A8%E7%9A%84git%E4%BD%BF%E7%94%A8%E6%AE%B5%E5%AD%90/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">比很多教学都有用的git使用段子</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">远程连接</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E5%9B%BE%E7%A7%8D/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">图种</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/ffmpeg/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">FFmpeg</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 帕琪-Pache
+    </section>
+    
+    <section class="powerby">
+        
+            Hello World! <br/>
+        
+
+        
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aplayer/dist/APlayer.min.css">
+<script src="https://unpkg.com/aplayer/dist/APlayer.min.js"></script>
+<script src="https://unpkg.com/meting@2/dist/Meting.min.js"></script>
+
+<meting-js
+  server="netease"
+  type="playlist"
+  id="626864109"
+  fixed="true"
+  autoplay="false">
+</meting-js>
+<script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script>
+
+
+    
+    <script src=https://echo806.github.io/js/topbar.min.js></script>
+
+
+
+<script>
+    var pjax = new Pjax({
+    selectors: [".main-container"]
+    })
+
+    pjax._handleResponse = pjax.handleResponse;
+    pjax.handleResponse = function(responseText, request, href, options) {
+        if (request.responseText.match("<html")) {
+            if (responseText) {
+                
+                let newDom = new DOMParser().parseFromString(responseText, 'text/html');
+                
+                let bodyClass = newDom.body.className;
+                document.body.setAttribute("class", bodyClass)
+            }
+            
+            pjax._handleResponse(responseText, request, href, options);
+        } else {
+            
+        }
+    }
+
+    document.addEventListener('pjax:send',() =>{
+        topbar.show();
+    })
+
+    document.addEventListener('pjax:complete',() =>{
+        
+        window.Stack.init();
+        
+        topbar.hide();
+
+    })
+
+
+</script>
+
+
+
+<div id="jsi-flying-fish-container"></div>
+
+
+<style>
+#jsi-flying-fish-container {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 120px;
+    z-index: -1;
+    opacity: 0;           
+    overflow: hidden;
+    pointer-events: none;
+    transition: opacity .3s;
+}
+ 
+.show-fish #jsi-flying-fish-container {
+    opacity: .5;
+}
+</style>
+
+
+<script>
+window.initFlyingFish = function () {
+    const container = document.getElementById('jsi-flying-fish-container');
+    if (!container) return;
+
+     
+    const oldCanvas = container.querySelector('canvas');
+    if (oldCanvas) oldCanvas.remove();
+
+     
+    const script = document.createElement('script');
+    script.src = 'https://cdn.meimolihan.eu.org/hugo/fish/fish.js';
+    script.onload = function () {
+        if (typeof RENDERER !== 'undefined') RENDERER.init();
+    };
+    document.head.appendChild(script);
+
+     
+    function checkBottom() {
+        const doc = document.documentElement;
+        const isBottom = (window.innerHeight + Math.ceil(window.pageYOffset))
+                         >= (doc.scrollHeight - 10);
+        document.body.classList.toggle('show-fish', isBottom);
+    }
+
+     
+    window.addEventListener('scroll', checkBottom);
+    checkBottom(); 
+};
+
+ 
+document.addEventListener('DOMContentLoaded', initFlyingFish);
+
+ 
+document.addEventListener('pjax:complete', initFlyingFish);
+</script>
+
+
+
+<script>
+
+    const live2d_path = "https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/";
+    const cssPath = "https://echo806.github.io/waifu/waifu.css";
+    const waifuTipsJsonPath = "https://echo806.github.io/waifu/waifu-tips.json";
+    const live2dMinJsPath = "https://echo806.github.io/waifu/live2d.min.js";
+    
+
+
+    function loadExternalResource(url, type) {
+        return new Promise((resolve, reject) => {
+            let tag;
+
+            if (type === "css") {
+                tag = document.createElement("link");
+                tag.rel = "stylesheet";
+                tag.href = url;
+            }
+            else if (type === "js") {
+                tag = document.createElement("script");
+                tag.src = url;
+            }
+            if (tag) {
+                tag.onload = () => resolve(url);
+                tag.onerror = () => reject(url);
+                document.head.appendChild(tag);
+            }
+        });
+    }
+
+
+    if (screen.width >= 768) {
+        Promise.all([
+            loadExternalResource(cssPath, "css"),
+            loadExternalResource(live2dMinJsPath, "js"),
+            loadExternalResource(live2d_path + "waifu-tips.js", "js")
+        ]).then(() => {
+
+            initWidget({
+                waifuPath: waifuTipsJsonPath,
+                
+                cdnPath: "https://fastly.jsdelivr.net/gh/fghrsh/live2d_api/",
+                tools: ["hitokoto", "asteroids", "switch-model", "switch-texture", "photo", "info", "quit"]
+            });
+            initWaifuMouseEvent();
+        });
+    }
+
+    function initWaifuMouseEvent() {
+        const waifu = document.getElementById("waifu");
+        let isDown = false;
+        let waifuLeft;
+        let mouseLeft;
+        let waifuTop;
+        let mouseTop;
+
+        waifu.onmousedown = function (e) {
+            isDown = true;
+
+            waifuLeft = waifu.offsetLeft;
+            mouseLeft = e.clientX;
+
+            waifuTop = waifu.offsetTop;
+            mouseTop = e.clientY;
+        }
+ 
+        window.onmousemove = function (e) {
+            if (!isDown) {
+                return;
+            }
+
+            let currentLeft = waifuLeft + (e.clientX - mouseLeft);
+            if (currentLeft < 0) {
+                currentLeft = 0;
+            } else if (currentLeft > window.innerWidth - 300) {
+                currentLeft = window.innerWidth - 300;
+            }
+            waifu.style.left = currentLeft  + "px";
+
+            let currentTop = waifuTop + (e.clientY - mouseTop);
+            if (currentTop < 30) {
+                currentTop = 30
+            } else if (currentTop > window.innerHeight - 290) {
+                currentTop = window.innerHeight - 290
+            }
+            waifu.style.top = currentTop + "px";
+        }
+
+        window.onmouseup = function (e) {
+            isDown = false;
+        }
+    }
+</script>
+
+
+
+
+
+<div id="particles-js"></div>
+
+<script src=https://echo806.github.io/background/particles.min.js></script>
+<script>
+    particlesJS.load('particles-js', "https://echo806.github.io/background/particlesjs-config.json", function() {
+        console.log('particles.js loaded - callback');
+    });
+</script>
+
+<style>
+    #particles-js {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: -1;
+    }
+</style>
+
+
+
+<style>
+   
+  @font-face {
+    font-family: 'MyChineseFont';
+    src: url(https://echo806.github.io/font/ChildFunSans.ttf) format('truetype');
+  }
+
+   
+  @font-face {
+    font-family: 'Amarna-Semibold';
+    src: url(https://echo806.github.io/font/Amarna-Semibold.ttf) format('truetype');
+  }
+
+  :root {
+     
+    --base-font-family: 'Amarna-Semibold', 'ChildFunSans';
+    --code-font-family: 'Amarna-Semibold', 'ChildFunSans';
+  }
+</style>
+
+
+    </body>
+</html>
