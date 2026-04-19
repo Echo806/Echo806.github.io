@@ -4312,7 +4312,7 @@ sudo dmesg | grep -Ei &amp;lsquo;fail|error&amp;rsquo; &amp;gt;~/project/boot_is
 (The grep command&amp;rsquo;s -i option makes the search case-insensitive.To search for multiple patterns at once (like fail OR error), you can use grep -E &amp;lsquo;pattern1|pattern2&amp;rsquo;.)&lt;/p&gt;
 &lt;p&gt;一些概念&lt;/p&gt;
 &lt;p&gt;x11,wayland 是图形系统&lt;/p&gt;
-&lt;p&gt;cinnamon，KDE(指的是KDE Plasma)，Gnome是桌面环境（desktop environment）&lt;/p&gt;
+&lt;p&gt;Xfce,cinnamon，KDE(指的是KDE Plasma)，Gnome是桌面环境（desktop environment）&lt;/p&gt;
 &lt;p&gt;KDE（社区 / 项目组织）是长期开发 Linux 桌面软件的社区组织。KDE Plasma 是 KDE 做的桌面环境（你看到的图形桌面界面）。所以很多人说 KDE，其实常指 KDE Plasma。&lt;/p&gt;
 &lt;p&gt;Hyprland 更准确是：Wayland Compositor（Wayland 合成器）&lt;/p&gt;
 &lt;p&gt;合成器 = 把各个窗口画面拼接起来，并最终显示到屏幕上的程序。&lt;/p&gt;
