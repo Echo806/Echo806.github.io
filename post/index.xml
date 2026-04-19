@@ -1825,6 +1825,99 @@
 	
 	
 &gt;&lt;/p&gt;
+&lt;p&gt;比如，我们执行了下面这条查询语句：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;select&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;from&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;product&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;where&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这条语句使用了主键索引查询 id 号为 5 的商品。查询过程是这样的，B+Tree 会自顶向下逐层进行查找：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;将 5 与根节点的索引数据 (1，10，20) 比较，5 在 1 和 10 之间，所以根据 B+Tree的搜索逻辑，找到第二层的索引数据 (1，4，7)；&lt;/li&gt;
+&lt;li&gt;在第二层的索引数据 (1，4，7)中进行查找，因为 5 在 4 和 7 之间，所以找到第三层的索引数据（4，5，6）；&lt;/li&gt;
+&lt;li&gt;在叶子节点的索引数据（4，5，6）中进行查找，然后我们找到了索引值为 5 的行数据。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;数据库的索引和数据都是存储在硬盘的，我们可以把读取一个节点当作一次磁盘 I/O 操作。那么上面的整个查询过程一共经历了 3 个节点，也就是进行了 3 次 I/O 操作。&lt;/p&gt;
+&lt;p&gt;B+Tree 存储千万级的数据只需要 3-4 层高度就可以满足，这意味着从千万级的表查询目标数据最多需要 3-4 次磁盘 I/O，所以&lt;strong&gt;B+Tree 相比于 B 树和二叉树来说，最大的优势在于查询效率很高，因为即使在数据量很大的情况，查询一个数据的磁盘 I/O 依然维持在 3-4次。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;查询数据时到了b树的叶子节点之后的查找数据是如何做&#34;&gt;查询数据时，到了B+树的叶子节点，之后的查找数据是如何做？
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;数据页中的记录按照「主键」顺序组成单向链表&lt;/strong&gt;，单向链表的特点就是插入、删除非常方便，但是检索效率不高，最差的情况下需要遍历链表上的所有节点才能完成检索。&lt;/p&gt;
+&lt;p&gt;因此，数据页中有一个&lt;strong&gt;页目录&lt;/strong&gt;，起到记录的索引作用，就像我们书那样，针对书中内容的每个章节设立了一个目录，想看某个章节的时候，可以查看目录，快速找到对应的章节的页数，而数据页中的页目录就是为了能快速找到记录。那 InnoDB 是如何给记录创建页目录的呢？&lt;/p&gt;
+&lt;p&gt;页目录与记录的关系如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.xiaolincoding.com//mysql/other/261011d237bec993821aa198b97ae8ce.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;页目录创建的过程如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;将所有的记录划分成几个组，这些记录包括最小记录和最大记录，但不包括标记为“已删除”的记录；&lt;/li&gt;
+&lt;li&gt;每个记录组的最后一条记录就是组内最大的那条记录，并且最后一条记录的头信息中会存储该组一共有多少条记录，作为 n_owned 字段（上图中粉红色字段）&lt;/li&gt;
+&lt;li&gt;页目录用来存储每组最后一条记录的地址偏移量，这些地址偏移量会按照先后顺序存储起来，每组的地址偏移量也被称之为槽（slot），每个槽相当于指针指向了不同组的最后一个记录。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;从图可以看到，&lt;strong&gt;页目录就是由多个槽组成的，槽相当于分组记录的索引&lt;/strong&gt;。然后，因为记录是按照「主键值」从小到大排序的，所以&lt;strong&gt;我们通过槽查找记录时，可以使用二分法快速定位要查询的记录在哪个槽（哪个记录分组），定位到槽后，再遍历槽内的所有记录，找到对应的记录&lt;/strong&gt;，无需从最小记录开始遍历整个页中的记录链表。以上面那张图举个例子，5 个槽的编号分别为 0，1，2，3，4，我想查找主键为 11 的用户记录：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;先二分得出槽中间位是 (0+4)/2=2 ，2号槽里最大的记录为 8。因为 11 &amp;gt; 8，所以需要从 2 号槽后继续搜索记录；&lt;/li&gt;
+&lt;li&gt;再使用二分搜索出 2 号和 4 槽的中间位是 (2+4)/2= 3，3 号槽里最大的记录为 12。因为 11 &amp;lt; 12，所以主键为 11 的记录在 3 号槽里；&lt;/li&gt;
+&lt;li&gt;再从 3 号槽指向的主键值为 9 记录开始向下搜索 2 次，定位到主键为 11 的记录，取出该条记录的信息即为我们想要查找的内容。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;b树的特性是什么&#34;&gt;B+树的特性是什么？
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;所有叶子节点都在同一层&lt;/strong&gt;：这是B+树的一个重要特性，确保了所有数据项的检索都具有相同的I/O延迟，提高了搜索效率。每个叶子节点都包含指向相邻叶子节点的指针，形成一个链表，由于叶子节点之间的链接，B+树非常适合进行范围查询和排序扫描。可以沿着叶子节点的链表顺序访问数据，而无需进行多次随机访问。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;非叶子节点存储键值&lt;/strong&gt;：非叶子节点仅存储键值和指向子节点的指针，不包含数据记录。这些键值用于指导搜索路径，帮助快速定位到正确的叶子节点。并且，由于非叶子节点只存放键值，当数据量比较大时，相对于B树，B+树的层高更少，查找效率也就更高。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;叶子节点存储数据记录&lt;/strong&gt;：与B树不同，B+树的叶子节点存储实际的数据记录或指向数据记录的指针。这意味着每次搜索都会到达叶子节点，才能找到所需数据。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;自平衡&lt;/strong&gt;：B+树在插入、删除和更新操作后会自动重新平衡，确保树的高度保持相对稳定，从而保持良好的搜索性能。每个节点最多可以有M个子节点，最少可以有ceil(M/2)个子节点（除了根节点），这里的M是树的阶数。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;说说b树和b树的区别&#34;&gt;说说B+树和B树的区别
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;在B+树中，数据都存储在叶子节点上，而非叶子节点只存储索引信息；而B树的非叶子节点既存储索引信息也存储部分数据。&lt;/li&gt;
+&lt;li&gt;B+树的叶子节点使用链表相连，便于范围查询和顺序访问；B树的叶子节点没有链表连接。&lt;/li&gt;
+&lt;li&gt;B+树的查找性能更稳定，每次查找都需要查找到叶子节点；而B树的查找可能会在非叶子节点找到数据，性能相对不稳定。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;b树的好处是什么&#34;&gt;B+树的好处是什么？
+&lt;/h2&gt;&lt;p&gt;B 树和 B+ 都是通过多叉树的方式，会将树的高度变矮，所以这两个数据结构非常适合检索存于磁盘中的数据。&lt;/p&gt;
+&lt;p&gt;但是 MySQL 默认的存储引擎 InnoDB 采用的是 B+ 作为索引的数据结构，原因有：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.xiaolincoding.com//picgo/1719383425822-763f8efe-c2bd-4880-8a48-75b96d4c059e.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;img&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;B+ 树的非叶子节点不存放实际的记录数据，仅存放索引，因此数据量相同的情况下，&lt;strong&gt;相比存储即存索引又存记录的 B 树，B+树的非叶子节点可以存放更多的索引，因此 B+ 树可以比 B 树更「矮胖」，查询底层节点的磁盘 I/O次数会更少&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;B+ 树有大量的冗余节点（所有非叶子节点都是冗余索引），这些冗余索引让 &lt;strong&gt;B+ 树在插入、删除的效率都更高&lt;/strong&gt;，比如删除根节点的时候，不会像 B 树那样会发生复杂的树的变化；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;B+ 树叶子节点之间用链表连接了起来，有利于范围查询&lt;/strong&gt;，而 B 树要实现范围查询，因此只能通过树的遍历来完成范围查询，这会涉及多个节点的磁盘 I/O 操作，范围查询效率不如 B+ 树。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;b树的叶子节点链表是单向还是双向&#34;&gt;B+树的叶子节点链表是单向还是双向？
+&lt;/h2&gt;&lt;p&gt;双向的，为了实现倒序遍历或者排序。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.xiaolincoding.com//picgo/image-20240725232027951.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20240725232027951&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Innodb 使用的 B+ 树有一些特别的点，比如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;B+ 树的叶子节点之间是用「双向链表」进行连接，这样的好处是既能向右遍历，也能向左遍历。&lt;/li&gt;
+&lt;li&gt;B+ 树节点内容是数据页，数据页里存放了用户的记录以及各种信息，每个数据页默认大小是 16 KB。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Innodb 根据索引类型不同，分为聚集索引和二级索引。他们区别在于，聚集索引的叶子节点存放的是实际数据，所有完整的用户记录都存放在聚集索引的叶子节点，而二级索引的叶子节点存放的是主键值，而不是实际数据。&lt;/p&gt;
 </description>
         </item>
         <item>
@@ -4217,6 +4310,94 @@ dmesg | grep usb&lt;br&gt;
 dmesg | grep error&lt;br&gt;
 sudo dmesg | grep -Ei &amp;lsquo;fail|error&amp;rsquo; &amp;gt;~/project/boot_issues.txt&lt;br&gt;
 (The grep command&amp;rsquo;s -i option makes the search case-insensitive.To search for multiple patterns at once (like fail OR error), you can use grep -E &amp;lsquo;pattern1|pattern2&amp;rsquo;.)&lt;/p&gt;
+&lt;p&gt;一些概念&lt;/p&gt;
+&lt;p&gt;x11,wayland 是图形系统&lt;/p&gt;
+&lt;p&gt;cinnamon，KDE(指的是KDE Plasma)，Gnome是桌面环境（desktop environment）&lt;/p&gt;
+&lt;p&gt;KDE（社区 / 项目组织）是长期开发 Linux 桌面软件的社区组织。KDE Plasma 是 KDE 做的桌面环境（你看到的图形桌面界面）。所以很多人说 KDE，其实常指 KDE Plasma。&lt;/p&gt;
+&lt;p&gt;Hyprland 更准确是：Wayland Compositor（Wayland 合成器）&lt;/p&gt;
+&lt;p&gt;合成器 = 把各个窗口画面拼接起来，并最终显示到屏幕上的程序。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;壁纸
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+ 浏览器窗口
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+ 微信窗口
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+ 鼠标指针
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+ 阴影
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+ 透明效果
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+ 动画
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;= 最终屏幕画面
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;把很多图层拼成一个完整画面。&lt;/p&gt;
+&lt;p&gt;这就叫：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;合成（Compose）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Canonical（公司名，Ubuntu 背后的商业公司）&lt;/p&gt;
+&lt;p&gt;Waydroid，它是 Linux 上运行 Android 应用的一种方案。你可以理解成：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在 Linux 里放一个 Android 系统环境，然后运行安卓 App。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;但 Waydroid 通常比传统模拟器更轻。&lt;/p&gt;
+&lt;p&gt;不是传统模拟器，Waydroid 更像：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;把 Android 放进 Linux 容器（轻量隔离环境）里运行。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Waydroid 可以理解成“专门跑安卓的桌面容器方案”。&lt;/p&gt;
+&lt;p&gt;KVM = Linux 内核里的虚拟机技术。（内核 = 操作系统最核心部分）&lt;/p&gt;
+&lt;p&gt;它让 Linux 电脑可以变成虚拟机宿主机（运行其他系统）。比如你可以在 Linux 上开：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Windows 虚拟机&lt;/li&gt;
+&lt;li&gt;Ubuntu 虚拟机&lt;/li&gt;
+&lt;li&gt;Android x86 虚拟机&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;你可以理解成：&lt;/p&gt;
+&lt;p&gt;KVM = Linux 自带的 VMware / VirtualBox 级能力（而且更底层）&lt;/p&gt;
+&lt;p&gt;Wine 不是虚拟机，也不是模拟器。
+它是 兼容层（Compatibility Layer，翻译：把 Windows 接口转换成 Linux 能理解的接口）。&lt;/p&gt;
+&lt;p&gt;Windows 软件以为自己在 Windows 上运行，实际上 Wine 在中间“翻译”。&lt;/p&gt;
+&lt;p&gt;Wine名字意思是:Wine Is Not an Emulator&lt;/p&gt;
+&lt;p&gt;Wine 不是模拟器。&lt;/p&gt;
+&lt;p&gt;Wine&lt;/p&gt;
+&lt;p&gt;适合：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;游戏&lt;/li&gt;
+&lt;li&gt;常见 Windows 软件&lt;/li&gt;
+&lt;li&gt;想省资源&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;KVM 虚拟机&lt;/p&gt;
+&lt;p&gt;适合：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;必须原生 Windows&lt;/li&gt;
+&lt;li&gt;办公软件兼容要求高&lt;/li&gt;
+&lt;li&gt;特定企业软件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Waydroid&lt;/p&gt;
+&lt;p&gt;适合：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;安卓 App&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;tmux 是一个 &lt;strong&gt;终端复用器（让一个终端窗口变成多个终端，并且会话可持续保存的工具）&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;Mesa 是 Linux 世界最重要的 &lt;strong&gt;开源图形驱动与图形库集合&lt;/strong&gt;。
+它负责让系统和显卡正确工作、运行 3D 图形、游戏、桌面加速等。&lt;/p&gt;
+&lt;p&gt;而 Vulkan 是一种 &lt;strong&gt;图形接口标准（让游戏/软件调用 GPU 的方式）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;所以两者关系是：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Vulkan 是规则 / 接口标准，Mesa 是 Linux 上实现这些规则的重要开源方案之一。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;类比最容易懂：&lt;/p&gt;
+&lt;p&gt;Vulkan = 交通法规&lt;/p&gt;
+&lt;p&gt;规定：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;红灯停绿灯行&lt;/li&gt;
+&lt;li&gt;怎么开车&lt;/li&gt;
+&lt;li&gt;怎么变道&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Mesa = 汽车制造厂&lt;/p&gt;
+&lt;p&gt;把这套规则落实成真正能开的车。&lt;/p&gt;
+&lt;p&gt;游戏调用 Vulkan：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;游戏 -&amp;gt; Vulkan 命令 -&amp;gt; Mesa 驱动 -&amp;gt; GPU 显卡
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Mesa 帮你把 Vulkan 指令翻译成显卡能执行的动作。&lt;/p&gt;
+&lt;p&gt;VA-API =Video Acceleration API&lt;/p&gt;
+&lt;p&gt;VA-API 是 Linux 常见的 &lt;strong&gt;视频硬件加速接口&lt;/strong&gt;。
+它让播放器、浏览器、录屏软件把视频解码/编码工作交给显卡（GPU）或专用硬件处理，而不是全靠 CPU。&lt;/p&gt;
+&lt;p&gt;你可以把它理解成：&lt;strong&gt;电脑里的“视频专用加速通道”。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Proton 是 Valve 为 Linux 游戏打造的 &lt;strong&gt;Windows 游戏兼容层&lt;/strong&gt;。
+它让很多原本只能在 Windows 上运行的游戏，可以直接在 Linux 上玩。&lt;/p&gt;
 </description>
         </item>
         <item>

@@ -358,6 +358,94 @@ dmesg | grep usb<br>
 dmesg | grep error<br>
 sudo dmesg | grep -Ei &lsquo;fail|error&rsquo; &gt;~/project/boot_issues.txt<br>
 (The grep command&rsquo;s -i option makes the search case-insensitive.To search for multiple patterns at once (like fail OR error), you can use grep -E &lsquo;pattern1|pattern2&rsquo;.)</p>
+<p>一些概念</p>
+<p>x11,wayland 是图形系统</p>
+<p>cinnamon，KDE(指的是KDE Plasma)，Gnome是桌面环境（desktop environment）</p>
+<p>KDE（社区 / 项目组织）是长期开发 Linux 桌面软件的社区组织。KDE Plasma 是 KDE 做的桌面环境（你看到的图形桌面界面）。所以很多人说 KDE，其实常指 KDE Plasma。</p>
+<p>Hyprland 更准确是：Wayland Compositor（Wayland 合成器）</p>
+<p>合成器 = 把各个窗口画面拼接起来，并最终显示到屏幕上的程序。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">壁纸
+</span></span><span class="line"><span class="cl">+ 浏览器窗口
+</span></span><span class="line"><span class="cl">+ 微信窗口
+</span></span><span class="line"><span class="cl">+ 鼠标指针
+</span></span><span class="line"><span class="cl">+ 阴影
+</span></span><span class="line"><span class="cl">+ 透明效果
+</span></span><span class="line"><span class="cl">+ 动画
+</span></span><span class="line"><span class="cl">= 最终屏幕画面
+</span></span></code></pre></div><p>把很多图层拼成一个完整画面。</p>
+<p>这就叫：</p>
+<blockquote>
+<p>合成（Compose）</p>
+</blockquote>
+<p>Canonical（公司名，Ubuntu 背后的商业公司）</p>
+<p>Waydroid，它是 Linux 上运行 Android 应用的一种方案。你可以理解成：</p>
+<blockquote>
+<p>在 Linux 里放一个 Android 系统环境，然后运行安卓 App。</p>
+</blockquote>
+<p>但 Waydroid 通常比传统模拟器更轻。</p>
+<p>不是传统模拟器，Waydroid 更像：</p>
+<blockquote>
+<p>把 Android 放进 Linux 容器（轻量隔离环境）里运行。</p>
+</blockquote>
+<p>Waydroid 可以理解成“专门跑安卓的桌面容器方案”。</p>
+<p>KVM = Linux 内核里的虚拟机技术。（内核 = 操作系统最核心部分）</p>
+<p>它让 Linux 电脑可以变成虚拟机宿主机（运行其他系统）。比如你可以在 Linux 上开：</p>
+<ul>
+<li>Windows 虚拟机</li>
+<li>Ubuntu 虚拟机</li>
+<li>Android x86 虚拟机</li>
+</ul>
+<p>你可以理解成：</p>
+<p>KVM = Linux 自带的 VMware / VirtualBox 级能力（而且更底层）</p>
+<p>Wine 不是虚拟机，也不是模拟器。
+它是 兼容层（Compatibility Layer，翻译：把 Windows 接口转换成 Linux 能理解的接口）。</p>
+<p>Windows 软件以为自己在 Windows 上运行，实际上 Wine 在中间“翻译”。</p>
+<p>Wine名字意思是:Wine Is Not an Emulator</p>
+<p>Wine 不是模拟器。</p>
+<p>Wine</p>
+<p>适合：</p>
+<ul>
+<li>游戏</li>
+<li>常见 Windows 软件</li>
+<li>想省资源</li>
+</ul>
+<p>KVM 虚拟机</p>
+<p>适合：</p>
+<ul>
+<li>必须原生 Windows</li>
+<li>办公软件兼容要求高</li>
+<li>特定企业软件</li>
+</ul>
+<p>Waydroid</p>
+<p>适合：</p>
+<ul>
+<li>安卓 App</li>
+</ul>
+<p>tmux 是一个 <strong>终端复用器（让一个终端窗口变成多个终端，并且会话可持续保存的工具）</strong>。</p>
+<p>Mesa 是 Linux 世界最重要的 <strong>开源图形驱动与图形库集合</strong>。
+它负责让系统和显卡正确工作、运行 3D 图形、游戏、桌面加速等。</p>
+<p>而 Vulkan 是一种 <strong>图形接口标准（让游戏/软件调用 GPU 的方式）</strong></p>
+<p>所以两者关系是：</p>
+<p><strong>Vulkan 是规则 / 接口标准，Mesa 是 Linux 上实现这些规则的重要开源方案之一。</strong></p>
+<p>类比最容易懂：</p>
+<p>Vulkan = 交通法规</p>
+<p>规定：</p>
+<ul>
+<li>红灯停绿灯行</li>
+<li>怎么开车</li>
+<li>怎么变道</li>
+</ul>
+<p>Mesa = 汽车制造厂</p>
+<p>把这套规则落实成真正能开的车。</p>
+<p>游戏调用 Vulkan：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">游戏 -&gt; Vulkan 命令 -&gt; Mesa 驱动 -&gt; GPU 显卡
+</span></span></code></pre></div><p>Mesa 帮你把 Vulkan 指令翻译成显卡能执行的动作。</p>
+<p>VA-API =Video Acceleration API</p>
+<p>VA-API 是 Linux 常见的 <strong>视频硬件加速接口</strong>。
+它让播放器、浏览器、录屏软件把视频解码/编码工作交给显卡（GPU）或专用硬件处理，而不是全靠 CPU。</p>
+<p>你可以把它理解成：<strong>电脑里的“视频专用加速通道”。</strong></p>
+<p>Proton 是 Valve 为 Linux 游戏打造的 <strong>Windows 游戏兼容层</strong>。
+它让很多原本只能在 Windows 上运行的游戏，可以直接在 Linux 上玩。</p>
 
 </section>
 

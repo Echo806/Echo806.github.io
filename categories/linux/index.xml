@@ -63,6 +63,94 @@ dmesg | grep usb&lt;br&gt;
 dmesg | grep error&lt;br&gt;
 sudo dmesg | grep -Ei &amp;lsquo;fail|error&amp;rsquo; &amp;gt;~/project/boot_issues.txt&lt;br&gt;
 (The grep command&amp;rsquo;s -i option makes the search case-insensitive.To search for multiple patterns at once (like fail OR error), you can use grep -E &amp;lsquo;pattern1|pattern2&amp;rsquo;.)&lt;/p&gt;
+&lt;p&gt;一些概念&lt;/p&gt;
+&lt;p&gt;x11,wayland 是图形系统&lt;/p&gt;
+&lt;p&gt;cinnamon，KDE(指的是KDE Plasma)，Gnome是桌面环境（desktop environment）&lt;/p&gt;
+&lt;p&gt;KDE（社区 / 项目组织）是长期开发 Linux 桌面软件的社区组织。KDE Plasma 是 KDE 做的桌面环境（你看到的图形桌面界面）。所以很多人说 KDE，其实常指 KDE Plasma。&lt;/p&gt;
+&lt;p&gt;Hyprland 更准确是：Wayland Compositor（Wayland 合成器）&lt;/p&gt;
+&lt;p&gt;合成器 = 把各个窗口画面拼接起来，并最终显示到屏幕上的程序。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;壁纸
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+ 浏览器窗口
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+ 微信窗口
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+ 鼠标指针
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+ 阴影
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+ 透明效果
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;+ 动画
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;= 最终屏幕画面
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;把很多图层拼成一个完整画面。&lt;/p&gt;
+&lt;p&gt;这就叫：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;合成（Compose）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Canonical（公司名，Ubuntu 背后的商业公司）&lt;/p&gt;
+&lt;p&gt;Waydroid，它是 Linux 上运行 Android 应用的一种方案。你可以理解成：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在 Linux 里放一个 Android 系统环境，然后运行安卓 App。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;但 Waydroid 通常比传统模拟器更轻。&lt;/p&gt;
+&lt;p&gt;不是传统模拟器，Waydroid 更像：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;把 Android 放进 Linux 容器（轻量隔离环境）里运行。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Waydroid 可以理解成“专门跑安卓的桌面容器方案”。&lt;/p&gt;
+&lt;p&gt;KVM = Linux 内核里的虚拟机技术。（内核 = 操作系统最核心部分）&lt;/p&gt;
+&lt;p&gt;它让 Linux 电脑可以变成虚拟机宿主机（运行其他系统）。比如你可以在 Linux 上开：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Windows 虚拟机&lt;/li&gt;
+&lt;li&gt;Ubuntu 虚拟机&lt;/li&gt;
+&lt;li&gt;Android x86 虚拟机&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;你可以理解成：&lt;/p&gt;
+&lt;p&gt;KVM = Linux 自带的 VMware / VirtualBox 级能力（而且更底层）&lt;/p&gt;
+&lt;p&gt;Wine 不是虚拟机，也不是模拟器。
+它是 兼容层（Compatibility Layer，翻译：把 Windows 接口转换成 Linux 能理解的接口）。&lt;/p&gt;
+&lt;p&gt;Windows 软件以为自己在 Windows 上运行，实际上 Wine 在中间“翻译”。&lt;/p&gt;
+&lt;p&gt;Wine名字意思是:Wine Is Not an Emulator&lt;/p&gt;
+&lt;p&gt;Wine 不是模拟器。&lt;/p&gt;
+&lt;p&gt;Wine&lt;/p&gt;
+&lt;p&gt;适合：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;游戏&lt;/li&gt;
+&lt;li&gt;常见 Windows 软件&lt;/li&gt;
+&lt;li&gt;想省资源&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;KVM 虚拟机&lt;/p&gt;
+&lt;p&gt;适合：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;必须原生 Windows&lt;/li&gt;
+&lt;li&gt;办公软件兼容要求高&lt;/li&gt;
+&lt;li&gt;特定企业软件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Waydroid&lt;/p&gt;
+&lt;p&gt;适合：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;安卓 App&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;tmux 是一个 &lt;strong&gt;终端复用器（让一个终端窗口变成多个终端，并且会话可持续保存的工具）&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;Mesa 是 Linux 世界最重要的 &lt;strong&gt;开源图形驱动与图形库集合&lt;/strong&gt;。
+它负责让系统和显卡正确工作、运行 3D 图形、游戏、桌面加速等。&lt;/p&gt;
+&lt;p&gt;而 Vulkan 是一种 &lt;strong&gt;图形接口标准（让游戏/软件调用 GPU 的方式）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;所以两者关系是：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Vulkan 是规则 / 接口标准，Mesa 是 Linux 上实现这些规则的重要开源方案之一。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;类比最容易懂：&lt;/p&gt;
+&lt;p&gt;Vulkan = 交通法规&lt;/p&gt;
+&lt;p&gt;规定：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;红灯停绿灯行&lt;/li&gt;
+&lt;li&gt;怎么开车&lt;/li&gt;
+&lt;li&gt;怎么变道&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Mesa = 汽车制造厂&lt;/p&gt;
+&lt;p&gt;把这套规则落实成真正能开的车。&lt;/p&gt;
+&lt;p&gt;游戏调用 Vulkan：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;游戏 -&amp;gt; Vulkan 命令 -&amp;gt; Mesa 驱动 -&amp;gt; GPU 显卡
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Mesa 帮你把 Vulkan 指令翻译成显卡能执行的动作。&lt;/p&gt;
+&lt;p&gt;VA-API =Video Acceleration API&lt;/p&gt;
+&lt;p&gt;VA-API 是 Linux 常见的 &lt;strong&gt;视频硬件加速接口&lt;/strong&gt;。
+它让播放器、浏览器、录屏软件把视频解码/编码工作交给显卡（GPU）或专用硬件处理，而不是全靠 CPU。&lt;/p&gt;
+&lt;p&gt;你可以把它理解成：&lt;strong&gt;电脑里的“视频专用加速通道”。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Proton 是 Valve 为 Linux 游戏打造的 &lt;strong&gt;Windows 游戏兼容层&lt;/strong&gt;。
+它让很多原本只能在 Windows 上运行的游戏，可以直接在 Linux 上玩。&lt;/p&gt;
 </description>
         </item>
         
