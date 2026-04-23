@@ -151,6 +151,8 @@ sudo dmesg | grep -Ei &amp;lsquo;fail|error&amp;rsquo; &amp;gt;~/project/boot_is
 &lt;p&gt;你可以把它理解成：&lt;strong&gt;电脑里的“视频专用加速通道”。&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Proton 是 Valve 为 Linux 游戏打造的 &lt;strong&gt;Windows 游戏兼容层&lt;/strong&gt;。
 它让很多原本只能在 Windows 上运行的游戏，可以直接在 Linux 上玩。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Btrfs&lt;/strong&gt;（读作 “Butter FS” 或按字母念 B-tree FS）是一种 &lt;strong&gt;Linux 文件系统&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;目标是替代一些传统文件系统的不足，比如 ext4 太稳但功能偏传统。&lt;/p&gt;
 </description>
         </item>
         
