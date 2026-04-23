@@ -802,7 +802,7 @@
 &lt;p&gt;上面这些查询条件之所以会失效，是因为(a, b, c) 联合索引，是先按 a 排序，在 a 相同的情况再按 b 排序，在 b 相同的情况再按 c 排序。所以，&lt;strong&gt;b 和 c 是全局无序，局部相对有序的&lt;/strong&gt;，这样在没有遵循最左匹配原则的情况下，是无法利用到索引的。&lt;/p&gt;
 &lt;p&gt;联合索引有一些特殊情况，&lt;strong&gt;并不是查询过程使用了联合索引查询，就代表联合索引中的所有字段都用到了联合索引进行索引查询&lt;/strong&gt;，也就是可能存在部分字段用到联合索引的 B+Tree，部分字段没有用到联合索引的 B+Tree 的情况。&lt;/p&gt;
 &lt;p&gt;这种特殊情况就发生在范围查询。联合索引的最左匹配原则会一直向右匹配直到遇到「范围查询」就会停止匹配。&lt;strong&gt;也就是范围查询的字段可以用到联合索引，但是在范围查询字段的后面的字段无法用到联合索引&lt;/strong&gt;。&lt;/p&gt;
-&lt;h2 id=&#34;哈希索引使用场景是什么&#34;&gt;&lt;strong&gt;哈希索引使用场景是什么？&lt;/strong&gt;
+&lt;h2 id=&#34;哈希索引使用场景是什么&#34;&gt;哈希索引使用场景是什么？
 &lt;/h2&gt;&lt;p&gt;哈希索引&lt;strong&gt;优势是等值查询极快、能直接通过哈希函数定位数据位置&lt;/strong&gt;，而&lt;strong&gt;短板是不支持范围查询、排序和前缀匹配&lt;/strong&gt;，所以使用场景必然是那些以等值查询为核心，且不需要复杂查询操作的场景。&lt;/p&gt;
 &lt;p&gt;比如 MySQL 的 Memory 存储引擎，默认就用哈希索引。因为内存表本身是基于内存存储的，追求极致的查询速度，而这类场景通常都是简单的等值查询，比如缓存用户登录信息，通过用户 ID 快速查找对应的登录状态、权限信息，这时候哈希索引能直接通过用户 ID 计算哈希值，定位到数据所在的桶，查询效率接近 O(1)，比 B+ 树索引的等值查询更快。&lt;/p&gt;
 &lt;h2 id=&#34;mysql聚簇索引和非聚簇索引的区别是什么&#34;&gt;MySQL聚簇索引和非聚簇索引的区别是什么？
@@ -1817,14 +1817,14 @@
 &lt;li&gt;Using temporary：使了用临时表保存中间结果，MySQL 在对查询结果排序时使用临时表，常见于排序 order by 和分组查询 group by。效率低，要避免这种问题的出现。&lt;/li&gt;
 &lt;li&gt;Using index：所需数据只需在索引即可全部获得，不须要再到表中取数据，也就是使用了覆盖索引，避免了回表操作，效率不错。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;怎么查看是否有走索引&#34;&gt;&lt;strong&gt;怎么查看是否有走索引？&lt;/strong&gt;
+&lt;h2 id=&#34;怎么查看是否有走索引&#34;&gt;怎么查看是否有走索引？
 &lt;/h2&gt;&lt;p&gt;在 SQL 语句前加 EXPLAIN 关键字，执行后会返回一张执行计划表，重点看几个关键字段就能判断是否走索引。比如要查询用户表中 id 为 100 的用户，先写 EXPLAIN + 目标 SQL：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;EXPLAIN SELECT * FROM user WHERE id = 100;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;执行后看结果里的 type 和 key 字段：type 字段如果是 ref、eq_ref 或者 const，说明走了索引；key 字段会显示实际使用的索引名称（比如主键索引 PRIMARY），如果 key 是 NULL，就说明没走索引，走了全表扫描。&lt;/p&gt;
 &lt;p&gt;再比如如果查询条件是 name 字段，且 name 建了普通索引，执行：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;EXPLAIN SELECT * FROM user WHERE name = &amp;#39;张三&amp;#39;;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果 key 字段显示 name 对应的索引名，type 是 ref，就说明走了索引；如果 key 是 NULL，可能是因为 name 字段的索引选择性太差（比如大部分值都相同），或者查询条件导致索引失效（比如用了函数操作 name 字段，像 &lt;code&gt;WHERE SUBSTR (name,1,1) = &#39; 张 &#39;&lt;/code&gt;）。&lt;/p&gt;
-&lt;h2 id=&#34;怎么查看表的索引&#34;&gt;&lt;strong&gt;怎么查看表的索引？&lt;/strong&gt;
+&lt;h2 id=&#34;怎么查看表的索引&#34;&gt;怎么查看表的索引？
 &lt;/h2&gt;&lt;p&gt;最直接的是&lt;code&gt;SHOW INDEX&lt;/code&gt;命令，语法简单，能清晰列出表的所有索引信息，包括索引名、索引类型、对应字段、是否主键等。比如查看 user 表的索引，执行：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;SHOW INDEX FROM user;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;执行后会返回多列结果，关键信息很直观：Key_name 是索引名称（主键索引默认叫 PRIMARY），Column_name 是索引对应的字段，Index_type 是索引类型（比如 BTREE、HASH），Non_unique 字段为 0 表示唯一索引（主键索引也是唯一索引），为 1 表示普通非唯一索引。&lt;/p&gt;
