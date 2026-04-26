@@ -7,7 +7,417 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>帕琪-Pache</copyright>
-        <lastBuildDate>Wed, 15 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://echo806.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 26 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://echo806.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>算法复健</title>
+        <link>https://echo806.github.io/p/%E7%AE%97%E6%B3%95%E5%A4%8D%E5%81%A5/</link>
+        <pubDate>Sun, 26 Apr 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://echo806.github.io/p/%E7%AE%97%E6%B3%95%E5%A4%8D%E5%81%A5/</guid>
+        <description>&lt;p&gt;重点直接看java吧，最主要先掌握好一门保险能直接写出来的&lt;/p&gt;
+&lt;p&gt;java特殊记：&lt;/p&gt;
+&lt;p&gt;String S
+char[]s=S.toCharArray();&lt;/p&gt;
+&lt;p&gt;List&amp;lt;int[]&amp;gt;ans=new ArrayList&amp;lt;&amp;gt;();
+要返回int[][]怎么办？Java 中 &lt;code&gt;List&amp;lt;int[]&amp;gt;&lt;/code&gt; 转成 &lt;code&gt;int[][]&lt;/code&gt; 的写法
+&lt;code&gt;用ans.toArray(new int[ans.size()][]);&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Arrays.fill(nums,1)&lt;/p&gt;
+&lt;p&gt;对于List
+取值
+ans.get(i)//i是下标
+ans.set(i,x)//i是下标，x是值&lt;/p&gt;
+&lt;p&gt;函数要返回数组
+return new {x,x};&lt;/p&gt;
+&lt;p&gt;函数要返回空List
+return List.of();&lt;/p&gt;
+&lt;p&gt;string取某个字符
+s.charAt(i)&lt;/p&gt;
+&lt;p&gt;ans=Math.max(cur,ans);&lt;/p&gt;
+&lt;h2 id=&#34;哈希表&#34;&gt;哈希表
+&lt;/h2&gt;&lt;p&gt;哈希表的语法&lt;/p&gt;
+&lt;p&gt;java
+Map&amp;lt;Integer,Character&amp;gt;mp=new HashMap&amp;lt;&amp;gt;();&lt;/p&gt;
+&lt;p&gt;Set&lt;Integer&gt;st=new HashSet&amp;lt;&amp;gt;();&lt;/p&gt;
+&lt;p&gt;Set&lt;Integer&gt;st=new TreeSet&amp;lt;&amp;gt;();//自动排序
+判断有没有元素
+if（!mp.isEmpty())
+if (!st.isEmpty())
+读取长度
+mp.size()
+st.size()
+插入元素
+mp.put(key,value)
+st.add(x)
+删除元素
+mp.remove(key)
+st.remove(x)
+判断某个元素是否在里面
+if(mp.containsKey(key))
+if(mp.containsValue(value))
+if(st.contains(x))
+获取元素
+mp.getOrDefault(key,0)
+mp.get(key)
+元素自增
+mp.put(key,mp.getOrDefault(key,0)+1)
+怎么遍历哈希表中的每一个元素？
+for(Map.Entry&amp;lt;Integer,Integer&amp;gt;e:cnt.entrySet())
+{
+}//e.getValue()//e.getKey()&lt;/p&gt;
+&lt;p&gt;for(int x:st)
+{&lt;/p&gt;
+&lt;p&gt;}&lt;/p&gt;
+&lt;p&gt;双端队列&lt;/p&gt;
+&lt;p&gt;java
+初始化
+Deque&lt;Integer&gt;q=new ArrayDeque&amp;lt;&amp;gt;();
+从前添加元素
+q.addFirst(x)
+从后添加元素
+q.addLast(x)
+取前面元素
+q.getFirst()
+取后面元素
+q.getLast()
+弹出前面元素
+q.removeFirst()
+弹出后面元素
+q.removeLast()
+判断是否为空
+if（！q.isEmpty())&lt;/p&gt;
+&lt;h3 id=&#34;两数之和httpsleetcodecnproblemstwo-sum&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/two-sum/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;两数之和&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;创建哈希集合，查看目前 索求和-目前数字  是否再哈希集合内？&lt;/p&gt;
+&lt;p&gt;无，则把目前数字加入哈希表&lt;/p&gt;
+&lt;p&gt;有，则得到所求&lt;/p&gt;
+&lt;h3 id=&#34;字母异位词分组httpsleetcodecnproblemsgroup-anagrams&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/group-anagrams/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;字母异位词分组&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;创建哈希映射，遍历字符串数组，把排序后的字母词作为key，把结果列表作为value&lt;/p&gt;
+&lt;h3 id=&#34;最长连续序列httpsleetcodecnproblemslongest-consecutive-sequence&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/longest-consecutive-sequence/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;最长连续序列&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;创建哈希集合，把全部数组元素放进去&lt;/p&gt;
+&lt;p&gt;遍历循环数组元素，&lt;/p&gt;
+&lt;p&gt;先判断 这个数- 1 是否在哈希集合中？&lt;/p&gt;
+&lt;p&gt;是，说明这个数不是连续序列第一个数，直接跳过，继续遍历&lt;/p&gt;
+&lt;p&gt;否，说明这个数是连续序列第一个数，开始从这个数开始往+1，+2，+3，&amp;hellip;遍历，判断这个数往上的数是否是否也在哈希集合中，求出这个序列的长度，与目前最长序列的长度作比较&lt;/p&gt;
+&lt;h2 id=&#34;双指针&#34;&gt;双指针
+&lt;/h2&gt;&lt;h3 id=&#34;移动零httpsleetcodecnproblemsmove-zeroes&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/move-zeroes/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;移动零&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;遍历数组，num_zero记住当前状态前面有几个0，遇到零就num_zero++,遇到非零就nums[i-num_zero]=nums[i];&lt;/p&gt;
+&lt;p&gt;遍历完后，记得从后往前遍历数组，把后面num_zero个数字变成0&lt;/p&gt;
+&lt;h3 id=&#34;盛最多水的容器httpsleetcodecnproblemscontainer-with-most-water&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/container-with-most-water/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;盛最多水的容器&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;在底面长度缩小的情况下，想让容积增大，只有容器壁增长才有可能做到（抛弃左右边其中短的一边，向中间靠近，这样才不会错过可能出现的更高边的情况）&lt;/p&gt;
+&lt;h3 id=&#34;三数之和httpsleetcodecnproblems3sum&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/3sum/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;三数之和&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;先把数组排序，最外层遍历第一个数字，双指针分别是第二个数字和第三个数字&lt;/p&gt;
+&lt;p&gt;注意写法&lt;/p&gt;
+&lt;p&gt;Arrays.sort(nums);&lt;/p&gt;
+&lt;p&gt;List&amp;lt;List&lt;Integer&gt;&amp;gt;ans=new ArrayList&amp;lt;&amp;gt;();&lt;/p&gt;
+&lt;p&gt;ans.add(List.of(nums[i],nums[j],nums[k]));&lt;/p&gt;
+&lt;h3 id=&#34;接雨水httpsleetcodecnproblemstrapping-rain-water&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/trapping-rain-water/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;接雨水&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;可以双指针做，也可以单调栈做&lt;/p&gt;
+&lt;p&gt;双指针：双指针记录左边和右边，不断更新左边右边高度最大值，移动的话，高度小的一方向中间移动&lt;/p&gt;
+&lt;p&gt;单调栈：接水泥 Deque&lt;Integer&gt;st=new ArrayDeque&amp;lt;&amp;gt;();&lt;/p&gt;
+&lt;p&gt;st.peek()  st.isEmpty()   st.push(i);&lt;/p&gt;
+&lt;h2 id=&#34;滑动窗口&#34;&gt;滑动窗口
+&lt;/h2&gt;&lt;h3 id=&#34;无重复字符的最长子串httpsleetcodecnproblemslongest-substring-without-repeating-characters&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/longest-substring-without-repeating-characters/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;无重复字符的最长子串&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;创建一个哈希映射，key放字母，value放出现次数&lt;/p&gt;
+&lt;p&gt;窗口是目前看的子串&lt;/p&gt;
+&lt;p&gt;遍历字符串，向右边衍伸，把右边新加入的字母出现次数+1&lt;/p&gt;
+&lt;p&gt;如果出现最右边当前查看的字母出现次数&amp;gt;1(其实就是==2)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cnt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cnt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cnt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;把左边一直删直到删到了和右边这个字母一样的位置&lt;/p&gt;
+&lt;p&gt;接着比较 ans=Math.max(ans,right-left+1);&lt;/p&gt;
+&lt;h3 id=&#34;找到字符串中所有字母异位词httpsleetcodecnproblemsfind-all-anagrams-in-a-string&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/find-all-anagrams-in-a-string/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;找到字符串中所有字母异位词&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;给定两个字符串 &lt;code&gt;s&lt;/code&gt; 和 &lt;code&gt;p&lt;/code&gt;，找到 &lt;code&gt;s&lt;/code&gt; 中所有 &lt;code&gt;p&lt;/code&gt; 的 &lt;strong&gt;异位词&lt;/strong&gt; 的子串，返回这些子串的起始索引。不考虑答案输出的顺序。&lt;/p&gt;
+&lt;p&gt;创建两个哈希映射，key是字母，value是出现次数&lt;/p&gt;
+&lt;p&gt;第一个哈希映射传入p的字母和出现次数&lt;/p&gt;
+&lt;p&gt;第二个哈希映射就是用来滑动窗口记录当前字串的字母和出现次数&lt;/p&gt;
+&lt;p&gt;当向右边延伸的时候，出现某个字母出现次数大于第一个哈希映射里面那个字母出现的次数时，把左边一直删直到删到了和右边这个字母一样的位置。&lt;/p&gt;
+&lt;p&gt;每次传入向右边传入新字母后，判断一下字串和p串长度是不是一样大，是的话窗口左边的索引就是所求。&lt;/p&gt;
+&lt;h2 id=&#34;子串&#34;&gt;子串
+&lt;/h2&gt;&lt;h3 id=&#34;和为-k-的子数组httpsleetcodecnproblemssubarray-sum-equals-k&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/subarray-sum-equals-k/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;和为 K 的子数组&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;创建一个哈希映射  Map&amp;lt;Integer,Integer&amp;gt;cnt=new HashMap&amp;lt;&amp;gt;();&lt;/p&gt;
+&lt;p&gt;创建完后先存入 cnt.put(0,1);&lt;/p&gt;
+&lt;p&gt;思路：key是从第一个数字开始子数组和，value是出现次数。&lt;/p&gt;
+&lt;p&gt;要求和为K的子数组个数，只需要ans加上  &lt;strong&gt;目前子数组和-K  在cnt中出现的次数&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;遍历的时候记得把当前子数组和加入到哈希表中&lt;/p&gt;
+&lt;h3 id=&#34;滑动窗口最大值httpsleetcodecnproblemssliding-window-maximum&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/sliding-window-maximum/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;滑动窗口最大值&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;创建一个双端队列当作单调递减队列使用，队列里面存放的是索引&lt;/p&gt;
+&lt;p&gt;右边传入数字的索引，把左边索引对应的数字小于这个数字的一个一个移出，确保最左边的存放的是最大数字的索引&lt;/p&gt;
+&lt;p&gt;记得保持窗口大小&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;q&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getFirst&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;q&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;removeFirst&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;满足窗口大小条件时记得存入答案中&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ans&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;q&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getFirst&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;最小覆盖子串httpsleetcodecnproblemsminimum-window-substring&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/minimum-window-substring/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;最小覆盖子串&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;创建一个哈希集合cnt（取名为need也很恰当），表示还需要什么字母多少次。&lt;/p&gt;
+&lt;p&gt;先遍历字符串t，填入cnt，用cnt_variety记录出现了多少种字母&lt;/p&gt;
+&lt;p&gt;再滑动窗口遍历s，每出现一个字母，就把cnt中key为这个字母的value减一&lt;/p&gt;
+&lt;p&gt;再判断cnt中key为字母现在对应的value是不是0（如果是不在t中的字母，肯定value是负数，不用考虑啦）&lt;/p&gt;
+&lt;p&gt;是，就把所需字母cnt_variety减一。&lt;/p&gt;
+&lt;p&gt;判断字串是否满足覆盖，只要判断cnt_variety是否等于0&lt;/p&gt;
+&lt;p&gt;那怎么判断是不是最小覆盖？&lt;/p&gt;
+&lt;p&gt;从最左边开始收缩&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cnt_variety&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ans_right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ans_left&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ans_left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ans_right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cnt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cnt_variety&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cnt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cnt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;普通数组&#34;&gt;普通数组
+&lt;/h2&gt;&lt;h3 id=&#34;最大子数组和httpsleetcodecnproblemsmaximum-subarray&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/maximum-subarray/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;最大子数组和&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;一个想法，连续数组前面部分的贡献一定要大于0，如果小于0，那不如不要了&lt;/p&gt;
+&lt;p&gt;用total记录连续数组的和&lt;/p&gt;
+&lt;p&gt;从左到右遍历数组&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ans&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;total&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;total&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;total&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ans&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ans&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;total&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;total&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;total&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;合并区间httpsleetcodecnproblemsmerge-intervals&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/merge-intervals/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;合并区间&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;Arrays.sort(intervals,(p,q)-&amp;gt;p[0]-q[0]);&lt;/p&gt;
+&lt;p&gt;一个关键的语法&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>FFmpeg</title>
+        <link>https://echo806.github.io/p/ffmpeg/</link>
+        <pubDate>Sat, 25 Apr 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://echo806.github.io/p/ffmpeg/</guid>
+        <description>&lt;h2 id=&#34;java-内存区域运行时数据区的组成&#34;&gt;⭐️Java 内存区域（运行时数据区）的组成
+&lt;/h2&gt;&lt;p&gt;Java 虚拟机在执行 Java 程序的过程中会把它管理的内存划分成若干个不同的数据区域。&lt;/p&gt;
+&lt;p&gt;JDK 1.8 和之前的版本略有不同，我们这里以 JDK 1.7 和 JDK 1.8 这两个版本为例介绍。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;JDK 1.7&lt;/strong&gt;：&lt;img src=&#34;https://oss.javaguide.cn/github/javaguide/java/jvm/java-runtime-data-areas-jdk1.7.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Java 运行时数据区域（JDK1.7）&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;JDK 1.8&lt;/strong&gt;：&lt;img src=&#34;https://oss.javaguide.cn/github/javaguide/java/jvm/java-runtime-data-areas-jdk1.8.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Java 运行时数据区域（JDK1.8 ）&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;线程私有的：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;程序计数器&lt;/li&gt;
+&lt;li&gt;虚拟机栈&lt;/li&gt;
+&lt;li&gt;本地方法栈&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;线程共享的：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;堆&lt;/li&gt;
+&lt;li&gt;方法区&lt;/li&gt;
+&lt;li&gt;直接内存 (非运行时数据区的一部分)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Java 虚拟机规范对于运行时数据区域的规定是相当宽松的。以堆为例：堆可以是连续空间，也可以不连续。堆的大小可以固定，也可以在运行时按需扩展 。虚拟机实现者可以使用任何垃圾回收算法管理堆，甚至完全不进行垃圾收集也是可以的。&lt;/p&gt;
+&lt;h2 id=&#34;哪个区域不会出现-outofmemoryerror&#34;&gt;⭐️哪个区域不会出现 OutOfMemoryError？
+&lt;/h2&gt;&lt;p&gt;程序计数器是唯一一个不会出现 &lt;code&gt;OutOfMemoryError&lt;/code&gt; 的内存区域，它的生命周期随着线程的创建而创建，随着线程的结束而死亡。&lt;/p&gt;
+&lt;p&gt;程序计数器是一块较小的内存空间，可以看作是当前线程所执行的字节码的行号指示器。字节码解释器工作时通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等功能都需要依赖这个计数器来完成。&lt;/p&gt;
+&lt;p&gt;另外，为了线程切换后能恢复到正确的执行位置，每条线程都需要有一个独立的程序计数器，各线程之间计数器互不影响，独立存储，我们称这类内存区域为“线程私有”的内存。&lt;/p&gt;
+&lt;p&gt;从上面的介绍中我们知道了程序计数器主要有两个作用：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;字节码解释器通过改变程序计数器来依次读取指令，从而实现代码的流程控制，如：顺序执行、选择、循环、异常处理。&lt;/li&gt;
+&lt;li&gt;在多线程的情况下，程序计数器用于记录当前线程执行的位置，从而当线程被切换回来的时候能够知道该线程上次运行到哪儿了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;哪些情况可能出现堆溢出&#34;&gt;⭐️哪些情况可能出现堆溢出？
+&lt;/h2&gt;&lt;p&gt;堆溢出，也就是我们常说的 &lt;code&gt;OutOfMemoryError: Java heap space&lt;/code&gt;，是 Java 开发中非常常见的一种严重错误。它的根本原因就是 JVM 在尝试为新对象分配内存时，堆中已经没有足够的连续空间了，并且经过垃圾回收后，也无法腾出足够的空间。&lt;/p&gt;
+&lt;p&gt;导致堆溢出的场景主要可以分为两类：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;内存泄漏&lt;/strong&gt;：对象用完了但没被释放，比如 &lt;code&gt;static&lt;/code&gt; 集合无限增长、 &lt;code&gt;ThreadLocal&lt;/code&gt; 没调用 &lt;code&gt;remove()&lt;/code&gt; 。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;内存膨胀&lt;/strong&gt;：短时间内创建了太多对象，比如一次性从数据库查了几百万条数据到 List 里，或者直接把一个大文件整个读进内存。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;程序运行中栈可能会出现什么错误&#34;&gt;程序运行中栈可能会出现什么错误？
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;StackOverFlowError&lt;/code&gt;：&lt;/strong&gt; 如果栈的内存大小不允许动态扩展，那么当线程请求栈的深度超过当前 Java 虚拟机栈的最大深度的时候，就抛出 &lt;code&gt;StackOverFlowError&lt;/code&gt; 错误。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;OutOfMemoryError&lt;/code&gt;：&lt;/strong&gt; 如果栈的内存大小可以动态扩展， 那么当虚拟机在动态扩展栈时无法申请到足够的内存空间，则抛出&lt;code&gt;OutOfMemoryError&lt;/code&gt;异常。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://oss.javaguide.cn/github/javaguide/java/jvm/%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9F%E6%9C%BA%E3%80%8B%E7%AC%AC%E4%B8%89%E7%89%88%E7%9A%84%E7%AC%AC2%E7%AB%A0-%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;img&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;堆内存的作用和组成&#34;&gt;堆内存的作用和组成
+&lt;/h2&gt;&lt;p&gt;Java 虚拟机所管理的内存中最大的一块，Java 堆是所有线程共享的一块内存区域，在虚拟机启动时创建。&lt;strong&gt;此内存区域的唯一目的就是存放对象实例，几乎所有的对象实例以及数组都在这里分配内存。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Java 世界中“几乎”所有的对象都在堆中分配，但是，随着 JIT 编译器的发展与逃逸分析技术逐渐成熟，栈上分配、标量替换优化技术将会导致一些微妙的变化，所有的对象都分配到堆上也渐渐变得不那么“绝对”了。从 JDK 1.7 开始已经默认开启逃逸分析，如果某些方法中的对象引用没有被返回或者未被外面使用（也就是未逃逸出去），那么对象可以直接在栈上分配内存。&lt;/p&gt;
+&lt;p&gt;Java 堆是垃圾收集器管理的主要区域，因此也被称作 &lt;strong&gt;GC 堆（Garbage Collected Heap）&lt;/strong&gt;。从垃圾回收的角度，由于现在收集器基本都采用分代垃圾收集算法，所以 Java 堆还可以细分为：新生代和老年代；再细致一点有：Eden、Survivor、Old 等空间。进一步划分的目的是更好地回收内存，或者更快地分配内存。&lt;/p&gt;
+&lt;p&gt;在 JDK 7 版本及 JDK 7 版本之前，堆内存被通常分为下面三部分：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;新生代内存(Young Generation)&lt;/li&gt;
+&lt;li&gt;老生代(Old Generation)&lt;/li&gt;
+&lt;li&gt;永久代(Permanent Generation)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;下图所示的 Eden 区、两个 Survivor 区 S0 和 S1 都属于新生代，中间一层属于老年代，最下面一层属于永久代。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://oss.javaguide.cn/github/javaguide/java/jvm/hotspot-heap-structure.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;堆内存结构&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;JDK 8 版本之后 PermGen(永久代) 已被 Metaspace(元空间) 取代，元空间使用的是本地内存。&lt;/strong&gt; （我会在方法区这部分内容详细介绍到）。&lt;/p&gt;
+&lt;p&gt;大部分情况，对象都会首先在 Eden 区域分配，在一次新生代垃圾回收后，如果对象还存活，则会进入 S0 或者 S1，并且对象的年龄还会加 1(Eden 区-&amp;gt;Survivor 区后对象的初始年龄变为 1)，当它的年龄增加到一定程度（默认为 15 岁），就会被晋升到老年代中。对象晋升到老年代的年龄阈值，可以通过参数 &lt;code&gt;-XX:MaxTenuringThreshold&lt;/code&gt; 来设置。不过，设置的值应该在 0-15，否则会爆出以下错误：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;MaxTenuringThreshold of &lt;span class=&#34;m&#34;&gt;20&lt;/span&gt; is invalid&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; must be between &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; and &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;程序运行中堆可能会出现什么错误&#34;&gt;⭐️程序运行中堆可能会出现什么错误？
+&lt;/h2&gt;&lt;p&gt;堆这里最容易出现的就是 &lt;code&gt;OutOfMemoryError&lt;/code&gt; 错误，并且出现这种错误之后的表现形式还会有几种，比如：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;java.lang.OutOfMemoryError: GC Overhead Limit Exceeded&lt;/code&gt;&lt;/strong&gt;：当 JVM 花太多时间执行垃圾回收并且只能回收很少的堆空间时，就会发生此错误。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;java.lang.OutOfMemoryError: Java heap space&lt;/code&gt;&lt;/strong&gt; :假如在创建新的对象时, 堆内存中的空间不足以存放新创建的对象, 就会引发此错误。(和配置的最大堆内存有关，且受制于物理内存大小。最大堆内存可通过&lt;code&gt;-Xmx&lt;/code&gt;参数配置，若没有特别配置，将会使用默认值，详见：&lt;a class=&#34;link&#34; href=&#34;https://stackoverflow.com/questions/28272923/default-xmxsize-in-java-8-max-heap-size&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Default Java 8 max heap size&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;……&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;为什么要将永久代-permgen-替换为元空间-metaspace-呢&#34;&gt;⭐️为什么要将永久代 (PermGen) 替换为元空间 (MetaSpace) 呢?
+&lt;/h2&gt;&lt;p&gt;下图来自《深入理解 Java 虚拟机》第 3 版 2.2.5&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://oss.javaguide.cn/github/javaguide/java/jvm/20210425134508117.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;img&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;1、整个永久代有一个 JVM 本身设置的固定大小上限，无法进行调整（也就是受到 JVM 内存的限制），而元空间使用的是本地内存，受本机可用内存的限制，虽然元空间仍旧可能溢出，但是比原来出现的几率会更小。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;当元空间溢出时会得到如下错误：&lt;code&gt;java.lang.OutOfMemoryError: MetaSpace&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;你可以使用 &lt;code&gt;-XX：MaxMetaspaceSize&lt;/code&gt; 标志设置最大元空间大小，默认值为 unlimited，这意味着它只受系统内存的限制。&lt;code&gt;-XX：MetaspaceSize&lt;/code&gt; 调整标志定义元空间的初始大小如果未指定此标志，则 Metaspace 将根据运行时的应用程序需求动态地重新调整大小。&lt;/p&gt;
+&lt;p&gt;2、元空间里面存放的是类的元数据，这样加载多少类的元数据就不由 &lt;code&gt;MaxPermSize&lt;/code&gt; 控制了, 而由系统的实际可用空间来控制，这样能加载的类就更多了。&lt;/p&gt;
+&lt;p&gt;3、在 JDK8，合并 HotSpot 和 JRockit 的代码时, JRockit 从来没有一个叫永久代的东西, 合并之后就没有必要额外的设置这么一个永久代的地方了。&lt;/p&gt;
+&lt;p&gt;4、永久代会为 GC 带来不必要的复杂度，并且回收效率偏低。&lt;/p&gt;
+&lt;h2 id=&#34;方法区常用参数有哪些&#34;&gt;方法区常用参数有哪些？
+&lt;/h2&gt;&lt;p&gt;JDK 1.8 之前永久代还没被彻底移除的时候通常通过下面这些参数来调节方法区大小。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;XX&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PermSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//方法区 (永久代) 初始大小&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;XX&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MaxPermSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//方法区 (永久代) 最大大小,超过这个值将会抛出 OutOfMemoryError 异常:java.lang.OutOfMemoryError: PermGen&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;相对而言，垃圾收集行为在这个区域是比较少出现的，但并非数据进入方法区后就“永久存在”了。&lt;/p&gt;
+&lt;p&gt;JDK 1.8 的时候，方法区（HotSpot 的永久代）被彻底移除了（JDK1.7 就已经开始了），取而代之是元空间，元空间使用的是本地内存。下面是一些常用参数：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;XX&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MetaspaceSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//设置 Metaspace 的初始（和最小大小）&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;XX&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MaxMetaspaceSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//设置 Metaspace 的最大大小&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;与永久代很大的不同就是，如果不指定大小的话，随着更多类的创建，虚拟机会耗尽所有可用的系统内存。&lt;/p&gt;
+&lt;h2 id=&#34;字符串常量池的作用是&#34;&gt;⭐️字符串常量池的作用是？
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;字符串常量池&lt;/strong&gt; 是 JVM 为了提升性能和减少内存消耗针对字符串（String 类）专门开辟的一块区域，主要目的是为了避免字符串的重复创建。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 在字符串常量池中创建字符串对象 ”ab“&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 将字符串对象 ”ab“ 的引用赋值给给 aa&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;aa&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;ab&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 直接返回字符串常量池中字符串对象 ”ab“，赋值给引用 bb&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bb&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;ab&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;aa&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;HotSpot 虚拟机中字符串常量池的实现是 &lt;code&gt;src/hotspot/share/classfile/stringTable.cpp&lt;/code&gt; ,&lt;code&gt;StringTable&lt;/code&gt; 可以简单理解为一个固定大小的&lt;code&gt;HashTable&lt;/code&gt; ，容量为 &lt;code&gt;StringTableSize&lt;/code&gt;（可以通过 &lt;code&gt;-XX:StringTableSize&lt;/code&gt; 参数来设置），保存的是字符串（key）和 字符串对象的引用（value）的映射关系，字符串对象的引用指向堆中的字符串对象。&lt;/p&gt;
+&lt;p&gt;JDK1.7 之前，字符串常量池存放在永久代。JDK1.7 字符串常量池和静态变量从永久代移动到了 Java 堆中。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://oss.javaguide.cn/github/javaguide/java/jvm/method-area-jdk1.6.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;method-area-jdk1.6&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://oss.javaguide.cn/github/javaguide/java/jvm/method-area-jdk1.7.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;method-area-jdk1.7&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;java-对象的创建过程&#34;&gt;Java 对象的创建过程
+&lt;/h2&gt;&lt;p&gt;JVM（HotSpot 虚拟机）中对象的创建过程主要分为以下五步：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;类加载检查&lt;/strong&gt;：虚拟机执行 new 指令时，先检查常量池中对应类的符号引用是否已加载、解析和初始化，未完成则先执行类加载过程。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;分配内存&lt;/strong&gt;：类加载通过后，根据类加载确定的对象大小从 Java 堆划分内存，分配方式有 “指针碰撞”（适用于堆内存规整，如 Serial/ParNew 收集器）和 “空闲列表”（适用于堆内存不规整，如 CMS 收集器）；为保证线程安全，采用 CAS + 失败重试或 TLAB（线程本地分配缓冲）机制。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;初始化零值&lt;/strong&gt;：将分配的内存空间（除对象头外）初始化为零值，确保 Java 代码中未赋初始值的实例字段可直接使用对应类型的零值。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;设置对象头&lt;/strong&gt;：在对象头中记录类元数据信息、哈希码、GC 分代年龄、锁状态等必要信息，具体设置依虚拟机运行状态（如是否启用偏向锁）而定。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;执行 init 方法&lt;/strong&gt;：虚拟机视角下对象已创建，但需执行&lt;code&gt;&amp;lt;init&amp;gt;&lt;/code&gt;方法按程序员定义完成初始化，最终生成可用对象。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;对象访问定位的方式有哪些&#34;&gt;⭐️对象访问定位的方式有哪些？
+&lt;/h2&gt;&lt;p&gt;建立对象就是为了使用对象，我们的 Java 程序通过栈上的 reference 数据来操作堆上的具体对象。对象的访问方式由虚拟机实现而定，目前主流的访问方式有：&lt;strong&gt;使用句柄&lt;/strong&gt;、&lt;strong&gt;直接指针&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;句柄&lt;/p&gt;
+&lt;p&gt;如果使用句柄的话，那么 Java 堆中将会划分出一块内存来作为句柄池，reference 中存储的就是对象的句柄地址，而句柄中包含了对象实例数据与对象类型数据各自的具体地址信息。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://oss.javaguide.cn/github/javaguide/java/jvm/access-location-of-object-handle.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;对象的访问定位-使用句柄&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;直接指针&lt;/p&gt;
+&lt;p&gt;如果使用直接指针访问，reference 中存储的直接就是对象的地址。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://oss.javaguide.cn/github/javaguide/java/jvm/access-location-of-object-handle-direct-pointer.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;对象的访问定位-直接指针&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;这两种对象访问方式各有优势。使用句柄来访问的最大好处是 reference 中存储的是稳定的句柄地址，在对象被移动时只会改变句柄中的实例数据指针，而 reference 本身不需要修改。使用直接指针访问方式最大的好处就是速度快，它节省了一次指针定位的时间开销。&lt;/p&gt;
+&lt;p&gt;HotSpot 虚拟机主要使用的就是这种方式来进行对象访问。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>操作系统</title>
         <link>https://echo806.github.io/p/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
         <pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
@@ -4355,7 +4765,7 @@
 &lt;p&gt;力扣算法可以重新看看了，hot100得刷的滚瓜烂熟，不过之前已经看了灵神的基础算法导论，把做过的题再看看再想想就好了。sql题也得重新看看，一些基础crud要熟练。&lt;/p&gt;
 &lt;p&gt;欧卡2开了十几个小时，开车还是需要胆大心细。这一段时间开家里轿车也比较得心应手了，稳了好多。&lt;/p&gt;
 &lt;p&gt;最近也有点算是忙，但也没太给自己上强度，接受自己有某段时间摆烂也挺好的，无需自责，做事贵在持之以恒。想了一些东西，把一些感觉像是上班的游戏停了，玩游戏或者做事情还是要回到初心，而不是被游戏玩。&lt;/p&gt;
-&lt;h2 id=&#34;weeks7-8&#34;&gt;weeks：7-8
+&lt;h2 id=&#34;weeks7-8&#34;&gt;weeks:7-8
 &lt;/h2&gt;&lt;p&gt;在小林那里把redis和mysql的八股过了一遍，对于他家的八股我的评价是有些回答不好，有些回答还是错误的，需要自己理性分辨。&lt;/p&gt;
 &lt;p&gt;在大模型浪潮下自学真方便，很多概念丢给ai就能得到很高质量的解答，某种程度上ai为浏览器搜索拼上了最后一块拼图。&lt;/p&gt;
 &lt;p&gt;当然，也要注意ai的幻觉问题，不过我认为对于概念的解释回答的质量已经非常之高。&lt;/p&gt;
@@ -4365,7 +4775,7 @@
 &lt;p&gt;哦对了，最近英语要捡起来了，虽然背了很多单词，但是还要巩固过一遍，六级尽量考高一点吧，不是很想在这方面耗下去。虽然说一直有使用英语阅读的习惯，但是考试还是有区别的。接下来一个月多做几套卷，练练听力，作文，写译。&lt;/p&gt;
 &lt;p&gt;这两周学到了很多linux概念，了解到了nixos，太优雅了，声明式配置，可复现性，相较arch这种bleeding edge的发行版，Nixos在提供极强可定制性的同时还保持极致稳定，符合我心目中追求的设计美学。我应该会在五一回去尝试安装试试咸淡。如果说什么人最适合折腾linux系统，我想动机没必要那么势利，我折腾，仅仅是因为我想并乐于折腾。&lt;/p&gt;
 &lt;p&gt;如果说我心目中欣赏的设计美学该如何形容？我很难回答出某些具体的指标，但是我很欣赏一句话：&lt;/p&gt;
-&lt;p&gt;Simplicity is the ultimate sophistication.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Simplicity is the ultimate sophistication.&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;不必多言某些陈腔滥调的bullshit，我只希望荧幕一端是我生活和工作的避风港，而不是哪天会滚挂不能常驻的落脚地。&lt;/p&gt;
 </description>
         </item>
@@ -5838,9 +6248,7 @@ $$&lt;/p&gt;</description>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
         <guid>https://echo806.github.io/%E5%85%B3%E4%BA%8E/</guid>
-        <description>&lt;p&gt;中山大学计算机科学与技术出身&lt;br&gt;
-喜欢折腾乱七八糟的东西&lt;/p&gt;
-</description>
+        <description></description>
         </item>
         <item>
         <title>链接</title>
