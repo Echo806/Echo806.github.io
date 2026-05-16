@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>nixos on 帕琪-Pache</title>
+        <link>https://echo806.github.io/categories/nixos/</link>
+        <description>Recent content in nixos on 帕琪-Pache</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>帕琪-Pache</copyright>
+        <lastBuildDate>Fri, 15 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://echo806.github.io/categories/nixos/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>老电脑上安装nixos命令队列兼容性问题</title>
+        <link>https://echo806.github.io/p/%E8%80%81%E7%94%B5%E8%84%91%E4%B8%8A%E5%AE%89%E8%A3%85nixos%E5%91%BD%E4%BB%A4%E9%98%9F%E5%88%97%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/</link>
+        <pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://echo806.github.io/p/%E8%80%81%E7%94%B5%E8%84%91%E4%B8%8A%E5%AE%89%E8%A3%85nixos%E5%91%BD%E4%BB%A4%E9%98%9F%E5%88%97%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/</guid>
+        <description>&lt;h1 id=&#34;nixos-安装时-libataforcenoncq-的作用&#34;&gt;NixOS 安装时 &lt;code&gt;libata.force=noncq&lt;/code&gt; 的作用
+&lt;/h1&gt;&lt;p&gt;问题现象 安装 NixOS 时： - 卡在 45% - 出现大量： ```text WRITE FPDMA QUEUED Emask 0x4 (timeout) 错误。 但安装 Mint 正常。&lt;/p&gt;
+&lt;p&gt;原因 这是： SATA NCQ（命令队列）兼容性问题&lt;/p&gt;
+&lt;p&gt;某些 SATA 控制器 / SSD / Linux 内核组合， 在高并发磁盘 IO 下会 timeout。&lt;/p&gt;
+&lt;p&gt;为什么 NixOS 更容易触发 NixOS 安装时会：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;并行下载&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;并行解压&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;大量小文件写入 磁盘压力远高于 Mint。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因此更容易触发 NCQ bug。&lt;/p&gt;
+&lt;p&gt;libata.force=noncq 做了什么 它会： 关闭 SATA NCQ 即： 一次只发送一个磁盘命令 而不是： 一次发送多个队列命令&lt;/p&gt;
+&lt;p&gt;效果 加入后： •	不再 timeout •	不再 WRITE FPDMA QUEUED •	安装恢复正常 稳定性大幅提升。&lt;/p&gt;
+&lt;p&gt;代价 磁盘随机 IO 性能会略微下降。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>NixOS 冷启动黑屏问题排查</title>
+        <link>https://echo806.github.io/p/nixos-%E5%86%B7%E5%90%AF%E5%8A%A8%E9%BB%91%E5%B1%8F%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/</link>
+        <pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://echo806.github.io/p/nixos-%E5%86%B7%E5%90%AF%E5%8A%A8%E9%BB%91%E5%B1%8F%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/</guid>
+        <description>&lt;h1 id=&#34;nixos-冷启动黑屏问题排查&#34;&gt;NixOS 冷启动黑屏问题排查
+&lt;/h1&gt;&lt;h2 id=&#34;问题现象&#34;&gt;问题现象
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;冷启动&lt;/strong&gt;：在 systemd-boot 菜单选择最新 generation → 黑屏无任何输出 → 超时后自动重启回到 boot 菜单&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;热切换&lt;/strong&gt;：&lt;code&gt;nixos-rebuild switch&lt;/code&gt; + &lt;code&gt;systemctl restart display-manager&lt;/code&gt; → 一切正常，niri、网络、fcitx5 输入法均正常工作&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;旧的 25.11 generation 冷启动正常&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;排查过程&#34;&gt;排查过程
+&lt;/h2&gt;&lt;h3 id=&#34;日志缺失线索锁定方向&#34;&gt;日志缺失线索（锁定方向）
+&lt;/h3&gt;&lt;p&gt;&lt;code&gt;journalctl --list-boots&lt;/code&gt; 看不到任何失败启动的日志条目。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;这意味内核在 systemd-journald 启动之前就崩溃了。&lt;/strong&gt; 问题不在用户态（niri/GPU/Mesa），而在 &lt;strong&gt;initrd 阶段或更早的内核初始化阶段&lt;/strong&gt;。&lt;/p&gt;
+&lt;h3 id=&#34;二进制对比定位根因&#34;&gt;二进制对比（定位根因）
+&lt;/h3&gt;&lt;p&gt;对比工作系统（25.11）和失败系统（26.05/unstable）的 &lt;code&gt;/init&lt;/code&gt; 文件：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;===&lt;/span&gt; 25.11 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;工作&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;===&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#! /nix/store/...-bash-interactive-5.3p3/bin/bash&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;（一个 bash 脚本）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;===&lt;/span&gt; 26.05/unstable &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;失败&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;===&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ELF  &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;一个 ELF 二进制文件&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;进一步追溯到 &lt;code&gt;/nix/store/.../nixos/modules/system/activation/top-level.nix&lt;/code&gt; 的生成逻辑：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-nix&#34; data-lang=&#34;nix&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;boot&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;initrd&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;enable&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;boot&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;initrd&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;systemd&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;enable&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;cp&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;$systemd/lib/systemd/systemd&amp;#34;&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;out/init&lt;/span&gt;   &lt;span class=&#34;c1&#34;&gt;# &amp;lt;-- 直接使用 systemd 二进制&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;cp&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;system&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bootStage2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;out/init&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;# &amp;lt;-- 使用 bash 脚本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;fi&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;同时发现 systemd 版本从 258（25.11）升级到了 260（26.05/unstable）。&lt;/p&gt;
+&lt;h2 id=&#34;根因&#34;&gt;根因
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;NixOS 26.05/unstable 默认启用了 &lt;code&gt;boot.initrd.systemd.enable&lt;/code&gt;&lt;/strong&gt;（25.11 默认为 false），导致 &lt;code&gt;/init&lt;/code&gt; 从 bash 脚本变成了 systemd 260 的 ELF 二进制文件。&lt;/p&gt;
+&lt;p&gt;systemd 260 作为 initrd 的 PID 1 在 ThinkPad X250 Broadwell 平台上崩溃，发生在 systemd-journald 启动之前，因此没有任何日志输出，屏幕黑屏，最终触发 watchdog 重启。&lt;/p&gt;
+&lt;h2 id=&#34;解决方案&#34;&gt;解决方案
+&lt;/h2&gt;&lt;p&gt;在 &lt;code&gt;configuration.nix&lt;/code&gt; 中添加一行配置，禁用 systemd-based initrd，回退到旧版 bash 脚本 init：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-nix&#34; data-lang=&#34;nix&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;boot&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;initrd&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;systemd&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;enable&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;no&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;最终配置变更&#34;&gt;最终配置变更
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;&lt;code&gt;configuration.nix&lt;/code&gt;：&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-diff&#34; data-lang=&#34;diff&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;gi&#34;&gt;+ boot.initrd.systemd.enable = false;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;总结&#34;&gt;总结
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;维度&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;根本原因&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;NixOS 26.05 默认使用 systemd 260 作为 initrd PID 1，在 ThinkPad X250 上崩溃&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;为何难以排查&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;崩溃发生在 journald 启动前，无任何日志&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;最终修复&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;boot.initrd.systemd.enable = false&lt;/code&gt;，回退到 bash 脚本 init&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;修复行数&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;1 行配置&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+        </item>
+        <item>
+        <title>NixOS上chrome无法使用fcitx5输入法问题的修复 </title>
+        <link>https://echo806.github.io/p/nixos%E4%B8%8Achrome%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8fcitx5%E8%BE%93%E5%85%A5%E6%B3%95%E9%97%AE%E9%A2%98%E7%9A%84%E4%BF%AE%E5%A4%8D/</link>
+        <pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://echo806.github.io/p/nixos%E4%B8%8Achrome%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8fcitx5%E8%BE%93%E5%85%A5%E6%B3%95%E9%97%AE%E9%A2%98%E7%9A%84%E4%BF%AE%E5%A4%8D/</guid>
+        <description>&lt;h1 id=&#34;nixos-上-chrome-无法使用-fcitx5-输入法问题修复&#34;&gt;NixOS 上 Chrome 无法使用 fcitx5 输入法问题修复
+&lt;/h1&gt;&lt;h2 id=&#34;环境信息&#34;&gt;环境信息
+&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;项目&lt;/th&gt;
+&lt;th&gt;配置&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;系统&lt;/td&gt;
+&lt;td&gt;NixOS 25.11 (x86_64-linux)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;桌面&lt;/td&gt;
+&lt;td&gt;KDE Plasma 6 (Wayland)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;输入法&lt;/td&gt;
+&lt;td&gt;fcitx5 + Rime (雾凇拼音)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;浏览器&lt;/td&gt;
+&lt;td&gt;Google Chrome&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;安装&lt;/td&gt;
+&lt;td&gt;Home Manager (&lt;code&gt;home.packages&lt;/code&gt;)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;问题现象&#34;&gt;问题现象
+&lt;/h2&gt;&lt;p&gt;Chrome 浏览器中可以正常浏览网页，但&lt;strong&gt;无法在任何输入框中切换或使用中文输入法&lt;/strong&gt;。fcitx5 在其他应用（Kate、Firefox、终端）中工作正常。&lt;/p&gt;
+&lt;h2 id=&#34;根因分析&#34;&gt;根因分析
+&lt;/h2&gt;&lt;p&gt;NixOS 的 Chrome wrapper 脚本内建了 Wayland + IME 支持，但通过条件变量控制：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Chrome wrapper 关键逻辑（来自 $(readlink -f $(which google-chrome-stable))）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;NIXOS_OZONE_WL&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:+&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;WAYLAND_DISPLAY&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:+--ozone-platform-hint=auto &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;--enable-features=WaylandWindowDecorations --enable-wayland-ime=true&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;条件&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;${NIXOS_OZONE_WL:+...}&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;仅当设置了 &lt;code&gt;NIXOS_OZONE_WL&lt;/code&gt; 环境变量才展开&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;${WAYLAND_DISPLAY:+...}&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;仅当 Wayland 会话存在时才展开&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;--ozone-platform-hint=auto&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;让 Chrome 自动选择原生 Wayland 渲染&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;--enable-wayland-ime=true&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;启用 Wayland IME 协议（&lt;code&gt;zwp_text_input&lt;/code&gt;）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;当 &lt;code&gt;NIXOS_OZONE_WL&lt;/code&gt; 未设置时&lt;/strong&gt;，Chrome 以 XWayland 模式运行，使用 XIM 协议与输入法通信。XIM 在 Wayland + fcitx5 环境下支持不完整，导致输入法失效。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;NIXOS_OZONE_WL 未设置
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Chrome 以 XWayland 模式启动
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;使用 XIM 协议（Wayland + fcitx5 下支持不完整）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;❌ 中文输入法无法使用
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;解决方案正确做法&#34;&gt;解决方案（正确做法）
+&lt;/h2&gt;&lt;p&gt;在 &lt;code&gt;home.nix&lt;/code&gt; 的 &lt;code&gt;home.sessionVariables&lt;/code&gt; 中设置：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-nix&#34; data-lang=&#34;nix&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# home.nix&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;home&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sessionVariables&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;NIXOS_OZONE_WL&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;   &lt;span class=&#34;c1&#34;&gt;# 启用 Chrome/Electron Wayland IME 支持&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;NIXOS_OZONE_WL=1 ✓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Chrome 以原生 Wayland 模式启动（--ozone-platform-hint=auto）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;使用 Wayland IME 协议（--enable-wayland-ime=true）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;✅ 中文输入法正常工作
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;heading&#34;&gt;
+&lt;/h3&gt;&lt;p&gt;Rebuild 后&lt;strong&gt;重新登录桌面&lt;/strong&gt;（或重启），Chrome 即可使用 fcitx5 输入法。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
