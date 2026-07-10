@@ -322,6 +322,27 @@
       <ol>
         <li><a href="#最大子数组和httpsleetcodecnproblemsmaximum-subarray"><a href="https://leetcode.cn/problems/maximum-subarray/">最大子数组和</a></a></li>
         <li><a href="#合并区间httpsleetcodecnproblemsmerge-intervals"><a href="https://leetcode.cn/problems/merge-intervals/">合并区间</a></a></li>
+        <li><a href="#轮转数组httpsleetcodecnproblemsrotate-array"><a href="https://leetcode.cn/problems/rotate-array/">轮转数组</a></a></li>
+        <li><a href="#除了自身以外数组的乘积httpsleetcodecnproblemsproduct-of-array-except-self"><a href="https://leetcode.cn/problems/product-of-array-except-self/">除了自身以外数组的乘积</a></a></li>
+        <li><a href="#缺失的第一个正数httpsleetcodecnproblemsfirst-missing-positive"><a href="https://leetcode.cn/problems/first-missing-positive/">缺失的第一个正数</a></a></li>
+      </ol>
+    </li>
+    <li><a href="#矩阵">矩阵</a>
+      <ol>
+        <li><a href="#矩阵置零httpsleetcodecnproblemsset-matrix-zeroes"><a href="https://leetcode.cn/problems/set-matrix-zeroes/">矩阵置零</a></a></li>
+        <li><a href="#螺旋矩阵httpsleetcodecnproblemsspiral-matrix"><a href="https://leetcode.cn/problems/spiral-matrix/">螺旋矩阵</a></a></li>
+        <li><a href="#旋转图像httpsleetcodecnproblemsrotate-image"><a href="https://leetcode.cn/problems/rotate-image/">旋转图像</a></a></li>
+        <li><a href="#搜索二维矩阵-iihttpsleetcodecnproblemssearch-a-2d-matrix-ii"><a href="https://leetcode.cn/problems/search-a-2d-matrix-ii/">搜索二维矩阵 II</a></a></li>
+      </ol>
+    </li>
+    <li><a href="#链表">链表</a>
+      <ol>
+        <li><a href="#相交链表httpsleetcodecnproblemsintersection-of-two-linked-lists"><a href="https://leetcode.cn/problems/intersection-of-two-linked-lists/">相交链表</a></a></li>
+        <li><a href="#反转链表httpsleetcodecnproblemsreverse-linked-list"><a href="https://leetcode.cn/problems/reverse-linked-list/">反转链表</a></a></li>
+        <li><a href="#回文链表httpsleetcodecnproblemspalindrome-linked-list"><a href="https://leetcode.cn/problems/palindrome-linked-list/">回文链表</a></a></li>
+        <li><a href="#环形链表httpsleetcodecnproblemslinked-list-cycle"><a href="https://leetcode.cn/problems/linked-list-cycle/">环形链表</a></a></li>
+        <li><a href="#环形链表-iihttpsleetcodecnproblemslinked-list-cycle-ii"><a href="https://leetcode.cn/problems/linked-list-cycle-ii/">环形链表 II</a></a></li>
+        <li><a href="#合并两个有序链表httpsleetcodecnproblemsmerge-two-sorted-lists"><a href="https://leetcode.cn/problems/merge-two-sorted-lists/">合并两个有序链表</a></a></li>
       </ol>
     </li>
   </ol>
@@ -586,9 +607,129 @@ if（！q.isEmpty())</p>
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><h3 id="合并区间httpsleetcodecnproblemsmerge-intervals"><a class="link" href="https://leetcode.cn/problems/merge-intervals/"  target="_blank" rel="noopener"
     >合并区间</a>
-</h3><p>Arrays.sort(intervals,(p,q)-&gt;p[0]-q[0]);</p>
-<p>一个关键的语法</p>
-
+</h3><p><code>Arrays.sort(intervals,(p,q)-&gt;p[0]-q[0]);</code></p>
+<p>一个关键的语法，作用是按区间第一个数字（start）从小到大排列</p>
+<p><code>List&lt;int[]&gt;ans=new ArrayList&lt;&gt;();</code>令ans是一个存放答案吧区间的集合，（为什么要先设成集合？题目不是要求返回二元数组嘛？那是因为集合方便动态添加元素，只要返回的时候把装有一维数组的集合转化为而原数组就好了）</p>
+<p>返回语句的语法:</p>
+<p><code>return ans.toArray(new int[ans.size()][]);</code></p>
+<h3 id="轮转数组httpsleetcodecnproblemsrotate-array"><a class="link" href="https://leetcode.cn/problems/rotate-array/"  target="_blank" rel="noopener"
+    >轮转数组</a>
+</h3><p>先定义一个reverse函数</p>
+<p>​    <code>int n=nums.length;</code></p>
+<p>​    <code>k%=n;</code></p>
+<p>​    <code>reverse(nums,0,n-1);</code></p>
+<p>​    <code>reverse(nums,0,k-1);</code></p>
+<p>​    <code>reverse(nums,k,n-1);</code></p>
+<h3 id="除了自身以外数组的乘积httpsleetcodecnproblemsproduct-of-array-except-self"><a class="link" href="https://leetcode.cn/problems/product-of-array-except-self/"  target="_blank" rel="noopener"
+    >除了自身以外数组的乘积</a>
+</h3><p>​    <code>int n=nums.length;</code></p>
+<p>​    <code>int[] ans=new int[n];</code></p>
+<p>​    <code>Arrays.fill(ans,1);</code></p>
+<p>这道题思路？创建一个ans数组，先从右到左乘，此时ans[i]表示nums[i+1]到nums[n-1]的乘积</p>
+<p>接着从左往右再重复一遍，可以用temp记录前面数字的乘积和</p>
+<p>最后返回数组即为所求</p>
+<h3 id="缺失的第一个正数httpsleetcodecnproblemsfirst-missing-positive"><a class="link" href="https://leetcode.cn/problems/first-missing-positive/"  target="_blank" rel="noopener"
+    >缺失的第一个正数</a>
+</h3><p>先读出nums中元素个数n，思路是，第一遍先遍历数组，把索引对应的数字放在和这个数字相同的索引上，即把他们放在<strong>正确的位置</strong>上</p>
+<p>注意条件</p>
+<p><code>while(nums[i]&gt;=1&amp;&amp;nums[i]&lt;=n&amp;&amp;nums[i]!=nums[nums[i]-1])</code></p>
+<p>除了满足num[i]这个数能放在数组的正确的位置上这个条件，还要满足这个正确的位置的数字是不正确的，不然会陷入死循环</p>
+<p>接着就是再遍历一遍数组，找到第一个对应不上正确的位置的地方</p>
+<h2 id="矩阵">矩阵
+</h2><h3 id="矩阵置零httpsleetcodecnproblemsset-matrix-zeroes"><a class="link" href="https://leetcode.cn/problems/set-matrix-zeroes/"  target="_blank" rel="noopener"
+    >矩阵置零</a>
+</h3><p>先定义两个量，firstRowHasZero和firstColHasZero判断第一行和第一列有没有出现过0</p>
+<p>先遍历一遍，第一行和第一列，判断有没有0</p>
+<p>接着，思路是，把第一行全部位置作为判断在某一列是否出现0的标志，把第一列全部位置作为判断某一行是否出现0的标志。</p>
+<p>从第二行，第二列开始遍历整个矩阵。把情况填入第一行标识。</p>
+<p>最后，再遍历整个数组，把对应地方修改成0.</p>
+<h3 id="螺旋矩阵httpsleetcodecnproblemsspiral-matrix"><a class="link" href="https://leetcode.cn/problems/spiral-matrix/"  target="_blank" rel="noopener"
+    >螺旋矩阵</a>
+</h3><p><code>private int[][]DIRECTIONS={{0,1},{1,0},{0,-1},{-1,0}};</code></p>
+<p>这样写雅观清晰点。</p>
+<p>注意矩阵是往右下角索引下标增大。又因为是顺时针，所以才设置{0，1}，{1，0}，{0，-1}，{-1，0}的顺序。</p>
+<p>循环如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">di</span><span class="o">=</span><span class="n">0</span><span class="p">;</span><span class="n">ans</span><span class="p">.</span><span class="na">size</span><span class="p">()</span><span class="o">&lt;</span><span class="n">size</span><span class="p">;</span><span class="n">di</span><span class="o">=</span><span class="p">(</span><span class="n">di</span><span class="o">+</span><span class="n">1</span><span class="p">)</span><span class="o">%</span><span class="n">4</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="o">=</span><span class="n">0</span><span class="p">;</span><span class="n">k</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">k</span><span class="o">++</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">i</span><span class="o">+=</span><span class="n">DIRECTIONS</span><span class="o">[</span><span class="n">di</span><span class="o">][</span><span class="n">0</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">j</span><span class="o">+=</span><span class="n">DIRECTIONS</span><span class="o">[</span><span class="n">di</span><span class="o">][</span><span class="n">1</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ans</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">matrix</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">temp</span><span class="o">=</span><span class="n">n</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">n</span><span class="o">=</span><span class="n">m</span><span class="o">-</span><span class="n">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">m</span><span class="o">=</span><span class="n">temp</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>注意转弯时的条件变化</p>
+<h3 id="旋转图像httpsleetcodecnproblemsrotate-image"><a class="link" href="https://leetcode.cn/problems/rotate-image/"  target="_blank" rel="noopener"
+    >旋转图像</a>
+</h3><p>先沿着对角线镜像，再左右/上下镜像</p>
+<h3 id="搜索二维矩阵-iihttpsleetcodecnproblemssearch-a-2d-matrix-ii"><a class="link" href="https://leetcode.cn/problems/search-a-2d-matrix-ii/"  target="_blank" rel="noopener"
+    >搜索二维矩阵 II</a>
+</h3><p>从右上角或者左下角开始搜索。</p>
+<p>为什么？比如右上角，这个位置是当前行最大，当前列最小，从这里开始搜索高效还不会错漏。左下角同理，都是局部的极端</p>
+<h2 id="链表">链表
+</h2><h3 id="相交链表httpsleetcodecnproblemsintersection-of-two-linked-lists"><a class="link" href="https://leetcode.cn/problems/intersection-of-two-linked-lists/"  target="_blank" rel="noopener"
+    >相交链表</a>
+</h3><p><img src="https://assets.leetcode.cn/aliyun-lc-upload/uploads/2018/12/14/160_statement.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">ListNode</span><span class="w"> </span><span class="n">A</span><span class="o">=</span><span class="n">headA</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">ListNode</span><span class="w"> </span><span class="n">B</span><span class="o">=</span><span class="n">headB</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">while</span><span class="p">(</span><span class="n">A</span><span class="o">!=</span><span class="n">B</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">A</span><span class="o">=</span><span class="p">(</span><span class="n">A</span><span class="o">!=</span><span class="kc">null</span><span class="o">?</span><span class="n">A</span><span class="p">.</span><span class="na">next</span><span class="p">:</span><span class="n">headB</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">B</span><span class="o">=</span><span class="p">(</span><span class="n">B</span><span class="o">!=</span><span class="kc">null</span><span class="o">?</span><span class="n">B</span><span class="p">.</span><span class="na">next</span><span class="p">:</span><span class="n">headA</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">return</span><span class="w"> </span><span class="n">A</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>A!=null，A!=null是为了判断是否跑完了整个链表</p>
+<h3 id="反转链表httpsleetcodecnproblemsreverse-linked-list"><a class="link" href="https://leetcode.cn/problems/reverse-linked-list/"  target="_blank" rel="noopener"
+    >反转链表</a>
+</h3><p>反转链表有两种写法：递归和迭代，其中迭代不需要额外空间，那就记住迭代吧</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">ListNode</span><span class="w"> </span><span class="n">pre</span><span class="o">=</span><span class="kc">null</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">ListNode</span><span class="w"> </span><span class="n">cur</span><span class="o">=</span><span class="n">head</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">while</span><span class="p">(</span><span class="n">cur</span><span class="o">!=</span><span class="kc">null</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">ListNode</span><span class="w"> </span><span class="n">temp</span><span class="o">=</span><span class="n">cur</span><span class="p">.</span><span class="na">next</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">cur</span><span class="p">.</span><span class="na">next</span><span class="o">=</span><span class="n">pre</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">pre</span><span class="o">=</span><span class="n">cur</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">cur</span><span class="o">=</span><span class="n">temp</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">return</span><span class="w"> </span><span class="n">pre</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h3 id="回文链表httpsleetcodecnproblemspalindrome-linked-list"><a class="link" href="https://leetcode.cn/problems/palindrome-linked-list/"  target="_blank" rel="noopener"
+    >回文链表</a>
+</h3><p>先定义一个反转链表函数reverseList，再定义一个获取链表中间节点的函数（如果是某数数组则返回中间偏右的那个节点）</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">ListNode</span><span class="w"> </span><span class="n">mid</span><span class="o">=</span><span class="n">getmiddle</span><span class="p">(</span><span class="n">head</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">ListNode</span><span class="w"> </span><span class="n">head2</span><span class="o">=</span><span class="n">reverseList</span><span class="p">(</span><span class="n">mid</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">while</span><span class="p">(</span><span class="n">head2</span><span class="o">!=</span><span class="kc">null</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">head</span><span class="p">.</span><span class="na">val</span><span class="o">!=</span><span class="n">head2</span><span class="p">.</span><span class="na">val</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">head</span><span class="o">=</span><span class="n">head</span><span class="p">.</span><span class="na">next</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">head2</span><span class="o">=</span><span class="n">head2</span><span class="p">.</span><span class="na">next</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h3 id="环形链表httpsleetcodecnproblemslinked-list-cycle"><a class="link" href="https://leetcode.cn/problems/linked-list-cycle/"  target="_blank" rel="noopener"
+    >环形链表</a>
+</h3><p>快慢指针</p>
+<h3 id="环形链表-iihttpsleetcodecnproblemslinked-list-cycle-ii"><a class="link" href="https://leetcode.cn/problems/linked-list-cycle-ii/"  target="_blank" rel="noopener"
+    >环形链表 II</a>
+</h3><p>一个可证明的数学公式：快慢指针相遇时，这是设置一个新的指针从头节点开始和慢指针遍历，它们相遇的位置就是链表开始入环的第一个节点。</p>
+<h3 id="合并两个有序链表httpsleetcodecnproblemsmerge-two-sorted-lists"><a class="link" href="https://leetcode.cn/problems/merge-two-sorted-lists/"  target="_blank" rel="noopener"
+    >合并两个有序链表</a>
+</h3><p>注意dummy节点的设置</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">ListNode</span><span class="w"> </span><span class="n">dummy</span><span class="o">=</span><span class="k">new</span><span class="w"> </span><span class="n">ListNode</span><span class="p">(</span><span class="o">-</span><span class="n">1</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div>
 </section>
 
 
