@@ -83,15 +83,21 @@ q.removeFirst()
 弹出后面元素
 q.removeLast()
 判断是否为空
-if（！q.isEmpty())&lt;/p&gt;
+if（!q.isEmpty())&lt;/p&gt;
 &lt;h3 id=&#34;两数之和httpsleetcodecnproblemstwo-sum&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/two-sum/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;两数之和&lt;/a&gt;
 &lt;/h3&gt;&lt;p&gt;创建哈希集合，查看目前 索求和-目前数字  是否再哈希集合内？&lt;/p&gt;
 &lt;p&gt;无，则把目前数字加入哈希表&lt;/p&gt;
 &lt;p&gt;有，则得到所求&lt;/p&gt;
+&lt;p&gt;mp.containsKey(target-nums[i])&lt;/p&gt;
+&lt;p&gt;mp.get(target-nums[i])&lt;/p&gt;
+&lt;p&gt;mp.put(nums[i],i)&lt;/p&gt;
 &lt;h3 id=&#34;字母异位词分组httpsleetcodecnproblemsgroup-anagrams&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/group-anagrams/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;字母异位词分组&lt;/a&gt;
 &lt;/h3&gt;&lt;p&gt;创建哈希映射，遍历字符串数组，把排序后的字母词作为key，把结果列表作为value&lt;/p&gt;
+&lt;p&gt;char[] sortedS=s.toCharArray()&lt;/p&gt;
+&lt;p&gt;Arrays.sort(sortedS)&lt;/p&gt;
+&lt;p&gt;return new ArrayList&amp;lt;&amp;gt;(m.values)&lt;/p&gt;
 &lt;h3 id=&#34;最长连续序列httpsleetcodecnproblemslongest-consecutive-sequence&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/longest-consecutive-sequence/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;最长连续序列&lt;/a&gt;
 &lt;/h3&gt;&lt;p&gt;创建哈希集合，把全部数组元素放进去&lt;/p&gt;
@@ -99,6 +105,11 @@ if（！q.isEmpty())&lt;/p&gt;
 &lt;p&gt;先判断 这个数- 1 是否在哈希集合中？&lt;/p&gt;
 &lt;p&gt;是，说明这个数不是连续序列第一个数，直接跳过，继续遍历&lt;/p&gt;
 &lt;p&gt;否，说明这个数是连续序列第一个数，开始从这个数开始往+1，+2，+3，&amp;hellip;遍历，判断这个数往上的数是否是否也在哈希集合中，求出这个序列的长度，与目前最长序列的长度作比较&lt;/p&gt;
+&lt;p&gt;Set&lt;Integer&gt;st=new HashSet&amp;lt;&amp;gt;();&lt;/p&gt;
+&lt;p&gt;st.add(x)&lt;/p&gt;
+&lt;p&gt;st.contains(x-1)&lt;/p&gt;
+&lt;p&gt;st.contains(y)&lt;/p&gt;
+&lt;p&gt;Math.max(ans,cur)&lt;/p&gt;
 &lt;h2 id=&#34;双指针&#34;&gt;双指针
 &lt;/h2&gt;&lt;h3 id=&#34;移动零httpsleetcodecnproblemsmove-zeroes&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/move-zeroes/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;移动零&lt;/a&gt;
@@ -134,6 +145,8 @@ if（！q.isEmpty())&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;把左边一直删直到删到了和右边这个字母一样的位置&lt;/p&gt;
 &lt;p&gt;接着比较 ans=Math.max(ans,right-left+1);&lt;/p&gt;
+&lt;p&gt;cnt.put(s[right],cnt.getOrDefault(s[right],0)+1)&lt;/p&gt;
+&lt;p&gt;cnt.put(s[left],cnt.get(s[left])-1)&lt;/p&gt;
 &lt;h3 id=&#34;找到字符串中所有字母异位词httpsleetcodecnproblemsfind-all-anagrams-in-a-string&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/find-all-anagrams-in-a-string/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;找到字符串中所有字母异位词&lt;/a&gt;
 &lt;/h3&gt;&lt;p&gt;给定两个字符串 &lt;code&gt;s&lt;/code&gt; 和 &lt;code&gt;p&lt;/code&gt;，找到 &lt;code&gt;s&lt;/code&gt; 中所有 &lt;code&gt;p&lt;/code&gt; 的 &lt;strong&gt;异位词&lt;/strong&gt; 的子串，返回这些子串的起始索引。不考虑答案输出的顺序。&lt;/p&gt;
@@ -164,7 +177,14 @@ if（！q.isEmpty())&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ans&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;q&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getFirst&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;最小覆盖子串httpsleetcodecnproblemsminimum-window-substring&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/minimum-window-substring/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Deque&lt;Integer&gt;q=new ArrayDeque&amp;lt;&amp;gt;()&lt;/p&gt;
+&lt;p&gt;q.isEmpty()&lt;/p&gt;
+&lt;p&gt;q.getLast()&lt;/p&gt;
+&lt;p&gt;q.removeLast()&lt;/p&gt;
+&lt;p&gt;q.addLast()&lt;/p&gt;
+&lt;p&gt;q.getFirst()&lt;/p&gt;
+&lt;p&gt;q.removeFirst()&lt;/p&gt;
+&lt;h3 id=&#34;最小覆盖子串httpsleetcodecnproblemsminimum-window-substring&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/minimum-window-substring/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;最小覆盖子串&lt;/a&gt;
 &lt;/h3&gt;&lt;p&gt;创建一个哈希集合cnt（取名为need也很恰当），表示还需要什么字母多少次。&lt;/p&gt;
 &lt;p&gt;先遍历字符串t，填入cnt，用cnt_variety记录出现了多少种字母&lt;/p&gt;
@@ -188,7 +208,8 @@ if（！q.isEmpty())&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cnt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cnt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;普通数组&#34;&gt;普通数组
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;return ans_left&amp;lt;0?””:S.substring(ans_left,ans_right+1)&lt;/p&gt;
+&lt;h2 id=&#34;普通数组&#34;&gt;普通数组
 &lt;/h2&gt;&lt;h3 id=&#34;最大子数组和httpsleetcodecnproblemsmaximum-subarray&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/maximum-subarray/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;最大子数组和&lt;/a&gt;
 &lt;/h3&gt;&lt;p&gt;一个想法，连续数组前面部分的贡献一定要大于0，如果小于0，那不如不要了&lt;/p&gt;
@@ -212,6 +233,7 @@ if（！q.isEmpty())&lt;/p&gt;
     &gt;合并区间&lt;/a&gt;
 &lt;/h3&gt;&lt;p&gt;&lt;code&gt;Arrays.sort(intervals,(p,q)-&amp;gt;p[0]-q[0]);&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;一个关键的语法，作用是按区间第一个数字（start）从小到大排列&lt;/p&gt;
+&lt;p&gt;List&amp;lt;int[]&amp;gt;ans=new ArrayList&amp;lt;&amp;gt;();&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;List&amp;lt;int[]&amp;gt;ans=new ArrayList&amp;lt;&amp;gt;();&lt;/code&gt;令ans是一个存放答案吧区间的集合，（为什么要先设成集合？题目不是要求返回二元数组嘛？那是因为集合方便动态添加元素，只要返回的时候把装有一维数组的集合转化为而原数组就好了）&lt;/p&gt;
 &lt;p&gt;返回语句的语法:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;return ans.toArray(new int[ans.size()][]);&lt;/code&gt;&lt;/p&gt;
@@ -327,12 +349,48 @@ if（！q.isEmpty())&lt;/p&gt;
 &lt;/h3&gt;&lt;p&gt;快慢指针&lt;/p&gt;
 &lt;h3 id=&#34;环形链表-iihttpsleetcodecnproblemslinked-list-cycle-ii&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/linked-list-cycle-ii/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;环形链表 II&lt;/a&gt;
-&lt;/h3&gt;&lt;p&gt;一个可证明的数学公式：快慢指针相遇时，这是设置一个新的指针从头节点开始和慢指针遍历，它们相遇的位置就是链表开始入环的第一个节点。&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;一个可证明的数学公式：快慢指针相遇时，这时设置一个新的指针从头节点开始和慢指针遍历，它们相遇的位置就是链表开始入环的第一个节点。&lt;/p&gt;
 &lt;h3 id=&#34;合并两个有序链表httpsleetcodecnproblemsmerge-two-sorted-lists&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/merge-two-sorted-lists/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;合并两个有序链表&lt;/a&gt;
 &lt;/h3&gt;&lt;p&gt;注意dummy节点的设置&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;ListNode&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dummy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ListNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;两数相加httpsleetcodecnproblemsadd-two-numbers&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/add-two-numbers/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;两数相加&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;两个链表时按照逆序的方式存储的。&lt;/p&gt;
+&lt;p&gt;感觉没什么好说的，注意一下处理时节点是不是为空，为空该怎么处理&lt;/p&gt;
+&lt;h3 id=&#34;删除链表的倒数第-n-个结点httpsleetcodecnproblemsremove-nth-node-from-end-of-list&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/remove-nth-node-from-end-of-list/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;删除链表的倒数第 N 个结点&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;左右指针，右指针比左指针快n个节点位&lt;/p&gt;
+&lt;p&gt;这样就可以在right.next!=null条件不成立的时候（也就是right.next==null的时候）left会停在要删除节点前一个的节点位置。&lt;/p&gt;
+&lt;p&gt;接着就可以left.next=left.next.next&lt;/p&gt;
+&lt;h3 id=&#34;-两两交换链表中的节点httpsleetcodecnproblemsswap-nodes-in-pairs&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/swap-nodes-in-pairs/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt; 两两交换链表中的节点&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;可以画个图明确一下位置方向关系&lt;/p&gt;
+&lt;p&gt;node1和node2是一次交换中的两个节点，node3是下一轮交换的第一个节点&lt;/p&gt;
+&lt;h3 id=&#34;-k-个一组翻转链表httpsleetcodecnproblemsreverse-nodes-in-k-group&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/reverse-nodes-in-k-group/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt; K 个一组翻转链表&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;这题其实也没那么唬人。是&lt;/p&gt;
+&lt;p&gt;反转链表＋画图明确位置方向关系&lt;/p&gt;
+&lt;p&gt;先求出链表的长度n&lt;/p&gt;
+&lt;p&gt;然后k个一组进行链表反转，注意前后衔接的关系&lt;/p&gt;
+&lt;h3 id=&#34;随机链表的复制httpsleetcodecnproblemscopy-list-with-random-pointer&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/copy-list-with-random-pointer/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;随机链表的复制&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;叽里咕噜说什么呢&lt;/p&gt;
+&lt;p&gt;创建一个全新的链表，结构完全复制原链表&lt;/p&gt;
+&lt;p&gt;可以把新链表和旧链表「混在一起」&lt;/p&gt;
+&lt;p&gt;例如链表 1→2→3，依次复制每个节点（创建新节点并复制 val 和 next），把新节点直接插到原节点的后面，形成一个交错链表：&lt;/p&gt;
+&lt;p&gt;1→1 ′ →2→2 `→3→3 ′&lt;/p&gt;
+&lt;h3 id=&#34;-排序链表httpsleetcodecnproblemssort-list&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/sort-list/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt; 排序链表&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;这道题用归并排序（迭代）&lt;/p&gt;
+&lt;p&gt;先求出链表长度&lt;/p&gt;
+&lt;p&gt;接着思路是：&lt;/p&gt;
+&lt;p&gt;首先，归并长度为 1 的子链表，把第一个节点和第二个节点归并，第三个节点和第四个节点归并&lt;/p&gt;
+&lt;p&gt;归并长度为 2 的子链表，把前两个节点和后两个节点归并&lt;/p&gt;
+&lt;p&gt;实现两个工具函数：&lt;/p&gt;
+&lt;p&gt;一个是ListNode splitList(ListNode list,int size)传入链表的某个节点，会返回这个节点为起点size个节点后的节点（再设置前一个节点.next=null）&lt;/p&gt;
+&lt;p&gt;一个是ListNode[] mergeTwoLists(ListNode list1,ListNode list2)对list1和list2进行排序&lt;/p&gt;
+</description>
         </item>
         
     </channel>
