@@ -1,13 +1,34 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>帕琪-Pache</title>
+        <title>知识与避世的狭缝</title>
         <link>https://echo806.github.io/</link>
-        <description>Recent content on 帕琪-Pache</description>
+        <description>Recent content on 知识与避世的狭缝</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <copyright>帕琪-Pache</copyright>
-        <lastBuildDate>Fri, 15 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://echo806.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <copyright>RUN</copyright>
+        <lastBuildDate>Mon, 10 Aug 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://echo806.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>项目思考</title>
+        <link>https://echo806.github.io/p/%E9%A1%B9%E7%9B%AE%E6%80%9D%E8%80%83/</link>
+        <pubDate>Mon, 10 Aug 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://echo806.github.io/p/%E9%A1%B9%E7%9B%AE%E6%80%9D%E8%80%83/</guid>
+        <description>&lt;h3 id=&#34;为什么数据查询用redis不用es&#34;&gt;为什么数据查询用Redis不用ES？
+&lt;/h3&gt;&lt;p&gt;页面上的筛选条件选项很多，但是大部分是由前端进行筛选的。实际上对于后端的查询是只发送 出发地-目的地-日期 这个条件。所以可以设计为 key：出发地-目的地-日期 value存哈希组，里面的key存 列车ID-出发站-终点站 value存列车详细信息。实际情况一次查询就可以把全部列车返回，前端只要对返回来的数据进行简单筛选即可，这个过程不调用后端的查询。在这种情况下，redis更适合（数据模型相对简单，适合存储键值）（其他优点：内存存储，相应请求很快。单线程模型减少上下文切换和锁竞争。并发性能好。部署轻量，还便于扩展集群）。如果未来真的想实现对后端的复杂多条件查询，也可以引入ES&lt;/p&gt;
+&lt;h3 id=&#34;列车数据查询有没有数据检索功能比如北京到杭州要有北京西到杭州西北京东到杭州东北京西到杭州东等等&#34;&gt;列车数据查询有没有数据检索功能？比如北京到杭州，要有北京西到杭州西，北京东到杭州东，北京西到杭州东等等？
+&lt;/h3&gt;&lt;p&gt;同上。如果想通过站点查询，缓存中有一个Hash结构数据，专门负责站点与城市之间的关联&lt;/p&gt;
+&lt;h3 id=&#34;缓存击穿问题&#34;&gt;缓存击穿问题
+&lt;/h3&gt;&lt;p&gt;常见方案：1.设置热点数据永不过期（业务范围的，实际无法作为通用方案）2.使用互斥锁，确保同时只有一个请求可以去后端获取数据，其他请求束腰等待锁释放
+（升级优化：双重判断，获取锁后，在查询数据库之前，再次检查一下缓存中是存在数据，如果缓存存在数据，就直接返回，如果不存在，才继续执行查询数据库的操作）&lt;/p&gt;
+&lt;h3 id=&#34;项目什么场景使用了线程池参数如何设置&#34;&gt;项目什么场景使用了线程池？参数如何设置?
+&lt;/h3&gt;&lt;p&gt;在一个用户购买多种类型的车座时，比如同一订单购买了一等座和二等座，需要按照不同的逻辑选座。不用线程池就串行进行，也就是先执行完一等座选座在执行二等座。但是这个逻辑其实是可以并行的，可以采用线程池，提高执行效率和系统吞吐量。&lt;/p&gt;
+&lt;p&gt;阻塞队列设置SynchronousQueue，拒绝策略选CallerRunsPolicy&lt;/p&gt;
+&lt;h3 id=&#34;购买列车余票如何防止库存超卖&#34;&gt;购买列车余票如何防止库存超卖？
+&lt;/h3&gt;&lt;p&gt;常见库存超卖解决方案：1.数据库乐观锁 2.Redis缓存余量扣减
+但是这个项目不用，&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>老电脑上安装nixos命令队列兼容性问题</title>
         <link>https://echo806.github.io/p/%E8%80%81%E7%94%B5%E8%84%91%E4%B8%8A%E5%AE%89%E8%A3%85nixos%E5%91%BD%E4%BB%A4%E9%98%9F%E5%88%97%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/</link>
         <pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate>
@@ -209,10 +230,18 @@
         <guid>https://echo806.github.io/p/%E7%AE%97%E6%B3%95%E5%A4%8D%E5%81%A5/</guid>
         <description>&lt;p&gt;重点直接看java吧，最主要先掌握好一门保险能直接写出来的&lt;/p&gt;
 &lt;p&gt;java特殊记：&lt;/p&gt;
+&lt;p&gt;Integer.MAX_VALUE&lt;/p&gt;
+&lt;p&gt;Integer.MIN_VALUE&lt;/p&gt;
 &lt;p&gt;String S
 char[]s=S.toCharArray();&lt;/p&gt;
+&lt;p&gt;S.charAt(0)&lt;/p&gt;
+&lt;p&gt;S.indexOf(&amp;rsquo;[&amp;rsquo;);&lt;/p&gt;
+&lt;p&gt;String转int&lt;/p&gt;
+&lt;p&gt;int k= Integer.parseInt(s.substring(0,i));&lt;/p&gt;
+&lt;p&gt;把String t 重复k次&lt;/p&gt;
+&lt;p&gt;String res= t.repeat(k);&lt;/p&gt;
 &lt;p&gt;List&amp;lt;int[]&amp;gt;ans=new ArrayList&amp;lt;&amp;gt;();
-要返回int[][]怎么办？Java 中 &lt;code&gt;List&amp;lt;int[]&amp;gt;&lt;/code&gt; 转成 &lt;code&gt;int[][]&lt;/code&gt; 的写法
+要返回&lt;code&gt;int[][]&lt;/code&gt;怎么办？Java 中 &lt;code&gt;List&amp;lt;int[]&amp;gt;&lt;/code&gt; 转成 &lt;code&gt;int[][]&lt;/code&gt; 的写法
 &lt;code&gt;用ans.toArray(new int[ans.size()][]);&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Arrays.fill(nums,1)&lt;/p&gt;
 &lt;p&gt;对于List
@@ -257,9 +286,11 @@ mp.put(key,mp.getOrDefault(key,0)+1)
 for(Map.Entry&amp;lt;Integer,Integer&amp;gt;e:cnt.entrySet())
 {
 }//e.getValue()//e.getKey()&lt;/p&gt;
+&lt;p&gt;int maxCnt=Collections.max(cnt.values());&lt;/p&gt;
 &lt;p&gt;for(int x:st)
 {&lt;/p&gt;
 &lt;p&gt;}&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;List&amp;lt;Integer&amp;gt;[]buckets=new ArrayList[maxCnt+1];&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;双端队列&lt;/p&gt;
 &lt;p&gt;java
 初始化
@@ -278,6 +309,20 @@ q.removeFirst()
 q.removeLast()
 判断是否为空
 if（!q.isEmpty())&lt;/p&gt;
+&lt;p&gt;数组&lt;/p&gt;
+&lt;p&gt;Arrays.setAll(nums,i-&amp;gt;i*2)&lt;/p&gt;
+&lt;p&gt;Arrays.setAll(nums,i-&amp;gt;10);&lt;/p&gt;
+&lt;p&gt;Arrays.fill(nums,10);&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;List&amp;lt;Integer&amp;gt;[]g=new ArrayList[n];&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Arrays.setAll(g,i-&amp;gt;new ArrayList&amp;lt;&amp;gt;());&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Random rand=new Random();&lt;/p&gt;
+&lt;p&gt;int i=left+rand.nextInt(right-left+1);&lt;/p&gt;
+&lt;p&gt;最大堆最小堆&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PriorityQueue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PriorityQueue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//最大堆&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PriorityQueue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PriorityQueue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//最小堆&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;offer()&lt;/p&gt;
+&lt;p&gt;poll()弹出并且本身返回弹出的值&lt;/p&gt;
+&lt;p&gt;peek()&lt;/p&gt;
 &lt;h3 id=&#34;两数之和httpsleetcodecnproblemstwo-sum&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/two-sum/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;两数之和&lt;/a&gt;
 &lt;/h3&gt;&lt;p&gt;创建哈希集合，查看目前 索求和-目前数字  是否再哈希集合内？&lt;/p&gt;
@@ -584,7 +629,411 @@ if（!q.isEmpty())&lt;/p&gt;
 &lt;p&gt;实现两个工具函数：&lt;/p&gt;
 &lt;p&gt;一个是ListNode splitList(ListNode list,int size)传入链表的某个节点，会返回这个节点为起点size个节点后的节点（再设置前一个节点.next=null）&lt;/p&gt;
 &lt;p&gt;一个是ListNode[] mergeTwoLists(ListNode list1,ListNode list2)对list1和list2进行排序&lt;/p&gt;
-</description>
+&lt;h3 id=&#34;合并-k-个升序链表httpsleetcodecnproblemsmerge-k-sorted-lists&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/merge-k-sorted-lists/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;合并 K 个升序链表&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;先搓出合并两个链表的函数mergeTwoLists(ListNode list1,ListNode list2)&lt;/p&gt;
+&lt;p&gt;接着一个一个合并就好了&lt;/p&gt;
+&lt;h3 id=&#34;lru-缓存httpsleetcodecnproblemslru-cache&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/lru-cache/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;LRU 缓存&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;注意函数写法 containsKey&lt;/p&gt;
+&lt;p&gt;这里是用双向环形链表保证LRU的实现（dummy.next是最近一次被使用的，dummy.prev是最久没有被使用的）&lt;/p&gt;
+&lt;p&gt;哈希表是为了get和put实现时间复杂度0(1)&lt;/p&gt;
+&lt;h3 id=&#34;二叉树的中序遍历httpsleetcodecnproblemsbinary-tree-inorder-traversal&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/binary-tree-inorder-traversal/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;二叉树的中序遍历&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;中序遍历：左中右&lt;/p&gt;
+&lt;p&gt;先定义全局List&lt;Integer&gt;ans=new ArrayList&amp;lt;&amp;gt;();&lt;/p&gt;
+&lt;p&gt;接着中序遍历就是&lt;/p&gt;
+&lt;p&gt;void inorder(TreeNode node)&lt;/p&gt;
+&lt;p&gt;{&lt;/p&gt;
+&lt;p&gt;​	if(node==null)&lt;/p&gt;
+&lt;p&gt;​	{&lt;/p&gt;
+&lt;p&gt;​		return;&lt;/p&gt;
+&lt;p&gt;​	}&lt;/p&gt;
+&lt;p&gt;​	inorder(node.left);&lt;/p&gt;
+&lt;p&gt;​	ans.add(node.val);&lt;/p&gt;
+&lt;p&gt;​	inorder(node.right);&lt;/p&gt;
+&lt;p&gt;}&lt;/p&gt;
+&lt;p&gt;解答函数直接 inorder(root)&lt;/p&gt;
+&lt;p&gt;返回ans就行了&lt;/p&gt;
+&lt;h3 id=&#34;二叉树的最大深度httpsleetcodecnproblemsmaximum-depth-of-binary-tree&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/maximum-depth-of-binary-tree/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;二叉树的最大深度&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;先判断root是否为null，&lt;/p&gt;
+&lt;p&gt;接着设一个Dueue&lt;TreeNode&gt;q=new ArrayDeque&amp;lt;&amp;gt;();&lt;/p&gt;
+&lt;p&gt;传入root,设int cnt&lt;/p&gt;
+&lt;p&gt;​        int cnt=0;&lt;/p&gt;
+&lt;p&gt;​        while(!q.isEmpty())&lt;/p&gt;
+&lt;p&gt;​        {&lt;/p&gt;
+&lt;p&gt;​            for(int i=q.size();i&amp;gt;0;i&amp;ndash;)&lt;/p&gt;
+&lt;p&gt;​            {&lt;/p&gt;
+&lt;p&gt;​                TreeNode node=q.poll();&lt;/p&gt;
+&lt;p&gt;​                if(node.left!=null)&lt;/p&gt;
+&lt;p&gt;​                {&lt;/p&gt;
+&lt;p&gt;​                    q.add(node.left);&lt;/p&gt;
+&lt;p&gt;​                }&lt;/p&gt;
+&lt;p&gt;​                if(node.right!=null)&lt;/p&gt;
+&lt;p&gt;​                {&lt;/p&gt;
+&lt;p&gt;​                    q.add(node.right);&lt;/p&gt;
+&lt;p&gt;​                }&lt;/p&gt;
+&lt;p&gt;​            }&lt;/p&gt;
+&lt;p&gt;​            cnt+=1;&lt;/p&gt;
+&lt;p&gt;​        }&lt;/p&gt;
+&lt;h3 id=&#34;翻转二叉树httpsleetcodecnproblemsinvert-binary-tree&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/invert-binary-tree/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;翻转二叉树&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;左是右，右是左&lt;/p&gt;
+&lt;p&gt;先翻转子树再翻转自身或者先翻转自身再翻转子树都可以&lt;/p&gt;
+&lt;h3 id=&#34;-对称二叉树httpsleetcodecnproblemssymmetric-tree&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/symmetric-tree/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt; 对称二叉树&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;这道题呢，可以看成 相同的树 的变体。&lt;/p&gt;
+&lt;p&gt;我们先写出一个判断两个树是否相同的函数&lt;/p&gt;
+&lt;p&gt;接着传入root的左右子树就行了&lt;/p&gt;
+&lt;h3 id=&#34;二叉树的直径httpsleetcodecnproblemsdiameter-of-binary-tree&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/diameter-of-binary-tree/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;二叉树的直径&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;定义一个全局ans&lt;/p&gt;
+&lt;p&gt;实现一个后置遍历，返回return 1+Math.max(right_max_length,left_max_length)&lt;/p&gt;
+&lt;p&gt;ans=Math.max(ans,left_max_length+right_max_length)&lt;/p&gt;
+&lt;h3 id=&#34;二叉树的层序遍历httpsleetcodecnproblemsbinary-tree-level-order-traversal&#34;&gt;二叉树的层序遍历](&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/binary-tree-level-order-traversal/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://leetcode.cn/problems/binary-tree-level-order-traversal/&lt;/a&gt;)
+&lt;/h3&gt;&lt;p&gt;返回空list&lt;/p&gt;
+&lt;p&gt;return List.of()&lt;/p&gt;
+&lt;p&gt;预分配大小 List&lt;Integer&gt;vals=new ArrayList&lt;Integer&gt;(n);&lt;/p&gt;
+&lt;p&gt;没啥好说的，就是队列&lt;/p&gt;
+&lt;h3 id=&#34;将有序数组转换为二叉搜索树httpsleetcodecnproblemsconvert-sorted-array-to-binary-search-tree&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;将有序数组转换为二叉搜索树&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;二叉搜索树：左子树的节点的值小于当前节点的值小于右子树的节点的值，对树同样成立&lt;/p&gt;
+&lt;p&gt;平衡：|左子树高度 - 右子树高度| ≤ 1&lt;/p&gt;
+&lt;p&gt;sort(nums,0,nums.length-1)&lt;/p&gt;
+&lt;p&gt;对于sort函数，&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;		&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TreeNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mid&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TreeNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mid&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sort&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mid&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sort&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mid&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;验证二叉搜索树httpsleetcodecnproblemsvalidate-binary-search-tree&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/validate-binary-search-tree/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;验证二叉搜索树&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;注意超小和超大值的写法&lt;/p&gt;
+&lt;p&gt;Long.MIN_VALUE         Long.MAX_VALUE&lt;/p&gt;
+&lt;p&gt;return isValidBST(root,Long.MIN_VALUE,MAX_VALUE);&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;isValidBST&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TreeNode&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;	&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;val&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;val&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;isValid&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;val&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;isValid&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;val&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;   
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;二叉搜索树中第-k-小的元素httpsleetcodecnproblemskth-smallest-element-in-a-bst&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/kth-smallest-element-in-a-bst/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;二叉搜索树中第 K 小的元素&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;中序遍历&lt;/p&gt;
+&lt;p&gt;定义一个全局的int kk 表示现在目前访问到的是第几小的元素&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;dfs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TreeNode&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left_res&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dfs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left_res&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;!=-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left_res&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;kk&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;kk&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;val&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dfs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;二叉树的右视图httpsleetcodecnproblemsbinary-tree-right-side-view&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/binary-tree-right-side-view/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;二叉树的右视图&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;还是用容器&lt;/p&gt;
+&lt;p&gt;但是在添加的时候，先加入右节点，再加入左节点&lt;/p&gt;
+&lt;p&gt;这样保证容器第一个节点就是右视图看到的那个节点&lt;/p&gt;
+&lt;h3 id=&#34;二叉树展开为链表httpsleetcodecnproblemsflatten-binary-tree-to-linked-list&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/flatten-binary-tree-to-linked-list/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;二叉树展开为链表&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;题目要求先序遍历展开（中左右），我们做的时候其实是以右左中这样的顺序逆推回去的&lt;/p&gt;
+&lt;p&gt;定义一个全局TreeNode prev=null记录当前节点接下来右子树应该拼接什么&lt;/p&gt;
+&lt;p&gt;我们的思路是从后往前拼接&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;TreeNode&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;dfs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TreeNode&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;	&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dfs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dfs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;prev&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;prev&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;解答函数的内容直接&lt;/p&gt;
+&lt;p&gt;dfs(root)&lt;/p&gt;
+&lt;h3 id=&#34;从前序与中序遍历序列构造二叉树httpsleetcodecnproblemsconstruct-binary-tree-from-preorder-and-inorder-traversal&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;从前序与中序遍历序列构造二叉树&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;inorder中序遍历（左中右）&lt;/p&gt;
+&lt;p&gt;preorder先序遍历  (中左右)&lt;/p&gt;
+&lt;p&gt;复制数组&lt;/p&gt;
+&lt;p&gt;Arrays.CopyOfRange()&lt;/p&gt;
+&lt;p&gt;先实现int IndexOf(int[] nums,int x)返回x在nums的下标&lt;/p&gt;
+&lt;p&gt;int n=preorder.length;&lt;/p&gt;
+&lt;p&gt;if(n==0)&lt;/p&gt;
+&lt;p&gt;{&lt;/p&gt;
+&lt;p&gt;​	return null;&lt;/p&gt;
+&lt;p&gt;}&lt;/p&gt;
+&lt;p&gt;int leftsize=indexOf(inorders,preordder[0]);&lt;/p&gt;
+&lt;p&gt;建立左子树的前序遍历，中序遍历&lt;/p&gt;
+&lt;p&gt;建立右子树的前序遍历，中序遍历&lt;/p&gt;
+&lt;p&gt;TreeNode left=buildTree(pre1,in1);&lt;/p&gt;
+&lt;p&gt;TreeNode right=buildTree(pre2,in2);&lt;/p&gt;
+&lt;p&gt;return new TreeNode(preorder,left,right)&lt;/p&gt;
+&lt;h3 id=&#34;路径总和-iiihttpsleetcodecnproblemspath-sum-iii&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/path-sum-iii/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;路径总和 III&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;做法和&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/subarray-sum-equals-k/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;和为 K 的子数组&lt;/a&gt;是一样的&lt;/p&gt;
+&lt;p&gt;注意&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getOrDefault&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dfs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dfs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getOrDefault&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;先加入map中，再往左往右遍历，最后还要恢复现场&lt;/p&gt;
+&lt;h3 id=&#34;-二叉树的最近公共祖先httpsleetcodecnproblemslowest-common-ancestor-of-a-binary-tree&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt; 二叉树的最近公共祖先&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;一直左右子树递归&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;		&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;||&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;||&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;q&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TreeNode&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lowestCommonAncestor&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;q&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TreeNode&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lowestCommonAncestor&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;q&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;返回值可能是p,q,null，&lt;/p&gt;
+&lt;p&gt;如果是null说明没有找到有用的信息&lt;/p&gt;
+&lt;h3 id=&#34;二叉树中的最大路径和httpsleetcodecnproblemsbinary-tree-maximum-path-sum&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/binary-tree-maximum-path-sum/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;二叉树中的最大路径和&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;这道题有点像&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/diameter-of-binary-tree/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;二叉树的直径&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;限定义一个全局变量int ans&lt;/p&gt;
+&lt;p&gt;递归时，判断左子树右子树最大是否大于0,小于0的话按0输出&lt;/p&gt;
+&lt;p&gt;ans=Math.max(ans,max_left+max_right+node.val);&lt;/p&gt;
+&lt;p&gt;return Math.max(max_left,max_right)+node.val;&lt;/p&gt;
+&lt;h3 id=&#34;岛屿数量httpsleetcodecnproblemsnumber-of-islands&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/number-of-islands/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;岛屿数量&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;给整个小岛插上旗子&lt;/p&gt;
+&lt;p&gt;dfs&lt;/p&gt;
+&lt;p&gt;如果探测的点超出图的ij计数范围或者探测的点不是小岛&#39;1&amp;rsquo;的话，插上旗子&#39;2&amp;rsquo;,并且dfs上下左右&lt;/p&gt;
+&lt;p&gt;主函数只要两个for循环遍历整个图的点即可不漏缺&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;if(grid[i][j]==1)&lt;/code&gt;成立再&lt;code&gt;ans++,dfs(grid[i][j])&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;腐烂的橘子httpsleetcodecnproblemsrotting-oranges&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/rotting-oranges/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;腐烂的橘子&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;&lt;code&gt;private int[][]directions={{0,-1},{0,1},{-1,0},{1,0}};&lt;/code&gt;注意写法&lt;/p&gt;
+&lt;p&gt;创建一个Deque队列&lt;/p&gt;
+&lt;p&gt;感觉这个技巧是很多题通用的&lt;/p&gt;
+&lt;p&gt;先放腐烂橘子进去，取出一轮的腐烂橘子，上下左右查看有新鲜橘子就变腐烂然后加入队列&lt;/p&gt;
+&lt;h3 id=&#34;课程表httpsleetcodecnproblemscourse-schedule&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/course-schedule/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;课程表&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;就是查看图是否有环&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;[]&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;g&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;numCourses&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Arrays&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setAll&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;g&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;其中lambda表达式那一段可以平替&lt;/p&gt;
+&lt;p&gt;for (int i = 0; i &amp;lt; g.length; i++) {
+g[i] = new ArrayList&amp;lt;&amp;gt;();
+}&lt;/p&gt;
+&lt;p&gt;这个g是列出某个数是某些数的前提，一共有numCourses个数&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;colors&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;numCourses&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;用三色标记法&lt;/p&gt;
+&lt;p&gt;0表示还没有访问，1表示访问中，2表示访问完毕显示没有环&lt;/p&gt;
+&lt;p&gt;主函数遍历numCourses个课程&lt;/p&gt;
+&lt;p&gt;只要一个出现了colors[i]==0&amp;amp;&amp;amp;dfs(i,g,colors)就说明出现环了&lt;/p&gt;
+&lt;p&gt;dfs函数的思路是如果出现环返回true，否则false&lt;/p&gt;
+&lt;p&gt;先把传入课程颜色标为1,表示访问中，接着判断是否成环&lt;/p&gt;
+&lt;p&gt;成环条件就是for循环遍历g下的课程，如果有课程出现正在访问中或者没有访问并且dfs这个课程返回true，则说明成环，返回true&lt;/p&gt;
+&lt;p&gt;for循环过后说明不成环，把课程颜色标记为2,返回false&lt;/p&gt;
+&lt;h3 id=&#34;实现-trie-前缀树httpsleetcodecnproblemsimplement-trie-prefix-tree&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/implement-trie-prefix-tree/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;实现 Trie (前缀树)&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;思路：26叉树，子树用Node数组实现&lt;/p&gt;
+&lt;p&gt;我写的答案里面的static可以删掉，final可以删掉&lt;/p&gt;
+&lt;p&gt;class node{&lt;/p&gt;
+&lt;p&gt;​	node[]son=new node[26];&lt;/p&gt;
+&lt;p&gt;​	boolean end=false;&lt;/p&gt;
+&lt;p&gt;}&lt;/p&gt;
+&lt;p&gt;因为Node root = new Node();已经在外面声明并且定义了，Trie的构造函数没有啥用，可以删去，系统会自动生成一个默认构造函数的&lt;/p&gt;
+&lt;h3 id=&#34;全排列httpsleetcodecnproblemspermutations&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/permutations/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;全排列&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;回溯&lt;/p&gt;
+&lt;p&gt;dfs传入的参数有，这轮是第几个数，一共有多少个数，需要被排列的原数组，返回的答案List，正在进行排列的List，判断数字是否正在排列中的数组&lt;/p&gt;
+&lt;p&gt;注意恢复现场&lt;/p&gt;
+&lt;h3 id=&#34;子集httpsleetcodecnproblemssubsets&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/subsets/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;子集&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;回溯&lt;/p&gt;
+&lt;p&gt;和前面的思路一样，但是全排列是“在还没有被选的数中选哪个”，子集是“选或者不选”&lt;/p&gt;
+&lt;h3 id=&#34;电话号码的字母组合httpsleetcodecnproblemsletter-combinations-of-a-phone-number&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/letter-combinations-of-a-phone-number/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;电话号码的字母组合&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;也是回溯，但是这里是用数组而不是用List，数组能直接覆盖，这样就恰好实现了恢复现场&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MAPPING&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;abc&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;def&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;ghi&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;jkl&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;mno&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;pqrs&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;tuv&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;wxyz&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;可以这样设置&lt;/p&gt;
+&lt;h3 id=&#34;组合总和httpsleetcodecnproblemscombination-sum&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/combination-sum/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;组合总和&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;每个数可以选任意次或者不选&lt;/p&gt;
+&lt;p&gt;其实思路还是很明了的，注意恢复现场就行&lt;/p&gt;
+&lt;h3 id=&#34;括号生成httpsleetcodecnproblemsgenerate-parentheses&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/generate-parentheses/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;括号生成&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;依旧可以用数组，这样直接覆盖，恰好实现了恢复现场&lt;/p&gt;
+&lt;p&gt;回溯的逻辑是&lt;/p&gt;
+&lt;p&gt;终止条件:右括号数等于需要生成的括号数&lt;/p&gt;
+&lt;p&gt;推进情况是&lt;/p&gt;
+&lt;p&gt;左括号可以放心加，右括号在小于左括号是可以加&lt;/p&gt;
+&lt;h3 id=&#34;单词搜索httpsleetcodecnproblemsword-search&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/word-search/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;单词搜索&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;回溯上下左右找&lt;/p&gt;
+&lt;p&gt;先写终止条件：如果i，j越界或者&lt;code&gt;board[i][j]&lt;/code&gt;匹配不上要找的字母， 返回false&lt;/p&gt;
+&lt;p&gt;接下来成立条件，k到了要找单词的长度-1,由于之前的判断，能到这个判断说明最后一个字母也是匹配的，返回true&lt;/p&gt;
+&lt;p&gt;为了防止board上的字母重复使用，先破坏掉，把现在所在board上的字母换成一个不会用到的字符，比如空格，再进行上下左右找，最后记得恢复字母，返回false&lt;/p&gt;
+&lt;p&gt;主函数就是直接遍历board上面所有位置就行了&lt;/p&gt;
+&lt;h3 id=&#34;分割回文串httpsleetcodecnproblemspalindrome-partitioning&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/palindrome-partitioning/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;分割回文串&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;注意写法&lt;/p&gt;
+&lt;p&gt;.substring(i,j+1)&lt;/p&gt;
+&lt;p&gt;回溯如果位置i对于字符串长度，就可以把path加入到答案中了&lt;/p&gt;
+&lt;p&gt;回溯就是以某个位置i开始，遍历j到字符串末尾，如果是回文，就把这一段加入到path，在j+1的地方继续dfs，记得恢复现场&lt;/p&gt;
+&lt;h3 id=&#34;n-皇后httpsleetcodecnproblemsn-queens&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/n-queens/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;N 皇后&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;判断一个二维数组某两个元素是否在统一斜线上&lt;/p&gt;
+&lt;p&gt;斜线上的元素要么i,j之和相等，要么i,j之差相等&lt;/p&gt;
+&lt;p&gt;所以可以设置&lt;code&gt;boolean diagonal1[2*n-1];boolean diagonal2[2*n-1]；&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;搜索插入位置httpsleetcodecnproblemssearch-insert-position&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/search-insert-position/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;搜索插入位置&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;二分查找&lt;/p&gt;
+&lt;h3 id=&#34;搜索二维矩阵httpsleetcodecnproblemssearch-a-2d-matrix&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/search-a-2d-matrix/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;搜索二维矩阵&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;和上题一样的写法，只要把二维数组&amp;quot;转为一维数组操作&amp;quot;就行&lt;/p&gt;
+&lt;p&gt;和上一题判断条件类型，只是上一题是找插入的位置，可能会插入在最后一个地方，这道题是查看元素是否在里面，如果直接带入的话会越界，先判断一下&lt;code&gt;return right&amp;lt;=matrix.length*matrix[0].length-1&amp;amp;&amp;amp;target==matrix[right/matrix[0].length][right%matrix[0].length];&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;在排序数组中查找元素的第一个和最后一个位置httpsleetcodecnproblemsfind-first-and-last-position-of-element-in-sorted-array&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;在排序数组中查找元素的第一个和最后一个位置&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;找最后一个位置，就是找比它大1的数的第一个位置往前一个的位置&lt;/p&gt;
+&lt;h3 id=&#34;搜索旋转排序数组httpsleetcodecnproblemssearch-in-rotated-sorted-array&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/search-in-rotated-sorted-array/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;搜索旋转排序数组&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;想清楚target可能落在前一段还是翻转的后一段&lt;/p&gt;
+&lt;p&gt;如果想要right=mid有什么情况，分target落在哪决定，每个情况下面又有什么情况&lt;/p&gt;
+&lt;h3 id=&#34;寻找旋转排序数组中的最小值httpsleetcodecnproblemsfind-minimum-in-rotated-sorted-array&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/find-minimum-in-rotated-sorted-array/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;寻找旋转排序数组中的最小值&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;想想什么情况下left=mid(mid落在前一段)&lt;/p&gt;
+&lt;p&gt;什么情况下right=mid（mid落在翻转的后一段）&lt;/p&gt;
+&lt;h3 id=&#34;寻找两个正序数组的中位数httpsleetcodecnproblemsmedian-of-two-sorted-arrays&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/median-of-two-sorted-arrays/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;寻找两个正序数组的中位数&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;这个思路很有意思&lt;/p&gt;
+&lt;p&gt;我们知道，如果我们要求一个升序数列的中位数，可以这样做&lt;/p&gt;
+&lt;p&gt;先看这个数组的长度，偶数就前后对半分，看前一段的最大值和后一段的最小值，求平均值&lt;/p&gt;
+&lt;p&gt;奇数就让前一段长度为(n+1)/2,前一段的最大值就是所求&lt;/p&gt;
+&lt;p&gt;这里我们可以统一拆分逻辑，奇数偶数都用(n+1)/2来拆分，最后再判断即可&lt;/p&gt;
+&lt;p&gt;现在我们来看这道题，&lt;/p&gt;
+&lt;p&gt;（先确保nums1长度小于等于nums2(不满足就交换)）&lt;/p&gt;
+&lt;p&gt;因为这两段数组都已经是升序排列了，第一段长度为m，第二段长度为n，我们如果要把这两段数组看成很长的一段升序数组再平均拆分的话，对于新拆分的第一段数组：假设长度为m的那一段数组贡献(i+1)个数（i是下标），那么长度为n的那一段数组就贡献(m+n+1)/2-(i+1)个数，临界下标是(m+n+1)/2-(i+1)-1.&lt;/p&gt;
+&lt;p&gt;也就是说，只要能求出i/j，就可以求出这两端数组的中位数&lt;/p&gt;
+&lt;p&gt;那么怎么求呢？&lt;/p&gt;
+&lt;p&gt;新拆分的第一段数组，它满足所有元素都小于新拆分的第二段数组的所有元素&lt;/p&gt;
+&lt;p&gt;这里就可以用二分来确定拆分的边界啦&lt;/p&gt;
+&lt;h3 id=&#34;有效的括号httpsleetcodecnproblemsvalid-parentheses&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/valid-parentheses/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;有效的括号&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;栈&lt;/p&gt;
+&lt;p&gt;分几个&lt;/p&gt;
+&lt;p&gt;if&lt;/p&gt;
+&lt;p&gt;else if&lt;/p&gt;
+&lt;p&gt;还有&lt;/p&gt;
+&lt;p&gt;else&lt;/p&gt;
+&lt;p&gt;最后判断的时候看容器是否为空&lt;/p&gt;
+&lt;h3 id=&#34;最小栈httpsleetcodecnproblemsmin-stack&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/min-stack/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;最小栈&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;Deque存数组int[]&lt;/p&gt;
+&lt;p&gt;数组里其实就俩元素，一个是当前存的值，一个是当前的最小值&lt;/p&gt;
+&lt;h3 id=&#34;字符串解码httpsleetcodecnproblemsdecode-string&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/decode-string/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;字符串解码&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;如果遇到嵌套的东西，应该很快能意识到要用递归来解决&lt;/p&gt;
+&lt;p&gt;想想首个字符遇到字母怎么处理，遇到数字怎么处理&lt;/p&gt;
+&lt;p&gt;妙妙函数&lt;/p&gt;
+&lt;p&gt;S.charAt()&lt;/p&gt;
+&lt;p&gt;Integer.parseInt(s.substring(i,j))&lt;/p&gt;
+&lt;p&gt;t.repeat(k)&lt;/p&gt;
+&lt;h3 id=&#34;每日温度httpsleetcodecnproblemsdaily-temperatures&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/daily-temperatures/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;每日温度&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;单调栈，但是存放的元素是下标&lt;/p&gt;
+&lt;h3 id=&#34;柱状图中最大的矩形httpsleetcodecnproblemslargest-rectangle-in-histogram&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/largest-rectangle-in-histogram/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;柱状图中最大的矩形&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;单调栈&lt;/p&gt;
+&lt;p&gt;为了方便计算所有柱子，现在单调栈容器里面放一个-1元素&lt;/p&gt;
+&lt;p&gt;把这些柱子比作员工，最后一个当领导，前面的员工只允许比自己高的人当领导，要是最后面来了个比自己矮的，前面的员工会愤然离职，离职前会计算自己的最大贡献（新来的领导下标-离职这个柱子在容器的上一个人的下标-1）*（离职的这个柱子的高度），和ans比大小。&lt;/p&gt;
+&lt;p&gt;遍历一遍后，容器中剩下的都是递增的单调栈，这是我们认为来了一个0高的新柱子领导，前面所有柱子都要离职。&lt;/p&gt;
+&lt;h2 id=&#34;数组中的第k个最大元素httpsleetcodecnproblemskth-largest-element-in-an-array&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/kth-largest-element-in-an-array/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;数组中的第K个最大元素&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;快速选择算法&lt;/p&gt;
+&lt;p&gt;一些妙妙函数&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;Random&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rand&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Random&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;partition&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rand&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;nextInt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;pivot&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;swap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;pivot&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;pivot&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;break&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;swap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;swap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;swap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;temp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;temp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;前-k-个高频元素httpsleetcodecnproblemstop-k-frequent-elements&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/top-k-frequent-elements/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;前 K 个高频元素&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;桶排序思想&lt;/p&gt;
+&lt;p&gt;这道题需要的妙妙小函数有点多&lt;/p&gt;
+&lt;p&gt;int maxCnt=Collections.max(cnt.values());&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;List&amp;lt;Integer&amp;gt;[]buckets=new ArrayList[maxCnt+1];&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Arrays.setAll(buckets,_-&amp;gt;new ArrayList&amp;lt;&amp;gt;());&lt;/p&gt;
+&lt;p&gt;​        for(Map.Entry&amp;lt;Integer,Integer&amp;gt;e:cnt.entrySet())&lt;/p&gt;
+&lt;p&gt;​        {&lt;/p&gt;
+&lt;p&gt;​            buckets[e.getValue()].add(e.getKey());&lt;/p&gt;
+&lt;p&gt;​        }&lt;/p&gt;
+&lt;h2 id=&#34;数据流的中位数httpsleetcodecnproblemsfind-median-from-data-stream&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/find-median-from-data-stream/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;数据流的中位数&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;最大堆left，最小堆right&lt;/p&gt;
+&lt;p&gt;人为规定left比right大1&lt;/p&gt;
+&lt;p&gt;逻辑是if(left.size()==right.size()) 就right.offer(num) 再left.offer(right.poll())&lt;/p&gt;
+&lt;p&gt;else也就是left.size()比right.size()多的情况其实也就是多1,就left.offer(num)再right.offer(left.poll())&lt;/p&gt;
+&lt;p&gt;如果left.size()==right.size()就返回(left.peek()+right.peek())/2.0&lt;/p&gt;
+&lt;p&gt;否则（left.size()比right.size()多1）返回left.peek();&lt;/p&gt;
+&lt;h2 id=&#34;买卖股票的最佳时机httpsleetcodecnproblemsbest-time-to-buy-and-sell-stock&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;买卖股票的最佳时机&lt;/a&gt;
+&lt;/h2&gt;</description>
         </item>
         <item>
         <title>FFmpeg</title>

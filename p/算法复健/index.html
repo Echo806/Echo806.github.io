@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="重点直接看java吧，最主要先掌握好一门保险能直接写出来的 java特殊记： String S char[]s=S.toCharArray(); List&lt;int[]&gt;ans=new ArrayList&lt;&gt;(); 要返回int[][]怎么办？Java 中 List&lt;int[]&gt; 转成 int[][] 的写法 用a">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="重点直接看java吧，最主要先掌握好一门保险能直接写出来的 java特殊记： Integer.MAX_VALUE Integer.MIN_VALUE String S char[]s=S.toCharArray(); S.charAt(0) S.indexOf(&rsquo;[&rsquo;); String转int int k= Integer.parseInt(s.substring(0,i)); 把String t 重复k次 String">
 <title>算法复健</title>
 
 <link rel='canonical' href='https://echo806.github.io/p/%E7%AE%97%E6%B3%95%E5%A4%8D%E5%81%A5/'>
 
 <link rel="stylesheet" href="/scss/style.min.d44d1b138e555166d2fb22df4e9ea386c36ba19591a491a37edb07faede022e1.css"><meta property='og:title' content="算法复健">
-<meta property='og:description' content="重点直接看java吧，最主要先掌握好一门保险能直接写出来的 java特殊记： String S char[]s=S.toCharArray(); List&lt;int[]&gt;ans=new ArrayList&lt;&gt;(); 要返回int[][]怎么办？Java 中 List&lt;int[]&gt; 转成 int[][] 的写法 用a">
+<meta property='og:description' content="重点直接看java吧，最主要先掌握好一门保险能直接写出来的 java特殊记： Integer.MAX_VALUE Integer.MIN_VALUE String S char[]s=S.toCharArray(); S.charAt(0) S.indexOf(&rsquo;[&rsquo;); String转int int k= Integer.parseInt(s.substring(0,i)); 把String t 重复k次 String">
 <meta property='og:url' content='https://echo806.github.io/p/%E7%AE%97%E6%B3%95%E5%A4%8D%E5%81%A5/'>
-<meta property='og:site_name' content='帕琪-Pache'>
+<meta property='og:site_name' content='知识与避世的狭缝'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-04-26T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-04-26T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="算法复健">
-<meta name="twitter:description" content="重点直接看java吧，最主要先掌握好一门保险能直接写出来的 java特殊记： String S char[]s=S.toCharArray(); List&lt;int[]&gt;ans=new ArrayList&lt;&gt;(); 要返回int[][]怎么办？Java 中 List&lt;int[]&gt; 转成 int[][] 的写法 用a">
+<meta name="twitter:description" content="重点直接看java吧，最主要先掌握好一门保险能直接写出来的 java特殊记： Integer.MAX_VALUE Integer.MIN_VALUE String S char[]s=S.toCharArray(); S.charAt(0) S.indexOf(&rsquo;[&rsquo;); String转int int k= Integer.parseInt(s.substring(0,i)); 把String t 重复k次 String">
     <link rel="shortcut icon" href="/favicon.ico" />
 
   
@@ -74,7 +74,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">帕琪-Pache</a></h1>
+            <h1 class="site-name"><a href="/">知识与避世的狭缝</a></h1>
             <h2 class="site-description">欢迎来到我的网站，此博客由【Hugo &#43; Stack】来进行搭建，主要分享个人生活和学习笔记</h2>
         </div>
     </header><ol class="menu-social">
@@ -349,8 +349,52 @@
         <li><a href="#-k-个一组翻转链表httpsleetcodecnproblemsreverse-nodes-in-k-group"><a href="https://leetcode.cn/problems/reverse-nodes-in-k-group/"> K 个一组翻转链表</a></a></li>
         <li><a href="#随机链表的复制httpsleetcodecnproblemscopy-list-with-random-pointer"><a href="https://leetcode.cn/problems/copy-list-with-random-pointer/">随机链表的复制</a></a></li>
         <li><a href="#-排序链表httpsleetcodecnproblemssort-list"><a href="https://leetcode.cn/problems/sort-list/"> 排序链表</a></a></li>
+        <li><a href="#合并-k-个升序链表httpsleetcodecnproblemsmerge-k-sorted-lists"><a href="https://leetcode.cn/problems/merge-k-sorted-lists/">合并 K 个升序链表</a></a></li>
+        <li><a href="#lru-缓存httpsleetcodecnproblemslru-cache"><a href="https://leetcode.cn/problems/lru-cache/">LRU 缓存</a></a></li>
+        <li><a href="#二叉树的中序遍历httpsleetcodecnproblemsbinary-tree-inorder-traversal"><a href="https://leetcode.cn/problems/binary-tree-inorder-traversal/">二叉树的中序遍历</a></a></li>
+        <li><a href="#二叉树的最大深度httpsleetcodecnproblemsmaximum-depth-of-binary-tree"><a href="https://leetcode.cn/problems/maximum-depth-of-binary-tree/">二叉树的最大深度</a></a></li>
+        <li><a href="#翻转二叉树httpsleetcodecnproblemsinvert-binary-tree"><a href="https://leetcode.cn/problems/invert-binary-tree/">翻转二叉树</a></a></li>
+        <li><a href="#-对称二叉树httpsleetcodecnproblemssymmetric-tree"><a href="https://leetcode.cn/problems/symmetric-tree/"> 对称二叉树</a></a></li>
+        <li><a href="#二叉树的直径httpsleetcodecnproblemsdiameter-of-binary-tree"><a href="https://leetcode.cn/problems/diameter-of-binary-tree/">二叉树的直径</a></a></li>
+        <li><a href="#二叉树的层序遍历httpsleetcodecnproblemsbinary-tree-level-order-traversal">二叉树的层序遍历](<a href="https://leetcode.cn/problems/binary-tree-level-order-traversal/">https://leetcode.cn/problems/binary-tree-level-order-traversal/</a>)</a></li>
+        <li><a href="#将有序数组转换为二叉搜索树httpsleetcodecnproblemsconvert-sorted-array-to-binary-search-tree"><a href="https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree/">将有序数组转换为二叉搜索树</a></a></li>
+        <li><a href="#验证二叉搜索树httpsleetcodecnproblemsvalidate-binary-search-tree"><a href="https://leetcode.cn/problems/validate-binary-search-tree/">验证二叉搜索树</a></a></li>
+        <li><a href="#二叉搜索树中第-k-小的元素httpsleetcodecnproblemskth-smallest-element-in-a-bst"><a href="https://leetcode.cn/problems/kth-smallest-element-in-a-bst/">二叉搜索树中第 K 小的元素</a></a></li>
+        <li><a href="#二叉树的右视图httpsleetcodecnproblemsbinary-tree-right-side-view"><a href="https://leetcode.cn/problems/binary-tree-right-side-view/">二叉树的右视图</a></a></li>
+        <li><a href="#二叉树展开为链表httpsleetcodecnproblemsflatten-binary-tree-to-linked-list"><a href="https://leetcode.cn/problems/flatten-binary-tree-to-linked-list/">二叉树展开为链表</a></a></li>
+        <li><a href="#从前序与中序遍历序列构造二叉树httpsleetcodecnproblemsconstruct-binary-tree-from-preorder-and-inorder-traversal"><a href="https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal/">从前序与中序遍历序列构造二叉树</a></a></li>
+        <li><a href="#路径总和-iiihttpsleetcodecnproblemspath-sum-iii"><a href="https://leetcode.cn/problems/path-sum-iii/">路径总和 III</a></a></li>
+        <li><a href="#-二叉树的最近公共祖先httpsleetcodecnproblemslowest-common-ancestor-of-a-binary-tree"><a href="https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/"> 二叉树的最近公共祖先</a></a></li>
+        <li><a href="#二叉树中的最大路径和httpsleetcodecnproblemsbinary-tree-maximum-path-sum"><a href="https://leetcode.cn/problems/binary-tree-maximum-path-sum/">二叉树中的最大路径和</a></a></li>
+        <li><a href="#岛屿数量httpsleetcodecnproblemsnumber-of-islands"><a href="https://leetcode.cn/problems/number-of-islands/">岛屿数量</a></a></li>
+        <li><a href="#腐烂的橘子httpsleetcodecnproblemsrotting-oranges"><a href="https://leetcode.cn/problems/rotting-oranges/">腐烂的橘子</a></a></li>
+        <li><a href="#课程表httpsleetcodecnproblemscourse-schedule"><a href="https://leetcode.cn/problems/course-schedule/">课程表</a></a></li>
+        <li><a href="#实现-trie-前缀树httpsleetcodecnproblemsimplement-trie-prefix-tree"><a href="https://leetcode.cn/problems/implement-trie-prefix-tree/">实现 Trie (前缀树)</a></a></li>
+        <li><a href="#全排列httpsleetcodecnproblemspermutations"><a href="https://leetcode.cn/problems/permutations/">全排列</a></a></li>
+        <li><a href="#子集httpsleetcodecnproblemssubsets"><a href="https://leetcode.cn/problems/subsets/">子集</a></a></li>
+        <li><a href="#电话号码的字母组合httpsleetcodecnproblemsletter-combinations-of-a-phone-number"><a href="https://leetcode.cn/problems/letter-combinations-of-a-phone-number/">电话号码的字母组合</a></a></li>
+        <li><a href="#组合总和httpsleetcodecnproblemscombination-sum"><a href="https://leetcode.cn/problems/combination-sum/">组合总和</a></a></li>
+        <li><a href="#括号生成httpsleetcodecnproblemsgenerate-parentheses"><a href="https://leetcode.cn/problems/generate-parentheses/">括号生成</a></a></li>
+        <li><a href="#单词搜索httpsleetcodecnproblemsword-search"><a href="https://leetcode.cn/problems/word-search/">单词搜索</a></a></li>
+        <li><a href="#分割回文串httpsleetcodecnproblemspalindrome-partitioning"><a href="https://leetcode.cn/problems/palindrome-partitioning/">分割回文串</a></a></li>
+        <li><a href="#n-皇后httpsleetcodecnproblemsn-queens"><a href="https://leetcode.cn/problems/n-queens/">N 皇后</a></a></li>
+        <li><a href="#搜索插入位置httpsleetcodecnproblemssearch-insert-position"><a href="https://leetcode.cn/problems/search-insert-position/">搜索插入位置</a></a></li>
+        <li><a href="#搜索二维矩阵httpsleetcodecnproblemssearch-a-2d-matrix"><a href="https://leetcode.cn/problems/search-a-2d-matrix/">搜索二维矩阵</a></a></li>
+        <li><a href="#在排序数组中查找元素的第一个和最后一个位置httpsleetcodecnproblemsfind-first-and-last-position-of-element-in-sorted-array"><a href="https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/">在排序数组中查找元素的第一个和最后一个位置</a></a></li>
+        <li><a href="#搜索旋转排序数组httpsleetcodecnproblemssearch-in-rotated-sorted-array"><a href="https://leetcode.cn/problems/search-in-rotated-sorted-array/">搜索旋转排序数组</a></a></li>
+        <li><a href="#寻找旋转排序数组中的最小值httpsleetcodecnproblemsfind-minimum-in-rotated-sorted-array"><a href="https://leetcode.cn/problems/find-minimum-in-rotated-sorted-array/">寻找旋转排序数组中的最小值</a></a></li>
+        <li><a href="#寻找两个正序数组的中位数httpsleetcodecnproblemsmedian-of-two-sorted-arrays"><a href="https://leetcode.cn/problems/median-of-two-sorted-arrays/">寻找两个正序数组的中位数</a></a></li>
+        <li><a href="#有效的括号httpsleetcodecnproblemsvalid-parentheses"><a href="https://leetcode.cn/problems/valid-parentheses/">有效的括号</a></a></li>
+        <li><a href="#最小栈httpsleetcodecnproblemsmin-stack"><a href="https://leetcode.cn/problems/min-stack/">最小栈</a></a></li>
+        <li><a href="#字符串解码httpsleetcodecnproblemsdecode-string"><a href="https://leetcode.cn/problems/decode-string/">字符串解码</a></a></li>
+        <li><a href="#每日温度httpsleetcodecnproblemsdaily-temperatures"><a href="https://leetcode.cn/problems/daily-temperatures/">每日温度</a></a></li>
+        <li><a href="#柱状图中最大的矩形httpsleetcodecnproblemslargest-rectangle-in-histogram"><a href="https://leetcode.cn/problems/largest-rectangle-in-histogram/">柱状图中最大的矩形</a></a></li>
       </ol>
     </li>
+    <li><a href="#数组中的第k个最大元素httpsleetcodecnproblemskth-largest-element-in-an-array"><a href="https://leetcode.cn/problems/kth-largest-element-in-an-array/">数组中的第K个最大元素</a></a></li>
+    <li><a href="#前-k-个高频元素httpsleetcodecnproblemstop-k-frequent-elements"><a href="https://leetcode.cn/problems/top-k-frequent-elements/">前 K 个高频元素</a></a></li>
+    <li><a href="#数据流的中位数httpsleetcodecnproblemsfind-median-from-data-stream"><a href="https://leetcode.cn/problems/find-median-from-data-stream/">数据流的中位数</a></a></li>
+    <li><a href="#买卖股票的最佳时机httpsleetcodecnproblemsbest-time-to-buy-and-sell-stock"><a href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/">买卖股票的最佳时机</a></a></li>
   </ol>
 </nav>
         </div>
@@ -418,10 +462,18 @@
     
     <p>重点直接看java吧，最主要先掌握好一门保险能直接写出来的</p>
 <p>java特殊记：</p>
+<p>Integer.MAX_VALUE</p>
+<p>Integer.MIN_VALUE</p>
 <p>String S
 char[]s=S.toCharArray();</p>
+<p>S.charAt(0)</p>
+<p>S.indexOf(&rsquo;[&rsquo;);</p>
+<p>String转int</p>
+<p>int k= Integer.parseInt(s.substring(0,i));</p>
+<p>把String t 重复k次</p>
+<p>String res= t.repeat(k);</p>
 <p>List&lt;int[]&gt;ans=new ArrayList&lt;&gt;();
-要返回int[][]怎么办？Java 中 <code>List&lt;int[]&gt;</code> 转成 <code>int[][]</code> 的写法
+要返回<code>int[][]</code>怎么办？Java 中 <code>List&lt;int[]&gt;</code> 转成 <code>int[][]</code> 的写法
 <code>用ans.toArray(new int[ans.size()][]);</code></p>
 <p>Arrays.fill(nums,1)</p>
 <p>对于List
@@ -466,9 +518,11 @@ mp.put(key,mp.getOrDefault(key,0)+1)
 for(Map.Entry&lt;Integer,Integer&gt;e:cnt.entrySet())
 {
 }//e.getValue()//e.getKey()</p>
+<p>int maxCnt=Collections.max(cnt.values());</p>
 <p>for(int x:st)
 {</p>
 <p>}</p>
+<p><code>List&lt;Integer&gt;[]buckets=new ArrayList[maxCnt+1];</code></p>
 <p>双端队列</p>
 <p>java
 初始化
@@ -487,6 +541,20 @@ q.removeFirst()
 q.removeLast()
 判断是否为空
 if（!q.isEmpty())</p>
+<p>数组</p>
+<p>Arrays.setAll(nums,i-&gt;i*2)</p>
+<p>Arrays.setAll(nums,i-&gt;10);</p>
+<p>Arrays.fill(nums,10);</p>
+<p><code>List&lt;Integer&gt;[]g=new ArrayList[n];</code></p>
+<p><code>Arrays.setAll(g,i-&gt;new ArrayList&lt;&gt;());</code></p>
+<p>Random rand=new Random();</p>
+<p>int i=left+rand.nextInt(right-left+1);</p>
+<p>最大堆最小堆</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">PriorityQueue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="n">left</span><span class="o">=</span><span class="k">new</span><span class="w"> </span><span class="n">PriorityQueue</span><span class="o">&lt;&gt;</span><span class="p">((</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">);</span><span class="c1">//最大堆</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">PriorityQueue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="n">right</span><span class="o">=</span><span class="k">new</span><span class="w"> </span><span class="n">PriorityQueue</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="c1">//最小堆</span><span class="w">
+</span></span></span></code></pre></div><p>offer()</p>
+<p>poll()弹出并且本身返回弹出的值</p>
+<p>peek()</p>
 <h3 id="两数之和httpsleetcodecnproblemstwo-sum"><a class="link" href="https://leetcode.cn/problems/two-sum/"  target="_blank" rel="noopener"
     >两数之和</a>
 </h3><p>创建哈希集合，查看目前 索求和-目前数字  是否再哈希集合内？</p>
@@ -793,7 +861,411 @@ if（!q.isEmpty())</p>
 <p>实现两个工具函数：</p>
 <p>一个是ListNode splitList(ListNode list,int size)传入链表的某个节点，会返回这个节点为起点size个节点后的节点（再设置前一个节点.next=null）</p>
 <p>一个是ListNode[] mergeTwoLists(ListNode list1,ListNode list2)对list1和list2进行排序</p>
-
+<h3 id="合并-k-个升序链表httpsleetcodecnproblemsmerge-k-sorted-lists"><a class="link" href="https://leetcode.cn/problems/merge-k-sorted-lists/"  target="_blank" rel="noopener"
+    >合并 K 个升序链表</a>
+</h3><p>先搓出合并两个链表的函数mergeTwoLists(ListNode list1,ListNode list2)</p>
+<p>接着一个一个合并就好了</p>
+<h3 id="lru-缓存httpsleetcodecnproblemslru-cache"><a class="link" href="https://leetcode.cn/problems/lru-cache/"  target="_blank" rel="noopener"
+    >LRU 缓存</a>
+</h3><p>注意函数写法 containsKey</p>
+<p>这里是用双向环形链表保证LRU的实现（dummy.next是最近一次被使用的，dummy.prev是最久没有被使用的）</p>
+<p>哈希表是为了get和put实现时间复杂度0(1)</p>
+<h3 id="二叉树的中序遍历httpsleetcodecnproblemsbinary-tree-inorder-traversal"><a class="link" href="https://leetcode.cn/problems/binary-tree-inorder-traversal/"  target="_blank" rel="noopener"
+    >二叉树的中序遍历</a>
+</h3><p>中序遍历：左中右</p>
+<p>先定义全局List<Integer>ans=new ArrayList&lt;&gt;();</p>
+<p>接着中序遍历就是</p>
+<p>void inorder(TreeNode node)</p>
+<p>{</p>
+<p>​	if(node==null)</p>
+<p>​	{</p>
+<p>​		return;</p>
+<p>​	}</p>
+<p>​	inorder(node.left);</p>
+<p>​	ans.add(node.val);</p>
+<p>​	inorder(node.right);</p>
+<p>}</p>
+<p>解答函数直接 inorder(root)</p>
+<p>返回ans就行了</p>
+<h3 id="二叉树的最大深度httpsleetcodecnproblemsmaximum-depth-of-binary-tree"><a class="link" href="https://leetcode.cn/problems/maximum-depth-of-binary-tree/"  target="_blank" rel="noopener"
+    >二叉树的最大深度</a>
+</h3><p>先判断root是否为null，</p>
+<p>接着设一个Dueue<TreeNode>q=new ArrayDeque&lt;&gt;();</p>
+<p>传入root,设int cnt</p>
+<p>​        int cnt=0;</p>
+<p>​        while(!q.isEmpty())</p>
+<p>​        {</p>
+<p>​            for(int i=q.size();i&gt;0;i&ndash;)</p>
+<p>​            {</p>
+<p>​                TreeNode node=q.poll();</p>
+<p>​                if(node.left!=null)</p>
+<p>​                {</p>
+<p>​                    q.add(node.left);</p>
+<p>​                }</p>
+<p>​                if(node.right!=null)</p>
+<p>​                {</p>
+<p>​                    q.add(node.right);</p>
+<p>​                }</p>
+<p>​            }</p>
+<p>​            cnt+=1;</p>
+<p>​        }</p>
+<h3 id="翻转二叉树httpsleetcodecnproblemsinvert-binary-tree"><a class="link" href="https://leetcode.cn/problems/invert-binary-tree/"  target="_blank" rel="noopener"
+    >翻转二叉树</a>
+</h3><p>左是右，右是左</p>
+<p>先翻转子树再翻转自身或者先翻转自身再翻转子树都可以</p>
+<h3 id="-对称二叉树httpsleetcodecnproblemssymmetric-tree"><a class="link" href="https://leetcode.cn/problems/symmetric-tree/"  target="_blank" rel="noopener"
+    > 对称二叉树</a>
+</h3><p>这道题呢，可以看成 相同的树 的变体。</p>
+<p>我们先写出一个判断两个树是否相同的函数</p>
+<p>接着传入root的左右子树就行了</p>
+<h3 id="二叉树的直径httpsleetcodecnproblemsdiameter-of-binary-tree"><a class="link" href="https://leetcode.cn/problems/diameter-of-binary-tree/"  target="_blank" rel="noopener"
+    >二叉树的直径</a>
+</h3><p>定义一个全局ans</p>
+<p>实现一个后置遍历，返回return 1+Math.max(right_max_length,left_max_length)</p>
+<p>ans=Math.max(ans,left_max_length+right_max_length)</p>
+<h3 id="二叉树的层序遍历httpsleetcodecnproblemsbinary-tree-level-order-traversal">二叉树的层序遍历](<a class="link" href="https://leetcode.cn/problems/binary-tree-level-order-traversal/"  target="_blank" rel="noopener"
+    >https://leetcode.cn/problems/binary-tree-level-order-traversal/</a>)
+</h3><p>返回空list</p>
+<p>return List.of()</p>
+<p>预分配大小 List<Integer>vals=new ArrayList<Integer>(n);</p>
+<p>没啥好说的，就是队列</p>
+<h3 id="将有序数组转换为二叉搜索树httpsleetcodecnproblemsconvert-sorted-array-to-binary-search-tree"><a class="link" href="https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree/"  target="_blank" rel="noopener"
+    >将有序数组转换为二叉搜索树</a>
+</h3><p>二叉搜索树：左子树的节点的值小于当前节点的值小于右子树的节点的值，对树同样成立</p>
+<p>平衡：|左子树高度 - 右子树高度| ≤ 1</p>
+<p>sort(nums,0,nums.length-1)</p>
+<p>对于sort函数，</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TreeNode</span><span class="p">(</span><span class="n">nums</span><span class="o">[</span><span class="n">left</span><span class="o">]</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">mid</span><span class="o">=</span><span class="n">left</span><span class="o">+</span><span class="p">(</span><span class="n">right</span><span class="o">-</span><span class="n">left</span><span class="p">)</span><span class="o">/</span><span class="n">2</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TreeNode</span><span class="p">(</span><span class="n">nums</span><span class="o">[</span><span class="n">mid</span><span class="o">]</span><span class="p">,</span><span class="n">sort</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span><span class="n">left</span><span class="p">,</span><span class="n">mid</span><span class="o">-</span><span class="n">1</span><span class="p">),</span><span class="n">sort</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span><span class="n">mid</span><span class="o">+</span><span class="n">1</span><span class="p">,</span><span class="n">right</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h3 id="验证二叉搜索树httpsleetcodecnproblemsvalidate-binary-search-tree"><a class="link" href="https://leetcode.cn/problems/validate-binary-search-tree/"  target="_blank" rel="noopener"
+    >验证二叉搜索树</a>
+</h3><p>注意超小和超大值的写法</p>
+<p>Long.MIN_VALUE         Long.MAX_VALUE</p>
+<p>return isValidBST(root,Long.MIN_VALUE,MAX_VALUE);</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kt">boolean</span><span class="w"> </span><span class="nf">isValidBST</span><span class="p">(</span><span class="n">TreeNode</span><span class="w"> </span><span class="n">node</span><span class="p">,</span><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="kt">int</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">node</span><span class="o">==</span><span class="kc">null</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">node</span><span class="p">.</span><span class="na">val</span><span class="o">&gt;</span><span class="n">left</span><span class="o">&amp;&amp;</span><span class="n">node</span><span class="p">.</span><span class="na">val</span><span class="o">&lt;</span><span class="n">right</span><span class="o">&amp;&amp;</span><span class="n">isValid</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">left</span><span class="p">,</span><span class="n">left</span><span class="p">,</span><span class="n">node</span><span class="p">.</span><span class="na">val</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="n">isValid</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">right</span><span class="p">,</span><span class="n">node</span><span class="p">.</span><span class="na">val</span><span class="p">,</span><span class="n">right</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">   
+</span></span></span></code></pre></div><h3 id="二叉搜索树中第-k-小的元素httpsleetcodecnproblemskth-smallest-element-in-a-bst"><a class="link" href="https://leetcode.cn/problems/kth-smallest-element-in-a-bst/"  target="_blank" rel="noopener"
+    >二叉搜索树中第 K 小的元素</a>
+</h3><p>中序遍历</p>
+<p>定义一个全局的int kk 表示现在目前访问到的是第几小的元素</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kt">int</span><span class="w"> </span><span class="nf">dfs</span><span class="p">(</span><span class="n">TreeNode</span><span class="w"> </span><span class="n">node</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">node</span><span class="o">==</span><span class="kc">null</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">left_res</span><span class="o">=</span><span class="n">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">left</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">left_res</span><span class="o">!=-</span><span class="n">1</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">left_res</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">kk</span><span class="o">-=</span><span class="n">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">kk</span><span class="o">==</span><span class="n">0</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">node</span><span class="p">.</span><span class="na">val</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">right</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h3 id="二叉树的右视图httpsleetcodecnproblemsbinary-tree-right-side-view"><a class="link" href="https://leetcode.cn/problems/binary-tree-right-side-view/"  target="_blank" rel="noopener"
+    >二叉树的右视图</a>
+</h3><p>还是用容器</p>
+<p>但是在添加的时候，先加入右节点，再加入左节点</p>
+<p>这样保证容器第一个节点就是右视图看到的那个节点</p>
+<h3 id="二叉树展开为链表httpsleetcodecnproblemsflatten-binary-tree-to-linked-list"><a class="link" href="https://leetcode.cn/problems/flatten-binary-tree-to-linked-list/"  target="_blank" rel="noopener"
+    >二叉树展开为链表</a>
+</h3><p>题目要求先序遍历展开（中左右），我们做的时候其实是以右左中这样的顺序逆推回去的</p>
+<p>定义一个全局TreeNode prev=null记录当前节点接下来右子树应该拼接什么</p>
+<p>我们的思路是从后往前拼接</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">TreeNode</span><span class="w"> </span><span class="nf">dfs</span><span class="p">(</span><span class="n">TreeNode</span><span class="w"> </span><span class="n">node</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">node</span><span class="o">==</span><span class="kc">null</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">right</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">left</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">node</span><span class="p">.</span><span class="na">left</span><span class="o">=</span><span class="kc">null</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">node</span><span class="p">.</span><span class="na">right</span><span class="o">=</span><span class="n">prev</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">prev</span><span class="o">=</span><span class="n">node</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>解答函数的内容直接</p>
+<p>dfs(root)</p>
+<h3 id="从前序与中序遍历序列构造二叉树httpsleetcodecnproblemsconstruct-binary-tree-from-preorder-and-inorder-traversal"><a class="link" href="https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal/"  target="_blank" rel="noopener"
+    >从前序与中序遍历序列构造二叉树</a>
+</h3><p>inorder中序遍历（左中右）</p>
+<p>preorder先序遍历  (中左右)</p>
+<p>复制数组</p>
+<p>Arrays.CopyOfRange()</p>
+<p>先实现int IndexOf(int[] nums,int x)返回x在nums的下标</p>
+<p>int n=preorder.length;</p>
+<p>if(n==0)</p>
+<p>{</p>
+<p>​	return null;</p>
+<p>}</p>
+<p>int leftsize=indexOf(inorders,preordder[0]);</p>
+<p>建立左子树的前序遍历，中序遍历</p>
+<p>建立右子树的前序遍历，中序遍历</p>
+<p>TreeNode left=buildTree(pre1,in1);</p>
+<p>TreeNode right=buildTree(pre2,in2);</p>
+<p>return new TreeNode(preorder,left,right)</p>
+<h3 id="路径总和-iiihttpsleetcodecnproblemspath-sum-iii"><a class="link" href="https://leetcode.cn/problems/path-sum-iii/"  target="_blank" rel="noopener"
+    >路径总和 III</a>
+</h3><p>做法和<a class="link" href="https://leetcode.cn/problems/subarray-sum-equals-k/"  target="_blank" rel="noopener"
+    >和为 K 的子数组</a>是一样的</p>
+<p>注意</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w">        </span><span class="n">mp</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">mp</span><span class="p">.</span><span class="na">getOrDefault</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">0</span><span class="p">)</span><span class="o">+</span><span class="n">1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">left</span><span class="p">,</span><span class="n">s</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">right</span><span class="p">,</span><span class="n">s</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">mp</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">mp</span><span class="p">.</span><span class="na">getOrDefault</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">0</span><span class="p">)</span><span class="o">-</span><span class="n">1</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>先加入map中，再往左往右遍历，最后还要恢复现场</p>
+<h3 id="-二叉树的最近公共祖先httpsleetcodecnproblemslowest-common-ancestor-of-a-binary-tree"><a class="link" href="https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/"  target="_blank" rel="noopener"
+    > 二叉树的最近公共祖先</a>
+</h3><p>一直左右子树递归</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w">		</span><span class="k">if</span><span class="p">(</span><span class="n">root</span><span class="o">==</span><span class="kc">null</span><span class="o">||</span><span class="n">root</span><span class="o">==</span><span class="n">p</span><span class="o">||</span><span class="n">root</span><span class="o">==</span><span class="n">q</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">root</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">TreeNode</span><span class="w"> </span><span class="n">left</span><span class="o">=</span><span class="n">lowestCommonAncestor</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">left</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">TreeNode</span><span class="w"> </span><span class="n">right</span><span class="o">=</span><span class="n">lowestCommonAncestor</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">right</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">left</span><span class="o">!=</span><span class="kc">null</span><span class="o">&amp;&amp;</span><span class="n">right</span><span class="o">!=</span><span class="kc">null</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">root</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">left</span><span class="o">!=</span><span class="kc">null</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">left</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">right</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>返回值可能是p,q,null，</p>
+<p>如果是null说明没有找到有用的信息</p>
+<h3 id="二叉树中的最大路径和httpsleetcodecnproblemsbinary-tree-maximum-path-sum"><a class="link" href="https://leetcode.cn/problems/binary-tree-maximum-path-sum/"  target="_blank" rel="noopener"
+    >二叉树中的最大路径和</a>
+</h3><p>这道题有点像<a class="link" href="https://leetcode.cn/problems/diameter-of-binary-tree/"  target="_blank" rel="noopener"
+    >二叉树的直径</a></p>
+<p>限定义一个全局变量int ans</p>
+<p>递归时，判断左子树右子树最大是否大于0,小于0的话按0输出</p>
+<p>ans=Math.max(ans,max_left+max_right+node.val);</p>
+<p>return Math.max(max_left,max_right)+node.val;</p>
+<h3 id="岛屿数量httpsleetcodecnproblemsnumber-of-islands"><a class="link" href="https://leetcode.cn/problems/number-of-islands/"  target="_blank" rel="noopener"
+    >岛屿数量</a>
+</h3><p>给整个小岛插上旗子</p>
+<p>dfs</p>
+<p>如果探测的点超出图的ij计数范围或者探测的点不是小岛'1&rsquo;的话，插上旗子'2&rsquo;,并且dfs上下左右</p>
+<p>主函数只要两个for循环遍历整个图的点即可不漏缺</p>
+<p><code>if(grid[i][j]==1)</code>成立再<code>ans++,dfs(grid[i][j])</code></p>
+<h3 id="腐烂的橘子httpsleetcodecnproblemsrotting-oranges"><a class="link" href="https://leetcode.cn/problems/rotting-oranges/"  target="_blank" rel="noopener"
+    >腐烂的橘子</a>
+</h3><p><code>private int[][]directions={{0,-1},{0,1},{-1,0},{1,0}};</code>注意写法</p>
+<p>创建一个Deque队列</p>
+<p>感觉这个技巧是很多题通用的</p>
+<p>先放腐烂橘子进去，取出一轮的腐烂橘子，上下左右查看有新鲜橘子就变腐烂然后加入队列</p>
+<h3 id="课程表httpsleetcodecnproblemscourse-schedule"><a class="link" href="https://leetcode.cn/problems/course-schedule/"  target="_blank" rel="noopener"
+    >课程表</a>
+</h3><p>就是查看图是否有环</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w">        </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;[]</span><span class="n">g</span><span class="o">=</span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">[</span><span class="n">numCourses</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Arrays</span><span class="p">.</span><span class="na">setAll</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">i</span><span class="o">-&gt;</span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">());</span><span class="w">
+</span></span></span></code></pre></div><p>其中lambda表达式那一段可以平替</p>
+<p>for (int i = 0; i &lt; g.length; i++) {
+g[i] = new ArrayList&lt;&gt;();
+}</p>
+<p>这个g是列出某个数是某些数的前提，一共有numCourses个数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kt">int</span><span class="o">[]</span><span class="n">colors</span><span class="o">=</span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="o">[</span><span class="n">numCourses</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>用三色标记法</p>
+<p>0表示还没有访问，1表示访问中，2表示访问完毕显示没有环</p>
+<p>主函数遍历numCourses个课程</p>
+<p>只要一个出现了colors[i]==0&amp;&amp;dfs(i,g,colors)就说明出现环了</p>
+<p>dfs函数的思路是如果出现环返回true，否则false</p>
+<p>先把传入课程颜色标为1,表示访问中，接着判断是否成环</p>
+<p>成环条件就是for循环遍历g下的课程，如果有课程出现正在访问中或者没有访问并且dfs这个课程返回true，则说明成环，返回true</p>
+<p>for循环过后说明不成环，把课程颜色标记为2,返回false</p>
+<h3 id="实现-trie-前缀树httpsleetcodecnproblemsimplement-trie-prefix-tree"><a class="link" href="https://leetcode.cn/problems/implement-trie-prefix-tree/"  target="_blank" rel="noopener"
+    >实现 Trie (前缀树)</a>
+</h3><p>思路：26叉树，子树用Node数组实现</p>
+<p>我写的答案里面的static可以删掉，final可以删掉</p>
+<p>class node{</p>
+<p>​	node[]son=new node[26];</p>
+<p>​	boolean end=false;</p>
+<p>}</p>
+<p>因为Node root = new Node();已经在外面声明并且定义了，Trie的构造函数没有啥用，可以删去，系统会自动生成一个默认构造函数的</p>
+<h3 id="全排列httpsleetcodecnproblemspermutations"><a class="link" href="https://leetcode.cn/problems/permutations/"  target="_blank" rel="noopener"
+    >全排列</a>
+</h3><p>回溯</p>
+<p>dfs传入的参数有，这轮是第几个数，一共有多少个数，需要被排列的原数组，返回的答案List，正在进行排列的List，判断数字是否正在排列中的数组</p>
+<p>注意恢复现场</p>
+<h3 id="子集httpsleetcodecnproblemssubsets"><a class="link" href="https://leetcode.cn/problems/subsets/"  target="_blank" rel="noopener"
+    >子集</a>
+</h3><p>回溯</p>
+<p>和前面的思路一样，但是全排列是“在还没有被选的数中选哪个”，子集是“选或者不选”</p>
+<h3 id="电话号码的字母组合httpsleetcodecnproblemsletter-combinations-of-a-phone-number"><a class="link" href="https://leetcode.cn/problems/letter-combinations-of-a-phone-number/"  target="_blank" rel="noopener"
+    >电话号码的字母组合</a>
+</h3><p>也是回溯，但是这里是用数组而不是用List，数组能直接覆盖，这样就恰好实现了恢复现场</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">MAPPING</span><span class="o">=</span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="o">[]</span><span class="p">{</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="s">&#34;abc&#34;</span><span class="p">,</span><span class="s">&#34;def&#34;</span><span class="p">,</span><span class="s">&#34;ghi&#34;</span><span class="p">,</span><span class="s">&#34;jkl&#34;</span><span class="p">,</span><span class="s">&#34;mno&#34;</span><span class="p">,</span><span class="s">&#34;pqrs&#34;</span><span class="p">,</span><span class="s">&#34;tuv&#34;</span><span class="p">,</span><span class="s">&#34;wxyz&#34;</span><span class="p">};</span><span class="w">
+</span></span></span></code></pre></div><p>可以这样设置</p>
+<h3 id="组合总和httpsleetcodecnproblemscombination-sum"><a class="link" href="https://leetcode.cn/problems/combination-sum/"  target="_blank" rel="noopener"
+    >组合总和</a>
+</h3><p>每个数可以选任意次或者不选</p>
+<p>其实思路还是很明了的，注意恢复现场就行</p>
+<h3 id="括号生成httpsleetcodecnproblemsgenerate-parentheses"><a class="link" href="https://leetcode.cn/problems/generate-parentheses/"  target="_blank" rel="noopener"
+    >括号生成</a>
+</h3><p>依旧可以用数组，这样直接覆盖，恰好实现了恢复现场</p>
+<p>回溯的逻辑是</p>
+<p>终止条件:右括号数等于需要生成的括号数</p>
+<p>推进情况是</p>
+<p>左括号可以放心加，右括号在小于左括号是可以加</p>
+<h3 id="单词搜索httpsleetcodecnproblemsword-search"><a class="link" href="https://leetcode.cn/problems/word-search/"  target="_blank" rel="noopener"
+    >单词搜索</a>
+</h3><p>回溯上下左右找</p>
+<p>先写终止条件：如果i，j越界或者<code>board[i][j]</code>匹配不上要找的字母， 返回false</p>
+<p>接下来成立条件，k到了要找单词的长度-1,由于之前的判断，能到这个判断说明最后一个字母也是匹配的，返回true</p>
+<p>为了防止board上的字母重复使用，先破坏掉，把现在所在board上的字母换成一个不会用到的字符，比如空格，再进行上下左右找，最后记得恢复字母，返回false</p>
+<p>主函数就是直接遍历board上面所有位置就行了</p>
+<h3 id="分割回文串httpsleetcodecnproblemspalindrome-partitioning"><a class="link" href="https://leetcode.cn/problems/palindrome-partitioning/"  target="_blank" rel="noopener"
+    >分割回文串</a>
+</h3><p>注意写法</p>
+<p>.substring(i,j+1)</p>
+<p>回溯如果位置i对于字符串长度，就可以把path加入到答案中了</p>
+<p>回溯就是以某个位置i开始，遍历j到字符串末尾，如果是回文，就把这一段加入到path，在j+1的地方继续dfs，记得恢复现场</p>
+<h3 id="n-皇后httpsleetcodecnproblemsn-queens"><a class="link" href="https://leetcode.cn/problems/n-queens/"  target="_blank" rel="noopener"
+    >N 皇后</a>
+</h3><p>判断一个二维数组某两个元素是否在统一斜线上</p>
+<p>斜线上的元素要么i,j之和相等，要么i,j之差相等</p>
+<p>所以可以设置<code>boolean diagonal1[2*n-1];boolean diagonal2[2*n-1]；</code></p>
+<h3 id="搜索插入位置httpsleetcodecnproblemssearch-insert-position"><a class="link" href="https://leetcode.cn/problems/search-insert-position/"  target="_blank" rel="noopener"
+    >搜索插入位置</a>
+</h3><p>二分查找</p>
+<h3 id="搜索二维矩阵httpsleetcodecnproblemssearch-a-2d-matrix"><a class="link" href="https://leetcode.cn/problems/search-a-2d-matrix/"  target="_blank" rel="noopener"
+    >搜索二维矩阵</a>
+</h3><p>和上题一样的写法，只要把二维数组&quot;转为一维数组操作&quot;就行</p>
+<p>和上一题判断条件类型，只是上一题是找插入的位置，可能会插入在最后一个地方，这道题是查看元素是否在里面，如果直接带入的话会越界，先判断一下<code>return right&lt;=matrix.length*matrix[0].length-1&amp;&amp;target==matrix[right/matrix[0].length][right%matrix[0].length];</code></p>
+<h3 id="在排序数组中查找元素的第一个和最后一个位置httpsleetcodecnproblemsfind-first-and-last-position-of-element-in-sorted-array"><a class="link" href="https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/"  target="_blank" rel="noopener"
+    >在排序数组中查找元素的第一个和最后一个位置</a>
+</h3><p>找最后一个位置，就是找比它大1的数的第一个位置往前一个的位置</p>
+<h3 id="搜索旋转排序数组httpsleetcodecnproblemssearch-in-rotated-sorted-array"><a class="link" href="https://leetcode.cn/problems/search-in-rotated-sorted-array/"  target="_blank" rel="noopener"
+    >搜索旋转排序数组</a>
+</h3><p>想清楚target可能落在前一段还是翻转的后一段</p>
+<p>如果想要right=mid有什么情况，分target落在哪决定，每个情况下面又有什么情况</p>
+<h3 id="寻找旋转排序数组中的最小值httpsleetcodecnproblemsfind-minimum-in-rotated-sorted-array"><a class="link" href="https://leetcode.cn/problems/find-minimum-in-rotated-sorted-array/"  target="_blank" rel="noopener"
+    >寻找旋转排序数组中的最小值</a>
+</h3><p>想想什么情况下left=mid(mid落在前一段)</p>
+<p>什么情况下right=mid（mid落在翻转的后一段）</p>
+<h3 id="寻找两个正序数组的中位数httpsleetcodecnproblemsmedian-of-two-sorted-arrays"><a class="link" href="https://leetcode.cn/problems/median-of-two-sorted-arrays/"  target="_blank" rel="noopener"
+    >寻找两个正序数组的中位数</a>
+</h3><p>这个思路很有意思</p>
+<p>我们知道，如果我们要求一个升序数列的中位数，可以这样做</p>
+<p>先看这个数组的长度，偶数就前后对半分，看前一段的最大值和后一段的最小值，求平均值</p>
+<p>奇数就让前一段长度为(n+1)/2,前一段的最大值就是所求</p>
+<p>这里我们可以统一拆分逻辑，奇数偶数都用(n+1)/2来拆分，最后再判断即可</p>
+<p>现在我们来看这道题，</p>
+<p>（先确保nums1长度小于等于nums2(不满足就交换)）</p>
+<p>因为这两段数组都已经是升序排列了，第一段长度为m，第二段长度为n，我们如果要把这两段数组看成很长的一段升序数组再平均拆分的话，对于新拆分的第一段数组：假设长度为m的那一段数组贡献(i+1)个数（i是下标），那么长度为n的那一段数组就贡献(m+n+1)/2-(i+1)个数，临界下标是(m+n+1)/2-(i+1)-1.</p>
+<p>也就是说，只要能求出i/j，就可以求出这两端数组的中位数</p>
+<p>那么怎么求呢？</p>
+<p>新拆分的第一段数组，它满足所有元素都小于新拆分的第二段数组的所有元素</p>
+<p>这里就可以用二分来确定拆分的边界啦</p>
+<h3 id="有效的括号httpsleetcodecnproblemsvalid-parentheses"><a class="link" href="https://leetcode.cn/problems/valid-parentheses/"  target="_blank" rel="noopener"
+    >有效的括号</a>
+</h3><p>栈</p>
+<p>分几个</p>
+<p>if</p>
+<p>else if</p>
+<p>还有</p>
+<p>else</p>
+<p>最后判断的时候看容器是否为空</p>
+<h3 id="最小栈httpsleetcodecnproblemsmin-stack"><a class="link" href="https://leetcode.cn/problems/min-stack/"  target="_blank" rel="noopener"
+    >最小栈</a>
+</h3><p>Deque存数组int[]</p>
+<p>数组里其实就俩元素，一个是当前存的值，一个是当前的最小值</p>
+<h3 id="字符串解码httpsleetcodecnproblemsdecode-string"><a class="link" href="https://leetcode.cn/problems/decode-string/"  target="_blank" rel="noopener"
+    >字符串解码</a>
+</h3><p>如果遇到嵌套的东西，应该很快能意识到要用递归来解决</p>
+<p>想想首个字符遇到字母怎么处理，遇到数字怎么处理</p>
+<p>妙妙函数</p>
+<p>S.charAt()</p>
+<p>Integer.parseInt(s.substring(i,j))</p>
+<p>t.repeat(k)</p>
+<h3 id="每日温度httpsleetcodecnproblemsdaily-temperatures"><a class="link" href="https://leetcode.cn/problems/daily-temperatures/"  target="_blank" rel="noopener"
+    >每日温度</a>
+</h3><p>单调栈，但是存放的元素是下标</p>
+<h3 id="柱状图中最大的矩形httpsleetcodecnproblemslargest-rectangle-in-histogram"><a class="link" href="https://leetcode.cn/problems/largest-rectangle-in-histogram/"  target="_blank" rel="noopener"
+    >柱状图中最大的矩形</a>
+</h3><p>单调栈</p>
+<p>为了方便计算所有柱子，现在单调栈容器里面放一个-1元素</p>
+<p>把这些柱子比作员工，最后一个当领导，前面的员工只允许比自己高的人当领导，要是最后面来了个比自己矮的，前面的员工会愤然离职，离职前会计算自己的最大贡献（新来的领导下标-离职这个柱子在容器的上一个人的下标-1）*（离职的这个柱子的高度），和ans比大小。</p>
+<p>遍历一遍后，容器中剩下的都是递增的单调栈，这是我们认为来了一个0高的新柱子领导，前面所有柱子都要离职。</p>
+<h2 id="数组中的第k个最大元素httpsleetcodecnproblemskth-largest-element-in-an-array"><a class="link" href="https://leetcode.cn/problems/kth-largest-element-in-an-array/"  target="_blank" rel="noopener"
+    >数组中的第K个最大元素</a>
+</h2><p>快速选择算法</p>
+<p>一些妙妙函数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Random</span><span class="w"> </span><span class="n">rand</span><span class="o">=</span><span class="k">new</span><span class="w"> </span><span class="n">Random</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">partition</span><span class="p">(</span><span class="kt">int</span><span class="o">[]</span><span class="n">nums</span><span class="p">,</span><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="kt">int</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="n">left</span><span class="o">+</span><span class="n">rand</span><span class="p">.</span><span class="na">nextInt</span><span class="p">(</span><span class="n">right</span><span class="o">-</span><span class="n">left</span><span class="o">+</span><span class="n">1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">pivot</span><span class="o">=</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">swap</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">left</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">i</span><span class="o">=</span><span class="n">left</span><span class="o">+</span><span class="n">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="o">=</span><span class="n">right</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">while</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">j</span><span class="o">&amp;&amp;</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]&lt;</span><span class="n">pivot</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">i</span><span class="o">++</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">j</span><span class="o">&amp;&amp;</span><span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">]&gt;</span><span class="n">pivot</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">j</span><span class="o">--</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">&gt;=</span><span class="n">j</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">break</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">swap</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">i</span><span class="o">++</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">j</span><span class="o">--</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">swap</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span><span class="n">left</span><span class="p">,</span><span class="n">j</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">j</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">swap</span><span class="p">(</span><span class="kt">int</span><span class="o">[]</span><span class="n">nums</span><span class="p">,</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">temp</span><span class="o">=</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]=</span><span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">]=</span><span class="n">temp</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h2 id="前-k-个高频元素httpsleetcodecnproblemstop-k-frequent-elements"><a class="link" href="https://leetcode.cn/problems/top-k-frequent-elements/"  target="_blank" rel="noopener"
+    >前 K 个高频元素</a>
+</h2><p>桶排序思想</p>
+<p>这道题需要的妙妙小函数有点多</p>
+<p>int maxCnt=Collections.max(cnt.values());</p>
+<p><code>List&lt;Integer&gt;[]buckets=new ArrayList[maxCnt+1];</code></p>
+<p>Arrays.setAll(buckets,_-&gt;new ArrayList&lt;&gt;());</p>
+<p>​        for(Map.Entry&lt;Integer,Integer&gt;e:cnt.entrySet())</p>
+<p>​        {</p>
+<p>​            buckets[e.getValue()].add(e.getKey());</p>
+<p>​        }</p>
+<h2 id="数据流的中位数httpsleetcodecnproblemsfind-median-from-data-stream"><a class="link" href="https://leetcode.cn/problems/find-median-from-data-stream/"  target="_blank" rel="noopener"
+    >数据流的中位数</a>
+</h2><p>最大堆left，最小堆right</p>
+<p>人为规定left比right大1</p>
+<p>逻辑是if(left.size()==right.size()) 就right.offer(num) 再left.offer(right.poll())</p>
+<p>else也就是left.size()比right.size()多的情况其实也就是多1,就left.offer(num)再right.offer(left.poll())</p>
+<p>如果left.size()==right.size()就返回(left.peek()+right.peek())/2.0</p>
+<p>否则（left.size()比right.size()多1）返回left.peek();</p>
+<h2 id="买卖股票的最佳时机httpsleetcodecnproblemsbest-time-to-buy-and-sell-stock"><a class="link" href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/"  target="_blank" rel="noopener"
+    >买卖股票的最佳时机</a>
+</h2>
 </section>
 
 
@@ -810,6 +1282,28 @@ if（!q.isEmpty())</p>
 
     
 
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E9%A1%B9%E7%9B%AE%E6%80%9D%E8%80%83/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">项目思考</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
      
     
         
@@ -819,7 +1313,7 @@ if（!q.isEmpty())</p>
     <section class="copyright">
         &copy; 
         
-        2026 帕琪-Pache
+        2026 RUN
     </section>
     
     <section class="powerby">

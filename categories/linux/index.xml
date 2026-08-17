@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Linux on 帕琪-Pache</title>
+        <title>Linux on 知识与避世的狭缝</title>
         <link>https://echo806.github.io/categories/linux/</link>
-        <description>Recent content in Linux on 帕琪-Pache</description>
+        <description>Recent content in Linux on 知识与避世的狭缝</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <copyright>帕琪-Pache</copyright>
+        <copyright>RUN</copyright>
         <lastBuildDate>Sun, 22 Mar 2026 08:43:58 +0800</lastBuildDate><atom:link href="https://echo806.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>mint-sougou</title>
         <link>https://echo806.github.io/p/mint-sougou/</link>

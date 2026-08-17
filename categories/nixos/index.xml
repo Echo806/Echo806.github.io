@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>nixos on 帕琪-Pache</title>
+        <title>nixos on 知识与避世的狭缝</title>
         <link>https://echo806.github.io/categories/nixos/</link>
-        <description>Recent content in nixos on 帕琪-Pache</description>
+        <description>Recent content in nixos on 知识与避世的狭缝</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <copyright>帕琪-Pache</copyright>
+        <copyright>RUN</copyright>
         <lastBuildDate>Fri, 15 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://echo806.github.io/categories/nixos/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>老电脑上安装nixos命令队列兼容性问题</title>
         <link>https://echo806.github.io/p/%E8%80%81%E7%94%B5%E8%84%91%E4%B8%8A%E5%AE%89%E8%A3%85nixos%E5%91%BD%E4%BB%A4%E9%98%9F%E5%88%97%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/</link>
