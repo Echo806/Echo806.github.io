@@ -395,6 +395,16 @@
     <li><a href="#前-k-个高频元素httpsleetcodecnproblemstop-k-frequent-elements"><a href="https://leetcode.cn/problems/top-k-frequent-elements/">前 K 个高频元素</a></a></li>
     <li><a href="#数据流的中位数httpsleetcodecnproblemsfind-median-from-data-stream"><a href="https://leetcode.cn/problems/find-median-from-data-stream/">数据流的中位数</a></a></li>
     <li><a href="#买卖股票的最佳时机httpsleetcodecnproblemsbest-time-to-buy-and-sell-stock"><a href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/">买卖股票的最佳时机</a></a></li>
+    <li><a href="#跳跃游戏httpsleetcodecnproblemsjump-game"><a href="https://leetcode.cn/problems/jump-game/">跳跃游戏</a></a></li>
+    <li><a href="#跳跃游戏-iihttpsleetcodecnproblemsjump-game-ii"><a href="https://leetcode.cn/problems/jump-game-ii/">跳跃游戏 II</a></a></li>
+    <li><a href="#划分字母区间httpsleetcodecnproblemspartition-labels"><a href="https://leetcode.cn/problems/partition-labels/">划分字母区间</a></a></li>
+    <li><a href="#爬楼梯httpsleetcodecnproblemsclimbing-stairs"><a href="https://leetcode.cn/problems/climbing-stairs/">爬楼梯</a></a></li>
+    <li><a href="#杨辉三角httpsleetcodecnproblemspascals-triangle"><a href="https://leetcode.cn/problems/pascals-triangle/">杨辉三角</a></a></li>
+    <li><a href="#打家劫舍httpsleetcodecnproblemshouse-robber"><a href="https://leetcode.cn/problems/house-robber/">打家劫舍</a></a></li>
+    <li><a href="#完全平方数httpsleetcodecnproblemsperfect-squares"><a href="https://leetcode.cn/problems/perfect-squares/">完全平方数</a></a></li>
+    <li><a href="#零钱兑换httpsleetcodecnproblemscoin-change"><a href="https://leetcode.cn/problems/coin-change/">零钱兑换</a></a></li>
+    <li><a href="#单词拆分httpsleetcodecnproblemsword-break"><a href="https://leetcode.cn/problems/word-break/">单词拆分</a></a></li>
+    <li><a href="#最长递增子序列httpsleetcodecnproblemslongest-increasing-subsequence"><a href="https://leetcode.cn/problems/longest-increasing-subsequence/">最长递增子序列</a></a></li>
   </ol>
 </nav>
         </div>
@@ -476,10 +486,12 @@ char[]s=S.toCharArray();</p>
 要返回<code>int[][]</code>怎么办？Java 中 <code>List&lt;int[]&gt;</code> 转成 <code>int[][]</code> 的写法
 <code>用ans.toArray(new int[ans.size()][]);</code></p>
 <p>Arrays.fill(nums,1)</p>
-<p>对于List
-取值
+<p>对于List</p>
+<p><code>List&lt;Integer&gt;cur=new ArrayList&lt;&gt;(i)</code>声明了一个容量为i的List</p>
+<p>取值
 ans.get(i)//i是下标
 ans.set(i,x)//i是下标，x是值</p>
+<p>ans.add(1);</p>
 <p>函数要返回数组
 return new {x,x};</p>
 <p>函数要返回空List
@@ -1265,7 +1277,65 @@ g[i] = new ArrayList&lt;&gt;();
 <p>否则（left.size()比right.size()多1）返回left.peek();</p>
 <h2 id="买卖股票的最佳时机httpsleetcodecnproblemsbest-time-to-buy-and-sell-stock"><a class="link" href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/"  target="_blank" rel="noopener"
     >买卖股票的最佳时机</a>
-</h2>
+</h2><p>遍历一遍，记录最小值，比较ans和目前值-最小值哪个大</p>
+<h2 id="跳跃游戏httpsleetcodecnproblemsjump-game"><a class="link" href="https://leetcode.cn/problems/jump-game/"  target="_blank" rel="noopener"
+    >跳跃游戏</a>
+</h2><p>判断右边范围最大能有多少</p>
+<h2 id="跳跃游戏-iihttpsleetcodecnproblemsjump-game-ii"><a class="link" href="https://leetcode.cn/problems/jump-game-ii/"  target="_blank" rel="noopener"
+    >跳跃游戏 II</a>
+</h2><p>差不多想法，不过这个题是求最小次数</p>
+<p>思路：从下标0开始，设置cur_right=0,next_right=0</p>
+<p>next_right,i+nums[i]择大更新next_right,在i到cur_right时把cur_right=next_right，同时ans++</p>
+<h2 id="划分字母区间httpsleetcodecnproblemspartition-labels"><a class="link" href="https://leetcode.cn/problems/partition-labels/"  target="_blank" rel="noopener"
+    >划分字母区间</a>
+</h2><p>先创建哈希表last记录每个字母出现的最晚位置的下标</p>
+<p>把String转化CharArray后遍历，择大更新end，当i等于end的时候就可以截断</p>
+<h2 id="爬楼梯httpsleetcodecnproblemsclimbing-stairs"><a class="link" href="https://leetcode.cn/problems/climbing-stairs/"  target="_blank" rel="noopener"
+    >爬楼梯</a>
+</h2><p>递推</p>
+<h2 id="杨辉三角httpsleetcodecnproblemspascals-triangle"><a class="link" href="https://leetcode.cn/problems/pascals-triangle/"  target="_blank" rel="noopener"
+    >杨辉三角</a>
+</h2><p>对于List,</p>
+<p>声明大小</p>
+<p><code>List&lt;Integer&gt;cur=new ArrayList&lt;&gt;(i+1)</code>声明一个i+1大小的List</p>
+<p>改变List里面的元素</p>
+<p>cur.set(j,ans.get(j-1).get(j-1)+ans.get(j-1).get(j))</p>
+<h2 id="打家劫舍httpsleetcodecnproblemshouse-robber"><a class="link" href="https://leetcode.cn/problems/house-robber/"  target="_blank" rel="noopener"
+    >打家劫舍</a>
+</h2><p>对于某个阶段，它之前的最优解也是固定的</p>
+<p>递推</p>
+<p>int f1=0；int f2=0；记录初始两个情况状态</p>
+<p>for(int x:nums)</p>
+<p>{</p>
+<p>​	int f3=Math.max(f1+x,f2);</p>
+<p>​	f1=f2;</p>
+<p>​	f2=f3;</p>
+<p>}</p>
+<p>return f2;</p>
+<p>可以这样理解，f1,f2在遍历循环开始时，f1表示前一个数没有选时的最优获得，f2表示前一个数选时的最优获得</p>
+<p>在循环的末尾，更新f1,f2</p>
+<h2 id="完全平方数httpsleetcodecnproblemsperfect-squares"><a class="link" href="https://leetcode.cn/problems/perfect-squares/"  target="_blank" rel="noopener"
+    >完全平方数</a>
+</h2><p>先创建一个n+1的数组，0下标处值为0,其他值为Interer.MAX_VALUE</p>
+<p>这道题的思路是for循环嵌套for循环</p>
+<p>因为题目给的n小于等于10000,所以必须包括100*100,for(int x=1;x&lt;101;x++)</p>
+<p>里面一层思路是由小到大算x的平方，比如，先算每个数能被1的平方填满需要的最小数量，接着就是能被1的平方和2的平方，接着就是能被1的平方2的平方3的平方，每个都是在前面的基础上进行的。取最小值 f[c]=Math.min(f[c],f[c-(int)pow(x,2)]+1);</p>
+<h2 id="零钱兑换httpsleetcodecnproblemscoin-change"><a class="link" href="https://leetcode.cn/problems/coin-change/"  target="_blank" rel="noopener"
+    >零钱兑换</a>
+</h2><p>和上一题一样思路，就是外层x在上一层是遍历可能平方数的根，这一题外层是遍历可能的零钱</p>
+<h2 id="单词拆分httpsleetcodecnproblemsword-break"><a class="link" href="https://leetcode.cn/problems/word-break/"  target="_blank" rel="noopener"
+    >单词拆分</a>
+</h2><p>把word全部放在一个哈希表</p>
+<p>还是两个for循环，</p>
+<p>用长度做初筛（可以先求word里面最大的长度），长度匹配再看substring在不在哈希表里面</p>
+<p>记录状态还是用大小为n+1的f数组，</p>
+<p>接下来想清楚边界关系就行了</p>
+<h2 id="最长递增子序列httpsleetcodecnproblemslongest-increasing-subsequence"><a class="link" href="https://leetcode.cn/problems/longest-increasing-subsequence/"  target="_blank" rel="noopener"
+    >最长递增子序列</a>
+</h2><p>最优的解法时间复杂度是o(nlogn)空间复杂度是o(1)</p>
+<p>在原数组进行修改，具体是维持一个新数组的长度ng，对于正在遍历访问到的某个数，找到新数组长度内它应该在的地方，如果在长度内就替换这个地方的元素为这个数，如果位置在新数组的长度处，就把这个地方替换成这个数，并且ng++;</p>
+<p>查找位置在哪，可以使用二分</p>
+
 </section>
 
 
@@ -1286,6 +1356,19 @@ g[i] = new ArrayList&lt;&gt;();
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E9%A1%B9%E7%9B%AE%E6%80%9D%E8%80%83/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">项目思考</h2>
+        </div>
+    </a>
+</article>
+
             
                 
 <article class="">

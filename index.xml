@@ -7,7 +7,87 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>RUN</copyright>
-        <lastBuildDate>Mon, 10 Aug 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://echo806.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 16 Aug 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://echo806.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>英语缩写汇总</title>
+        <link>https://echo806.github.io/p/%E8%8B%B1%E8%AF%AD%E7%BC%A9%E5%86%99%E6%B1%87%E6%80%BB/</link>
+        <pubDate>Sun, 16 Aug 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://echo806.github.io/p/%E8%8B%B1%E8%AF%AD%E7%BC%A9%E5%86%99%E6%B1%87%E6%80%BB/</guid>
+        <description>&lt;p&gt;MCP:Model Context Protocol 模型上下文协议
+LLM:Large Language Model 大语言模型
+VLM:Vision-Language Model 视觉语言模型
+OCR:Optical Character Recognition 光学字符识别
+LoRA:Low-Rank Adaptation 低秩适配
+CoT:Chain of Thought  思维链
+RAG:Retrieval-Augmented Generation 检索增强生成
+ReAct：Reasoning+Acting
+DAG：Directed Acyclic Graph 有向无环图
+VDB：Vector Database
+SOP：Standard Operating Procedure 标准操作流程
+BM25:Best Matching 25 (一个经典的文本检索算法)
+Recall@K:Recall at K  前K个结果的召回率
+Precision@K：Precision at K 前K个结果的准确率
+API：Application Programming Interface 应用程序接口
+RPC：Remote Procedure Call 远程过程调用
+REST:Representational State Transfer （REST架构风格）
+HTTP:HyperText Transfer Protocol 超文本传输协议
+HTTPS:HTTP secure （加密HTTP）
+TCP：Transmission Control Protocol 传输控制协议
+UDP：User Datagram Protocol 用户数据报协议
+DNS：Domain Name System 域名系统
+IP：Internet Protocol 互联网协议
+URL:Uniform Resource Locator 统一资源定位符
+JSON：JavaScipt Object Notation
+XML：Extensible Markup Language 可标记扩展语言 （EML一般指的是email）
+JWT:JSON Web Token （一种Token格式）
+OAuth：Open Authorization 授权协议/框架
+QPS：Queries Per Second 每秒查询数
+TPS:Transactions Per Second 每秒事物数
+RT：Response Time 响应时间
+SQL:Structured Query Langugae 结构化查询语言
+NoSQL：Not Only SQL （非结构关系型数据库统称）
+DB：DataBase 数据库
+ORM:Object Relational Mapping 对象关系映射
+JDBC：Java DataBase Connectivity Java数据库连接
+ACID：Atomicity,Consistency,Isolation,Durability 原子性 一致性 隔离性 持久性 （数据库事务四大特性）
+CAP：Consistency一致性 Availability可用性 Partition tolerance 分区容错性 （CAP定理 分布式系统里非常经典的一个理论）
+BASE：Basically Available基本可用，Soft state软状态，Eventually Consistent 最终一致性 （分布式系统思想）
+MVCC：Multi-Version Concurrency Control 多版本并发控制
+TTL:Time To Live 生存时间
+LRU:Least Recently Used 最近最少使用
+LFU:Least Frequently Used 最不经常使用
+JDK：Java Development Kit Java开发工具包
+JRE:Java Runtime Environment Java运行环境
+JVM:Java Virtual Machine Java虚拟机
+GC：Garbage Collection 垃圾回收
+OOM:Out Of Memory 内存不足
+OOP:Object-Oriented Programming 面向对象编程
+AOP:Aspect-Oriented Programming 面向切面编程
+IOC：Inversion Of Control 控制反转
+DI:Dependency Injection 依赖注入
+POJO:Plain Old Java Object 普通Java对象
+DTO:Data Transfer Object 数据传输对象
+VO：View Object 视图对象
+BO:Business Object 业务对象的
+DAO:Data Access Object 数据访问对象
+CRUD:Create,Read,Update,Delete (增删改查)
+OS:Operating System 操作系统
+CLI:Command Line Interface 命令行界面
+GUI:Graphical User Interface 图形用户界面
+SSH：Secure Shell (远程登录/安全shell)
+FTP:File Transfer Protocol 文件传输协议
+SFTP：SSH File Transfer Protocol （基于ssh的文件传输）
+CI：Continuous Integration 持续集成
+CD：Continuous Delivery/Deployment 持续交付/部署
+VM:Virtual Machine 虚拟机
+VPS:Virtual Private Server 虚拟专用服务器
+K8s:Kubernates （容器编排平台）
+HNSW:Hierachical Navigable Small World 分层可导航小世界图 （一种向量检索算法）
+SSE:Server-Sent Events 服务器发送事件
+SMTP:Simple Mail Transfer Protocol 简单邮件传输协议&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>项目思考</title>
         <link>https://echo806.github.io/p/%E9%A1%B9%E7%9B%AE%E6%80%9D%E8%80%83/</link>
         <pubDate>Mon, 10 Aug 2026 00:00:00 +0000</pubDate>
@@ -26,6 +106,26 @@
 &lt;h3 id=&#34;购买列车余票如何防止库存超卖&#34;&gt;购买列车余票如何防止库存超卖？
 &lt;/h3&gt;&lt;p&gt;常见库存超卖解决方案：1.数据库乐观锁 2.Redis缓存余量扣减
 但是这个项目不用，&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>项目思考</title>
+        <link>https://echo806.github.io/p/%E9%A1%B9%E7%9B%AE%E6%80%9D%E8%80%83/</link>
+        <pubDate>Mon, 10 Aug 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://echo806.github.io/p/%E9%A1%B9%E7%9B%AE%E6%80%9D%E8%80%83/</guid>
+        <description>&lt;p&gt;这个项目不足的地方：
+1.虽然说有多agent驱动，但是harness部分感觉有点像是workflow硬编码了呢，当然也不是说workflow不好，workflow和agent结合的话能节约token减少不必要消耗，使结果更稳定xxx（workflow和agent结合优点）。workflow把“怎么做事”硬编码了，harness把“agent可以怎样做事”硬编码了。重点看决策权在LLM还是代码里。至于这样的处理好不好，见仁见智了，如果要改进，xxx
+2.
+纯静态工具映射：工具调用由risk_level枚举驱动，无LLM function-calling，MCP感觉有点被降级为RPC管道了，至于要真做成MCP&lt;/p&gt;
+&lt;p&gt;疑问：
+1.MCP
+2.Engineering Harness覆盖哪些测试套件&lt;/p&gt;
+&lt;p&gt;有没有做过skill调优?有什么心得？
+做过一些skill调优。我的理解是skill不只是写一段prompt，而是把某一类任务的执行过程、输入输出约束、工具使用方式和异常处理明确下来，明确skill的职责边界，后面还要进行效果评测。比如看skill的触发成功率、任务完成率、工具调用的正确率以及失败类型，然后根据失败原因进行修改迭代
+skill选择问题：skill的名称、description、触发条件和边界
+执行步骤出错：skill的执行流程、参数约束和工具调用说明
+最后再用一批固定测试case比较修改前后的成功率&lt;/p&gt;
 </description>
         </item>
         <item>
@@ -244,10 +344,12 @@ char[]s=S.toCharArray();&lt;/p&gt;
 要返回&lt;code&gt;int[][]&lt;/code&gt;怎么办？Java 中 &lt;code&gt;List&amp;lt;int[]&amp;gt;&lt;/code&gt; 转成 &lt;code&gt;int[][]&lt;/code&gt; 的写法
 &lt;code&gt;用ans.toArray(new int[ans.size()][]);&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Arrays.fill(nums,1)&lt;/p&gt;
-&lt;p&gt;对于List
-取值
+&lt;p&gt;对于List&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;List&amp;lt;Integer&amp;gt;cur=new ArrayList&amp;lt;&amp;gt;(i)&lt;/code&gt;声明了一个容量为i的List&lt;/p&gt;
+&lt;p&gt;取值
 ans.get(i)//i是下标
 ans.set(i,x)//i是下标，x是值&lt;/p&gt;
+&lt;p&gt;ans.add(1);&lt;/p&gt;
 &lt;p&gt;函数要返回数组
 return new {x,x};&lt;/p&gt;
 &lt;p&gt;函数要返回空List
@@ -1033,7 +1135,65 @@ g[i] = new ArrayList&amp;lt;&amp;gt;();
 &lt;p&gt;否则（left.size()比right.size()多1）返回left.peek();&lt;/p&gt;
 &lt;h2 id=&#34;买卖股票的最佳时机httpsleetcodecnproblemsbest-time-to-buy-and-sell-stock&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;买卖股票的最佳时机&lt;/a&gt;
-&lt;/h2&gt;</description>
+&lt;/h2&gt;&lt;p&gt;遍历一遍，记录最小值，比较ans和目前值-最小值哪个大&lt;/p&gt;
+&lt;h2 id=&#34;跳跃游戏httpsleetcodecnproblemsjump-game&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/jump-game/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;跳跃游戏&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;判断右边范围最大能有多少&lt;/p&gt;
+&lt;h2 id=&#34;跳跃游戏-iihttpsleetcodecnproblemsjump-game-ii&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/jump-game-ii/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;跳跃游戏 II&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;差不多想法，不过这个题是求最小次数&lt;/p&gt;
+&lt;p&gt;思路：从下标0开始，设置cur_right=0,next_right=0&lt;/p&gt;
+&lt;p&gt;next_right,i+nums[i]择大更新next_right,在i到cur_right时把cur_right=next_right，同时ans++&lt;/p&gt;
+&lt;h2 id=&#34;划分字母区间httpsleetcodecnproblemspartition-labels&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/partition-labels/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;划分字母区间&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;先创建哈希表last记录每个字母出现的最晚位置的下标&lt;/p&gt;
+&lt;p&gt;把String转化CharArray后遍历，择大更新end，当i等于end的时候就可以截断&lt;/p&gt;
+&lt;h2 id=&#34;爬楼梯httpsleetcodecnproblemsclimbing-stairs&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/climbing-stairs/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;爬楼梯&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;递推&lt;/p&gt;
+&lt;h2 id=&#34;杨辉三角httpsleetcodecnproblemspascals-triangle&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/pascals-triangle/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;杨辉三角&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;对于List,&lt;/p&gt;
+&lt;p&gt;声明大小&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;List&amp;lt;Integer&amp;gt;cur=new ArrayList&amp;lt;&amp;gt;(i+1)&lt;/code&gt;声明一个i+1大小的List&lt;/p&gt;
+&lt;p&gt;改变List里面的元素&lt;/p&gt;
+&lt;p&gt;cur.set(j,ans.get(j-1).get(j-1)+ans.get(j-1).get(j))&lt;/p&gt;
+&lt;h2 id=&#34;打家劫舍httpsleetcodecnproblemshouse-robber&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/house-robber/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;打家劫舍&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;对于某个阶段，它之前的最优解也是固定的&lt;/p&gt;
+&lt;p&gt;递推&lt;/p&gt;
+&lt;p&gt;int f1=0；int f2=0；记录初始两个情况状态&lt;/p&gt;
+&lt;p&gt;for(int x:nums)&lt;/p&gt;
+&lt;p&gt;{&lt;/p&gt;
+&lt;p&gt;​	int f3=Math.max(f1+x,f2);&lt;/p&gt;
+&lt;p&gt;​	f1=f2;&lt;/p&gt;
+&lt;p&gt;​	f2=f3;&lt;/p&gt;
+&lt;p&gt;}&lt;/p&gt;
+&lt;p&gt;return f2;&lt;/p&gt;
+&lt;p&gt;可以这样理解，f1,f2在遍历循环开始时，f1表示前一个数没有选时的最优获得，f2表示前一个数选时的最优获得&lt;/p&gt;
+&lt;p&gt;在循环的末尾，更新f1,f2&lt;/p&gt;
+&lt;h2 id=&#34;完全平方数httpsleetcodecnproblemsperfect-squares&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/perfect-squares/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;完全平方数&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;先创建一个n+1的数组，0下标处值为0,其他值为Interer.MAX_VALUE&lt;/p&gt;
+&lt;p&gt;这道题的思路是for循环嵌套for循环&lt;/p&gt;
+&lt;p&gt;因为题目给的n小于等于10000,所以必须包括100*100,for(int x=1;x&amp;lt;101;x++)&lt;/p&gt;
+&lt;p&gt;里面一层思路是由小到大算x的平方，比如，先算每个数能被1的平方填满需要的最小数量，接着就是能被1的平方和2的平方，接着就是能被1的平方2的平方3的平方，每个都是在前面的基础上进行的。取最小值 f[c]=Math.min(f[c],f[c-(int)pow(x,2)]+1);&lt;/p&gt;
+&lt;h2 id=&#34;零钱兑换httpsleetcodecnproblemscoin-change&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/coin-change/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;零钱兑换&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;和上一题一样思路，就是外层x在上一层是遍历可能平方数的根，这一题外层是遍历可能的零钱&lt;/p&gt;
+&lt;h2 id=&#34;单词拆分httpsleetcodecnproblemsword-break&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/word-break/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;单词拆分&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;把word全部放在一个哈希表&lt;/p&gt;
+&lt;p&gt;还是两个for循环，&lt;/p&gt;
+&lt;p&gt;用长度做初筛（可以先求word里面最大的长度），长度匹配再看substring在不在哈希表里面&lt;/p&gt;
+&lt;p&gt;记录状态还是用大小为n+1的f数组，&lt;/p&gt;
+&lt;p&gt;接下来想清楚边界关系就行了&lt;/p&gt;
+&lt;h2 id=&#34;最长递增子序列httpsleetcodecnproblemslongest-increasing-subsequence&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode.cn/problems/longest-increasing-subsequence/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;最长递增子序列&lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;最优的解法时间复杂度是o(nlogn)空间复杂度是o(1)&lt;/p&gt;
+&lt;p&gt;在原数组进行修改，具体是维持一个新数组的长度ng，对于正在遍历访问到的某个数，找到新数组长度内它应该在的地方，如果在长度内就替换这个地方的元素为这个数，如果位置在新数组的长度处，就把这个地方替换成这个数，并且ng++;&lt;/p&gt;
+&lt;p&gt;查找位置在哪，可以使用二分&lt;/p&gt;
+</description>
         </item>
         <item>
         <title>FFmpeg</title>

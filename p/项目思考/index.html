@@ -268,46 +268,7 @@
     </ol>
 </aside>
 
-    <aside class="sidebar right-sidebar sticky">
-        
-            
-                
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">目录</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
-  <ol>
-    <li>
-      <ol>
-        <li><a href="#为什么数据查询用redis不用es">为什么数据查询用Redis不用ES？</a></li>
-        <li><a href="#列车数据查询有没有数据检索功能比如北京到杭州要有北京西到杭州西北京东到杭州东北京西到杭州东等等">列车数据查询有没有数据检索功能？比如北京到杭州，要有北京西到杭州西，北京东到杭州东，北京西到杭州东等等？</a></li>
-        <li><a href="#缓存击穿问题">缓存击穿问题</a></li>
-        <li><a href="#项目什么场景使用了线程池参数如何设置">项目什么场景使用了线程池？参数如何设置?</a></li>
-        <li><a href="#购买列车余票如何防止库存超卖">购买列车余票如何防止库存超卖？</a></li>
-      </ol>
-    </li>
-  </ol>
-</nav>
-        </div>
-    </section>
-
-            
-        
-    </aside>
-
+    
 
             <main class="main full-width">
     <article class="main-article">
@@ -364,19 +325,18 @@
     <section class="article-content">
     
     
-    <h3 id="为什么数据查询用redis不用es">为什么数据查询用Redis不用ES？
-</h3><p>页面上的筛选条件选项很多，但是大部分是由前端进行筛选的。实际上对于后端的查询是只发送 出发地-目的地-日期 这个条件。所以可以设计为 key：出发地-目的地-日期 value存哈希组，里面的key存 列车ID-出发站-终点站 value存列车详细信息。实际情况一次查询就可以把全部列车返回，前端只要对返回来的数据进行简单筛选即可，这个过程不调用后端的查询。在这种情况下，redis更适合（数据模型相对简单，适合存储键值）（其他优点：内存存储，相应请求很快。单线程模型减少上下文切换和锁竞争。并发性能好。部署轻量，还便于扩展集群）。如果未来真的想实现对后端的复杂多条件查询，也可以引入ES</p>
-<h3 id="列车数据查询有没有数据检索功能比如北京到杭州要有北京西到杭州西北京东到杭州东北京西到杭州东等等">列车数据查询有没有数据检索功能？比如北京到杭州，要有北京西到杭州西，北京东到杭州东，北京西到杭州东等等？
-</h3><p>同上。如果想通过站点查询，缓存中有一个Hash结构数据，专门负责站点与城市之间的关联</p>
-<h3 id="缓存击穿问题">缓存击穿问题
-</h3><p>常见方案：1.设置热点数据永不过期（业务范围的，实际无法作为通用方案）2.使用互斥锁，确保同时只有一个请求可以去后端获取数据，其他请求束腰等待锁释放
-（升级优化：双重判断，获取锁后，在查询数据库之前，再次检查一下缓存中是存在数据，如果缓存存在数据，就直接返回，如果不存在，才继续执行查询数据库的操作）</p>
-<h3 id="项目什么场景使用了线程池参数如何设置">项目什么场景使用了线程池？参数如何设置?
-</h3><p>在一个用户购买多种类型的车座时，比如同一订单购买了一等座和二等座，需要按照不同的逻辑选座。不用线程池就串行进行，也就是先执行完一等座选座在执行二等座。但是这个逻辑其实是可以并行的，可以采用线程池，提高执行效率和系统吞吐量。</p>
-<p>阻塞队列设置SynchronousQueue，拒绝策略选CallerRunsPolicy</p>
-<h3 id="购买列车余票如何防止库存超卖">购买列车余票如何防止库存超卖？
-</h3><p>常见库存超卖解决方案：1.数据库乐观锁 2.Redis缓存余量扣减
-但是这个项目不用，</p>
+    <p>这个项目不足的地方：
+1.虽然说有多agent驱动，但是harness部分感觉有点像是workflow硬编码了呢，当然也不是说workflow不好，workflow和agent结合的话能节约token减少不必要消耗，使结果更稳定xxx（workflow和agent结合优点）。workflow把“怎么做事”硬编码了，harness把“agent可以怎样做事”硬编码了。重点看决策权在LLM还是代码里。至于这样的处理好不好，见仁见智了，如果要改进，xxx
+2.
+纯静态工具映射：工具调用由risk_level枚举驱动，无LLM function-calling，MCP感觉有点被降级为RPC管道了，至于要真做成MCP</p>
+<p>疑问：
+1.MCP
+2.Engineering Harness覆盖哪些测试套件</p>
+<p>有没有做过skill调优?有什么心得？
+做过一些skill调优。我的理解是skill不只是写一段prompt，而是把某一类任务的执行过程、输入输出约束、工具使用方式和异常处理明确下来，明确skill的职责边界，后面还要进行效果评测。比如看skill的触发成功率、任务完成率、工具调用的正确率以及失败类型，然后根据失败原因进行修改迭代
+skill选择问题：skill的名称、description、触发条件和边界
+执行步骤出错：skill的执行流程、参数约束和工具调用说明
+最后再用一批固定测试case比较修改前后的成功率</p>
 
 </section>
 
@@ -398,6 +358,19 @@
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E9%A1%B9%E7%9B%AE%E6%80%9D%E8%80%83/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">项目思考</h2>
+        </div>
+    </a>
+</article>
+
             
                 
 <article class="">
