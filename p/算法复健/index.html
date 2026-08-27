@@ -405,6 +405,19 @@
     <li><a href="#零钱兑换httpsleetcodecnproblemscoin-change"><a href="https://leetcode.cn/problems/coin-change/">零钱兑换</a></a></li>
     <li><a href="#单词拆分httpsleetcodecnproblemsword-break"><a href="https://leetcode.cn/problems/word-break/">单词拆分</a></a></li>
     <li><a href="#最长递增子序列httpsleetcodecnproblemslongest-increasing-subsequence"><a href="https://leetcode.cn/problems/longest-increasing-subsequence/">最长递增子序列</a></a></li>
+    <li><a href="#乘积最大子数组httpsleetcodecnproblemsmaximum-product-subarray"><a href="https://leetcode.cn/problems/maximum-product-subarray/">乘积最大子数组</a></a></li>
+    <li><a href="#分割等和子集httpsleetcodecnproblemspartition-equal-subset-sum"><a href="https://leetcode.cn/problems/partition-equal-subset-sum/">分割等和子集</a></a></li>
+    <li><a href="#最长有效括号httpsleetcodecnproblemslongest-valid-parentheses"><a href="https://leetcode.cn/problems/longest-valid-parentheses/">最长有效括号</a></a></li>
+    <li><a href="#不同路径httpsleetcodecnproblemsunique-paths"><a href="https://leetcode.cn/problems/unique-paths/">不同路径</a></a></li>
+    <li><a href="#最小路径和httpsleetcodecnproblemsminimum-path-sum"><a href="https://leetcode.cn/problems/minimum-path-sum/">最小路径和</a></a></li>
+    <li><a href="#最长回文子串httpsleetcodecnproblemslongest-palindromic-substring"><a href="https://leetcode.cn/problems/longest-palindromic-substring/">最长回文子串</a></a></li>
+    <li><a href="#最长公共子序列httpsleetcodecnproblemslongest-common-subsequence"><a href="https://leetcode.cn/problems/longest-common-subsequence/">最长公共子序列</a></a></li>
+    <li><a href="#编辑距离httpsleetcodecnproblemsedit-distance"><a href="https://leetcode.cn/problems/edit-distance/">编辑距离</a></a></li>
+    <li><a href="#只出现一次的数字httpsleetcodecnproblemssingle-number"><a href="https://leetcode.cn/problems/single-number/">只出现一次的数字</a></a></li>
+    <li><a href="#多数元素httpsleetcodecnproblemsmajority-element"><a href="https://leetcode.cn/problems/majority-element/">多数元素</a></a></li>
+    <li><a href="#颜色分类httpsleetcodecnproblemssort-colors"><a href="https://leetcode.cn/problems/sort-colors/">颜色分类</a></a></li>
+    <li><a href="#下一个排列httpsleetcodecnproblemsnext-permutation"><a href="https://leetcode.cn/problems/next-permutation/">下一个排列</a></a></li>
+    <li><a href="#寻找重复数httpsleetcodecnproblemsfind-the-duplicate-number"><a href="https://leetcode.cn/problems/find-the-duplicate-number/">寻找重复数</a></a></li>
   </ol>
 </nav>
         </div>
@@ -1335,6 +1348,99 @@ g[i] = new ArrayList&lt;&gt;();
 </h2><p>最优的解法时间复杂度是o(nlogn)空间复杂度是o(1)</p>
 <p>在原数组进行修改，具体是维持一个新数组的长度ng，对于正在遍历访问到的某个数，找到新数组长度内它应该在的地方，如果在长度内就替换这个地方的元素为这个数，如果位置在新数组的长度处，就把这个地方替换成这个数，并且ng++;</p>
 <p>查找位置在哪，可以使用二分</p>
+<h2 id="乘积最大子数组httpsleetcodecnproblemsmaximum-product-subarray"><a class="link" href="https://leetcode.cn/problems/maximum-product-subarray/"  target="_blank" rel="noopener"
+    >乘积最大子数组</a>
+</h2><p>连续子数组，遍历数组，</p>
+<p>设置一个int ans=Integer.MIN_VALUE;int max=1;int min=1;</p>
+<p>在遍历的时候，如果遇到x&lt;0的情况，要交换min，max，保证乘积后还是最大、最小值</p>
+<p>ans=Math.max(ans,max);</p>
+<h2 id="分割等和子集httpsleetcodecnproblemspartition-equal-subset-sum"><a class="link" href="https://leetcode.cn/problems/partition-equal-subset-sum/"  target="_blank" rel="noopener"
+    >分割等和子集</a>
+</h2><p>先数组之和s，</p>
+<p>如果数组之和为奇数，那么一定不能分割等和子集，返回false。</p>
+<p>要求等和子集，就是求是否存在一个数组，使得和为int target=s/2;</p>
+<p>boolean f[]=new boolean[target+1];</p>
+<p>Arrays.fill(f,false);</p>
+<p>f[0]=true;</p>
+<p>对于一个某个子集和，如果这个子集和存在，那么加入一个元素x后，（这个子集和+x）存在</p>
+<p>所以只要遍历整个数组，</p>
+<p>for(x:nums)</p>
+<p>{</p>
+<p>​	for(int c=target;c&gt;=x;c&ndash;)</p>
+<p>​	{</p>
+<p>​		f[c]=f[c]||f[c-x];</p>
+<p>​	}</p>
+<p>}</p>
+<p>return f[target];</p>
+<h2 id="最长有效括号httpsleetcodecnproblemslongest-valid-parentheses"><a class="link" href="https://leetcode.cn/problems/longest-valid-parentheses/"  target="_blank" rel="noopener"
+    >最长有效括号</a>
+</h2><p>这里当然可以用栈，只是入栈的是遍历时的下标</p>
+<p>如果想要追求空间复杂度o(1)</p>
+<p>可以记录</p>
+<p>ans,left,right</p>
+<p>遍历整个字符串（函数记得s.charAt(i)）</p>
+<p>如果是‘(’，left++</p>
+<p>如果是‘)’,right++；</p>
+<p>再判断left和right的关系，如果left==right，就更新ans=Math.max(ans,left*2);如果left&lt;right,直接更新left=0,right=0;</p>
+<p>但是这样有个问题，就是如果遍历结束的时候left&gt;right，不会更新ans，会有遗漏的情况。所以我们换位思考，反着来再遍历一次，就可以避免遗漏了</p>
+<h2 id="不同路径httpsleetcodecnproblemsunique-paths"><a class="link" href="https://leetcode.cn/problems/unique-paths/"  target="_blank" rel="noopener"
+    >不同路径</a>
+</h2><p>这个就是个数学题</p>
+<p>C（m,m+n）</p>
+<h2 id="最小路径和httpsleetcodecnproblemsminimum-path-sum"><a class="link" href="https://leetcode.cn/problems/minimum-path-sum/"  target="_blank" rel="noopener"
+    >最小路径和</a>
+</h2><p>记忆化搜索</p>
+<p>为了方便统一逻辑，设长度为n+1的数组，初始化为0</p>
+<p>f[i]代表着在遍历某一行时第i列能到达的最少路径和情况</p>
+<h2 id="最长回文子串httpsleetcodecnproblemslongest-palindromic-substring"><a class="link" href="https://leetcode.cn/problems/longest-palindromic-substring/"  target="_blank" rel="noopener"
+    >最长回文子串</a>
+</h2><p>遍历字符串每一个字符，把每一个字符作为字串中心向外扩张直到不符合为止</p>
+<p>那么问题来了，回文字串可能是奇数也可能是偶数，有没有什么办法能统一一下遍历的逻辑呢？</p>
+<p>可以这样</p>
+<p>for(int i=0;i&lt;s.length()*2-1;i++)</p>
+<p>left=i/2;</p>
+<p>right=(i+1)/2;</p>
+<p>记得维护一下ans_left,ans_right</p>
+<p>return s.substring(ans_left,ans_right+1)就好了</p>
+<h2 id="最长公共子序列httpsleetcodecnproblemslongest-common-subsequence"><a class="link" href="https://leetcode.cn/problems/longest-common-subsequence/"  target="_blank" rel="noopener"
+    >最长公共子序列</a>
+</h2><p>递归改递推</p>
+<p>pre是指&quot;左上角&quot;的数</p>
+<p>为了方便统一逻辑，数组选用大小比内层遍历用的字符串长度大1的</p>
+<p>s1[i]==s2[j]时，f[j+1]=pre+1;</p>
+<p>否则，f[j+1]=Math.max(f[j+1],f[j]);对应这其中一个字符串不选的情况</p>
+<h2 id="编辑距离httpsleetcodecnproblemsedit-distance"><a class="link" href="https://leetcode.cn/problems/edit-distance/"  target="_blank" rel="noopener"
+    >编辑距离</a>
+</h2><p>这道题求得是最小变化步数</p>
+<p>和上一题很像，只是上一题像是选或不选，这一题是插入、删除、替换三种情况，(其中值得品味的是，选或不选的逻辑和插入、删除的逻辑是一样的。替换的话，就是pre+1)</p>
+<p>s1[i]==s2[j]时，f[j+1]=pre</p>
+<p>否则，f[j+1]=Math.min((f[j+1],f[j]),pre)+1;就是三者选一个最小的情况+1</p>
+<p>注意先设好边界情况，看层mxn数组的话，边界就是word一直在删除，把边界先补好（先想想mxn数组大概边界长什么样，再翻译成一维数组）</p>
+<h2 id="只出现一次的数字httpsleetcodecnproblemssingle-number"><a class="link" href="https://leetcode.cn/problems/single-number/"  target="_blank" rel="noopener"
+    >只出现一次的数字</a>
+</h2><p>除了要找的那个数出现一次，其他数都会出现两次，</p>
+<p>两次的话，很自然可以想到异或运算^</p>
+<p>又因为</p>
+<p>0^某个数=某个数</p>
+<p>所以只要设ans=0;</p>
+<p>遍历数组异或运算就行了</p>
+<h2 id="多数元素httpsleetcodecnproblemsmajority-element"><a class="link" href="https://leetcode.cn/problems/majority-element/"  target="_blank" rel="noopener"
+    >多数元素</a>
+</h2><p>可以想象成打擂台赛，某个数站着场，遇到和自己一样的数就回血，遇到和自己不一样的数就扣血，血变成负数就换成遇到的另外一个数并设成一血</p>
+<h2 id="颜色分类httpsleetcodecnproblemssort-colors"><a class="link" href="https://leetcode.cn/problems/sort-colors/"  target="_blank" rel="noopener"
+    >颜色分类</a>
+</h2><p>其实很简单的思路，记录下一个0(红色)应该在的位置，下一个1(白色)应该在的位置</p>
+<h2 id="下一个排列httpsleetcodecnproblemsnext-permutation"><a class="link" href="https://leetcode.cn/problems/next-permutation/"  target="_blank" rel="noopener"
+    >下一个排列</a>
+</h2><p>1234567</p>
+<p>1234576</p>
+<p>1234657</p>
+<p>1234675</p>
+<p>排列的话，后面有一段降序，找到降序终止的地方(不满足nums[i]&gt;=nums[i+1]也就是nums[i]&lt;nums[i+1]的地方）在降序的列里面找一个刚刚大于nums[i]的数，两者做交换，（如果找不到，直接进行下一步）</p>
+<p>然后把降序的数列改成升序</p>
+<h2 id="寻找重复数httpsleetcodecnproblemsfind-the-duplicate-number"><a class="link" href="https://leetcode.cn/problems/find-the-duplicate-number/"  target="_blank" rel="noopener"
+    >寻找重复数</a>
+</h2><p>这套题可以用双指针（快慢指针）类似链表的思维实现空间复杂度为o(1)</p>
 
 </section>
 
