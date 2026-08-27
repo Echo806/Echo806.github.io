@@ -88,6 +88,55 @@ SMTP:Simple Mail Transfer Protocol 简单邮件传输协议&lt;/p&gt;
 </description>
         </item>
         <item>
+        <title>碎屑</title>
+        <link>https://echo806.github.io/p/%E7%A2%8E%E5%B1%91/</link>
+        <pubDate>Mon, 10 Aug 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://echo806.github.io/p/%E7%A2%8E%E5%B1%91/</guid>
+        <description>&lt;p&gt;Hashmap介绍？&lt;/p&gt;
+&lt;p&gt;java常用键值对组合，通过key可以快速查找value。底层主要采用数组,链表/红黑树 实现。&lt;/p&gt;
+&lt;p&gt;原理：根据key计算hashcode并定位数组桶，发生哈希冲突就用链表或红黑树存储多个节点。&lt;/p&gt;
+&lt;p&gt;（链表达到一定长度并且数组容量满足要求后，会转变为红黑树，降低极端情况下的查询复杂度）。平均情况下get,put,remove时间复杂度是o(1),最坏情况树化后为o(logn)。HashMap允许一个null key和多个null value，但是线程不安全也不保证元素顺序。&lt;/p&gt;
+&lt;p&gt;保证不同的key也不能让HashMap变成线程安全。线程不安全的原因是：多个线程同时修改HashMap的内部数据结构。&lt;/p&gt;
+&lt;p&gt;可以用ConcurrentHashMap来保证线程安全&lt;/p&gt;
+&lt;p&gt;设计一个线程池框架，从哪些思路去设计？&lt;/p&gt;
+&lt;p&gt;Worker，任务队列，线程工厂，拒绝策略&lt;/p&gt;
+&lt;p&gt;介绍一下线程池参数以及你为什么这样选？&lt;/p&gt;
+&lt;p&gt;核心线程数corePoolSize，最大线程数maximumPoolSize，非核心线程存活时间keepAliveTime，任务队列workQueue，线程创建方式，拒绝策略&lt;/p&gt;
+&lt;p&gt;核心线程数:cpu密集型：cpu核数+1。io密集型：cpu核数*2&lt;/p&gt;
+&lt;p&gt;最大线程数：在吞吐能力和系统资源之间做均衡&lt;/p&gt;
+&lt;p&gt;非核心线程存货时间：不能让临时线程永久存在&lt;/p&gt;
+&lt;p&gt;任务队列：线程暂时处理不来的任务放哪里，无限队列有OOM风险，推荐有界队列+合理的拒绝策略。SynchronousQueue不真正存储任务，适合高并发，短任务场景&lt;/p&gt;
+&lt;p&gt;线程工厂ThreadFactory:负责创建线程。我一般至少会做：统一线程名字，设置daemon，设置异常处理器&lt;/p&gt;
+&lt;p&gt;拒绝策略RejectedExecutionHandler:AbortPolicy，CallerRunsPolicy，DiscardPolicy，DiscardOldestPolicy。&lt;/p&gt;
+&lt;p&gt;MySQL实现一个可重入的锁：&lt;/p&gt;
+&lt;p&gt;通过一张锁表，核心字段包括：锁名称，持有者ID，重入次数，过期时间&lt;/p&gt;
+&lt;p&gt;第一次加锁通过唯一键插入记录，利用唯一键保证同一把锁只能被一个持有者获取。&lt;/p&gt;
+&lt;p&gt;如果发现锁已经属于当前所有者，就执行原子UPDATE,把重入次数+1,从而实现可重入。&lt;/p&gt;
+&lt;p&gt;释放锁时是把重入次数-1,只有减到0时才真正删除锁。&lt;/p&gt;
+&lt;p&gt;MySQL聚簇索引和非聚簇索引区别？&lt;/p&gt;
+&lt;p&gt;聚簇索引叶子节点直接存储整行数据，&lt;/p&gt;
+&lt;p&gt;非聚簇索引也叫作二级索引，叶子节点存储索引列和主键值，查询完整数据统称要根据主键再次回到聚簇索引查询，这个过程叫回表&lt;/p&gt;
+&lt;p&gt;聚簇索引的数据更新，它的存储结构要不要发生变化？&lt;/p&gt;
+&lt;p&gt;更新的数据是非索引数据，那么存储结构不会发生变化&lt;/p&gt;
+&lt;p&gt;更新的数据的索引数据，那么存储结构是有变化的，因为要维护B+树的有序性&lt;/p&gt;
+&lt;p&gt;主键是“约束/身份”，索引是“数据结构/查询手段”&lt;/p&gt;
+&lt;p&gt;主键不是索引，但是在InnoDB中，主键会自动创建聚簇索引&lt;/p&gt;
+&lt;p&gt;索引优化：（让sql尽可能少扫描数据、减少回表，从而提高查询效率）&lt;/p&gt;
+&lt;p&gt;慢查询日志查慢sql-&amp;gt;EXPLAIN分析执行计划-&amp;gt;根据查询条件合理设计联合索引，遵循最左匹配原则-&amp;gt;同时要避免索引失效，比如对索引字段使用函数、隐式类型转换、LIKE &amp;lsquo;%xxx&amp;rsquo;等-&amp;gt;对于查询字段比较固定的场景可以使用覆盖索引减少回表-&amp;gt;对于深分页可以改为基于索引字段的游标分页-&amp;gt;最后再用EXPLAIN验证优化结果&lt;/p&gt;
+&lt;p&gt;MySQL InnoDB引擎通过什么技术来保证事物的四个特性？&lt;/p&gt;
+&lt;p&gt;原子性通过 undo log (回滚日志)来保证&lt;/p&gt;
+&lt;p&gt;一致性通过原子性、隔离性、持久性来保证&lt;/p&gt;
+&lt;p&gt;隔离性通过MVCC（多版本并发控制）或锁机制来保证&lt;/p&gt;
+&lt;p&gt;持久性通过 redo log（重做日志)来保证&lt;/p&gt;
+&lt;p&gt;MVCC的实现原理？&lt;/p&gt;
+&lt;p&gt;MVCC是多版本并发控制，主要用提高数据库的并发性能，它通过保存数据的多个版本，让读操作尽量不加锁&lt;/p&gt;
+&lt;p&gt;在MySQL InnoDB中，MVCC主要依赖Undo log饿Read View实现&lt;/p&gt;
+&lt;p&gt;MySQL日志文件分为了哪几种？&lt;/p&gt;
+&lt;p&gt;redo log，undo log，bin log，relay log&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>项目思考</title>
         <link>https://echo806.github.io/p/%E9%A1%B9%E7%9B%AE%E6%80%9D%E8%80%83/</link>
         <pubDate>Mon, 10 Aug 2026 00:00:00 +0000</pubDate>
