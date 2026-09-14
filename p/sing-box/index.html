@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Hashmap介绍？ java常用键值对组合，通过key可以快速查找value。底层主要采用数组,链表/红黑树 实现。 原理：根据key计算has">
-<title>碎屑</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="暂时记录 从 GitHub 下载： sing-box-版本号-windows-amd64.zip 压缩包下载到“下载”目录即可，不必直接放进 Programs。 解">
+<title>sing-box</title>
 
-<link rel='canonical' href='https://echo806.github.io/p/%E7%A2%8E%E5%B1%91/'>
+<link rel='canonical' href='https://echo806.github.io/p/sing-box/'>
 
-<link rel="stylesheet" href="/scss/style.min.d44d1b138e555166d2fb22df4e9ea386c36ba19591a491a37edb07faede022e1.css"><meta property='og:title' content="碎屑">
-<meta property='og:description' content="Hashmap介绍？ java常用键值对组合，通过key可以快速查找value。底层主要采用数组,链表/红黑树 实现。 原理：根据key计算has">
-<meta property='og:url' content='https://echo806.github.io/p/%E7%A2%8E%E5%B1%91/'>
+<link rel="stylesheet" href="/scss/style.min.d44d1b138e555166d2fb22df4e9ea386c36ba19591a491a37edb07faede022e1.css"><meta property='og:title' content="sing-box">
+<meta property='og:description' content="暂时记录 从 GitHub 下载： sing-box-版本号-windows-amd64.zip 压缩包下载到“下载”目录即可，不必直接放进 Programs。 解">
+<meta property='og:url' content='https://echo806.github.io/p/sing-box/'>
 <meta property='og:site_name' content='知识与避世的狭缝'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-08-10T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-10T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="碎屑">
-<meta name="twitter:description" content="Hashmap介绍？ java常用键值对组合，通过key可以快速查找value。底层主要采用数组,链表/红黑树 实现。 原理：根据key计算has">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-09-14T17:23:45&#43;08:00'/><meta property='article:modified_time' content='2026-09-14T17:23:45&#43;08:00'/>
+<meta name="twitter:title" content="sing-box">
+<meta name="twitter:description" content="暂时记录 从 GitHub 下载： sing-box-版本号-windows-amd64.zip 压缩包下载到“下载”目录即可，不必直接放进 Programs。 解">
     <link rel="shortcut icon" href="/favicon.ico" />
 
   
@@ -268,7 +268,44 @@
     </ol>
 </aside>
 
-    
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#1-用户-path">1. 用户 PATH</a></li>
+        <li><a href="#2-命令入口">2. 命令入口</a></li>
+        <li><a href="#3-实际程序和配置">3. 实际程序和配置</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
 
             <main class="main full-width">
     <article class="main-article">
@@ -287,7 +324,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/%E7%A2%8E%E5%B1%91/">碎屑</a>
+            <a href="/p/sing-box/">sing-box</a>
         </h2>
     
         
@@ -309,7 +346,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2026-08-10</time>
+                <time class="article-time--published">2026-09-14</time>
             </div>
         
 
@@ -325,47 +362,199 @@
     <section class="article-content">
     
     
-    <p>Hashmap介绍？</p>
-<p>java常用键值对组合，通过key可以快速查找value。底层主要采用数组,链表/红黑树 实现。</p>
-<p>原理：根据key计算hashcode并定位数组桶，发生哈希冲突就用链表或红黑树存储多个节点。</p>
-<p>（链表达到一定长度并且数组容量满足要求后，会转变为红黑树，降低极端情况下的查询复杂度）。平均情况下get,put,remove时间复杂度是o(1),最坏情况树化后为o(logn)。HashMap允许一个null key和多个null value，但是线程不安全也不保证元素顺序。</p>
-<p>保证不同的key也不能让HashMap变成线程安全。线程不安全的原因是：多个线程同时修改HashMap的内部数据结构。</p>
-<p>可以用ConcurrentHashMap来保证线程安全</p>
-<p>设计一个线程池框架，从哪些思路去设计？</p>
-<p>Worker，任务队列，线程工厂，拒绝策略</p>
-<p>介绍一下线程池参数以及你为什么这样选？</p>
-<p>核心线程数corePoolSize，最大线程数maximumPoolSize，非核心线程存活时间keepAliveTime，任务队列workQueue，线程创建方式，拒绝策略</p>
-<p>核心线程数:cpu密集型：cpu核数+1。io密集型：cpu核数*2</p>
-<p>最大线程数：在吞吐能力和系统资源之间做均衡</p>
-<p>非核心线程存货时间：不能让临时线程永久存在</p>
-<p>任务队列：线程暂时处理不来的任务放哪里，无限队列有OOM风险，推荐有界队列+合理的拒绝策略。SynchronousQueue不真正存储任务，适合高并发，短任务场景</p>
-<p>线程工厂ThreadFactory:负责创建线程。我一般至少会做：统一线程名字，设置daemon，设置异常处理器</p>
-<p>拒绝策略RejectedExecutionHandler:AbortPolicy，CallerRunsPolicy，DiscardPolicy，DiscardOldestPolicy。</p>
-<p>MySQL实现一个可重入的锁：</p>
-<p>通过一张锁表，核心字段包括：锁名称，持有者ID，重入次数，过期时间</p>
-<p>第一次加锁通过唯一键插入记录，利用唯一键保证同一把锁只能被一个持有者获取。</p>
-<p>如果发现锁已经属于当前所有者，就执行原子UPDATE,把重入次数+1,从而实现可重入。</p>
-<p>释放锁时是把重入次数-1,只有减到0时才真正删除锁。</p>
-<p>MySQL聚簇索引和非聚簇索引区别？</p>
-<p>聚簇索引叶子节点直接存储整行数据，</p>
-<p>非聚簇索引也叫作二级索引，叶子节点存储索引列和主键值，查询完整数据统称要根据主键再次回到聚簇索引查询，这个过程叫回表</p>
-<p>聚簇索引的数据更新，它的存储结构要不要发生变化？</p>
-<p>更新的数据是非索引数据，那么存储结构不会发生变化</p>
-<p>更新的数据的索引数据，那么存储结构是有变化的，因为要维护B+树的有序性</p>
-<p>主键是“约束/身份”，索引是“数据结构/查询手段”</p>
-<p>主键不是索引，但是在InnoDB中，主键会自动创建聚簇索引</p>
-<p>索引优化：（让sql尽可能少扫描数据、减少回表，从而提高查询效率）</p>
-<p>慢查询日志查慢sql-&gt;EXPLAIN分析执行计划-&gt;根据查询条件合理设计联合索引，遵循最左匹配原则-&gt;同时要避免索引失效，比如对索引字段使用函数、隐式类型转换、LIKE &lsquo;%xxx&rsquo;等-&gt;对于查询字段比较固定的场景可以使用覆盖索引减少回表-&gt;对于深分页可以改为基于索引字段的游标分页-&gt;最后再用EXPLAIN验证优化结果</p>
-<p>MySQL InnoDB引擎通过什么技术来保证事物的四个特性？</p>
-<p>原子性通过 undo log (回滚日志)来保证</p>
-<p>一致性通过原子性、隔离性、持久性来保证</p>
-<p>隔离性通过MVCC（多版本并发控制）或锁机制来保证</p>
-<p>持久性通过 redo log（重做日志)来保证</p>
-<p>MVCC的实现原理？</p>
-<p>MVCC是多版本并发控制，主要用提高数据库的并发性能，它通过保存数据的多个版本，让读操作尽量不加锁</p>
-<p>在MySQL InnoDB中，MVCC主要依赖Undo log饿Read View实现</p>
-<p>MySQL日志文件分为了哪几种？</p>
-<p>redo log，undo log，bin log，relay log</p>
+    <p>暂时记录</p>
+<ol>
+<li><strong>从 GitHub 下载：</strong></li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sing-box-版本号-windows-amd64.zip
+</span></span></code></pre></div><p>压缩包下载到“下载”目录即可，不必直接放进 <code>Programs</code>。</p>
+<ol>
+<li>解压后会得到类似目录：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sing-box-1.14.0-windows-amd64
+</span></span></code></pre></div><ol>
+<li>把这个目录移动并重命名为：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">C:\Users\25352\AppData\Local\Programs\sing-box
+</span></span></code></pre></div><h3 id="1-用户-path">1. 用户 PATH
+</h3><p>用户级 PATH 中加入了：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">C:\Users\25352\AppData\Local\Programs\bin
+</span></span></code></pre></div><p>系统级 PATH 中没有 sing-box 相关条目。</p>
+<h3 id="2-命令入口">2. 命令入口
+</h3><p>这个目录里有：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">C:\Users\25352\AppData\Local\Programs\bin\sing-box.cmd
+</span></span></code></pre></div><p>内容是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">@echo off
+</span></span><span class="line"><span class="cl">&#34;C:\Users\25352\AppData\Local\Programs\sing-box\sing-box.exe&#34; -D &#34;C:\Users\25352\AppData\Local\Programs\sing-box&#34; %*
+</span></span></code></pre></div><h3 id="3-实际程序和配置">3. 实际程序和配置
+</h3><p>真正的程序没有直接加入 PATH，位于：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">C:\Users\25352\AppData\Local\Programs\sing-box\sing-box.exe
+</span></span></code></pre></div><p>配置位于：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">C:\Users\25352\AppData\Local\Programs\sing-box\config.json
+</span></span></code></pre></div><p>所以完整执行链是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">输入 sing-box run
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">PATH 找到 Programs\bin\sing-box.cmd
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">cmd 调用真正的 sing-box.exe
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">-D 将工作目录设为 Programs\sing-box
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">sing-box 自动读取 config.json
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">启动运行
+</span></span></code></pre></div><p>当前解析结果是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">where.exe sing-box
+</span></span><span class="line"><span class="cl">C:\Users\25352\AppData\Local\Programs\bin\sing-box.cmd
+</span></span></code></pre></div><ol>
+<li>手动建立：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">rules
+</span></span></code></pre></div><ol>
+<li>用浏览器分别下载：
+<ul>
+<li><a class="link" href="https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-cn.srs"  target="_blank" rel="noopener"
+    >geosite-cn.srs</a></li>
+<li><a class="link" href="https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs"  target="_blank" rel="noopener"
+    >geoip-cn.srs</a></li>
+</ul>
+</li>
+<li>把它们拖进：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sing-box\rules\
+</span></span></code></pre></div><p>最终变成：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sing-box\
+</span></span><span class="line"><span class="cl">├── sing-box.exe
+</span></span><span class="line"><span class="cl">├── libcronet.dll
+</span></span><span class="line"><span class="cl">├── config.json
+</span></span><span class="line"><span class="cl">└── rules\
+</span></span><span class="line"><span class="cl">    ├── geosite-cn.srs
+</span></span><span class="line"><span class="cl">    └── geoip-cn.srs
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;log&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;level&#34;: &#34;info&#34;,
+</span></span><span class="line"><span class="cl">    &#34;timestamp&#34;: true
+</span></span><span class="line"><span class="cl">  },
+</span></span><span class="line"><span class="cl">  &#34;dns&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;servers&#34;: [
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;type&#34;: &#34;udp&#34;,
+</span></span><span class="line"><span class="cl">        &#34;tag&#34;: &#34;dns-cn&#34;,
+</span></span><span class="line"><span class="cl">        &#34;server&#34;: &#34;223.5.5.5&#34;,
+</span></span><span class="line"><span class="cl">        &#34;server_port&#34;: 53
+</span></span><span class="line"><span class="cl">      },
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;type&#34;: &#34;https&#34;,
+</span></span><span class="line"><span class="cl">        &#34;tag&#34;: &#34;dns-proxy&#34;,
+</span></span><span class="line"><span class="cl">        &#34;detour&#34;: &#34;proxy&#34;,
+</span></span><span class="line"><span class="cl">        &#34;server&#34;: &#34;1.1.1.1&#34;,
+</span></span><span class="line"><span class="cl">        &#34;server_port&#34;: 443,
+</span></span><span class="line"><span class="cl">        &#34;tls&#34;: {
+</span></span><span class="line"><span class="cl">          &#34;enabled&#34;: true,
+</span></span><span class="line"><span class="cl">          &#34;server_name&#34;: &#34;cloudflare-dns.com&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;path&#34;: &#34;/dns-query&#34;
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    ],
+</span></span><span class="line"><span class="cl">    &#34;rules&#34;: [
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;domain&#34;: &#34;proxy.example.com&#34;,
+</span></span><span class="line"><span class="cl">        &#34;server&#34;: &#34;dns-cn&#34;
+</span></span><span class="line"><span class="cl">      },
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;rule_set&#34;: &#34;geosite-cn&#34;,
+</span></span><span class="line"><span class="cl">        &#34;server&#34;: &#34;dns-cn&#34;
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    ],
+</span></span><span class="line"><span class="cl">    &#34;final&#34;: &#34;dns-proxy&#34;,
+</span></span><span class="line"><span class="cl">    &#34;strategy&#34;: &#34;prefer_ipv4&#34;
+</span></span><span class="line"><span class="cl">  },
+</span></span><span class="line"><span class="cl">  &#34;inbounds&#34;: [
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;type&#34;: &#34;tun&#34;,
+</span></span><span class="line"><span class="cl">      &#34;tag&#34;: &#34;tun-in&#34;,
+</span></span><span class="line"><span class="cl">      &#34;interface_name&#34;: &#34;singtun0&#34;,
+</span></span><span class="line"><span class="cl">      &#34;address&#34;: &#34;172.19.0.1/30&#34;,
+</span></span><span class="line"><span class="cl">      &#34;auto_route&#34;: true,
+</span></span><span class="line"><span class="cl">      &#34;strict_route&#34;: true,
+</span></span><span class="line"><span class="cl">      &#34;stack&#34;: &#34;system&#34;,
+</span></span><span class="line"><span class="cl">      &#34;dns_mode&#34;: &#34;hijack&#34;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  ],
+</span></span><span class="line"><span class="cl">  &#34;outbounds&#34;: [
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;type&#34;: &#34;vless&#34;,
+</span></span><span class="line"><span class="cl">      &#34;tag&#34;: &#34;proxy&#34;,
+</span></span><span class="line"><span class="cl">      &#34;server&#34;: &#34;proxy.example.com&#34;,
+</span></span><span class="line"><span class="cl">      &#34;server_port&#34;: 443,
+</span></span><span class="line"><span class="cl">      &#34;uuid&#34;: &#34;在这里填写你的UUID&#34;,
+</span></span><span class="line"><span class="cl">      &#34;tls&#34;: {
+</span></span><span class="line"><span class="cl">        &#34;enabled&#34;: true,
+</span></span><span class="line"><span class="cl">        &#34;server_name&#34;: &#34;proxy.example.com&#34;,
+</span></span><span class="line"><span class="cl">        &#34;utls&#34;: {
+</span></span><span class="line"><span class="cl">          &#34;enabled&#34;: true,
+</span></span><span class="line"><span class="cl">          &#34;fingerprint&#34;: &#34;chrome&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      },
+</span></span><span class="line"><span class="cl">      &#34;transport&#34;: {
+</span></span><span class="line"><span class="cl">        &#34;type&#34;: &#34;ws&#34;,
+</span></span><span class="line"><span class="cl">        &#34;path&#34;: &#34;/你的WebSocket路径&#34;,
+</span></span><span class="line"><span class="cl">        &#34;headers&#34;: {
+</span></span><span class="line"><span class="cl">          &#34;Host&#34;: &#34;proxy.example.com&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;type&#34;: &#34;direct&#34;,
+</span></span><span class="line"><span class="cl">      &#34;tag&#34;: &#34;direct&#34;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  ],
+</span></span><span class="line"><span class="cl">  &#34;route&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;rules&#34;: [
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;action&#34;: &#34;sniff&#34;
+</span></span><span class="line"><span class="cl">      },
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;ip_is_private&#34;: true,
+</span></span><span class="line"><span class="cl">        &#34;outbound&#34;: &#34;direct&#34;
+</span></span><span class="line"><span class="cl">      },
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;rule_set&#34;: &#34;geosite-cn&#34;,
+</span></span><span class="line"><span class="cl">        &#34;outbound&#34;: &#34;direct&#34;
+</span></span><span class="line"><span class="cl">      },
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;rule_set&#34;: &#34;geoip-cn&#34;,
+</span></span><span class="line"><span class="cl">        &#34;outbound&#34;: &#34;direct&#34;
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    ],
+</span></span><span class="line"><span class="cl">    &#34;rule_set&#34;: [
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;type&#34;: &#34;local&#34;,
+</span></span><span class="line"><span class="cl">        &#34;tag&#34;: &#34;geosite-cn&#34;,
+</span></span><span class="line"><span class="cl">        &#34;path&#34;: &#34;C:/sing-box/rules/geosite-cn.srs&#34;
+</span></span><span class="line"><span class="cl">      },
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;type&#34;: &#34;local&#34;,
+</span></span><span class="line"><span class="cl">        &#34;tag&#34;: &#34;geoip-cn&#34;,
+</span></span><span class="line"><span class="cl">        &#34;path&#34;: &#34;C:/sing-box/rules/geoip-cn.srs&#34;
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    ],
+</span></span><span class="line"><span class="cl">    &#34;final&#34;: &#34;proxy&#34;,
+</span></span><span class="line"><span class="cl">    &#34;auto_detect_interface&#34;: true,
+</span></span><span class="line"><span class="cl">    &#34;default_domain_resolver&#34;: &#34;dns-cn&#34;
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><p>需要根据服务商信息替换：</p>
+<ul>
+<li><code>proxy.example.com</code></li>
+<li><code>uuid</code></li>
+<li>WebSocket 路径</li>
+<li>端口</li>
+<li>TLS SNI</li>
+<li>Host</li>
+</ul>
+<p>powershell 管理员启动</p>
+<p>sing-box run</p>
 
 </section>
 
@@ -390,12 +579,12 @@
             
                 
 <article class="">
-    <a href="/p/sing-box/">
+    <a href="/p/%E8%8B%B1%E8%AF%AD%E7%BC%A9%E5%86%99%E6%B1%87%E6%80%BB/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">sing-box</h2>
+            <h2 class="article-title">英语缩写汇总</h2>
         </div>
     </a>
 </article>
@@ -403,12 +592,12 @@
             
                 
 <article class="">
-    <a href="/p/%E8%8B%B1%E8%AF%AD%E7%BC%A9%E5%86%99%E6%B1%87%E6%80%BB/">
+    <a href="/p/%E7%A2%8E%E5%B1%91/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">英语缩写汇总</h2>
+            <h2 class="article-title">碎屑</h2>
         </div>
     </a>
 </article>
