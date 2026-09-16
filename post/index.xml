@@ -206,6 +206,8 @@
 &lt;/ul&gt;
 &lt;p&gt;powershell 管理员启动&lt;/p&gt;
 &lt;p&gt;sing-box run&lt;/p&gt;
+&lt;p&gt;nixos上面&lt;/p&gt;
+&lt;p&gt;systemctl run sing-box&lt;/p&gt;
 </description>
         </item>
         <item>
