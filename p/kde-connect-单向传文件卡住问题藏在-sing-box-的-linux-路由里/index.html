@@ -293,6 +293,7 @@
     <li><a href="#现象有点反直觉">现象有点反直觉</a></li>
     <li><a href="#修复">修复</a></li>
     <li><a href="#验证">验证</a></li>
+    <li><a href="#其他平台要不要开-auto_redirect">其他平台要不要开 <code>auto_redirect</code>？</a></li>
   </ol>
 </nav>
         </div>
@@ -390,6 +391,11 @@
 </span></span><span class="line"><span class="cl">  <span class="s2">&#34;10.100.100.0/24&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">]</span>
 </span></span></code></pre></div><p>改完后 EasyTier 仍然走 <code>easytier0</code>，连通性也正常。这次问题说到底不是 KDE Connect 坏了，也不是私有地址规则没匹配，而是 Linux 内核在流量进入 sing-box 之前，就先替回包选错了路。</p>
+<h2 id="其他平台要不要开-auto_redirect">其他平台要不要开 <code>auto_redirect</code>？
+</h2><p>后来我又翻了下<a class="link" href="https://sing-box.sagernet.org/zh/configuration/inbound/tun/#auto_redirect"  target="_blank" rel="noopener"
+    >官方的 TUN 文档</a>，这个选项其实不能到处照抄。Linux 上是完整实现，会配合 nftables 和策略路由工作，所以官方建议和 <code>auto_route</code> 一起开。Windows 和 iOS 没有这套机制，不需要加。</p>
+<p>Android 稍微特殊一点。官方确实说它也能用，但只是借助 root 和 iptables 做简单的 IPv4 TCP 重定向，不包括 IPv6 和 UDP，跟 Linux 版不是一回事。官方 Android 客户端默认也是关闭的，开启时会要求 root。</p>
+<p>所以普通 Android 手机继续用 <code>auto_route</code> 就行。只有手机已经 root，而且刚好遇到 IPv4 TCP 或局域网入站连接的问题，才值得打开做一次对照测试。</p>
 
 </section>
 

@@ -45,6 +45,11 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;s2&#34;&gt;&amp;#34;10.100.100.0/24&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;改完后 EasyTier 仍然走 &lt;code&gt;easytier0&lt;/code&gt;，连通性也正常。这次问题说到底不是 KDE Connect 坏了，也不是私有地址规则没匹配，而是 Linux 内核在流量进入 sing-box 之前，就先替回包选错了路。&lt;/p&gt;
+&lt;h2 id=&#34;其他平台要不要开-auto_redirect&#34;&gt;其他平台要不要开 &lt;code&gt;auto_redirect&lt;/code&gt;？
+&lt;/h2&gt;&lt;p&gt;后来我又翻了下&lt;a class=&#34;link&#34; href=&#34;https://sing-box.sagernet.org/zh/configuration/inbound/tun/#auto_redirect&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;官方的 TUN 文档&lt;/a&gt;，这个选项其实不能到处照抄。Linux 上是完整实现，会配合 nftables 和策略路由工作，所以官方建议和 &lt;code&gt;auto_route&lt;/code&gt; 一起开。Windows 和 iOS 没有这套机制，不需要加。&lt;/p&gt;
+&lt;p&gt;Android 稍微特殊一点。官方确实说它也能用，但只是借助 root 和 iptables 做简单的 IPv4 TCP 重定向，不包括 IPv6 和 UDP，跟 Linux 版不是一回事。官方 Android 客户端默认也是关闭的，开启时会要求 root。&lt;/p&gt;
+&lt;p&gt;所以普通 Android 手机继续用 &lt;code&gt;auto_route&lt;/code&gt; 就行。只有手机已经 root，而且刚好遇到 IPv4 TCP 或局域网入站连接的问题，才值得打开做一次对照测试。&lt;/p&gt;
 </description>
         </item>
         <item>
