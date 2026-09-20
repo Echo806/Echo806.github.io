@@ -7,7 +7,47 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>RUN</copyright>
-        <lastBuildDate>Mon, 14 Sep 2026 17:23:45 +0800</lastBuildDate><atom:link href="https://echo806.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 20 Sep 2026 20:20:00 +0800</lastBuildDate><atom:link href="https://echo806.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>KDE Connect 单向传文件卡住，问题藏在 sing-box 的 Linux 路由里</title>
+        <link>https://echo806.github.io/p/kde-connect-%E5%8D%95%E5%90%91%E4%BC%A0%E6%96%87%E4%BB%B6%E5%8D%A1%E4%BD%8F%E9%97%AE%E9%A2%98%E8%97%8F%E5%9C%A8-sing-box-%E7%9A%84-linux-%E8%B7%AF%E7%94%B1%E9%87%8C/</link>
+        <pubDate>Sun, 20 Sep 2026 20:20:00 +0800</pubDate>
+        
+        <guid>https://echo806.github.io/p/kde-connect-%E5%8D%95%E5%90%91%E4%BC%A0%E6%96%87%E4%BB%B6%E5%8D%A1%E4%BD%8F%E9%97%AE%E9%A2%98%E8%97%8F%E5%9C%A8-sing-box-%E7%9A%84-linux-%E8%B7%AF%E7%94%B1%E9%87%8C/</guid>
+        <description>&lt;p&gt;两台电脑明明已经配对，Windows 往 NixOS 传文件正常，反过来却一直卡在发送页面。最开始我以为是 Windows 防火墙，后来抓包才发现，问题其实出在 NixOS 上的 sing-box 路由。&lt;/p&gt;
+&lt;h2 id=&#34;现象有点反直觉&#34;&gt;现象有点反直觉
+&lt;/h2&gt;&lt;p&gt;NixOS 发起分享后，Windows 会反过来连接 NixOS 临时监听的端口来取文件。抓包能看到 Windows 发来的 SYN，但 NixOS 没有从无线网卡回 SYN-ACK。&lt;/p&gt;
+&lt;p&gt;查路由时原因就很明显了：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;172.26.92.186 via 172.19.0.2 dev singtun0 table 2022
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;回包被策略路由送进了 &lt;code&gt;singtun0&lt;/code&gt;，连接自然卡在握手阶段。&lt;/p&gt;
+&lt;p&gt;配置里虽然已经有 &lt;code&gt;ip_is_private: true -&amp;gt; direct&lt;/code&gt;，但这条规则要等流量进入 sing-box 后才会生效。它决定的是 sing-box 选哪个出站，并不能替内核修正这条连接的回程路由。也正因为如此，“私有地址会走 direct”并不等于“内核一定从局域网网卡直连”。&lt;/p&gt;
+&lt;h2 id=&#34;修复&#34;&gt;修复
+&lt;/h2&gt;&lt;p&gt;原来的 TUN 入站已经启用了 &lt;code&gt;auto_route&lt;/code&gt;，再加一行 &lt;code&gt;auto_redirect&lt;/code&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;tun&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;auto_route&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;auto_redirect&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;strict_route&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后重建 NixOS：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo nixos-rebuild switch --flake ~/nixos#x250
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;auto_redirect&lt;/code&gt; 会在 Linux 上配合 nftables 和连接跟踪处理流量。启用后，同一连接的回复方向不再被 TUN 的兜底策略路由抢走。此时再查 Windows 地址，已经回到无线网卡直连：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;172.26.92.186 dev wlp3s0 src 172.26.11.104
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;验证&#34;&gt;验证
+&lt;/h2&gt;&lt;p&gt;再次从 NixOS 分享测试文件，抓包里这次完整出现了：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Windows -&amp;gt; NixOS:1739  SYN
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;NixOS:1739 -&amp;gt; Windows  SYN-ACK
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Windows -&amp;gt; NixOS       ACK
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;双向 TLS 数据
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;双方 FIN
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;从 SYN 到传输结束不到 0.4 秒，文件发送恢复正常。&lt;/p&gt;
+&lt;p&gt;我还保留了 EasyTier 网段的排除项：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;route_exclude_address&amp;#34;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;s2&#34;&gt;&amp;#34;10.100.100.0/24&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;改完后 EasyTier 仍然走 &lt;code&gt;easytier0&lt;/code&gt;，连通性也正常。这次问题说到底不是 KDE Connect 坏了，也不是私有地址规则没匹配，而是 Linux 内核在流量进入 sing-box 之前，就先替回包选错了路。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>sing-box</title>
         <link>https://echo806.github.io/p/sing-box/</link>
         <pubDate>Mon, 14 Sep 2026 17:23:45 +0800</pubDate>

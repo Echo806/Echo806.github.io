@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
-    <head>
-	<meta name="generator" content="Hugo 0.131.0"><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="演示说明">
-<title>Pager 3 - 知识与避世的狭缝</title>
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="两台电脑明明已经配对，Windows 往 NixOS 传文件正常，反过来却一直卡在发送页面。最开始我以为是 Windows 防火墙，后来抓包才发现，问题其实出在 NixOS 上的 sing-box 路">
+<title>KDE Connect 单向传文件卡住，问题藏在 sing-box 的 Linux 路由里</title>
 
-<link rel='canonical' href='https://echo806.github.io/'>
+<link rel='canonical' href='https://echo806.github.io/p/kde-connect-%E5%8D%95%E5%90%91%E4%BC%A0%E6%96%87%E4%BB%B6%E5%8D%A1%E4%BD%8F%E9%97%AE%E9%A2%98%E8%97%8F%E5%9C%A8-sing-box-%E7%9A%84-linux-%E8%B7%AF%E7%94%B1%E9%87%8C/'>
 
-<link rel="stylesheet" href="/scss/style.min.d44d1b138e555166d2fb22df4e9ea386c36ba19591a491a37edb07faede022e1.css"><meta property='og:title' content="知识与避世的狭缝">
-<meta property='og:description' content="演示说明">
-<meta property='og:url' content='https://echo806.github.io/'>
+<link rel="stylesheet" href="/scss/style.min.d44d1b138e555166d2fb22df4e9ea386c36ba19591a491a37edb07faede022e1.css"><meta property='og:title' content="KDE Connect 单向传文件卡住，问题藏在 sing-box 的 Linux 路由里">
+<meta property='og:description' content="两台电脑明明已经配对，Windows 往 NixOS 传文件正常，反过来却一直卡在发送页面。最开始我以为是 Windows 防火墙，后来抓包才发现，问题其实出在 NixOS 上的 sing-box 路">
+<meta property='og:url' content='https://echo806.github.io/p/kde-connect-%E5%8D%95%E5%90%91%E4%BC%A0%E6%96%87%E4%BB%B6%E5%8D%A1%E4%BD%8F%E9%97%AE%E9%A2%98%E8%97%8F%E5%9C%A8-sing-box-%E7%9A%84-linux-%E8%B7%AF%E7%94%B1%E9%87%8C/'>
 <meta property='og:site_name' content='知识与避世的狭缝'>
-<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-09-20T20:20:00&#43;08:00 '/>
-<meta name="twitter:title" content="知识与避世的狭缝">
-<meta name="twitter:description" content="演示说明"><link rel="alternate" type="application/rss&#43;xml" href="https://echo806.github.io/index.xml">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-09-20T20:20:00&#43;08:00'/><meta property='article:modified_time' content='2026-09-20T20:20:00&#43;08:00'/>
+<meta name="twitter:title" content="KDE Connect 单向传文件卡住，问题藏在 sing-box 的 Linux 路由里">
+<meta name="twitter:description" content="两台电脑明明已经配对，Windows 往 NixOS 传文件正常，反过来却一直卡在发送页面。最开始我以为是 Windows 防火墙，后来抓包才发现，问题其实出在 NixOS 上的 sing-box 路">
     <link rel="shortcut icon" href="/favicon.ico" />
 
   
 
 
     </head>
-    <body class="">
+    <body class="
+    article-page
+    ">
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
@@ -130,7 +131,7 @@
         
         
         
-        <li  class='current' >
+        <li >
             <a href='/' >
                 
                 
@@ -270,61 +271,10 @@
     <aside class="sidebar right-sidebar sticky">
         
             
-                <form action="/search/" class="search-form widget" >
-        <p>
-            <label>搜索</label>
-            <input name="keyword" required placeholder="输入关键词..." />
-        
-            <button title="搜索">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-            </button>
-        </p>
-    </form>
-            
-        
-            
-                <section class="widget archives">
+                
+    <section class="widget archives">
         <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">归档</h2>
-
-        
-        
-        
-        
-        
-        <div class="widget-archive--list">
-            <div class="archives-year">
-                    <a href="/archives/#2026">
-                        
-                            <span class="year">2026</span>
-                            <span class="count">30</span>
-                        
-                    </a> 
-                </div>
-            
-        </div>
-    </section>
-            
-        
-            
-                <section class="widget tagCloud">
-    <div class="widget-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <line x1="5" y1="9" x2="19" y2="9" />
   <line x1="5" y1="15" x2="19" y2="15" />
@@ -334,53 +284,19 @@
 
 
 
-    </div>
-    <h2 class="widget-title section-title">分类</h2>
-
-    <div class="tagCloud-tags">
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
         
-            <a href="/categories/%E9%9A%8F%E4%BE%BF%E5%AD%A6%E5%AD%A6/" class="font_size_9">
-                随便学学
-            </a>
-        
-            <a href="/categories/default-categories/" class="font_size_5">
-                stack默认归档
-            </a>
-        
-            <a href="/categories/nixos/" class="font_size_4">
-                nixos
-            </a>
-        
-            <a href="/categories/%E7%AE%97%E6%B3%95%E5%A4%8D%E5%81%A5/" class="font_size_3">
-                算法复健
-            </a>
-        
-            <a href="/categories/linux/" class="font_size_2">
-                Linux
-            </a>
-        
-            <a href="/categories/redis/" class="font_size_2">
-                redis
-            </a>
-        
-            <a href="/categories/agent/" class="font_size_1">
-                Agent
-            </a>
-        
-            <a href="/categories/hugo/" class="font_size_1">
-                hugo
-            </a>
-        
-            <a href="/categories/mysql/" class="font_size_1">
-                mysql
-            </a>
-        
-            <a href="/categories/%E7%94%9F%E6%B4%BB%E5%91%A8%E8%AE%B0/" class="font_size_1">
-                生活周记
-            </a>
-        
-    </div>
-</section>
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#现象有点反直觉">现象有点反直觉</a></li>
+    <li><a href="#修复">修复</a></li>
+    <li><a href="#验证">验证</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
 
             
         
@@ -388,23 +304,15 @@
 
 
             <main class="main full-width">
-    
-    
-    
-    
-
-    <section class="article-list">
-        
-            
-<article class="">
+    <article class="main-article">
     <header class="article-header">
 
     <div class="article-details">
     
     <header class="article-category">
         
-            <a href="/categories/%E9%9A%8F%E4%BE%BF%E5%AD%A6%E5%AD%A6/" style="background-color: #2a9d8f; color: #fff;">
-                随便学学
+            <a href="/categories/nixos/" style="background-color: #2a9d8f; color: #fff;">
+                nixos
             </a>
         
     </header>
@@ -412,7 +320,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/ffmpeg/">FFmpeg</a>
+            <a href="/p/kde-connect-%E5%8D%95%E5%90%91%E4%BC%A0%E6%96%87%E4%BB%B6%E5%8D%A1%E4%BD%8F%E9%97%AE%E9%A2%98%E8%97%8F%E5%9C%A8-sing-box-%E7%9A%84-linux-%E8%B7%AF%E7%94%B1%E9%87%8C/">KDE Connect 单向传文件卡住，问题藏在 sing-box 的 Linux 路由里</a>
         </h2>
     
         
@@ -434,7 +342,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2026-04-25</time>
+                <time class="article-time--published">2026-09-20</time>
             </div>
         
 
@@ -446,256 +354,113 @@
 </div>
 
 </header>
+
+    <section class="article-content">
+    
+    
+    <p>两台电脑明明已经配对，Windows 往 NixOS 传文件正常，反过来却一直卡在发送页面。最开始我以为是 Windows 防火墙，后来抓包才发现，问题其实出在 NixOS 上的 sing-box 路由。</p>
+<h2 id="现象有点反直觉">现象有点反直觉
+</h2><p>NixOS 发起分享后，Windows 会反过来连接 NixOS 临时监听的端口来取文件。抓包能看到 Windows 发来的 SYN，但 NixOS 没有从无线网卡回 SYN-ACK。</p>
+<p>查路由时原因就很明显了：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">172.26.92.186 via 172.19.0.2 dev singtun0 table 2022
+</span></span></code></pre></div><p>回包被策略路由送进了 <code>singtun0</code>，连接自然卡在握手阶段。</p>
+<p>配置里虽然已经有 <code>ip_is_private: true -&gt; direct</code>，但这条规则要等流量进入 sing-box 后才会生效。它决定的是 sing-box 选哪个出站，并不能替内核修正这条连接的回程路由。也正因为如此，“私有地址会走 direct”并不等于“内核一定从局域网网卡直连”。</p>
+<h2 id="修复">修复
+</h2><p>原来的 TUN 入站已经启用了 <code>auto_route</code>，再加一行 <code>auto_redirect</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;tun&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;auto_route&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;auto_redirect&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;strict_route&#34;</span><span class="p">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>然后重建 NixOS：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nixos-rebuild switch --flake ~/nixos#x250
+</span></span></code></pre></div><p><code>auto_redirect</code> 会在 Linux 上配合 nftables 和连接跟踪处理流量。启用后，同一连接的回复方向不再被 TUN 的兜底策略路由抢走。此时再查 Windows 地址，已经回到无线网卡直连：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">172.26.92.186 dev wlp3s0 src 172.26.11.104
+</span></span></code></pre></div><h2 id="验证">验证
+</h2><p>再次从 NixOS 分享测试文件，抓包里这次完整出现了：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Windows -&gt; NixOS:1739  SYN
+</span></span><span class="line"><span class="cl">NixOS:1739 -&gt; Windows  SYN-ACK
+</span></span><span class="line"><span class="cl">Windows -&gt; NixOS       ACK
+</span></span><span class="line"><span class="cl">双向 TLS 数据
+</span></span><span class="line"><span class="cl">双方 FIN
+</span></span></code></pre></div><p>从 SYN 到传输结束不到 0.4 秒，文件发送恢复正常。</p>
+<p>我还保留了 EasyTier 网段的排除项：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="s2">&#34;route_exclude_address&#34;</span><span class="err">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;10.100.100.0/24&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span></code></pre></div><p>改完后 EasyTier 仍然走 <code>easytier0</code>，连通性也正常。这次问题说到底不是 KDE Connect 坏了，也不是私有地址规则没匹配，而是 Linux 内核在流量进入 sing-box 之前，就先替回包选错了路。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
 </article>
-        
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
             
+                
 <article class="">
-    <header class="article-header">
-
-    <div class="article-details">
-    
-    <header class="article-category">
+    <a href="/p/%E8%80%81%E7%94%B5%E8%84%91%E4%B8%8A%E5%AE%89%E8%A3%85nixos%E5%91%BD%E4%BB%A4%E9%98%9F%E5%88%97%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/">
         
-            <a href="/categories/%E9%9A%8F%E4%BE%BF%E5%AD%A6%E5%AD%A6/" style="background-color: #2a9d8f; color: #fff;">
-                随便学学
-            </a>
-        
-    </header>
-    
-
-    <div class="article-title-wrapper">
-        <h2 class="article-title">
-            <a href="/p/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
-        </h2>
-    
-        
-    </div>
-
-    
-    
-    
-    
-    <footer class="article-time">
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
-  <circle cx="18" cy="18" r="4" />
-  <path d="M15 3v4" />
-  <path d="M7 3v4" />
-  <path d="M3 11h16" />
-  <path d="M18 16.496v1.504l1 1" />
-</svg>
-                <time class="article-time--published">2026-04-15</time>
-            </div>
         
 
-        
-    </footer>
-    
-
-    
-</div>
-
-</header>
+        <div class="article-details">
+            <h2 class="article-title">老电脑上安装nixos命令队列兼容性问题</h2>
+        </div>
+    </a>
 </article>
-        
+
             
+                
 <article class="">
-    <header class="article-header">
-
-    <div class="article-details">
-    
-    <header class="article-category">
+    <a href="/p/nixos-%E5%86%B7%E5%90%AF%E5%8A%A8%E9%BB%91%E5%B1%8F%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/">
         
-            <a href="/categories/mysql/" style="background-color: #2a9d8f; color: #fff;">
-                mysql
-            </a>
-        
-    </header>
-    
-
-    <div class="article-title-wrapper">
-        <h2 class="article-title">
-            <a href="/p/mysql%E7%AC%94%E8%AE%B0/">mysql笔记</a>
-        </h2>
-    
-        
-    </div>
-
-    
-    
-    
-    
-    <footer class="article-time">
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
-  <circle cx="18" cy="18" r="4" />
-  <path d="M15 3v4" />
-  <path d="M7 3v4" />
-  <path d="M3 11h16" />
-  <path d="M18 16.496v1.504l1 1" />
-</svg>
-                <time class="article-time--published">2026-04-14</time>
-            </div>
         
 
-        
-    </footer>
-    
-
-    
-</div>
-
-</header>
+        <div class="article-details">
+            <h2 class="article-title">NixOS 冷启动黑屏问题排查</h2>
+        </div>
+    </a>
 </article>
-        
+
             
+                
 <article class="">
-    <header class="article-header">
-
-    <div class="article-details">
-    
-    <header class="article-category">
+    <a href="/p/nixos%E4%B8%8Achrome%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8fcitx5%E8%BE%93%E5%85%A5%E6%B3%95%E9%97%AE%E9%A2%98%E7%9A%84%E4%BF%AE%E5%A4%8D/">
         
-            <a href="/categories/redis/" style="background-color: #2a9d8f; color: #fff;">
-                redis
-            </a>
-        
-    </header>
-    
-
-    <div class="article-title-wrapper">
-        <h2 class="article-title">
-            <a href="/p/redis%E7%AC%94%E8%AE%B0/">redis笔记</a>
-        </h2>
-    
-        
-    </div>
-
-    
-    
-    
-    
-    <footer class="article-time">
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
-  <circle cx="18" cy="18" r="4" />
-  <path d="M15 3v4" />
-  <path d="M7 3v4" />
-  <path d="M3 11h16" />
-  <path d="M18 16.496v1.504l1 1" />
-</svg>
-                <time class="article-time--published">2026-04-13</time>
-            </div>
         
 
-        
-    </footer>
-    
-
-    
-</div>
-
-</header>
+        <div class="article-details">
+            <h2 class="article-title">NixOS上chrome无法使用fcitx5输入法问题的修复 </h2>
+        </div>
+    </a>
 </article>
-        
+
             
-<article class="">
-    <header class="article-header">
-
-    <div class="article-details">
-    
-    <header class="article-category">
-        
-            <a href="/categories/%E7%94%9F%E6%B4%BB%E5%91%A8%E8%AE%B0/" style="background-color: #2a9d8f; color: #fff;">
-                生活周记
-            </a>
-        
-    </header>
-    
-
-    <div class="article-title-wrapper">
-        <h2 class="article-title">
-            <a href="/p/summary-of-weeks/">Summary of Weeks</a>
-        </h2>
-    
-        
+        </div>
     </div>
+</aside>
 
+     
     
-    
-    
-    
-    <footer class="article-time">
         
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
-  <circle cx="18" cy="18" r="4" />
-  <path d="M15 3v4" />
-  <path d="M7 3v4" />
-  <path d="M3 11h16" />
-  <path d="M18 16.496v1.504l1 1" />
-</svg>
-                <time class="article-time--published">2026-04-10</time>
-            </div>
-        
-
-        
-    </footer>
     
 
-    
-</div>
-
-</header>
-</article>
-        
-    </section>
-    <nav class='pagination'>
-        
-        
-
-        
-            
-                    <a class='page-link' href='/'>1</a>
-                
-            
-            
-                    <a class='page-link' href='/page/2/'>2</a>
-                
-            
-            
-                <span class='page-link current'>3</span>
-                
-            
-            
-                    <a class='page-link' href='/page/4/'>4</a>
-                
-            
-            
-                    
-                        
-                        <span class='page-link dots'>&hellip;</span>
-                    
-                
-            
-            
-                    <a class='page-link' href='/page/6/'>6</a>
-                
-            
-    </nav>
-
-<footer class="site-footer">
+    <footer class="site-footer">
     <section class="copyright">
         &copy; 
         
@@ -710,6 +475,85 @@
         
     </section>
 </footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
 
             </main>
         </div>
