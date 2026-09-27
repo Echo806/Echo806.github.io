@@ -327,15 +327,53 @@
     
     <p>微信能正常打开，fcitx5 在其他程序里也能输入中文，唯独微信不行。我一开始也怀疑是 Wayland 和 XWayland 的兼容问题。</p>
 <p>对照能用和不能用时的配置，差别落在微信自己的运行环境上。NixOS 里的微信包跑在 FHS 环境里，宿主系统装了 Fcitx，并不代表这个环境也有 GTK、Qt 的输入法模块。<code>GTK_IM_MODULE</code> 这类变量只是告诉程序加载哪个模块；模块文件不在，设了变量也没用。</p>
-<p>修复时，我在微信原有的 FHS 参数上补进 Fcitx 插件：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-nix" data-lang="nix"><span class="line"><span class="cl"><span class="n">targetPkgs</span> <span class="err">=</span> <span class="n">fhsPkgs</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">  <span class="n">wechatArgs</span><span class="o">.</span><span class="n">targetPkgs</span> <span class="n">fhsPkgs</span>
-</span></span><span class="line"><span class="cl">  <span class="o">++</span> <span class="p">(</span><span class="k">with</span> <span class="n">fhsPkgs</span><span class="p">;</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">    <span class="n">fcitx5-gtk</span>
-</span></span><span class="line"><span class="cl">    <span class="n">libsForQt5</span><span class="o">.</span><span class="n">fcitx5-qt</span>
-</span></span><span class="line"><span class="cl">    <span class="n">qt6Packages</span><span class="o">.</span><span class="n">fcitx5-qt</span>
-</span></span><span class="line"><span class="cl">  <span class="p">]);</span>
-</span></span></code></pre></div><p>GTK 3 还需要知道插件的位置，所以我用 <code>gtk-query-immodules-3.0</code> 生成模块缓存，再通过 <code>GTK_IM_MODULE_FILE</code> 指给微信。启动器同时设置 <code>GTK_IM_MODULE</code>、<code>QT_IM_MODULE</code>、<code>XMODIFIERS</code> 和 <code>INPUT_METHOD</code>，让 GTK、Qt 和 X11 都选 Fcitx。</p>
+<p>修复时，我保留了微信原有的 FHS 参数，只往里面补 Fcitx 插件，再用启动器设置输入法变量。完整的 Home Manager 配置是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-nix" data-lang="nix"><span class="line"><span class="cl"><span class="p">{</span> <span class="n">pkgs</span><span class="o">,</span> <span class="o">...</span> <span class="p">}:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span>
+</span></span><span class="line"><span class="cl">  <span class="n">wechatArgs</span> <span class="o">=</span> <span class="n">pkgs</span><span class="o">.</span><span class="n">wechat</span><span class="o">.</span><span class="n">args</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">gtkImModuleCache</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pkgs</span><span class="o">.</span><span class="n">runCommand</span> <span class="s2">&#34;wechat-fcitx5-gtk-immodules.cache&#34;</span> <span class="p">{</span> <span class="n">nativeBuildInputs</span> <span class="o">=</span> <span class="p">[</span> <span class="n">pkgs</span><span class="o">.</span><span class="n">gtk3</span><span class="o">.</span><span class="n">dev</span> <span class="p">];</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">        mkdir -p $out/etc/gtk-3.0
+</span></span></span><span class="line"><span class="cl"><span class="s1">        gtk-query-immodules-3.0 \
+</span></span></span><span class="line"><span class="cl"><span class="s1">          </span><span class="si">${</span><span class="n">pkgs</span><span class="o">.</span><span class="n">fcitx5-gtk</span><span class="si">}</span><span class="s1">/lib/gtk-3.0/3.0.0/immodules/im-fcitx5.so \
+</span></span></span><span class="line"><span class="cl"><span class="s1">          &gt; $out/etc/gtk-3.0/immodules.cache
+</span></span></span><span class="line"><span class="cl"><span class="s1">      &#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">wechatWithFcitx5</span> <span class="o">=</span> <span class="n">pkgs</span><span class="o">.</span><span class="n">buildFHSEnv</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">wechatArgs</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">nativeBuildInputs</span> <span class="o">=</span> <span class="p">[</span> <span class="n">pkgs</span><span class="o">.</span><span class="n">makeWrapper</span> <span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="n">targetPkgs</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fhsPkgs</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">wechatArgs</span><span class="o">.</span><span class="n">targetPkgs</span> <span class="n">fhsPkgs</span>
+</span></span><span class="line"><span class="cl">        <span class="o">++</span> <span class="p">(</span><span class="k">with</span> <span class="n">fhsPkgs</span><span class="p">;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">          <span class="n">fcitx5-gtk</span>
+</span></span><span class="line"><span class="cl">          <span class="n">libsForQt5</span><span class="o">.</span><span class="n">fcitx5-qt</span>
+</span></span><span class="line"><span class="cl">          <span class="n">qt6Packages</span><span class="o">.</span><span class="n">fcitx5-qt</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1"># This is separate from Fcitx: retain XWayland clipboard compatibility.</span>
+</span></span><span class="line"><span class="cl">      <span class="n">extraInstallCommands</span> <span class="o">=</span> <span class="n">wechatArgs</span><span class="o">.</span><span class="n">extraInstallCommands</span> <span class="o">+</span> <span class="s1">&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">        wrapProgram $out/bin/wechat \
+</span></span></span><span class="line"><span class="cl"><span class="s1">          --set GTK_IM_MODULE fcitx \
+</span></span></span><span class="line"><span class="cl"><span class="s1">          --set QT_IM_MODULE fcitx \
+</span></span></span><span class="line"><span class="cl"><span class="s1">          --set XMODIFIERS @im=fcitx \
+</span></span></span><span class="line"><span class="cl"><span class="s1">          --set INPUT_METHOD fcitx \
+</span></span></span><span class="line"><span class="cl"><span class="s1">          --set GTK_IM_MODULE_FILE </span><span class="si">${</span><span class="n">gtkImModuleCache</span><span class="si">}</span><span class="s1">/etc/gtk-3.0/immodules.cache \
+</span></span></span><span class="line"><span class="cl"><span class="s1">          --unset WAYLAND_DISPLAY
+</span></span></span><span class="line"><span class="cl"><span class="s1">      &#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">in</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">home</span><span class="o">.</span><span class="n">packages</span> <span class="o">=</span> <span class="p">[</span> <span class="n">wechatWithFcitx5</span> <span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><code>wechatArgs</code> 取上游微信的 FHS 参数，<code>buildFHSEnv</code> 以它为底子，再扩展 <code>targetPkgs</code>，并把新命令接在上游的 <code>extraInstallCommands</code> 后面。<code>makeWrapper</code> 提供下面用到的 <code>wrapProgram</code>。</p>
+<p><code>targetPkgs</code> 把 GTK、Qt5、Qt6 的 Fcitx 模块放进微信的 FHS 环境。GTK 3 还要读模块缓存，所以配置用 <code>gtk-query-immodules-3.0</code> 生成缓存，再通过 <code>GTK_IM_MODULE_FILE</code> 指给微信。启动器里的几个变量则告诉 GTK、Qt 和 X11 选择 Fcitx。</p>
 <p>配置里的 <code>--unset WAYLAND_DISPLAY</code> 是另一件事：它让微信走 XWayland，是之前为剪贴板兼容加的。输入法修复本身不靠这行；真正起作用的是把 Fcitx 模块放进 FHS 环境，并让 GTK 找到模块缓存。</p>
 <p>切换配置后，要把微信彻底退出再重新打开，让它使用新的 FHS 环境：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nixos-rebuild switch --flake ~/nixos#x250
