@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="NixOS 上 Chrome 无法使用 fcitx5 输入法问题修复 环境信息 项目 配置 系统 NixOS 25.11 (x86_64-linux) 桌面 KDE Plasma 6 (Wayland) 输入法 fcitx5 + Rime (雾凇拼音) 浏览器 Google Chrome 安装 Home Manager (home.packages) 问题现象 Chrome 浏览器中可以正常浏">
-<title>NixOS上chrome无法使用fcitx5输入法问题的修复 </title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="微信能正常打开，fcitx5 在其他程序里也能输入中文，唯独微信不行。我一开始也怀疑是 Wayland 和 XWayland 的兼容问题。 对照能用和不能用时的配置，差别落在微信">
+<title>NixOS 微信输入法失效，问题在 FHS 环境里</title>
 
-<link rel='canonical' href='https://echo806.github.io/p/nixos%E4%B8%8Achrome%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8fcitx5%E8%BE%93%E5%85%A5%E6%B3%95%E9%97%AE%E9%A2%98%E7%9A%84%E4%BF%AE%E5%A4%8D/'>
+<link rel='canonical' href='https://echo806.github.io/p/nixos-%E5%BE%AE%E4%BF%A1%E8%BE%93%E5%85%A5%E6%B3%95%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98%E5%9C%A8-fhs-%E7%8E%AF%E5%A2%83%E9%87%8C/'>
 
-<link rel="stylesheet" href="/scss/style.min.d44d1b138e555166d2fb22df4e9ea386c36ba19591a491a37edb07faede022e1.css"><meta property='og:title' content="NixOS上chrome无法使用fcitx5输入法问题的修复 ">
-<meta property='og:description' content="NixOS 上 Chrome 无法使用 fcitx5 输入法问题修复 环境信息 项目 配置 系统 NixOS 25.11 (x86_64-linux) 桌面 KDE Plasma 6 (Wayland) 输入法 fcitx5 + Rime (雾凇拼音) 浏览器 Google Chrome 安装 Home Manager (home.packages) 问题现象 Chrome 浏览器中可以正常浏">
-<meta property='og:url' content='https://echo806.github.io/p/nixos%E4%B8%8Achrome%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8fcitx5%E8%BE%93%E5%85%A5%E6%B3%95%E9%97%AE%E9%A2%98%E7%9A%84%E4%BF%AE%E5%A4%8D/'>
+<link rel="stylesheet" href="/scss/style.min.d44d1b138e555166d2fb22df4e9ea386c36ba19591a491a37edb07faede022e1.css"><meta property='og:title' content="NixOS 微信输入法失效，问题在 FHS 环境里">
+<meta property='og:description' content="微信能正常打开，fcitx5 在其他程序里也能输入中文，唯独微信不行。我一开始也怀疑是 Wayland 和 XWayland 的兼容问题。 对照能用和不能用时的配置，差别落在微信">
+<meta property='og:url' content='https://echo806.github.io/p/nixos-%E5%BE%AE%E4%BF%A1%E8%BE%93%E5%85%A5%E6%B3%95%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98%E5%9C%A8-fhs-%E7%8E%AF%E5%A2%83%E9%87%8C/'>
 <meta property='og:site_name' content='知识与避世的狭缝'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-05-10T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-05-10T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="NixOS上chrome无法使用fcitx5输入法问题的修复 ">
-<meta name="twitter:description" content="NixOS 上 Chrome 无法使用 fcitx5 输入法问题修复 环境信息 项目 配置 系统 NixOS 25.11 (x86_64-linux) 桌面 KDE Plasma 6 (Wayland) 输入法 fcitx5 + Rime (雾凇拼音) 浏览器 Google Chrome 安装 Home Manager (home.packages) 问题现象 Chrome 浏览器中可以正常浏">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-09-27T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-09-27T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="NixOS 微信输入法失效，问题在 FHS 环境里">
+<meta name="twitter:description" content="微信能正常打开，fcitx5 在其他程序里也能输入中文，唯独微信不行。我一开始也怀疑是 Wayland 和 XWayland 的兼容问题。 对照能用和不能用时的配置，差别落在微信">
     <link rel="shortcut icon" href="/favicon.ico" />
 
   
@@ -268,45 +268,7 @@
     </ol>
 </aside>
 
-    <aside class="sidebar right-sidebar sticky">
-        
-            
-                
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">目录</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
-  <ol>
-    <li><a href="#环境信息">环境信息</a></li>
-    <li><a href="#问题现象">问题现象</a></li>
-    <li><a href="#根因分析">根因分析</a></li>
-    <li><a href="#解决方案正确做法">解决方案（正确做法）</a>
-      <ol>
-        <li><a href="#heading"></a></li>
-      </ol>
-    </li>
-  </ol>
-</nav>
-        </div>
-    </section>
-
-            
-        
-    </aside>
-
+    
 
             <main class="main full-width">
     <article class="main-article">
@@ -325,7 +287,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/nixos%E4%B8%8Achrome%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8fcitx5%E8%BE%93%E5%85%A5%E6%B3%95%E9%97%AE%E9%A2%98%E7%9A%84%E4%BF%AE%E5%A4%8D/">NixOS上chrome无法使用fcitx5输入法问题的修复 </a>
+            <a href="/p/nixos-%E5%BE%AE%E4%BF%A1%E8%BE%93%E5%85%A5%E6%B3%95%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98%E5%9C%A8-fhs-%E7%8E%AF%E5%A2%83%E9%87%8C/">NixOS 微信输入法失效，问题在 FHS 环境里</a>
         </h2>
     
         
@@ -347,7 +309,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2026-05-10</time>
+                <time class="article-time--published">2026-09-27</time>
             </div>
         
 
@@ -363,94 +325,21 @@
     <section class="article-content">
     
     
-    <h1 id="nixos-上-chrome-无法使用-fcitx5-输入法问题修复">NixOS 上 Chrome 无法使用 fcitx5 输入法问题修复
-</h1><h2 id="环境信息">环境信息
-</h2><div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>项目</th>
-<th>配置</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>系统</td>
-<td>NixOS 25.11 (x86_64-linux)</td>
-</tr>
-<tr>
-<td>桌面</td>
-<td>KDE Plasma 6 (Wayland)</td>
-</tr>
-<tr>
-<td>输入法</td>
-<td>fcitx5 + Rime (雾凇拼音)</td>
-</tr>
-<tr>
-<td>浏览器</td>
-<td>Google Chrome</td>
-</tr>
-<tr>
-<td>安装</td>
-<td>Home Manager (<code>home.packages</code>)</td>
-</tr>
-</tbody>
-</table></div>
-<h2 id="问题现象">问题现象
-</h2><p>Chrome 浏览器中可以正常浏览网页，但<strong>无法在任何输入框中切换或使用中文输入法</strong>。fcitx5 在其他应用（Kate、Firefox、终端）中工作正常。</p>
-<h2 id="根因分析">根因分析
-</h2><p>NixOS 的 Chrome wrapper 脚本内建了 Wayland + IME 支持，但通过条件变量控制：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Chrome wrapper 关键逻辑（来自 $(readlink -f $(which google-chrome-stable))）</span>
-</span></span><span class="line"><span class="cl"><span class="si">${</span><span class="nv">NIXOS_OZONE_WL</span><span class="p">:+</span><span class="si">${</span><span class="nv">WAYLAND_DISPLAY</span><span class="p">:+--ozone-platform-hint=auto </span><span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="p">--enable-features=WaylandWindowDecorations --enable-wayland-ime=true</span><span class="si">}}</span>
-</span></span></code></pre></div><div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>条件</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>${NIXOS_OZONE_WL:+...}</code></td>
-<td>仅当设置了 <code>NIXOS_OZONE_WL</code> 环境变量才展开</td>
-</tr>
-<tr>
-<td><code>${WAYLAND_DISPLAY:+...}</code></td>
-<td>仅当 Wayland 会话存在时才展开</td>
-</tr>
-<tr>
-<td><code>--ozone-platform-hint=auto</code></td>
-<td>让 Chrome 自动选择原生 Wayland 渲染</td>
-</tr>
-<tr>
-<td><code>--enable-wayland-ime=true</code></td>
-<td>启用 Wayland IME 协议（<code>zwp_text_input</code>）</td>
-</tr>
-</tbody>
-</table></div>
-<p><strong>当 <code>NIXOS_OZONE_WL</code> 未设置时</strong>，Chrome 以 XWayland 模式运行，使用 XIM 协议与输入法通信。XIM 在 Wayland + fcitx5 环境下支持不完整，导致输入法失效。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">NIXOS_OZONE_WL 未设置
-</span></span><span class="line"><span class="cl">       ↓
-</span></span><span class="line"><span class="cl">Chrome 以 XWayland 模式启动
-</span></span><span class="line"><span class="cl">       ↓
-</span></span><span class="line"><span class="cl">使用 XIM 协议（Wayland + fcitx5 下支持不完整）
-</span></span><span class="line"><span class="cl">       ↓
-</span></span><span class="line"><span class="cl">❌ 中文输入法无法使用
-</span></span></code></pre></div><h2 id="解决方案正确做法">解决方案（正确做法）
-</h2><p>在 <code>home.nix</code> 的 <code>home.sessionVariables</code> 中设置：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-nix" data-lang="nix"><span class="line"><span class="cl"><span class="c1"># home.nix</span>
-</span></span><span class="line"><span class="cl"><span class="n">home</span><span class="o">.</span><span class="n">sessionVariables</span> <span class="err">=</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="n">NIXOS_OZONE_WL</span> <span class="o">=</span> <span class="s2">&#34;1&#34;</span><span class="p">;</span>   <span class="c1"># 启用 Chrome/Electron Wayland IME 支持</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">NIXOS_OZONE_WL=1 ✓
-</span></span><span class="line"><span class="cl">       ↓
-</span></span><span class="line"><span class="cl">Chrome 以原生 Wayland 模式启动（--ozone-platform-hint=auto）
-</span></span><span class="line"><span class="cl">       ↓
-</span></span><span class="line"><span class="cl">使用 Wayland IME 协议（--enable-wayland-ime=true）
-</span></span><span class="line"><span class="cl">       ↓
-</span></span><span class="line"><span class="cl">✅ 中文输入法正常工作
-</span></span></code></pre></div><h3 id="heading">
-</h3><p>Rebuild 后<strong>重新登录桌面</strong>（或重启），Chrome 即可使用 fcitx5 输入法。</p>
+    <p>微信能正常打开，fcitx5 在其他程序里也能输入中文，唯独微信不行。我一开始也怀疑是 Wayland 和 XWayland 的兼容问题。</p>
+<p>对照能用和不能用时的配置，差别落在微信自己的运行环境上。NixOS 里的微信包跑在 FHS 环境里，宿主系统装了 Fcitx，并不代表这个环境也有 GTK、Qt 的输入法模块。<code>GTK_IM_MODULE</code> 这类变量只是告诉程序加载哪个模块；模块文件不在，设了变量也没用。</p>
+<p>修复时，我在微信原有的 FHS 参数上补进 Fcitx 插件：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-nix" data-lang="nix"><span class="line"><span class="cl"><span class="n">targetPkgs</span> <span class="err">=</span> <span class="n">fhsPkgs</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">wechatArgs</span><span class="o">.</span><span class="n">targetPkgs</span> <span class="n">fhsPkgs</span>
+</span></span><span class="line"><span class="cl">  <span class="o">++</span> <span class="p">(</span><span class="k">with</span> <span class="n">fhsPkgs</span><span class="p">;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fcitx5-gtk</span>
+</span></span><span class="line"><span class="cl">    <span class="n">libsForQt5</span><span class="o">.</span><span class="n">fcitx5-qt</span>
+</span></span><span class="line"><span class="cl">    <span class="n">qt6Packages</span><span class="o">.</span><span class="n">fcitx5-qt</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]);</span>
+</span></span></code></pre></div><p>GTK 3 还需要知道插件的位置，所以我用 <code>gtk-query-immodules-3.0</code> 生成模块缓存，再通过 <code>GTK_IM_MODULE_FILE</code> 指给微信。启动器同时设置 <code>GTK_IM_MODULE</code>、<code>QT_IM_MODULE</code>、<code>XMODIFIERS</code> 和 <code>INPUT_METHOD</code>，让 GTK、Qt 和 X11 都选 Fcitx。</p>
+<p>配置里的 <code>--unset WAYLAND_DISPLAY</code> 是另一件事：它让微信走 XWayland，是之前为剪贴板兼容加的。输入法修复本身不靠这行；真正起作用的是把 Fcitx 模块放进 FHS 环境，并让 GTK 找到模块缓存。</p>
+<p>切换配置后，要把微信彻底退出再重新打开，让它使用新的 FHS 环境：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nixos-rebuild switch --flake ~/nixos#x250
+</span></span></code></pre></div><p>重新打开后，Rime 输入恢复正常。</p>
 
 </section>
 
@@ -472,19 +361,6 @@
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
-            
-                
-<article class="">
-    <a href="/p/nixos-%E5%BE%AE%E4%BF%A1%E8%BE%93%E5%85%A5%E6%B3%95%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98%E5%9C%A8-fhs-%E7%8E%AF%E5%A2%83%E9%87%8C/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">NixOS 微信输入法失效，问题在 FHS 环境里</h2>
-        </div>
-    </a>
-</article>
-
             
                 
 <article class="">
@@ -520,6 +396,19 @@
 
         <div class="article-details">
             <h2 class="article-title">NixOS 冷启动黑屏问题排查</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/nixos%E4%B8%8Achrome%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8fcitx5%E8%BE%93%E5%85%A5%E6%B3%95%E9%97%AE%E9%A2%98%E7%9A%84%E4%BF%AE%E5%A4%8D/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">NixOS上chrome无法使用fcitx5输入法问题的修复 </h2>
         </div>
     </a>
 </article>
