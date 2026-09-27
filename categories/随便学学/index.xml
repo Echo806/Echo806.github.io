@@ -286,14 +286,9 @@ VM:Virtual Machine 虚拟机
 VPS:Virtual Private Server 虚拟专用服务器
 K8s:Kubernates （容器编排平台）
 HNSW:Hierachical Navigable Small World 分层可导航小世界图 （一种向量检索算法）
-SSE:Server-Sent Events 服务器发送事件
-SMTP:Simple Mail Transfer Protocol 简单邮件传输协议&lt;/p&gt;
-&lt;p&gt;GCM：Galois/Counter Mode（伽罗瓦/计数器模式）给对称加密算法（通常是 AES）提供的一种工作模式 AES-GCM&lt;/p&gt;
-&lt;p&gt;AEAD：Authenticated Encryption with Associated Data 带关联数据认证的加密&lt;/p&gt;
-&lt;p&gt;SSL：Secure Sockets Layer 安全套接层协议 （是TLS的前身）&lt;/p&gt;
-&lt;p&gt;TLS：Transport Layer Security 传输层安全（协议） 虽然名字里有“传输层”，但 TLS 严格来说&lt;strong&gt;不是 TCP 的一部分&lt;/strong&gt;，而是通常位于应用层和传输层之间。&lt;/p&gt;
-&lt;p&gt;MITM ：Man-in-the-Middle 中间人攻击&lt;/p&gt;
-&lt;p&gt;CA：Certificate Authority  证书颁发机构&lt;/p&gt;
+CAS:Compare And Swap 比较并交换
+Spring MVC:mvc是model，view，controller，是一种软件架构模式，controller负责接受和处理请求，model负责数据和业务逻辑，view负责数据展示
+MVCC:Multi-Version Concurrency Control 多版本并发控制&lt;/p&gt;
 </description>
         </item>
         <item>
