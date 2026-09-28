@@ -7,7 +7,32 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>RUN</copyright>
-        <lastBuildDate>Sun, 27 Sep 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://echo806.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 28 Sep 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://echo806.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>nixvim快捷键</title>
+        <link>https://echo806.github.io/p/nixvim%E5%BF%AB%E6%8D%B7%E9%94%AE/</link>
+        <pubDate>Mon, 28 Sep 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://echo806.github.io/p/nixvim%E5%BF%AB%E6%8D%B7%E9%94%AE/</guid>
+        <description>&lt;p&gt;我把 x250 上的 Nixvim 配置翻了一遍，发现常用入口其实不多。&lt;code&gt;&amp;lt;leader&amp;gt;&lt;/code&gt; 设成了空格，自己定义的快捷键也都在普通模式下：&lt;code&gt;Space e&lt;/code&gt; 开关文件树，&lt;code&gt;Space ff&lt;/code&gt; 查找文件，&lt;code&gt;Space fg&lt;/code&gt; 搜索文本，&lt;code&gt;Space fb&lt;/code&gt; 找已打开的缓冲区，&lt;code&gt;Space fh&lt;/code&gt; 搜索帮助文档。普通模式按 &lt;code&gt;Esc&lt;/code&gt; 会清除搜索高亮。按空格后可以稍等 which-key 的提示；前缀映射的等待时间是 300 毫秒。&lt;/p&gt;
+&lt;h2 id=&#34;在文件树里处理文件&#34;&gt;在文件树里处理文件
+&lt;/h2&gt;&lt;p&gt;打开文件树后，&lt;code&gt;Enter&lt;/code&gt; 展开目录或打开文件，&lt;code&gt;Backspace&lt;/code&gt; 回到上级目录，&lt;code&gt;.&lt;/code&gt; 把选中的目录设为树根。新建文件按 &lt;code&gt;a&lt;/code&gt;，输入以 &lt;code&gt;/&lt;/code&gt; 结尾的路径会新建目录；&lt;code&gt;A&lt;/code&gt; 可以直接新建目录，&lt;code&gt;r&lt;/code&gt; 重命名。&lt;/p&gt;
+&lt;p&gt;复制和移动也不用离开树窗口：选中文件后按 &lt;code&gt;y&lt;/code&gt; 标记复制，切到目标目录按 &lt;code&gt;p&lt;/code&gt; 粘贴；按 &lt;code&gt;x&lt;/code&gt; 标记移动，再到目标目录按 &lt;code&gt;p&lt;/code&gt;。想直接指定目标路径，可以用 &lt;code&gt;c&lt;/code&gt; 复制或 &lt;code&gt;m&lt;/code&gt; 移动。&lt;code&gt;d&lt;/code&gt; 会先询问确认，再删除文件；删非空目录时会递归删除，所以确认前要看清选中的路径。按 &lt;code&gt;?&lt;/code&gt; 可以在树窗口里查看完整的按键帮助。&lt;/p&gt;
+&lt;p&gt;配置里的 &lt;code&gt;clipboard = &amp;quot;unnamedplus&amp;quot;&lt;/code&gt; 是 Vim 文本寄存器和系统剪贴板的联动。Neo-tree 里的 &lt;code&gt;y&lt;/code&gt;、&lt;code&gt;x&lt;/code&gt;、&lt;code&gt;p&lt;/code&gt; 用的是文件树自己的剪贴板，两者别混在一起。&lt;/p&gt;
+&lt;h2 id=&#34;在-nixvim-里运行-shell&#34;&gt;在 Nixvim 里运行 shell
+&lt;/h2&gt;&lt;p&gt;当前配置没有给终端另设快捷键，不过 Neovim 自带终端。普通模式输入 &lt;code&gt;:terminal&lt;/code&gt;，就会在编辑器里打开交互式 shell。x250 的登录 shell 是 Bash。终端默认从 Nvim 当前工作目录启动；不确定目录时先用 &lt;code&gt;:pwd&lt;/code&gt; 看看。&lt;/p&gt;
+&lt;p&gt;终端里可以照常运行文件命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir -p &lt;span class=&#34;s2&#34;&gt;&amp;#34;目标目录&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cp -i -- &lt;span class=&#34;s2&#34;&gt;&amp;#34;源文件&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;目标目录/&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cp -ri -- &lt;span class=&#34;s2&#34;&gt;&amp;#34;源目录&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;目标目录/&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mv -i -- &lt;span class=&#34;s2&#34;&gt;&amp;#34;源路径&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;目标目录/&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rm -i -- &lt;span class=&#34;s2&#34;&gt;&amp;#34;文件&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rm -ri -- &lt;span class=&#34;s2&#34;&gt;&amp;#34;目录&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;-i&lt;/code&gt; 会在覆盖或删除时询问，&lt;code&gt;--&lt;/code&gt; 后面的内容都按路径处理。用 &lt;code&gt;rm -ri&lt;/code&gt; 删除目录时，命令会逐项询问；Neo-tree 的 &lt;code&gt;d&lt;/code&gt; 则会递归删除确认过的非空目录。&lt;/p&gt;
+&lt;p&gt;按 &lt;code&gt;Ctrl-\&lt;/code&gt;，再按 &lt;code&gt;Ctrl+n&lt;/code&gt;，可以从终端输入模式回到 Nvim 普通模式；按 &lt;code&gt;i&lt;/code&gt; 回到终端输入。想结束 shell 就输入 &lt;code&gt;exit&lt;/code&gt;，想直接执行一条命令也可以用 &lt;code&gt;:!pwd&lt;/code&gt; 或 &lt;code&gt;:!ls -lah&lt;/code&gt;，命令结束后按回车回到编辑器。&lt;/p&gt;
+&lt;p&gt;平时在文件树里新建、重命名、复制和移动比较顺手；需要连续敲命令时用 &lt;code&gt;:terminal&lt;/code&gt;。这样处理项目文件时不用退出 Nixvim 再开一个终端。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>NixOS 微信输入法失效，问题在 FHS 环境里</title>
         <link>https://echo806.github.io/p/nixos-%E5%BE%AE%E4%BF%A1%E8%BE%93%E5%85%A5%E6%B3%95%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98%E5%9C%A8-fhs-%E7%8E%AF%E5%A2%83%E9%87%8C/</link>
         <pubDate>Sun, 27 Sep 2026 00:00:00 +0000</pubDate>
