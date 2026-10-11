@@ -7,7 +7,136 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>RUN</copyright>
-        <lastBuildDate>Mon, 14 Sep 2026 17:23:45 +0800</lastBuildDate><atom:link href="https://echo806.github.io/categories/%E9%9A%8F%E4%BE%BF%E5%AD%A6%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 11 Oct 2026 20:30:00 +0800</lastBuildDate><atom:link href="https://echo806.github.io/categories/%E9%9A%8F%E4%BE%BF%E5%AD%A6%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>我连的明明是 5 GHz Wi-Fi，怎么只有 Wi-Fi 4？</title>
+        <link>https://echo806.github.io/p/%E6%88%91%E8%BF%9E%E7%9A%84%E6%98%8E%E6%98%8E%E6%98%AF-5-ghz-wi-fi%E6%80%8E%E4%B9%88%E5%8F%AA%E6%9C%89-wi-fi-4/</link>
+        <pubDate>Sun, 11 Oct 2026 20:30:00 +0800</pubDate>
+        
+        <guid>https://echo806.github.io/p/%E6%88%91%E8%BF%9E%E7%9A%84%E6%98%8E%E6%98%8E%E6%98%AF-5-ghz-wi-fi%E6%80%8E%E4%B9%88%E5%8F%AA%E6%9C%89-wi-fi-4/</guid>
+        <description>&lt;p&gt;最近对无线网络有点好奇，想弄清楚电脑连的校园网 &lt;code&gt;SYSU-SECURE&lt;/code&gt; 到底是什么：是不是 Wi-Fi 6？平时说的“5G Wi-Fi”和手机 5G 有没有关系？是不是也有 n79 这种频段？&lt;/p&gt;
+&lt;p&gt;查完这台 X250 的连接信息，结果是：&lt;strong&gt;5 GHz，Wi-Fi 4，和 n79 没关系。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;网卡是 Intel Dual Band Wireless-N 7265。系统当时读到的参数是：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;SSID: SYSU-SECURE
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;channel 157 (5785 MHz), width: 40 MHz, center1: 5795 MHz
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;signal: -49 dBm
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rx bitrate: 300.0 MBit/s MCS 15 40MHz short GI
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;tx bitrate: 270.0 MBit/s MCS 14 40MHz short GI
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以前看这种输出，只认识最后那个 Mbps。现在发现，前面的几个数字正好能把 Wi-Fi 的基本概念串起来。&lt;/p&gt;
+&lt;h2 id=&#34;5785-mhz-和-40-mhz说的不是一件事&#34;&gt;5785 MHz 和 40 MHz，说的不是一件事
+&lt;/h2&gt;&lt;p&gt;5785 MHz 是频率，也就是 5.785 GHz，属于平时说的 5 GHz Wi-Fi 频段。“5 GHz”只是这一类频率的统称，不要求设备正好工作在 5.000 GHz。&lt;/p&gt;
+&lt;p&gt;频率描述电磁波每秒振荡多少次。频率越高，波长越短：2.4 GHz 的波长大约 12.5 厘米，5 GHz 大约 6 厘米。它们在空气中的传播速度都接近光速，所以 5 GHz 网速更快，不能理解成“电磁波跑得更快”。&lt;a class=&#34;link&#34; href=&#34;https://www.cisco.com/en/US/docs/solutions/Enterprise/Mobility/emob30dg/Voice.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Cisco 的无线传播说明&lt;/a&gt;里也提到了这些波长。&lt;/p&gt;
+&lt;p&gt;常见室内环境里，2.4 GHz 往往更容易覆盖较远距离、绕过障碍，但实际效果还受墙体、发射功率、天线和干扰影响。5 GHz 通常更快，主要是因为可用频谱更多，能容纳更宽的信道，也常与较新的协议配合使用。&lt;/p&gt;
+&lt;p&gt;我把频段理解成频谱上的一大片区域，信道则是里面划分出来的通信位置。为了省得每次都报频率，人们给它们编了号。&lt;/p&gt;
+&lt;p&gt;比如信道 36 对应 5180 MHz，信道 157 对应 5785 MHz。&lt;strong&gt;157 是编号，5785 MHz 才是频率。&lt;/strong&gt; 对这些常见的 5 GHz 信道，可以用 &lt;code&gt;5000 + 信道编号 × 5&lt;/code&gt; 算出频率，单位是 MHz；换成别的频段，就不能直接套这个公式了。&lt;/p&gt;
+&lt;p&gt;不过，Wi-Fi 信号不会只占一个频率点，还要占用附近的一段频谱。这里的 &lt;strong&gt;40 MHz&lt;/strong&gt;，说的就是这段频谱有多宽。&lt;/p&gt;
+&lt;p&gt;我的连接用了两个相邻的 20 MHz 信道：主信道 157，中心频率 5785 MHz；上方的信道 161，中心频率 5805 MHz。合并起来是 40 MHz，整个信道的中心变成了 5795 MHz。&lt;/p&gt;
+&lt;p&gt;所以输出里同时出现 5785 和 5795，没矛盾。一个是主信道中心，另一个是整个 40 MHz 信道的中心。&lt;/p&gt;
+&lt;p&gt;这也解释了为什么不同信道会互相干扰。2.4 GHz 的相邻信道中心只差 5 MHz，但常见信道宽度有 20 MHz，换个号码，频谱仍然可能重叠。&lt;/p&gt;
+&lt;h2 id=&#34;信道宽一点速度有机会更快但也更占地方&#34;&gt;信道宽一点，速度有机会更快，但也更占地方
+&lt;/h2&gt;&lt;p&gt;现代 Wi-Fi 会把信道内部划分成很多细小的子载波，并行承载数据。信道更宽，通常能放下更多子载波，传输能力也就更大。&lt;/p&gt;
+&lt;p&gt;拿这块网卡使用的 802.11n 来说，在两条空间流、MCS 15、短保护间隔这些条件不变时，20 MHz 的物理层速率约为 144.4 Mbps，40 MHz 可以达到 300 Mbps。&lt;a class=&#34;link&#34; href=&#34;https://www.cisco.com/c/en/us/td/docs/routers/access/1900/software/configuration/guide/Software_Configuration/radio_config.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Cisco 的 802.11n 速率表&lt;/a&gt;可以直接查到这组对应关系。&lt;/p&gt;
+&lt;p&gt;但频谱不是自己独占的。一个接入点用得越宽，附近其他接入点就越难找到互不重叠的位置。更宽的信道也可能碰到更多干扰源。&lt;/p&gt;
+&lt;p&gt;在周围设备很少的环境里，用宽信道容易发挥优势；宿舍、教学楼这种地方，情况就未必了。标称速率更高，实际可能花更多时间等别人发完。&lt;a class=&#34;link&#34; href=&#34;https://www.intel.com/content/www/us/en/support/articles/000058989/wireless/intel-killer-wi-fi-products.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Intel 对信道宽度的说明&lt;/a&gt;也提醒了宽信道与干扰的关系。&lt;/p&gt;
+&lt;p&gt;我这块 Wireless-N 网卡最多支持 40 MHz，不能靠改配置变成 80 或 160 MHz。&lt;/p&gt;
+&lt;h2 id=&#34;信号满格也不一定快&#34;&gt;信号满格，也不一定快
+&lt;/h2&gt;&lt;p&gt;这次测到的信号强度大约是 -49 dBm，算比较强。&lt;/p&gt;
+&lt;p&gt;dBm 表示功率，以 1 毫瓦为参考。0 dBm 是 1 毫瓦，负数表示低于这个功率。Wi-Fi 经过一段距离后，到达网卡的功率很小，读到负数很正常。这里测的是电脑接收到的功率，不是接入点的发射功率。&lt;/p&gt;
+&lt;p&gt;比较时记住：&lt;strong&gt;-50 dBm 比 -70 dBm 强。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;它还是对数单位，两者相差 20 dB，功率差了 100 倍。不过，信号功率增加 100 倍，不代表网速也增加 100 倍。&lt;/p&gt;
+&lt;p&gt;能否听清，还要看背景有多吵。安静房间和嘈杂食堂里，同一个人的说话音量不变，听清的难度却不同。无线接收也是如此。&lt;/p&gt;
+&lt;p&gt;信噪比 SNR，就是目标信号比噪声强多少。用 dBm 表示两者功率时，可以直接相减：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;信号 -50 dBm，噪声 -95 dBm：SNR = 45 dB
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;信号 -50 dBm，噪声 -70 dBm：SNR = 20 dB
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;信号一样强，第一个环境却更容易正确接收数据。这里的噪声是举例，这次没有读到可靠的噪声值，不能把例子当成电脑的实测 SNR。&lt;/p&gt;
+&lt;p&gt;dBm 描述一个功率值，dB 描述功率之间的比例，所以信噪比的单位是 dB。&lt;a class=&#34;link&#34; href=&#34;https://www.cisco.com/c/en/us/support/docs/wireless-mobility/wireless-lan-wlan/71113-rrm-new.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Cisco 对 dBm 和 SNR 的说明&lt;/a&gt;把这两项放在一起解释。&lt;/p&gt;
+&lt;p&gt;还有一种慢，是附近设备太多，大家在排队使用信道。即使信号强、接收清楚，轮不到自己发送时，也快不起来。邻居 Wi-Fi 造成的等待，不一定会表现为噪声值升高。&lt;/p&gt;
+&lt;h2 id=&#34;300-mbps-是怎么来的&#34;&gt;300 Mbps 是怎么来的
+&lt;/h2&gt;&lt;p&gt;频率和宽度确定以后，设备还需要解决一个问题：怎样把电脑里的 0 和 1 放进电磁波？&lt;/p&gt;
+&lt;p&gt;这个过程叫调制。设备用电磁波的振幅、相位等状态表示数据，接收端再把它们还原出来。&lt;/p&gt;
+&lt;p&gt;如果一次只能区分两种状态，就可以表示 0 或 1，承载一个比特。能区分四种状态，就可以表示 00、01、10、11，一次承载两个比特。这一次发送的状态，叫“符号”。&lt;/p&gt;
+&lt;p&gt;QAM 就是一种安排这些状态的方法。64-QAM 有 64 种状态，每个符号可以表示 6 个比特；256-QAM 是 8 个，1024-QAM 是 10 个，4096-QAM 是 12 个。&lt;/p&gt;
+&lt;p&gt;数字越大，一个符号能装的数据越多。但在相近功率下，状态之间也更难分辨，对信噪比的要求更高。距离远了、环境吵了，设备就可能降低调制阶数，少装一点数据，换取更可靠的接收。&lt;/p&gt;
+&lt;p&gt;从 1024-QAM 升级到 4096-QAM，状态数增加了四倍，但每个符号的数据量只是从 10 比特增加到 12 比特，增加 20%，不是四倍。&lt;/p&gt;
+&lt;p&gt;此外，发送端还会加入纠错冗余。比如 5/6 编码率，可以粗略理解为编码后的六份比特里，有五份原始信息量，剩下的是纠错冗余。&lt;/p&gt;
+&lt;p&gt;这些调制和编码组合，会被编成 &lt;strong&gt;MCS&lt;/strong&gt; 索引。在 802.11n 里，常见 MCS 编号还包含空间流数量。&lt;/p&gt;
+&lt;p&gt;空间流又和 &lt;strong&gt;MIMO&lt;/strong&gt; 有关。它利用多套天线和射频路径，在同一时间、同一频谱里并行发送多条独立数据流。不同接收天线得到的混合信号有所不同，接收端估计传播路径，再从中分离出数据。&lt;/p&gt;
+&lt;p&gt;常见的 2×2 MIMO 通常表示两条发送链和两条接收链，在设备和环境允许时，最多支持两条空间流。天线数量不直接等于实际空间流数量，还要看射频硬件和传播条件。&lt;/p&gt;
+&lt;p&gt;我这块网卡最多支持两条空间流。接入点就算支持四条，也不能让电脑自动获得四条。&lt;/p&gt;
+&lt;p&gt;于是，输出里的这一行：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;300.0 MBit/s MCS 15 40MHz short GI
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;就能读懂了：在 802.11n 下，MCS 15 对应两条空间流、64-QAM、5/6 编码率，再加上 40 MHz 信道和短保护间隔，得到 300 Mbps 的物理层速率。&lt;/p&gt;
+&lt;p&gt;保护间隔是符号之间留的一点时间，帮助处理反射信号沿不同路径到达造成的延迟。802.11n 的普通保护间隔是 800 纳秒，短保护间隔是 400 纳秒。其他条件相同时，留的间隔短一些，每秒能发送的符号就更多；这组条件下，普通保护间隔对应 270 Mbps，短保护间隔对应 300 Mbps。&lt;/p&gt;
+&lt;p&gt;开头的接收和发送速率不同，也是正常的。两个方向的接收条件和速率选择不同，设备会根据链路情况调整，读到的是当时报告的速率，不是永久固定的速度。&lt;/p&gt;
+&lt;h2 id=&#34;wi-fi-的第几代说的是协议&#34;&gt;Wi-Fi 的“第几代”，说的是协议
+&lt;/h2&gt;&lt;p&gt;把代数、频段和信道分开以后，名字就没那么绕了：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;名称&lt;/th&gt;
+&lt;th&gt;协议&lt;/th&gt;
+&lt;th&gt;复习时记住的变化&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Wi-Fi 4&lt;/td&gt;
+&lt;td&gt;802.11n&lt;/td&gt;
+&lt;td&gt;MIMO、40 MHz&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Wi-Fi 5&lt;/td&gt;
+&lt;td&gt;802.11ac&lt;/td&gt;
+&lt;td&gt;更宽信道、256-QAM、下行 MU-MIMO&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Wi-Fi 6&lt;/td&gt;
+&lt;td&gt;802.11ax&lt;/td&gt;
+&lt;td&gt;1024-QAM、OFDMA、上下行 MU-MIMO&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Wi-Fi 6E&lt;/td&gt;
+&lt;td&gt;802.11ax&lt;/td&gt;
+&lt;td&gt;扩展到 6 GHz&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Wi-Fi 7&lt;/td&gt;
+&lt;td&gt;802.11be&lt;/td&gt;
+&lt;td&gt;4096-QAM、6 GHz 下的 320 MHz、多链路操作&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;这些是标准提供的能力，具体设备不一定全部支持。&lt;a class=&#34;link&#34; href=&#34;https://www.intel.com/content/dam/www/central-libraries/us/en/documents/2022-07/wifi7-generations-overview-table-1920-1080.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Intel 的 Wi-Fi 代际对照&lt;/a&gt;可以留着查。&lt;/p&gt;
+&lt;p&gt;MU-MIMO 可以让接入点利用空间分离同时服务多台设备；OFDMA 则把信道内部的子载波分组，分配给不同设备。Wi-Fi 6 在设备多的时候提高效率，靠的就包括这些安排。不过，它仍然需要与周围网络协调使用无线资源，不是从此不用排队了。&lt;a class=&#34;link&#34; href=&#34;https://gblogs.cisco.com/jp/2019/11/service-provider-end-to-end-architecture-1-radio-access-in-5g-era-2/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Cisco 对多用户通信的说明&lt;/a&gt;也讲到了这一点。&lt;/p&gt;
+&lt;p&gt;Wi-Fi 4 和 Wi-Fi 6 都可以工作在 2.4 GHz 或 5 GHz，Wi-Fi 5 使用 5 GHz。Wi-Fi 6 的“6”是代数，不是 6 GHz。&lt;/p&gt;
+&lt;p&gt;所以我这台电脑用 &lt;strong&gt;5 GHz 连接 Wi-Fi 4&lt;/strong&gt;，完全正常。学校接入点是否支持 Wi-Fi 6，还不能仅凭这次连接确定；电脑自己不支持，也就用不上。&lt;/p&gt;
+&lt;p&gt;至于 n79，它属于手机 5G NR 的频段编号，范围是 4400～5000 MHz。我当前的 Wi-Fi 主信道是 5785 MHz，用的是另一套通信标准和编号。&lt;a class=&#34;link&#34; href=&#34;https://www.etsi.org/deliver/etsi_ts/138100_138199/13810101/17.05.00_60/ts_13810101v170500p.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;ETSI／3GPP 频段定义&lt;/a&gt;里可以查到这个范围。路由器名称里的“5G”通常是 5 GHz 的简称，手机状态栏里的“5G”则是第五代移动通信。&lt;/p&gt;
+&lt;p&gt;最后还有一个容易误读的数字：300 Mbps 换算成字节是 37.5 MB/s，但这只是单位换算。实际下载还要扣除协议开销、确认、等待、重传，并受到校园网出口和服务器速度限制。同一信道的无线资源也需要协调收发，不能把接收和发送速率当成两条独占线路相加。这次没有做下载测速，不能把连接速率写成下载实测结果。&lt;/p&gt;
+&lt;p&gt;下次想看这些参数，在 NixOS 上可以临时调用 &lt;code&gt;iw&lt;/code&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nix shell nixpkgs#iw --command iw dev wlp3s0 link
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nix shell nixpkgs#iw --command iw dev wlp3s0 info
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;第一条看信号和收发速率，第二条看主信道、宽度和整个信道的中心频率。比只看 Wi-Fi 图标上的几格，多知道不少东西。&lt;/p&gt;
+&lt;h2 id=&#34;留几个视频之后接着看&#34;&gt;留几个视频，之后接着看
+&lt;/h2&gt;&lt;p&gt;这些视频是按页面简介和课程目录选的，还没逐条完整看过。先看前两条中文视频，再按兴趣补英文原理课。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1LS9eBxEGD/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;硬件茶谈：WiFi 是怎么传递信息的？把信息装进电磁波有多难？&lt;/a&gt;：约 12 分钟，主题覆盖数据怎样通过电磁波传输，以及 Wi-Fi 4 到 7 的变化，和这次记下的内容比较贴近。&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1oM4y137Ux/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;领略技术的美：用广场舞给你说清楚 WiFi 干扰是怎么回事？&lt;/a&gt;：中文，围绕 Wi-Fi 干扰展开，用来理解“信号挺强，为什么还是慢”。&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=aTuaEk5hnAs&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Professor Messer：Wireless Network Technologies&lt;/a&gt;：英文入门课，介绍 802.11 的频率和信道等基础概念。&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.iaincollings.com/digital-communications&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Iain Collings：Digital Communications 视频课程目录&lt;/a&gt;：英文。先找 &lt;em&gt;What is a Constellation Diagram?&lt;/em&gt; 和 &lt;em&gt;Visualising Digital Modulation&lt;/em&gt;，理解调制；再看 &lt;em&gt;What is OFDM? and Why is it Used?&lt;/em&gt;，最后看 &lt;em&gt;What are Spatial Diversity and Spatial Multiplexing in MIMO?&lt;/em&gt;。不用从第一节开始全部刷完。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>sing-box</title>
         <link>https://echo806.github.io/p/sing-box/</link>
         <pubDate>Mon, 14 Sep 2026 17:23:45 +0800</pubDate>

@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="最近对无线网络有点好奇，想弄清楚电脑连的校园网 SYSU-SECURE 到底是什么：是不是 Wi-Fi 6？平时说的“5G Wi-Fi”和手机 5G 有没有关系？是不是也有 n79 这种频段？">
+<title>我连的明明是 5 GHz Wi-Fi，怎么只有 Wi-Fi 4？</title>
+
+<link rel='canonical' href='https://echo806.github.io/p/%E6%88%91%E8%BF%9E%E7%9A%84%E6%98%8E%E6%98%8E%E6%98%AF-5-ghz-wi-fi%E6%80%8E%E4%B9%88%E5%8F%AA%E6%9C%89-wi-fi-4/'>
+
+<link rel="stylesheet" href="/scss/style.min.d44d1b138e555166d2fb22df4e9ea386c36ba19591a491a37edb07faede022e1.css"><meta property='og:title' content="我连的明明是 5 GHz Wi-Fi，怎么只有 Wi-Fi 4？">
+<meta property='og:description' content="最近对无线网络有点好奇，想弄清楚电脑连的校园网 SYSU-SECURE 到底是什么：是不是 Wi-Fi 6？平时说的“5G Wi-Fi”和手机 5G 有没有关系？是不是也有 n79 这种频段？">
+<meta property='og:url' content='https://echo806.github.io/p/%E6%88%91%E8%BF%9E%E7%9A%84%E6%98%8E%E6%98%8E%E6%98%AF-5-ghz-wi-fi%E6%80%8E%E4%B9%88%E5%8F%AA%E6%9C%89-wi-fi-4/'>
+<meta property='og:site_name' content='知识与避世的狭缝'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-10-11T20:30:00&#43;08:00'/><meta property='article:modified_time' content='2026-10-11T20:30:00&#43;08:00'/>
+<meta name="twitter:title" content="我连的明明是 5 GHz Wi-Fi，怎么只有 Wi-Fi 4？">
+<meta name="twitter:description" content="最近对无线网络有点好奇，想弄清楚电脑连的校园网 SYSU-SECURE 到底是什么：是不是 Wi-Fi 6？平时说的“5G Wi-Fi”和手机 5G 有没有关系？是不是也有 n79 这种频段？">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+
+                    
+                        
+                        <img src="/img/Patchouli.gif" width="500"
+                            height="500" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🤔</span>
+                
+            </figure>
+            
+        
+
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">&nbsp;</a></h1>
+            <h2 class="site-description">欢迎来到我的网站，此博客由【Hugo &#43; Stack】来进行搭建，主要分享个人生活和学习笔记</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a
+                        href='https://space.bilibili.com/306100621'
+                        target="_blank"
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-bilibili"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6" /><path d="M8 3l2 3" /><path d="M16 3l-2 3" /><path d="M9 13v-2" /><path d="M15 11v2" /></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a
+                        href='https://github.com/echo806'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a
+                        href='https://steamcommunity.com/profiles/76561199076111538/'
+                        target="_blank"
+                        title="Steam"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-steam"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16.5 5a4.5 4.5 0 1 1 -.653 8.953l-4.347 3.009l0 .038a3 3 0 0 1 -2.824 3l-.176 0a3 3 0 0 1 -2.94 -2.402l-2.56 -1.098v-3.5l3.51 1.755a2.989 2.989 0 0 1 2.834 -.635l2.727 -3.818a4.5 4.5 0 0 1 4.429 -5.302" /><path d="M15.5 9.5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" fill="currentColor" /></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E6%97%A5%E5%BF%97/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-logs"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 12h.01" /><path d="M4 6h.01" /><path d="M4 18h.01" /><path d="M8 18h2" /><path d="M8 12h2" /><path d="M8 6h2" /><path d="M14 6h6" /><path d="M14 12h6" /><path d="M14 18h6" /></svg>
+                
+                <span>日志</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#5785-mhz-和-40-mhz说的不是一件事">5785 MHz 和 40 MHz，说的不是一件事</a></li>
+    <li><a href="#信道宽一点速度有机会更快但也更占地方">信道宽一点，速度有机会更快，但也更占地方</a></li>
+    <li><a href="#信号满格也不一定快">信号满格，也不一定快</a></li>
+    <li><a href="#300-mbps-是怎么来的">300 Mbps 是怎么来的</a></li>
+    <li><a href="#wi-fi-的第几代说的是协议">Wi-Fi 的“第几代”，说的是协议</a></li>
+    <li><a href="#留几个视频之后接着看">留几个视频，之后接着看</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E9%9A%8F%E4%BE%BF%E5%AD%A6%E5%AD%A6/" style="background-color: #2a9d8f; color: #fff;">
+                随便学学
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E6%88%91%E8%BF%9E%E7%9A%84%E6%98%8E%E6%98%8E%E6%98%AF-5-ghz-wi-fi%E6%80%8E%E4%B9%88%E5%8F%AA%E6%9C%89-wi-fi-4/">我连的明明是 5 GHz Wi-Fi，怎么只有 Wi-Fi 4？</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-10-11</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>最近对无线网络有点好奇，想弄清楚电脑连的校园网 <code>SYSU-SECURE</code> 到底是什么：是不是 Wi-Fi 6？平时说的“5G Wi-Fi”和手机 5G 有没有关系？是不是也有 n79 这种频段？</p>
+<p>查完这台 X250 的连接信息，结果是：<strong>5 GHz，Wi-Fi 4，和 n79 没关系。</strong></p>
+<p>网卡是 Intel Dual Band Wireless-N 7265。系统当时读到的参数是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">SSID: SYSU-SECURE
+</span></span><span class="line"><span class="cl">channel 157 (5785 MHz), width: 40 MHz, center1: 5795 MHz
+</span></span><span class="line"><span class="cl">signal: -49 dBm
+</span></span><span class="line"><span class="cl">rx bitrate: 300.0 MBit/s MCS 15 40MHz short GI
+</span></span><span class="line"><span class="cl">tx bitrate: 270.0 MBit/s MCS 14 40MHz short GI
+</span></span></code></pre></div><p>以前看这种输出，只认识最后那个 Mbps。现在发现，前面的几个数字正好能把 Wi-Fi 的基本概念串起来。</p>
+<h2 id="5785-mhz-和-40-mhz说的不是一件事">5785 MHz 和 40 MHz，说的不是一件事
+</h2><p>5785 MHz 是频率，也就是 5.785 GHz，属于平时说的 5 GHz Wi-Fi 频段。“5 GHz”只是这一类频率的统称，不要求设备正好工作在 5.000 GHz。</p>
+<p>频率描述电磁波每秒振荡多少次。频率越高，波长越短：2.4 GHz 的波长大约 12.5 厘米，5 GHz 大约 6 厘米。它们在空气中的传播速度都接近光速，所以 5 GHz 网速更快，不能理解成“电磁波跑得更快”。<a class="link" href="https://www.cisco.com/en/US/docs/solutions/Enterprise/Mobility/emob30dg/Voice.html"  target="_blank" rel="noopener"
+    >Cisco 的无线传播说明</a>里也提到了这些波长。</p>
+<p>常见室内环境里，2.4 GHz 往往更容易覆盖较远距离、绕过障碍，但实际效果还受墙体、发射功率、天线和干扰影响。5 GHz 通常更快，主要是因为可用频谱更多，能容纳更宽的信道，也常与较新的协议配合使用。</p>
+<p>我把频段理解成频谱上的一大片区域，信道则是里面划分出来的通信位置。为了省得每次都报频率，人们给它们编了号。</p>
+<p>比如信道 36 对应 5180 MHz，信道 157 对应 5785 MHz。<strong>157 是编号，5785 MHz 才是频率。</strong> 对这些常见的 5 GHz 信道，可以用 <code>5000 + 信道编号 × 5</code> 算出频率，单位是 MHz；换成别的频段，就不能直接套这个公式了。</p>
+<p>不过，Wi-Fi 信号不会只占一个频率点，还要占用附近的一段频谱。这里的 <strong>40 MHz</strong>，说的就是这段频谱有多宽。</p>
+<p>我的连接用了两个相邻的 20 MHz 信道：主信道 157，中心频率 5785 MHz；上方的信道 161，中心频率 5805 MHz。合并起来是 40 MHz，整个信道的中心变成了 5795 MHz。</p>
+<p>所以输出里同时出现 5785 和 5795，没矛盾。一个是主信道中心，另一个是整个 40 MHz 信道的中心。</p>
+<p>这也解释了为什么不同信道会互相干扰。2.4 GHz 的相邻信道中心只差 5 MHz，但常见信道宽度有 20 MHz，换个号码，频谱仍然可能重叠。</p>
+<h2 id="信道宽一点速度有机会更快但也更占地方">信道宽一点，速度有机会更快，但也更占地方
+</h2><p>现代 Wi-Fi 会把信道内部划分成很多细小的子载波，并行承载数据。信道更宽，通常能放下更多子载波，传输能力也就更大。</p>
+<p>拿这块网卡使用的 802.11n 来说，在两条空间流、MCS 15、短保护间隔这些条件不变时，20 MHz 的物理层速率约为 144.4 Mbps，40 MHz 可以达到 300 Mbps。<a class="link" href="https://www.cisco.com/c/en/us/td/docs/routers/access/1900/software/configuration/guide/Software_Configuration/radio_config.html"  target="_blank" rel="noopener"
+    >Cisco 的 802.11n 速率表</a>可以直接查到这组对应关系。</p>
+<p>但频谱不是自己独占的。一个接入点用得越宽，附近其他接入点就越难找到互不重叠的位置。更宽的信道也可能碰到更多干扰源。</p>
+<p>在周围设备很少的环境里，用宽信道容易发挥优势；宿舍、教学楼这种地方，情况就未必了。标称速率更高，实际可能花更多时间等别人发完。<a class="link" href="https://www.intel.com/content/www/us/en/support/articles/000058989/wireless/intel-killer-wi-fi-products.html"  target="_blank" rel="noopener"
+    >Intel 对信道宽度的说明</a>也提醒了宽信道与干扰的关系。</p>
+<p>我这块 Wireless-N 网卡最多支持 40 MHz，不能靠改配置变成 80 或 160 MHz。</p>
+<h2 id="信号满格也不一定快">信号满格，也不一定快
+</h2><p>这次测到的信号强度大约是 -49 dBm，算比较强。</p>
+<p>dBm 表示功率，以 1 毫瓦为参考。0 dBm 是 1 毫瓦，负数表示低于这个功率。Wi-Fi 经过一段距离后，到达网卡的功率很小，读到负数很正常。这里测的是电脑接收到的功率，不是接入点的发射功率。</p>
+<p>比较时记住：<strong>-50 dBm 比 -70 dBm 强。</strong></p>
+<p>它还是对数单位，两者相差 20 dB，功率差了 100 倍。不过，信号功率增加 100 倍，不代表网速也增加 100 倍。</p>
+<p>能否听清，还要看背景有多吵。安静房间和嘈杂食堂里，同一个人的说话音量不变，听清的难度却不同。无线接收也是如此。</p>
+<p>信噪比 SNR，就是目标信号比噪声强多少。用 dBm 表示两者功率时，可以直接相减：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">信号 -50 dBm，噪声 -95 dBm：SNR = 45 dB
+</span></span><span class="line"><span class="cl">信号 -50 dBm，噪声 -70 dBm：SNR = 20 dB
+</span></span></code></pre></div><p>信号一样强，第一个环境却更容易正确接收数据。这里的噪声是举例，这次没有读到可靠的噪声值，不能把例子当成电脑的实测 SNR。</p>
+<p>dBm 描述一个功率值，dB 描述功率之间的比例，所以信噪比的单位是 dB。<a class="link" href="https://www.cisco.com/c/en/us/support/docs/wireless-mobility/wireless-lan-wlan/71113-rrm-new.html"  target="_blank" rel="noopener"
+    >Cisco 对 dBm 和 SNR 的说明</a>把这两项放在一起解释。</p>
+<p>还有一种慢，是附近设备太多，大家在排队使用信道。即使信号强、接收清楚，轮不到自己发送时，也快不起来。邻居 Wi-Fi 造成的等待，不一定会表现为噪声值升高。</p>
+<h2 id="300-mbps-是怎么来的">300 Mbps 是怎么来的
+</h2><p>频率和宽度确定以后，设备还需要解决一个问题：怎样把电脑里的 0 和 1 放进电磁波？</p>
+<p>这个过程叫调制。设备用电磁波的振幅、相位等状态表示数据，接收端再把它们还原出来。</p>
+<p>如果一次只能区分两种状态，就可以表示 0 或 1，承载一个比特。能区分四种状态，就可以表示 00、01、10、11，一次承载两个比特。这一次发送的状态，叫“符号”。</p>
+<p>QAM 就是一种安排这些状态的方法。64-QAM 有 64 种状态，每个符号可以表示 6 个比特；256-QAM 是 8 个，1024-QAM 是 10 个，4096-QAM 是 12 个。</p>
+<p>数字越大，一个符号能装的数据越多。但在相近功率下，状态之间也更难分辨，对信噪比的要求更高。距离远了、环境吵了，设备就可能降低调制阶数，少装一点数据，换取更可靠的接收。</p>
+<p>从 1024-QAM 升级到 4096-QAM，状态数增加了四倍，但每个符号的数据量只是从 10 比特增加到 12 比特，增加 20%，不是四倍。</p>
+<p>此外，发送端还会加入纠错冗余。比如 5/6 编码率，可以粗略理解为编码后的六份比特里，有五份原始信息量，剩下的是纠错冗余。</p>
+<p>这些调制和编码组合，会被编成 <strong>MCS</strong> 索引。在 802.11n 里，常见 MCS 编号还包含空间流数量。</p>
+<p>空间流又和 <strong>MIMO</strong> 有关。它利用多套天线和射频路径，在同一时间、同一频谱里并行发送多条独立数据流。不同接收天线得到的混合信号有所不同，接收端估计传播路径，再从中分离出数据。</p>
+<p>常见的 2×2 MIMO 通常表示两条发送链和两条接收链，在设备和环境允许时，最多支持两条空间流。天线数量不直接等于实际空间流数量，还要看射频硬件和传播条件。</p>
+<p>我这块网卡最多支持两条空间流。接入点就算支持四条，也不能让电脑自动获得四条。</p>
+<p>于是，输出里的这一行：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">300.0 MBit/s MCS 15 40MHz short GI
+</span></span></code></pre></div><p>就能读懂了：在 802.11n 下，MCS 15 对应两条空间流、64-QAM、5/6 编码率，再加上 40 MHz 信道和短保护间隔，得到 300 Mbps 的物理层速率。</p>
+<p>保护间隔是符号之间留的一点时间，帮助处理反射信号沿不同路径到达造成的延迟。802.11n 的普通保护间隔是 800 纳秒，短保护间隔是 400 纳秒。其他条件相同时，留的间隔短一些，每秒能发送的符号就更多；这组条件下，普通保护间隔对应 270 Mbps，短保护间隔对应 300 Mbps。</p>
+<p>开头的接收和发送速率不同，也是正常的。两个方向的接收条件和速率选择不同，设备会根据链路情况调整，读到的是当时报告的速率，不是永久固定的速度。</p>
+<h2 id="wi-fi-的第几代说的是协议">Wi-Fi 的“第几代”，说的是协议
+</h2><p>把代数、频段和信道分开以后，名字就没那么绕了：</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>协议</th>
+<th>复习时记住的变化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wi-Fi 4</td>
+<td>802.11n</td>
+<td>MIMO、40 MHz</td>
+</tr>
+<tr>
+<td>Wi-Fi 5</td>
+<td>802.11ac</td>
+<td>更宽信道、256-QAM、下行 MU-MIMO</td>
+</tr>
+<tr>
+<td>Wi-Fi 6</td>
+<td>802.11ax</td>
+<td>1024-QAM、OFDMA、上下行 MU-MIMO</td>
+</tr>
+<tr>
+<td>Wi-Fi 6E</td>
+<td>802.11ax</td>
+<td>扩展到 6 GHz</td>
+</tr>
+<tr>
+<td>Wi-Fi 7</td>
+<td>802.11be</td>
+<td>4096-QAM、6 GHz 下的 320 MHz、多链路操作</td>
+</tr>
+</tbody>
+</table></div>
+<p>这些是标准提供的能力，具体设备不一定全部支持。<a class="link" href="https://www.intel.com/content/dam/www/central-libraries/us/en/documents/2022-07/wifi7-generations-overview-table-1920-1080.pdf"  target="_blank" rel="noopener"
+    >Intel 的 Wi-Fi 代际对照</a>可以留着查。</p>
+<p>MU-MIMO 可以让接入点利用空间分离同时服务多台设备；OFDMA 则把信道内部的子载波分组，分配给不同设备。Wi-Fi 6 在设备多的时候提高效率，靠的就包括这些安排。不过，它仍然需要与周围网络协调使用无线资源，不是从此不用排队了。<a class="link" href="https://gblogs.cisco.com/jp/2019/11/service-provider-end-to-end-architecture-1-radio-access-in-5g-era-2/"  target="_blank" rel="noopener"
+    >Cisco 对多用户通信的说明</a>也讲到了这一点。</p>
+<p>Wi-Fi 4 和 Wi-Fi 6 都可以工作在 2.4 GHz 或 5 GHz，Wi-Fi 5 使用 5 GHz。Wi-Fi 6 的“6”是代数，不是 6 GHz。</p>
+<p>所以我这台电脑用 <strong>5 GHz 连接 Wi-Fi 4</strong>，完全正常。学校接入点是否支持 Wi-Fi 6，还不能仅凭这次连接确定；电脑自己不支持，也就用不上。</p>
+<p>至于 n79，它属于手机 5G NR 的频段编号，范围是 4400～5000 MHz。我当前的 Wi-Fi 主信道是 5785 MHz，用的是另一套通信标准和编号。<a class="link" href="https://www.etsi.org/deliver/etsi_ts/138100_138199/13810101/17.05.00_60/ts_13810101v170500p.pdf"  target="_blank" rel="noopener"
+    >ETSI／3GPP 频段定义</a>里可以查到这个范围。路由器名称里的“5G”通常是 5 GHz 的简称，手机状态栏里的“5G”则是第五代移动通信。</p>
+<p>最后还有一个容易误读的数字：300 Mbps 换算成字节是 37.5 MB/s，但这只是单位换算。实际下载还要扣除协议开销、确认、等待、重传，并受到校园网出口和服务器速度限制。同一信道的无线资源也需要协调收发，不能把接收和发送速率当成两条独占线路相加。这次没有做下载测速，不能把连接速率写成下载实测结果。</p>
+<p>下次想看这些参数，在 NixOS 上可以临时调用 <code>iw</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nix shell nixpkgs#iw --command iw dev wlp3s0 link
+</span></span><span class="line"><span class="cl">nix shell nixpkgs#iw --command iw dev wlp3s0 info
+</span></span></code></pre></div><p>第一条看信号和收发速率，第二条看主信道、宽度和整个信道的中心频率。比只看 Wi-Fi 图标上的几格，多知道不少东西。</p>
+<h2 id="留几个视频之后接着看">留几个视频，之后接着看
+</h2><p>这些视频是按页面简介和课程目录选的，还没逐条完整看过。先看前两条中文视频，再按兴趣补英文原理课。</p>
+<ul>
+<li><a class="link" href="https://www.bilibili.com/video/BV1LS9eBxEGD/"  target="_blank" rel="noopener"
+    >硬件茶谈：WiFi 是怎么传递信息的？把信息装进电磁波有多难？</a>：约 12 分钟，主题覆盖数据怎样通过电磁波传输，以及 Wi-Fi 4 到 7 的变化，和这次记下的内容比较贴近。</li>
+<li><a class="link" href="https://www.bilibili.com/video/BV1oM4y137Ux/"  target="_blank" rel="noopener"
+    >领略技术的美：用广场舞给你说清楚 WiFi 干扰是怎么回事？</a>：中文，围绕 Wi-Fi 干扰展开，用来理解“信号挺强，为什么还是慢”。</li>
+<li><a class="link" href="https://www.youtube.com/watch?v=aTuaEk5hnAs"  target="_blank" rel="noopener"
+    >Professor Messer：Wireless Network Technologies</a>：英文入门课，介绍 802.11 的频率和信道等基础概念。</li>
+<li><a class="link" href="https://www.iaincollings.com/digital-communications"  target="_blank" rel="noopener"
+    >Iain Collings：Digital Communications 视频课程目录</a>：英文。先找 <em>What is a Constellation Diagram?</em> 和 <em>Visualising Digital Modulation</em>，理解调制；再看 <em>What is OFDM? and Why is it Used?</em>，最后看 <em>What are Spatial Diversity and Spatial Multiplexing in MIMO?</em>。不用从第一节开始全部刷完。</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/sing-box/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">sing-box</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%8B%B1%E8%AF%AD%E7%BC%A9%E5%86%99%E6%B1%87%E6%80%BB/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">英语缩写汇总</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E7%A2%8E%E5%B1%91/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">碎屑</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/ffmpeg/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">FFmpeg</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">操作系统</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 RUN
+    </section>
+    
+    <section class="powerby">
+        
+            Hello World! <br/>
+        
+
+        
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aplayer/dist/APlayer.min.css">
+<script src="https://unpkg.com/aplayer/dist/APlayer.min.js"></script>
+<script src="https://unpkg.com/meting@2/dist/Meting.min.js"></script>
+
+<meting-js
+  api="https://api.injahow.cn/meting/?server=:server&type=:type&id=:id&r=:r"
+  server="netease"
+  type="playlist"
+  id="626864109"
+  fixed="true"
+  autoplay="false">
+</meting-js>
+
+<script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script>
+
+
+    
+    <script src=https://echo806.github.io/js/topbar.min.js></script>
+
+
+
+<script>
+    var pjax = new Pjax({
+    selectors: [".main-container"]
+    })
+
+    pjax._handleResponse = pjax.handleResponse;
+    pjax.handleResponse = function(responseText, request, href, options) {
+        if (request.responseText.match("<html")) {
+            if (responseText) {
+                
+                let newDom = new DOMParser().parseFromString(responseText, 'text/html');
+                
+                let bodyClass = newDom.body.className;
+                document.body.setAttribute("class", bodyClass)
+            }
+            
+            pjax._handleResponse(responseText, request, href, options);
+        } else {
+            
+        }
+    }
+
+    document.addEventListener('pjax:send',() =>{
+        topbar.show();
+    })
+
+    document.addEventListener('pjax:complete',() =>{
+        
+        window.Stack.init();
+        
+        topbar.hide();
+
+    })
+
+
+</script>
+
+
+
+<div id="jsi-flying-fish-container"></div>
+
+
+<style>
+#jsi-flying-fish-container {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 120px;
+    z-index: -1;
+    opacity: 0;           
+    overflow: hidden;
+    pointer-events: none;
+    transition: opacity .3s;
+}
+ 
+.show-fish #jsi-flying-fish-container {
+    opacity: .5;
+}
+</style>
+
+
+<script>
+window.initFlyingFish = function () {
+    const container = document.getElementById('jsi-flying-fish-container');
+    if (!container) return;
+
+     
+    const oldCanvas = container.querySelector('canvas');
+    if (oldCanvas) oldCanvas.remove();
+
+     
+    const script = document.createElement('script');
+    script.src = 'https://cdn.meimolihan.eu.org/hugo/fish/fish.js';
+    script.onload = function () {
+        if (typeof RENDERER !== 'undefined') RENDERER.init();
+    };
+    document.head.appendChild(script);
+
+     
+    function checkBottom() {
+        const doc = document.documentElement;
+        const isBottom = (window.innerHeight + Math.ceil(window.pageYOffset))
+                         >= (doc.scrollHeight - 10);
+        document.body.classList.toggle('show-fish', isBottom);
+    }
+
+     
+    window.addEventListener('scroll', checkBottom);
+    checkBottom(); 
+};
+
+ 
+document.addEventListener('DOMContentLoaded', initFlyingFish);
+
+ 
+document.addEventListener('pjax:complete', initFlyingFish);
+</script>
+
+
+
+<script>
+
+    const live2d_path = "https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/";
+    const cssPath = "https://echo806.github.io/waifu/waifu.css";
+    const waifuTipsJsonPath = "https://echo806.github.io/waifu/waifu-tips.json";
+    const live2dMinJsPath = "https://echo806.github.io/waifu/live2d.min.js";
+    
+
+
+    function loadExternalResource(url, type) {
+        return new Promise((resolve, reject) => {
+            let tag;
+
+            if (type === "css") {
+                tag = document.createElement("link");
+                tag.rel = "stylesheet";
+                tag.href = url;
+            }
+            else if (type === "js") {
+                tag = document.createElement("script");
+                tag.src = url;
+            }
+            if (tag) {
+                tag.onload = () => resolve(url);
+                tag.onerror = () => reject(url);
+                document.head.appendChild(tag);
+            }
+        });
+    }
+
+
+    if (screen.width >= 768) {
+        Promise.all([
+            loadExternalResource(cssPath, "css"),
+            loadExternalResource(live2dMinJsPath, "js"),
+            loadExternalResource(live2d_path + "waifu-tips.js", "js")
+        ]).then(() => {
+
+            initWidget({
+                waifuPath: waifuTipsJsonPath,
+                
+                cdnPath: "https://fastly.jsdelivr.net/gh/fghrsh/live2d_api/",
+                tools: ["hitokoto", "asteroids", "switch-model", "switch-texture", "photo", "info", "quit"]
+            });
+            initWaifuMouseEvent();
+        });
+    }
+
+    function initWaifuMouseEvent() {
+        const waifu = document.getElementById("waifu");
+        let isDown = false;
+        let waifuLeft;
+        let mouseLeft;
+        let waifuTop;
+        let mouseTop;
+
+        waifu.onmousedown = function (e) {
+            isDown = true;
+
+            waifuLeft = waifu.offsetLeft;
+            mouseLeft = e.clientX;
+
+            waifuTop = waifu.offsetTop;
+            mouseTop = e.clientY;
+        }
+ 
+        window.onmousemove = function (e) {
+            if (!isDown) {
+                return;
+            }
+
+            let currentLeft = waifuLeft + (e.clientX - mouseLeft);
+            if (currentLeft < 0) {
+                currentLeft = 0;
+            } else if (currentLeft > window.innerWidth - 300) {
+                currentLeft = window.innerWidth - 300;
+            }
+            waifu.style.left = currentLeft  + "px";
+
+            let currentTop = waifuTop + (e.clientY - mouseTop);
+            if (currentTop < 30) {
+                currentTop = 30
+            } else if (currentTop > window.innerHeight - 290) {
+                currentTop = window.innerHeight - 290
+            }
+            waifu.style.top = currentTop + "px";
+        }
+
+        window.onmouseup = function (e) {
+            isDown = false;
+        }
+    }
+</script>
+
+
+
+
+
+<div id="particles-js"></div>
+
+<script src=https://echo806.github.io/background/particles.min.js></script>
+<script>
+    particlesJS.load('particles-js', "https://echo806.github.io/background/particlesjs-config.json", function() {
+        console.log('particles.js loaded - callback');
+    });
+</script>
+
+<style>
+    #particles-js {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: -1;
+    }
+</style>
+
+
+
+<style>
+   
+  @font-face {
+    font-family: 'MyChineseFont';
+    src: url(https://echo806.github.io/font/ChildFunSans.ttf) format('truetype');
+  }
+
+   
+  @font-face {
+    font-family: 'Amarna-Semibold';
+    src: url(https://echo806.github.io/font/Amarna-Semibold.ttf) format('truetype');
+  }
+
+  :root {
+     
+    --base-font-family: 'Amarna-Semibold', 'ChildFunSans';
+    --code-font-family: 'Amarna-Semibold', 'ChildFunSans';
+  }
+</style>
+
+
+    </body>
+</html>
