@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="这次更新 flake 后重建系统，GUI.for.SingBox 在解包依赖时失败，日志里反复出现： tar: ./v10/index: Cannot mkdir: No space left on device 我先看了根分区： df -h / Filesystem Size Used Avail Use% Mounted on">
+<title>NixOS 磁盘写满后，为什么 GC 还是清不出多少空间</title>
+
+<link rel='canonical' href='https://echo806.github.io/p/nixos-gc-roots/'>
+
+<link rel="stylesheet" href="/scss/style.min.d44d1b138e555166d2fb22df4e9ea386c36ba19591a491a37edb07faede022e1.css"><meta property='og:title' content="NixOS 磁盘写满后，为什么 GC 还是清不出多少空间">
+<meta property='og:description' content="这次更新 flake 后重建系统，GUI.for.SingBox 在解包依赖时失败，日志里反复出现： tar: ./v10/index: Cannot mkdir: No space left on device 我先看了根分区： df -h / Filesystem Size Used Avail Use% Mounted on">
+<meta property='og:url' content='https://echo806.github.io/p/nixos-gc-roots/'>
+<meta property='og:site_name' content='知识与避世的狭缝'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-11-18T18:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-11-18T18:00:00&#43;08:00'/>
+<meta name="twitter:title" content="NixOS 磁盘写满后，为什么 GC 还是清不出多少空间">
+<meta name="twitter:description" content="这次更新 flake 后重建系统，GUI.for.SingBox 在解包依赖时失败，日志里反复出现： tar: ./v10/index: Cannot mkdir: No space left on device 我先看了根分区： df -h / Filesystem Size Used Avail Use% Mounted on">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+
+                    
+                        
+                        <img src="/img/Patchouli.gif" width="500"
+                            height="500" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🤔</span>
+                
+            </figure>
+            
+        
+
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">&nbsp;</a></h1>
+            <h2 class="site-description">欢迎来到我的网站，此博客由【Hugo &#43; Stack】来进行搭建，主要分享个人生活和学习笔记</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a
+                        href='https://space.bilibili.com/306100621'
+                        target="_blank"
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-bilibili"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6" /><path d="M8 3l2 3" /><path d="M16 3l-2 3" /><path d="M9 13v-2" /><path d="M15 11v2" /></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a
+                        href='https://github.com/echo806'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a
+                        href='https://steamcommunity.com/profiles/76561199076111538/'
+                        target="_blank"
+                        title="Steam"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-steam"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16.5 5a4.5 4.5 0 1 1 -.653 8.953l-4.347 3.009l0 .038a3 3 0 0 1 -2.824 3l-.176 0a3 3 0 0 1 -2.94 -2.402l-2.56 -1.098v-3.5l3.51 1.755a2.989 2.989 0 0 1 2.834 -.635l2.727 -3.818a4.5 4.5 0 0 1 4.429 -5.302" /><path d="M15.5 9.5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" fill="currentColor" /></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E6%97%A5%E5%BF%97/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-logs"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 12h.01" /><path d="M4 6h.01" /><path d="M4 18h.01" /><path d="M8 18h2" /><path d="M8 12h2" /><path d="M8 6h2" /><path d="M14 6h6" /><path d="M14 12h6" /><path d="M14 18h6" /></svg>
+                
+                <span>日志</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#先回收没有被引用的内容">先回收没有被引用的内容</a></li>
+    <li><a href="#删掉旧代次空间却没多出多少">删掉旧代次，空间却没多出多少</a></li>
+    <li><a href="#真正拦住-gc-的是旧构建结果链接">真正拦住 GC 的，是旧构建结果链接</a></li>
+    <li><a href="#去重也能腾出一部分空间">去重也能腾出一部分空间</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/nixos/" style="background-color: #2a9d8f; color: #fff;">
+                nixos
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/nixos-gc-roots/">NixOS 磁盘写满后，为什么 GC 还是清不出多少空间</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-11-18</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>这次更新 flake 后重建系统，GUI.for.SingBox 在解包依赖时失败，日志里反复出现：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">tar: ./v10/index: Cannot mkdir: No space left on device
+</span></span></code></pre></div><p>我先看了根分区：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">df -h /
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Filesystem      Size  Used Avail Use% Mounted on
+</span></span><span class="line"><span class="cl">/dev/sda3       108G  106G     0 100% /
+</span></span></code></pre></div><p>磁盘确实满了。但清理下来才发现，旧系统代次只是其中一部分，之前随手留下的构建结果链接，也一直保留着整套旧依赖。</p>
+<h2 id="先回收没有被引用的内容">先回收没有被引用的内容
+</h2><p>普通的垃圾回收命令是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nix-store --gc
+</span></span></code></pre></div><p>它会删除从 GC roots 这些保留入口追不到的 Store 路径。系统代次和登记过的构建结果都可能成为入口，继续保留它们指向的包及其依赖。<a class="link" href="https://nix.dev/manual/nix/2.34/command-ref/nix-store/gc.html"  target="_blank" rel="noopener"
+    >官方手册</a>里说明了这套引用关系。</p>
+<p>当时我先跑了一轮带释放量阈值的回收，参数换成容易记的单位就是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nix-store --gc --max-freed 15G
+</span></span></code></pre></div><p><code>15G</code> 表示回收约 15 GiB 后停止，实际释放量可能超过这个阈值；如果没有那么多可回收内容，也会提前结束。这一轮实际只释放了约 6 GiB，继续下载和解包仍然吃紧。</p>
+<h2 id="删掉旧代次空间却没多出多少">删掉旧代次，空间却没多出多少
+</h2><p>我当时保留了 30 个系统代次，先列出来确认：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nix-env -p /nix/var/nix/profiles/system --list-generations
+</span></span></code></pre></div><p>然后删除第 325–349 代，保留清理时最近的 350–354 这五代，再执行 GC：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nix-env -p /nix/var/nix/profiles/system --delete-generations <span class="o">{</span>325..349<span class="o">}</span>
+</span></span><span class="line"><span class="cl">sudo nix-store --gc
+</span></span></code></pre></div><p>这里的范围是 Bash 的展开写法，数字只是这次机器上的记录，以后要按实际列表选择。删除代次会移除对应的回滚入口，Store 里的内容则交给后面的 GC 回收。<a class="link" href="https://nix.dev/manual/nix/2.34/command-ref/nix-env/delete-generations.html"  target="_blank" rel="noopener"
+    >代次删除命令的说明</a>可以留着对照。</p>
+<p>这轮回收却只有：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">287 store paths deleted, 114.8 MiB freed
+</span></span></code></pre></div><p>删了 25 个代次，只多出一百多 MiB，显然还有别的引用留着这些包。</p>
+<h2 id="真正拦住-gc-的是旧构建结果链接">真正拦住 GC 的，是旧构建结果链接
+</h2><p>我接着列出 GC roots。这条命令只查看保留入口：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nix-store --gc --print-roots &gt; /tmp/nix-gcroots.txt
+</span></span><span class="line"><span class="cl">rg <span class="s1">&#39;/home/run/|/tmp/&#39;</span> /tmp/nix-gcroots.txt
+</span></span></code></pre></div><p>里面有旧的 <code>~/result</code>、<code>/tmp/nextgen</code>，还有以前排查输入法、NixVim 和代理客户端时留下的构建结果。它们都是已经登记的 GC 引用，指向的旧系统或应用因此一直被保留。</p>
+<p>这些链接本身很小，看目录大小时很容易忽略。我确认对应的构建已经弃用后，清理了其中 10 个链接。下面只列两个例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ls -l ~/result /tmp/nextgen
+</span></span><span class="line"><span class="cl">sudo rm -- ~/result /tmp/nextgen
+</span></span><span class="line"><span class="cl">sudo nix-store --gc --quiet
+</span></span></code></pre></div><p>删除的是结果链接，包及其依赖仍由 Nix 判断是否可以回收。<code>--quiet</code> 只是减少日志输出。这次 GC 的结果终于明显了：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">27548 store paths deleted, 20.5 GiB freed
+</span></span></code></pre></div><h2 id="去重也能腾出一部分空间">去重也能腾出一部分空间
+</h2><p>清理过程中我还用了：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo nix-store --optimise
+</span></span></code></pre></div><p>它会找出 Store 中内容和可执行标记相同的普通文件，用硬链接共享同一份数据。即使两个系统代次都要保留，其中重复的文件也可以合并；具体判定规则见<a class="link" href="https://nix.dev/manual/nix/2.34/command-ref/nix-store/optimise.html"  target="_blank" rel="noopener"
+    >去重命令的说明</a>。</p>
+<p>我保留下来的一轮完整输出是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">7.8 GiB freed by hard-linking 521312 files
+</span></span></code></pre></div><p>这个过程比较吃磁盘读写，在这台 X250 上跑了挺久。后来我也在 NixOS 配置里打开了：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-nix" data-lang="nix"><span class="line"><span class="cl"><span class="n">nix</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">auto-optimise-store</span> <span class="err">=</span> <span class="no">true</span><span class="p">;</span>
+</span></span></code></pre></div><p>它会对以后加入 Store 的文件自动去重，已有内容仍可以手动跑一次 <code>--optimise</code>。这会增加导入文件时的开销，<a class="link" href="https://wiki.nixos.org/wiki/Storage_optimization#Optimising_the_store"  target="_blank" rel="noopener"
+    >官方 Wiki</a>也提到了这一点。</p>
+<p>期间还有新的下载和构建，各轮释放量不能直接相加当作最终腾出的空间。重建并切换完成后，<code>df -h /</code> 显示可用空间约 36 GiB。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/nixvim%E5%BF%AB%E6%8D%B7%E9%94%AE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">nixvim快捷键</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/nixos-%E5%BE%AE%E4%BF%A1%E8%BE%93%E5%85%A5%E6%B3%95%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98%E5%9C%A8-fhs-%E7%8E%AF%E5%A2%83%E9%87%8C/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">NixOS 微信输入法失效，问题在 FHS 环境里</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/kde-connect-%E5%8D%95%E5%90%91%E4%BC%A0%E6%96%87%E4%BB%B6%E5%8D%A1%E4%BD%8F%E9%97%AE%E9%A2%98%E8%97%8F%E5%9C%A8-sing-box-%E7%9A%84-linux-%E8%B7%AF%E7%94%B1%E9%87%8C/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">KDE Connect 单向传文件卡住，问题藏在 sing-box 的 Linux 路由里</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%80%81%E7%94%B5%E8%84%91%E4%B8%8A%E5%AE%89%E8%A3%85nixos%E5%91%BD%E4%BB%A4%E9%98%9F%E5%88%97%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">老电脑上安装nixos命令队列兼容性问题</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/nixos-%E5%86%B7%E5%90%AF%E5%8A%A8%E9%BB%91%E5%B1%8F%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">NixOS 冷启动黑屏问题排查</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 RUN
+    </section>
+    
+    <section class="powerby">
+        
+            Hello World! <br/>
+        
+
+        
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aplayer/dist/APlayer.min.css">
+<script src="https://unpkg.com/aplayer/dist/APlayer.min.js"></script>
+<script src="https://unpkg.com/meting@2/dist/Meting.min.js"></script>
+
+<meting-js
+  api="https://api.injahow.cn/meting/?server=:server&type=:type&id=:id&r=:r"
+  server="netease"
+  type="playlist"
+  id="626864109"
+  fixed="true"
+  autoplay="false">
+</meting-js>
+
+<script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script>
+
+
+    
+    <script src=https://echo806.github.io/js/topbar.min.js></script>
+
+
+
+<script>
+    var pjax = new Pjax({
+    selectors: [".main-container"]
+    })
+
+    pjax._handleResponse = pjax.handleResponse;
+    pjax.handleResponse = function(responseText, request, href, options) {
+        if (request.responseText.match("<html")) {
+            if (responseText) {
+                
+                let newDom = new DOMParser().parseFromString(responseText, 'text/html');
+                
+                let bodyClass = newDom.body.className;
+                document.body.setAttribute("class", bodyClass)
+            }
+            
+            pjax._handleResponse(responseText, request, href, options);
+        } else {
+            
+        }
+    }
+
+    document.addEventListener('pjax:send',() =>{
+        topbar.show();
+    })
+
+    document.addEventListener('pjax:complete',() =>{
+        
+        window.Stack.init();
+        
+        topbar.hide();
+
+    })
+
+
+</script>
+
+
+
+<div id="jsi-flying-fish-container"></div>
+
+
+<style>
+#jsi-flying-fish-container {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 120px;
+    z-index: -1;
+    opacity: 0;           
+    overflow: hidden;
+    pointer-events: none;
+    transition: opacity .3s;
+}
+ 
+.show-fish #jsi-flying-fish-container {
+    opacity: .5;
+}
+</style>
+
+
+<script>
+window.initFlyingFish = function () {
+    const container = document.getElementById('jsi-flying-fish-container');
+    if (!container) return;
+
+     
+    const oldCanvas = container.querySelector('canvas');
+    if (oldCanvas) oldCanvas.remove();
+
+     
+    const script = document.createElement('script');
+    script.src = 'https://cdn.meimolihan.eu.org/hugo/fish/fish.js';
+    script.onload = function () {
+        if (typeof RENDERER !== 'undefined') RENDERER.init();
+    };
+    document.head.appendChild(script);
+
+     
+    function checkBottom() {
+        const doc = document.documentElement;
+        const isBottom = (window.innerHeight + Math.ceil(window.pageYOffset))
+                         >= (doc.scrollHeight - 10);
+        document.body.classList.toggle('show-fish', isBottom);
+    }
+
+     
+    window.addEventListener('scroll', checkBottom);
+    checkBottom(); 
+};
+
+ 
+document.addEventListener('DOMContentLoaded', initFlyingFish);
+
+ 
+document.addEventListener('pjax:complete', initFlyingFish);
+</script>
+
+
+
+<script>
+
+    const live2d_path = "https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/";
+    const cssPath = "https://echo806.github.io/waifu/waifu.css";
+    const waifuTipsJsonPath = "https://echo806.github.io/waifu/waifu-tips.json";
+    const live2dMinJsPath = "https://echo806.github.io/waifu/live2d.min.js";
+    
+
+
+    function loadExternalResource(url, type) {
+        return new Promise((resolve, reject) => {
+            let tag;
+
+            if (type === "css") {
+                tag = document.createElement("link");
+                tag.rel = "stylesheet";
+                tag.href = url;
+            }
+            else if (type === "js") {
+                tag = document.createElement("script");
+                tag.src = url;
+            }
+            if (tag) {
+                tag.onload = () => resolve(url);
+                tag.onerror = () => reject(url);
+                document.head.appendChild(tag);
+            }
+        });
+    }
+
+
+    if (screen.width >= 768) {
+        Promise.all([
+            loadExternalResource(cssPath, "css"),
+            loadExternalResource(live2dMinJsPath, "js"),
+            loadExternalResource(live2d_path + "waifu-tips.js", "js")
+        ]).then(() => {
+
+            initWidget({
+                waifuPath: waifuTipsJsonPath,
+                
+                cdnPath: "https://fastly.jsdelivr.net/gh/fghrsh/live2d_api/",
+                tools: ["hitokoto", "asteroids", "switch-model", "switch-texture", "photo", "info", "quit"]
+            });
+            initWaifuMouseEvent();
+        });
+    }
+
+    function initWaifuMouseEvent() {
+        const waifu = document.getElementById("waifu");
+        let isDown = false;
+        let waifuLeft;
+        let mouseLeft;
+        let waifuTop;
+        let mouseTop;
+
+        waifu.onmousedown = function (e) {
+            isDown = true;
+
+            waifuLeft = waifu.offsetLeft;
+            mouseLeft = e.clientX;
+
+            waifuTop = waifu.offsetTop;
+            mouseTop = e.clientY;
+        }
+ 
+        window.onmousemove = function (e) {
+            if (!isDown) {
+                return;
+            }
+
+            let currentLeft = waifuLeft + (e.clientX - mouseLeft);
+            if (currentLeft < 0) {
+                currentLeft = 0;
+            } else if (currentLeft > window.innerWidth - 300) {
+                currentLeft = window.innerWidth - 300;
+            }
+            waifu.style.left = currentLeft  + "px";
+
+            let currentTop = waifuTop + (e.clientY - mouseTop);
+            if (currentTop < 30) {
+                currentTop = 30
+            } else if (currentTop > window.innerHeight - 290) {
+                currentTop = window.innerHeight - 290
+            }
+            waifu.style.top = currentTop + "px";
+        }
+
+        window.onmouseup = function (e) {
+            isDown = false;
+        }
+    }
+</script>
+
+
+
+
+
+<div id="particles-js"></div>
+
+<script src=https://echo806.github.io/background/particles.min.js></script>
+<script>
+    particlesJS.load('particles-js', "https://echo806.github.io/background/particlesjs-config.json", function() {
+        console.log('particles.js loaded - callback');
+    });
+</script>
+
+<style>
+    #particles-js {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: -1;
+    }
+</style>
+
+
+
+<style>
+   
+  @font-face {
+    font-family: 'MyChineseFont';
+    src: url(https://echo806.github.io/font/ChildFunSans.ttf) format('truetype');
+  }
+
+   
+  @font-face {
+    font-family: 'Amarna-Semibold';
+    src: url(https://echo806.github.io/font/Amarna-Semibold.ttf) format('truetype');
+  }
+
+  :root {
+     
+    --base-font-family: 'Amarna-Semibold', 'ChildFunSans';
+    --code-font-family: 'Amarna-Semibold', 'ChildFunSans';
+  }
+</style>
+
+
+    </body>
+</html>

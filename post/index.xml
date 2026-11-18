@@ -7,7 +7,64 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>RUN</copyright>
-        <lastBuildDate>Sun, 11 Oct 2026 20:30:00 +0800</lastBuildDate><atom:link href="https://echo806.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 18 Nov 2026 18:00:00 +0800</lastBuildDate><atom:link href="https://echo806.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>NixOS 磁盘写满后，为什么 GC 还是清不出多少空间</title>
+        <link>https://echo806.github.io/p/nixos-gc-roots/</link>
+        <pubDate>Wed, 18 Nov 2026 18:00:00 +0800</pubDate>
+        
+        <guid>https://echo806.github.io/p/nixos-gc-roots/</guid>
+        <description>&lt;p&gt;这次更新 flake 后重建系统，GUI.for.SingBox 在解包依赖时失败，日志里反复出现：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;tar: ./v10/index: Cannot mkdir: No space left on device
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我先看了根分区：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;df -h /
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Filesystem      Size  Used Avail Use% Mounted on
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/dev/sda3       108G  106G     0 100% /
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;磁盘确实满了。但清理下来才发现，旧系统代次只是其中一部分，之前随手留下的构建结果链接，也一直保留着整套旧依赖。&lt;/p&gt;
+&lt;h2 id=&#34;先回收没有被引用的内容&#34;&gt;先回收没有被引用的内容
+&lt;/h2&gt;&lt;p&gt;普通的垃圾回收命令是：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo nix-store --gc
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;它会删除从 GC roots 这些保留入口追不到的 Store 路径。系统代次和登记过的构建结果都可能成为入口，继续保留它们指向的包及其依赖。&lt;a class=&#34;link&#34; href=&#34;https://nix.dev/manual/nix/2.34/command-ref/nix-store/gc.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;官方手册&lt;/a&gt;里说明了这套引用关系。&lt;/p&gt;
+&lt;p&gt;当时我先跑了一轮带释放量阈值的回收，参数换成容易记的单位就是：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo nix-store --gc --max-freed 15G
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;15G&lt;/code&gt; 表示回收约 15 GiB 后停止，实际释放量可能超过这个阈值；如果没有那么多可回收内容，也会提前结束。这一轮实际只释放了约 6 GiB，继续下载和解包仍然吃紧。&lt;/p&gt;
+&lt;h2 id=&#34;删掉旧代次空间却没多出多少&#34;&gt;删掉旧代次，空间却没多出多少
+&lt;/h2&gt;&lt;p&gt;我当时保留了 30 个系统代次，先列出来确认：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo nix-env -p /nix/var/nix/profiles/system --list-generations
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后删除第 325–349 代，保留清理时最近的 350–354 这五代，再执行 GC：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo nix-env -p /nix/var/nix/profiles/system --delete-generations &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;325..349&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo nix-store --gc
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这里的范围是 Bash 的展开写法，数字只是这次机器上的记录，以后要按实际列表选择。删除代次会移除对应的回滚入口，Store 里的内容则交给后面的 GC 回收。&lt;a class=&#34;link&#34; href=&#34;https://nix.dev/manual/nix/2.34/command-ref/nix-env/delete-generations.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;代次删除命令的说明&lt;/a&gt;可以留着对照。&lt;/p&gt;
+&lt;p&gt;这轮回收却只有：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;287 store paths deleted, 114.8 MiB freed
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;删了 25 个代次，只多出一百多 MiB，显然还有别的引用留着这些包。&lt;/p&gt;
+&lt;h2 id=&#34;真正拦住-gc-的是旧构建结果链接&#34;&gt;真正拦住 GC 的，是旧构建结果链接
+&lt;/h2&gt;&lt;p&gt;我接着列出 GC roots。这条命令只查看保留入口：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo nix-store --gc --print-roots &amp;gt; /tmp/nix-gcroots.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rg &lt;span class=&#34;s1&#34;&gt;&amp;#39;/home/run/|/tmp/&amp;#39;&lt;/span&gt; /tmp/nix-gcroots.txt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;里面有旧的 &lt;code&gt;~/result&lt;/code&gt;、&lt;code&gt;/tmp/nextgen&lt;/code&gt;，还有以前排查输入法、NixVim 和代理客户端时留下的构建结果。它们都是已经登记的 GC 引用，指向的旧系统或应用因此一直被保留。&lt;/p&gt;
+&lt;p&gt;这些链接本身很小，看目录大小时很容易忽略。我确认对应的构建已经弃用后，清理了其中 10 个链接。下面只列两个例子：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ls -l ~/result /tmp/nextgen
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rm -- ~/result /tmp/nextgen
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo nix-store --gc --quiet
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;删除的是结果链接，包及其依赖仍由 Nix 判断是否可以回收。&lt;code&gt;--quiet&lt;/code&gt; 只是减少日志输出。这次 GC 的结果终于明显了：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;27548 store paths deleted, 20.5 GiB freed
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;去重也能腾出一部分空间&#34;&gt;去重也能腾出一部分空间
+&lt;/h2&gt;&lt;p&gt;清理过程中我还用了：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo nix-store --optimise
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;它会找出 Store 中内容和可执行标记相同的普通文件，用硬链接共享同一份数据。即使两个系统代次都要保留，其中重复的文件也可以合并；具体判定规则见&lt;a class=&#34;link&#34; href=&#34;https://nix.dev/manual/nix/2.34/command-ref/nix-store/optimise.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;去重命令的说明&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;我保留下来的一轮完整输出是：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;7.8 GiB freed by hard-linking 521312 files
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这个过程比较吃磁盘读写，在这台 X250 上跑了挺久。后来我也在 NixOS 配置里打开了：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-nix&#34; data-lang=&#34;nix&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;nix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;settings&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;auto-optimise-store&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;no&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;它会对以后加入 Store 的文件自动去重，已有内容仍可以手动跑一次 &lt;code&gt;--optimise&lt;/code&gt;。这会增加导入文件时的开销，&lt;a class=&#34;link&#34; href=&#34;https://wiki.nixos.org/wiki/Storage_optimization#Optimising_the_store&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;官方 Wiki&lt;/a&gt;也提到了这一点。&lt;/p&gt;
+&lt;p&gt;期间还有新的下载和构建，各轮释放量不能直接相加当作最终腾出的空间。重建并切换完成后，&lt;code&gt;df -h /&lt;/code&gt; 显示可用空间约 36 GiB。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>我连的明明是 5 GHz Wi-Fi，怎么只有 Wi-Fi 4？</title>
         <link>https://echo806.github.io/p/%E6%88%91%E8%BF%9E%E7%9A%84%E6%98%8E%E6%98%8E%E6%98%AF-5-ghz-wi-fi%E6%80%8E%E4%B9%88%E5%8F%AA%E6%9C%89-wi-fi-4/</link>
         <pubDate>Sun, 11 Oct 2026 20:30:00 +0800</pubDate>
